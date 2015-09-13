@@ -13,7 +13,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>TranslateHelper.Core</AssemblyName>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,15 +42,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="BusinessLayer\" />
-    <Folder Include="BusinessLayer\Contracts\" />
-    <Folder Include="DataAccessLayer\" />
-    <Folder Include="DataLayer\" />
+    <Folder Include="BL\" />
+    <Folder Include="BL\Contracts\" />
+    <Folder Include="DAL\" />
+    <Folder Include="DL\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLayer\Contracts\IBusinessEntity.cs" />
-    <Compile Include="DataAccessLayer\Repository.cs" />
-    <Compile Include="DataLayer\SQLite.cs" />
-    <Compile Include="DataLayer\SqlLiteHelper.cs" />
+    <Compile Include="BL\Contracts\IBusinessEntity.cs" />
+    <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DL\SQLite.cs" />
+    <Compile Include="DL\SqlLiteHelper.cs" />
   </ItemGroup>
 </Project>
