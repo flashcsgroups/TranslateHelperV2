@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Droid.UITes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Core", "TranslateHelper.Core\TranslateHelper.Core.csproj", "{1592AA1A-5A03-4FFD-B2AA-CBE34AC1FF50}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33B8C3AF-482F-4821-94F9-A9F100CAA312}"
+	ProjectSection(SolutionItems) = preProject
+		TranslateHelper.pdf = TranslateHelper.pdf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +30,7 @@ Global
 		{9D547F07-3170-48AA-8321-D9E5567998D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D547F07-3170-48AA-8321-D9E5567998D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D547F07-3170-48AA-8321-D9E5567998D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
