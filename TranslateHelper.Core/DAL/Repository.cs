@@ -79,6 +79,22 @@ namespace TranslateHelper.Core.DAL
 		{
 			return SqlLiteInstance.DB.SaveItem<T> (item);
 		}
+		public void SaveItemsInTransaction (IEnumerable<T> items)
+		{		
+			try
+			{
+				SqlLiteInstance.DB.BeginTransaction();
+				foreach (var item in items) 
+				{
+					SqlLiteInstance.DB.SaveItem<T> (item);
+				}
+				SqlLiteInstance.DB.Commit();
+			}
+			catch(Exception E) {
+				SqlLiteInstance.DB.Rollback ();
+				throw new Exception (E.Message, E.InnerException);
+			}
+		}
 
 		public int Delete (int id)
 		{

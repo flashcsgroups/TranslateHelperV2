@@ -13,7 +13,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>TranslateHelper.Core</AssemblyName>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,11 +46,18 @@
     <Folder Include="BL\Contracts\" />
     <Folder Include="DAL\" />
     <Folder Include="DL\" />
+    <Folder Include="BL\Managers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\Contracts\IBusinessEntity.cs" />
     <Compile Include="DAL\Repository.cs" />
-    <Compile Include="DL\SQLite.cs" />
     <Compile Include="DL\SqlLiteHelper.cs" />
+    <Compile Include="BL\TranslateProvider.cs" />
+    <Compile Include="BL\Direction.cs" />
+    <Compile Include="DL\SQLite.cs" />
+    <Compile Include="BL\SourceExpression.cs" />
+    <Compile Include="BL\TranslatedExpression.cs" />
+    <Compile Include="BL\Favorites.cs" />
+    <Compile Include="BL\Managers\TranslateProviderManager.cs" />
   </ItemGroup>
 </Project>

@@ -24,7 +24,8 @@ namespace TranslateHelper.Core.DL
 		public SqlLiteHelper (string path) : base (path)
 		{
 			// create the tables
-			//CreateTable<Project> ();
+			CreateTable<TranslateProvider> ();
+			TranslateProviderManager.CreateDefaultData ();
 			//CreateTable<Iteration> ();
 			//CreateTable<Employee> ();
 		}
