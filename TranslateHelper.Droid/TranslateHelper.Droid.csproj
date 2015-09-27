@@ -48,6 +48,36 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\TranslateHelper.Core\BL\Direction.cs">
+      <Link>BL\Direction.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\Favorites.cs">
+      <Link>BL\Favorites.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\SourceExpression.cs">
+      <Link>BL\SourceExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\TranslateProvider.cs">
+      <Link>BL\TranslateProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\TranslatedExpression.cs">
+      <Link>BL\TranslatedExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IBusinessEntity.cs">
+      <Link>BL\Contracts\IBusinessEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\Managers\TranslateProviderManager.cs">
+      <Link>BL\Managers\TranslateProviderManager.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\DAL\Repository.cs">
+      <Link>DAL\Repository.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\DL\SQLite.cs">
+      <Link>DL\SQLite.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\DL\SqlLiteHelper.cs">
+      <Link>DL\SqlLiteHelper.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -64,4 +94,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="BL\" />
+    <Folder Include="DAL\" />
+    <Folder Include="DL\" />
+  </ItemGroup>
 </Project>
