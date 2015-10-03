@@ -40,13 +40,15 @@ namespace TranslateHelper.Droid
 
 		protected override void OnResume ()
 		{
-			//InitDbIfRequired ();
+			base.OnResume ();
+			InitDbIfRequired ();
 		}
 
 		void InitDbIfRequired ()
 		{
-			if (Core.TranslateProviderManager.RequiredInitDefaultData ())
-				Core.TranslateProviderManager.CreateDefaultData ();
+			Core.TranslateProviderManager manager = new Core.TranslateProviderManager ();
+			if (manager.GetItems().Count == 0)
+				manager.CreateDefaultData ();
 		}
 
 		private async Task<JsonValue> TranslateWordAsync (string inputText)

@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
-using TranslateHelper.Core.BL.Contracts;
+using TranslateHelper.Core.BL;
 using SQLite;
 
 namespace TranslateHelper.Core.DL
@@ -25,9 +25,10 @@ namespace TranslateHelper.Core.DL
 		{
 			// create the tables
 			CreateTable<TranslateProvider> ();
-			TranslateProviderManager.CreateDefaultData ();
-			//CreateTable<Iteration> ();
-			//CreateTable<Employee> ();
+			CreateTable<Direction> ();
+			//CreateTable<Favorites> ();
+			//CreateTable<SourceExpression> ();
+			//CreateTable<TranslatedExpression> ();
 		}
 
 		public IEnumerable<T> GetItems<T> () where T : BL.Contracts.IBusinessEntity, new()

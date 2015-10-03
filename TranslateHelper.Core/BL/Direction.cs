@@ -9,10 +9,10 @@ namespace TranslateHelper.Core
 		public Direction ()
 		{
 		}
-		[PrimaryKey, AutoIncrement]
+		[PrimaryKey, AutoIncrement, Indexed]
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
 		public string Name { get; set; }
-		public TranslateProvider ProviderID { get; set; }
+		public int ProviderID { get; set; }
 	}
 }

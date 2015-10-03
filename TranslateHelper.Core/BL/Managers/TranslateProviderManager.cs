@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TranslateHelper.Core
 {
-	public static class TranslateProviderManager
+	public class TranslateProviderManager
 	{
-		static TranslateProviderManager ()
+		public TranslateProviderManager ()
 		{
 		}
 
-		public static void CreateDefaultData ()
+		public void CreateDefaultData ()
 		{
 			DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider> ();
 			TranslateProvider[] providersList = new TranslateProvider[] {
@@ -16,14 +17,13 @@ namespace TranslateHelper.Core
 				new TranslateProvider (){ Name = "Google" },
 				new TranslateProvider (){ Name = "Offline" }, 
 			};
-
 			repos.SaveItemsInTransaction (providersList);
 		}
 
-		public static bool RequiredInitDefaultData ()
+		public List<TranslateProvider> GetItems()
 		{
-			//todo:   сделать проверку на необходимость обновления
-			return true;
+			DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider> ();
+			return new List<TranslateProvider> (repos.GetItems ());
 		}
 	}
 }

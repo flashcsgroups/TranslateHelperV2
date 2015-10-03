@@ -83,7 +83,7 @@ namespace TranslateHelper.Core.DAL
 		public void SaveItemsInTransaction (IEnumerable<T> items)
 		{		
 
-			SqlLiteInstance.DB.SaveItem<T> (items[0])
+			//SqlLiteInstance.DB.SaveItem<T> (items[0])
 			try {
 				//SqlLiteInstance.DB.BeginTransaction();
 				foreach (var item in items) {

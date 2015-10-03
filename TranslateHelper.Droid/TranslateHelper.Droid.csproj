@@ -78,6 +78,9 @@
     <Compile Include="..\TranslateHelper.Core\DL\SqlLiteHelper.cs">
       <Link>DL\SqlLiteHelper.cs</Link>
     </Compile>
+    <Compile Include="..\TranslateHelper.Core\DL\SQLite2015.cs">
+      <Link>DL\SQLite2015.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

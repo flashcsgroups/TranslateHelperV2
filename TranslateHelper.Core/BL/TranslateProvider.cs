@@ -9,7 +9,7 @@ namespace TranslateHelper.Core
 		public TranslateProvider ()
 		{
 		}
-		[PrimaryKey, AutoIncrement]
+		[PrimaryKey, AutoIncrement, Indexed]
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
 		public string Name { get; set; }
