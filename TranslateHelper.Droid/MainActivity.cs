@@ -70,7 +70,7 @@ namespace TranslateHelper.Droid
 				manager.CreateDefaultData ();
 		}
 
-		private async Task<JsonValue> TranslateWordAsync (string inputText)
+		/*private async Task<JsonValue> TranslateWordAsync (string inputText)
 		{
 			//http://developer.xamarin.com/recipes/android/web_services/consuming_services/call_a_rest_web_service/
 			//https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
@@ -85,7 +85,7 @@ namespace TranslateHelper.Droid
 					return jsonDoc;
 				}
 			}
-		}
+		}*/
 
 	}
 }
