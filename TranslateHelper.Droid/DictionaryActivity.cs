@@ -24,7 +24,7 @@ namespace TranslateHelper.Droid
 		{
 			base.OnCreate (bundle);
 			base.ActionBar.Hide ();
-			SetContentView(Resource.Layout.Dictionary);
+			SetContentView (Resource.Layout.Dictionary);
 
 			// Create your application here
 			/*ListView listEmployeeListView = FindViewById<ListView>(Resource.Id.listEmployeesListView);
@@ -34,21 +34,20 @@ namespace TranslateHelper.Droid
 				StartActivity(typeof(EditEmployeeActivity));
 			};*/
 			//UpdateListResults ();
-			EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
+			EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			editSourceText.KeyPress += async (object sender, View.KeyEventArgs e) => {
 				e.Handled = false;
-				if(e.Event.Action == KeyEventActions.Up && e.KeyCode == Keycode.Enter)
-				{
+				if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Back) {
 					e.Handled = true;
 					JsonValue json = await TranslateWordAsync (editSourceText.Text);
-					UpdateListResults(json ["text"].ToString ());
+					UpdateListResults (json ["text"].ToString ());
 					//button.Text = json ["text"].ToString ();
 				}
 				//UpdateListResults ();
 			};
 		}
 
-		void UpdateListResults(string resultString)
+		void UpdateListResults (string resultString)
 		{
 			/*var ExistsEmployees = ScrumHelper.BL.Managers.EmployeeManager.GetItems();
 		if (ExistsEmployees.Count < 1)
@@ -56,13 +55,13 @@ namespace TranslateHelper.Droid
 			CreateDefaultData();
 			ExistsEmployees = ScrumHelper.BL.Managers.EmployeeManager.GetItems();
 		}*/
-			var ListResultStrings = new List<string>();
-			ListResultStrings.Add(resultString);
+			var ListResultStrings = new List<string> ();
+			ListResultStrings.Add (resultString);
 			//ListResultStrings.Add("Транзакция");
 			//ListResultStrings.Add("Урегулирование спора");
 			//ListResultStrings.Add("Ведение");
-			ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
-			lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+			ListView lv = FindViewById<ListView> (Resource.Id.listResultListView);
+			lv.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray ());
 
 		}
 
