@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/dictTab"
+    android:stretchColumns="*">
+    <TableRow
+        android:id="@+id/rowDestination">
+        <EditText
+            android:id="@+id/textSourceLang"
+            android:hint="Исходный язык"
+            android:layout_width="match_parent" />
+        <ImageView
+            android:id="@+id/picDest"
+            android:src="@drawable/icon"
+            android:fitsSystemWindows="true" />
+        <EditText
+            android:id="@+id/textDestinationLang"
+            android:hint="Конечный язык"
+            android:layout_width="match_parent" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/rowSourceString"
+        android:minHeight="250px"
+        android:layout_width="match_parent">
+        <EditText
+            android:id="@+id/textSourceString"
+            android:hint="Строка для перевода"
+            android:layout_span="3" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/rowResultList"
+        android:minHeight="250px"
+        android:layout_width="match_parent">
+        <ListView
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listResultListView"
+            android:gravity="center_horizontal"
+            android:layout_column="0"
+            android:layout_span="3" />
+    </TableRow>
+</TableLayout>

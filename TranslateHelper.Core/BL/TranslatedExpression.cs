@@ -13,6 +13,7 @@ namespace TranslateHelper.Core
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
 		public string Value { get; set; }
-		public SourceExpression SourceID { get; set; }
+		[Indexed]
+		public int SourceExpressionID { get; set; }
 	}
 }

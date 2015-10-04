@@ -1,14 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<Button  
-    android:id="@+id/myButton"
-    android:layout_width="match_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-</LinearLayout>
-
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/mainTabLay"
+    android:stretchColumns="*">
+    <TableRow
+        android:id="@+id/captionRow">
+        <TextView
+            android:text="translate it!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/MainCaptionTextView"
+            android:gravity="center_horizontal"
+            android:typeface="sans"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="#ff483a3a"
+            android:layout_column="0"
+            android:layout_span="2" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/listRow1"
+        android:minHeight="250px">
+        <Button
+            android:text="Словарь"
+            android:layout_height="fill_parent"
+            android:id="@+id/buttonDictionary" />
+        <Button
+            android:text="Избранное"
+            android:layout_height="fill_parent"
+            android:id="@+id/buttonFavorites" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/listRow2"
+        android:minHeight="250px">
+        <Button
+            android:text="Тестирование"
+            android:layout_height="fill_parent"
+            android:id="@+id/buttonTesting" />
+        <Button
+            android:text="Настройки"
+            android:layout_height="fill_parent"
+            android:id="@+id/buttonSettings" />
+    </TableRow>
+</TableLayout>

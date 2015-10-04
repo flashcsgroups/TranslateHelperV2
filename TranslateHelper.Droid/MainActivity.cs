@@ -15,7 +15,7 @@ using Core = TranslateHelper.Core;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "TranslateHelper.Droid", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "TranslateHelper", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
 
@@ -23,25 +23,44 @@ namespace TranslateHelper.Droid
 		{
 			base.OnCreate (bundle);
 
+			//base.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+			base.ActionBar.Hide ();
+
 			InitDbIfRequired ();
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
+			SetClickEvents ();
+
 			// Get our button from the layout resource,
 			// and attach an event to it
-			Button button = FindViewById<Button> (Resource.Id.myButton);
+			/*Button button = FindViewById<Button> (Resource.Id.myButton);
 			button.Click += async (sender, e) => {
 				JsonValue json = await TranslateWordAsync ("test");
 				button.Text = json ["text"].ToString ();
 				//button.Text = json["code"].ToString();
-			};
+			};*/
 		}
 
 		protected override void OnResume ()
 		{
 			base.OnResume ();
 			InitDbIfRequired ();
+		}
+
+		void SetClickEvents()
+		{
+			Button editProjectButton = FindViewById<Button>(Resource.Id.buttonDictionary);
+			editProjectButton.Click += delegate
+			{
+				StartActivity(typeof(DictionaryActivity));
+			};
+			/*ListView listProjectsListView = FindViewById<ListView>(Resource.Id.listProjectsListView);
+			listProjectsListView.ItemClick += delegate
+			{
+				StartActivity(typeof(ActionProjectActivity));
+			};*/
 		}
 
 		void InitDbIfRequired ()
