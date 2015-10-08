@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33B8C3AF-482F-4821-94F9-A9F100CAA312}"
 	ProjectSection(SolutionItems) = preProject
 		TranslateHelper.pdf = TranslateHelper.pdf
+		links.txt = links.txt
 	EndProjectSection
 EndProject
 Global

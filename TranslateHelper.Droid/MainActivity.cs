@@ -23,8 +23,8 @@ namespace TranslateHelper.Droid
 		{
 			base.OnCreate (bundle);
 
-			//base.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-			base.ActionBar.Hide ();
+			base.ActionBar.NavigationMode = ActionBarNavigationMode.List;
+			//base.ActionBar.Hide ();
 
 			InitDbIfRequired ();
 
@@ -75,6 +75,7 @@ namespace TranslateHelper.Droid
 				manager.CreateDefaultData ();
 		}
 
+		//http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/
 		/*private async Task<JsonValue> TranslateWordAsync (string inputText)
 		{
 			//http://developer.xamarin.com/recipes/android/web_services/consuming_services/call_a_rest_web_service/
