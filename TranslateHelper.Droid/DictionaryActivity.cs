@@ -34,17 +34,38 @@ namespace TranslateHelper.Droid
 				StartActivity(typeof(EditEmployeeActivity));
 			};*/
 			//UpdateListResults ();
+
 			EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
-			editSourceText.KeyPress += async (object sender, View.KeyEventArgs e) => {
-				e.Handled = false;
-				if(e.Event.Action == KeyEventActions.Up && e.KeyCode == Keycode.Enter)
+
+			editSourceText.FocusChange += async (object sender, View.FocusChangeEventArgs e) => {
+				//e.Handled = false;
+				//if(e.Event.Action == KeyEventActions.Up && e.KeyCode == Keycode.Enter)
 				{
-					e.Handled = true;
+					//e.Handled = true;
+
 					JsonValue json = await TranslateWordAsync (editSourceText.Text);
 					UpdateListResults(json ["text"].ToString ());
 					//button.Text = json ["text"].ToString ();
 				}
 				//UpdateListResults ();
+			};
+			editSourceText.KeyPress  += async (object sender, View.KeyEventArgs e) => {
+				e.Handled = false;
+				if(e.Event.Action == KeyEventActions.Up && e.KeyCode == Keycode.Enter)
+				{
+					e.Handled = true;
+
+					JsonValue json = await TranslateWordAsync (editSourceText.Text);
+					UpdateListResults(json ["text"].ToString ());
+					//button.Text = json ["text"].ToString ();
+				}
+				//UpdateListResults ();
+			};
+
+			ListView resultListView = FindViewById<ListView>(Resource.Id.listResultListView);
+			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+				string item = (string)resultListView.GetItemAtPosition(e.Position);
+				AddToFavorites(item);
 			};
 		}
 
@@ -56,11 +77,13 @@ namespace TranslateHelper.Droid
 			CreateDefaultData();
 			ExistsEmployees = ScrumHelper.BL.Managers.EmployeeManager.GetItems();
 		}*/
+			if(resultString.Contains("["))
+				{
+					resultString = resultString.Substring (2, resultString.Length - 4);
+				}
+
 			var ListResultStrings = new List<string>();
 			ListResultStrings.Add(resultString);
-			//ListResultStrings.Add("Транзакция");
-			//ListResultStrings.Add("Урегулирование спора");
-			//ListResultStrings.Add("Ведение");
 			ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
 			lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
 
@@ -83,6 +106,12 @@ namespace TranslateHelper.Droid
 			}
 		}
 
+		private void AddToFavorites(string originalText)
+		{
+			//FindViewById<EditText> (Resource.Id.textSourceString).Text;
+			Core.ExpressionManager manager = new Core.ExpressionManager ();
+			manager.SaveTranslatedWord (FindViewById<EditText> (Resource.Id.textSourceString).Text, originalText);
+		}
 	}
 }
 

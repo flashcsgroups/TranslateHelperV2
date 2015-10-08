@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/favoritesTable"
+    android:stretchColumns="*">
+<!--TableRow
+        android:id="@+id/rowDestination">
+    </TableRow>
+    <TableRow
+        android:id="@+id/rowSourceString"
+        android:minHeight="250px"
+        android:layout_width="match_parent">
+    </TableRow-->
+    <TableRow
+        android:id="@+id/rowFavorites"
+        android:minHeight="250px"
+        android:layout_width="match_parent">
+        <ListView
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listFavoritesListView"
+            android:gravity="center_horizontal"
+            android:layout_column="0"
+            android:layout_span="3" />
+    </TableRow>
+</TableLayout>

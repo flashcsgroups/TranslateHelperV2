@@ -82,6 +82,8 @@
       <Link>DL\SQLite2015.cs</Link>
     </Compile>
     <Compile Include="DictionaryActivity.cs" />
+    <Compile Include="FavoritesActivity.cs" />
+    <Compile Include="BL\Managers\ExpressionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -97,6 +99,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\Dictionary.axml" />
+    <AndroidResource Include="Resources\layout\Favorites.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

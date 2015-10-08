@@ -56,6 +56,11 @@ namespace TranslateHelper.Droid
 			{
 				StartActivity(typeof(DictionaryActivity));
 			};
+			Button favoritesButton = FindViewById<Button>(Resource.Id.buttonFavorites);
+			favoritesButton.Click += delegate
+			{
+				StartActivity(typeof(FavoritesActivity));
+			};
 			/*ListView listProjectsListView = FindViewById<ListView>(Resource.Id.listProjectsListView);
 			listProjectsListView.ItemClick += delegate
 			{
