@@ -17,14 +17,15 @@ using System.IO;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "Dictionary")]			
+	[Activity (Label = "Dictionary", Icon = "@drawable/icon", Theme = "@style/MyTheme")]
 	public class DictionaryActivity : Activity
 	{
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			//base.ActionBar.Hide ();
+			base.ActionBar.NavigationMode = ActionBarNavigationMode.List;
+			base.ActionBar.Hide ();
 			SetContentView(Resource.Layout.Dictionary);
 
 

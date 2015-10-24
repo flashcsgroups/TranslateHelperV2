@@ -15,7 +15,7 @@ using Core = TranslateHelper.Core;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "TranslateHelper", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "TranslateHelper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
 	public class MainActivity : Activity
 	{
 
@@ -23,8 +23,7 @@ namespace TranslateHelper.Droid
 		{
 			base.OnCreate (bundle);
 
-			base.ActionBar.NavigationMode = ActionBarNavigationMode.List;
-			//base.ActionBar.Hide ();
+			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
 
 			InitDbIfRequired ();
 
@@ -51,15 +50,20 @@ namespace TranslateHelper.Droid
 
 		void SetClickEvents()
 		{
-			Button editProjectButton = FindViewById<Button>(Resource.Id.buttonDictionary);
+			ImageButton editProjectButton = FindViewById<ImageButton>(Resource.Id.buttonDictionary);
 			editProjectButton.Click += delegate
 			{
 				StartActivity(typeof(DictionaryActivity));
 			};
-			Button favoritesButton = FindViewById<Button>(Resource.Id.buttonFavorites);
+			ImageButton favoritesButton = FindViewById<ImageButton>(Resource.Id.buttonFavorites);
 			favoritesButton.Click += delegate
 			{
 				StartActivity(typeof(FavoritesActivity));
+			};
+			ImageButton settingsButton = FindViewById<ImageButton>(Resource.Id.buttonSettings);
+			settingsButton.Click += delegate
+			{
+				StartActivity(typeof(SettingsActivity));
 			};
 			/*ListView listProjectsListView = FindViewById<ListView>(Resource.Id.listProjectsListView);
 			listProjectsListView.ItemClick += delegate

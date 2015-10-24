@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="25px"
-    android:minHeight="25px"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/dictTab"
-    android:stretchColumns="*">
-    <TableRow
-        android:id="@+id/rowDestination">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dictList"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_weight="-3"
+        android:id="@+id/dictList1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
         <EditText
             android:id="@+id/textSourceLang"
             android:hint="Исходный язык"
-            android:layout_width="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/picDest"
-            android:src="@drawable/icon"
-            android:fitsSystemWindows="true" />
+            android:layout_width="32.6dp"
+            android:layout_height="33.2dp"
+            android:src="@drawable/right" />
         <EditText
             android:id="@+id/textDestinationLang"
             android:hint="Конечный язык"
-            android:layout_width="match_parent" />
-    </TableRow>
-    <TableRow
-        android:id="@+id/rowSourceString"
-        android:minHeight="250px"
-        android:layout_width="match_parent">
-        <EditText
-            android:id="@+id/textSourceString"
-            android:hint="Строка для перевода"
-            android:layout_span="3" />
-    </TableRow>
-    <TableRow
-        android:id="@+id/rowResultList"
-        android:minHeight="250px"
-        android:layout_width="match_parent">
-        <ListView
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listResultListView"
-            android:gravity="center_horizontal"
-            android:layout_column="0"
-            android:layout_span="3" />
-    </TableRow>
-</TableLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <EditText
+        android:layout_weight="12"
+        android:id="@+id/textSourceString"
+        android:hint="Строка для перевода"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <ListView
+        android:layout_weight="6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listResultListView"
+        android:gravity="center_horizontal" />
+</LinearLayout>

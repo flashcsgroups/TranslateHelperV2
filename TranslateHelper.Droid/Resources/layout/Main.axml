@@ -1,58 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="25px"
-    android:minHeight="25px"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainList"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/mainTabLay"
-    android:background="@android:color/white"
-    android:stretchColumns="*">
-    <TableRow
-        android:id="@+id/captionRow">
-    </TableRow>
-    <TableRow
-        android:id="@+id/listRow1"
-        android:minHeight="350px">
-        <Button
-            android:text="Словарь"
-            android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <LinearLayout
+        android:id="@+id/mainList1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageButton
             android:id="@+id/buttonDictionary"
-            android:background="#ff36ef34"
-            android:layout_marginRight="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip" />
-        <Button
-            android:text="Избранное"
-            android:layout_height="fill_parent"
+            style="@style/MainButton"
+            android:background="#ffceb8b3"
+            android:src="@drawable/book" />
+        <ImageButton
             android:id="@+id/buttonFavorites"
-            android:background="#ff86f5fb"
-            android:layout_marginRight="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip" />
-    </TableRow>
-    <TableRow
-        android:id="@+id/listRow2"
-        android:minHeight="350px">
-        <Button
-            android:text="Тестирование"
-            android:layout_height="fill_parent"
+            style="@style/MainButton"
+            android:background="#ffdfd641"
+            android:src="@drawable/favorites" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/mainList1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageButton
             android:id="@+id/buttonTesting"
-            android:background="#ff5ca957"
-            android:layout_marginRight="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip"
-            android:drawableTop="@drawable/ic_assignment_black_48dp" />
-        <Button
-            android:text="Настройки"
-            android:layout_height="fill_parent"
+            style="@style/MainButton"
+            android:background="#ff24f316"
+            android:src="@drawable/list" />
+        <ImageButton
             android:id="@+id/buttonSettings"
-            android:background="#fff56036"
-            android:layout_marginRight="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip" />
-    </TableRow>
-</TableLayout>
+            style="@style/MainButton"
+            android:background="#ff9296e4"
+            android:src="@drawable/settings" />
+    </LinearLayout>
+</LinearLayout>
