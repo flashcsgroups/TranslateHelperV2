@@ -24,9 +24,10 @@ namespace TranslateHelper.Droid
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			base.ActionBar.NavigationMode = ActionBarNavigationMode.List;
-			base.ActionBar.Hide ();
+			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
+			//base.ActionBar.Hide ();
 			SetContentView(Resource.Layout.Dictionary);
+
 
 
 			EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
@@ -47,14 +48,34 @@ namespace TranslateHelper.Droid
 					UpdateListResults(resultString);
 				}
 			};
+
+			Button buttonTranslate = FindViewById<Button>(Resource.Id.buttonTranslate);
+			buttonTranslate.Click += async (object sender, EventArgs e) => {
+				{
+					string resultString = string.Empty;
+					try
+					{
+						JsonValue json = await TranslateWordAsync (editSourceText.Text);
+						resultString = json ["text"].ToString ();
+					}
+					catch
+					{
+						//todo: добавить логгирование
+					}
+
+					UpdateListResults(resultString);
+				}
+			};
 			editSourceText.KeyPress  += async (object sender, View.KeyEventArgs e) => {
 				e.Handled = false;
-				if(e.Event.Action == KeyEventActions.Up && e.KeyCode == Keycode.Enter)
+				if(e.Event.Action == KeyEventActions.Down)
 				{
-					e.Handled = true;
-
-					JsonValue json = await TranslateWordAsync (editSourceText.Text);
-					UpdateListResults(json ["text"].ToString ());
+					if((e.KeyCode == Keycode.Space)||(e.KeyCode==Keycode.Enter))
+					{
+						e.Handled = true;
+						JsonValue json = await TranslateWordAsync (editSourceText.Text.Trim());
+						UpdateListResults(json ["text"].ToString ());
+					}
 				}
 			};
 
