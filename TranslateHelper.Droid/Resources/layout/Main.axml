@@ -14,12 +14,12 @@
         <ImageButton
             android:id="@+id/buttonDictionary"
             style="@style/MainButton"
-            android:background="#ffceb8b3"
+            android:background="#ff4f52e6"
             android:src="@drawable/book" />
         <ImageButton
             android:id="@+id/buttonFavorites"
             style="@style/MainButton"
-            android:background="#ffdfd641"
+            android:background="#ffe15d00"
             android:src="@drawable/favorites" />
     </LinearLayout>
     <LinearLayout
@@ -31,7 +31,7 @@
         <ImageButton
             android:id="@+id/buttonTesting"
             style="@style/MainButton"
-            android:background="#ff24f316"
+            android:background="#fffbff88"
             android:src="@drawable/list" />
         <ImageButton
             android:id="@+id/buttonSettings"

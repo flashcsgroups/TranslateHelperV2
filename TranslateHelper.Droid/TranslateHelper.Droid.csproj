@@ -109,6 +109,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\favorites.png" />
     <AndroidResource Include="Resources\drawable-hdpi\settings.png" />
     <AndroidResource Include="Resources\drawable-hdpi\right.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\rigth2.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\change.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="fill">
     <LinearLayout
-        android:layout_weight="2"
+        android:layout_weight="7"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
@@ -15,25 +15,30 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="#ff000ad3">
+        android:background="#00000000">
         <EditText
             android:id="@+id/textSourceLang"
             android:hint="Исходный язык"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/picDest"
-            android:layout_width="32.6dp"
-            android:layout_height="33.2dp"
-            android:src="@drawable/right" />
+            android:layout_height="wrap_content"
+            android:text="Английский"
+            android:editable="false" />
+        <ImageButton
+            android:id="@+id/buttonSettings"
+            style="@style/changeLanButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:src="@drawable/change" />
         <EditText
             android:id="@+id/textDestinationLang"
             android:hint="Конечный язык"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Русский"
+            android:editable="false" />
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="2"
+        android:layout_weight="7"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
@@ -48,17 +53,17 @@
             android:hint="Строка для перевода"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ff525252" />
-        <Button
+            android:background="#ff4a00a9"
+            android:paddingLeft="15dp" />
+        <ImageButton
             android:id="@+id/buttonTranslate"
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="&gt;"
-            android:background="#ff525252" />
+            android:src="@drawable/right2" />
     </LinearLayout>
     <ListView
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"

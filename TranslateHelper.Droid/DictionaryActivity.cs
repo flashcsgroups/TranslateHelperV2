@@ -24,8 +24,8 @@ namespace TranslateHelper.Droid
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
-			//base.ActionBar.Hide ();
+			//base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
+			base.ActionBar.Hide ();
 			SetContentView(Resource.Layout.Dictionary);
 
 
