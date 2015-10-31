@@ -24,6 +24,7 @@ namespace TranslateHelper.Droid
 			base.OnCreate (bundle);
 
 			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
+			base.ActionBar.Hide ();
 
 			InitDbIfRequired ();
 
@@ -48,22 +49,19 @@ namespace TranslateHelper.Droid
 			InitDbIfRequired ();
 		}
 
-		void SetClickEvents()
+		void SetClickEvents ()
 		{
-			ImageButton editProjectButton = FindViewById<ImageButton>(Resource.Id.buttonDictionary);
-			editProjectButton.Click += delegate
-			{
-				StartActivity(typeof(DictionaryActivity));
+			ImageButton editProjectButton = FindViewById<ImageButton> (Resource.Id.buttonDictionary);
+			editProjectButton.Click += delegate {
+				StartActivity (typeof(DictionaryActivity));
 			};
-			ImageButton favoritesButton = FindViewById<ImageButton>(Resource.Id.buttonFavorites);
-			favoritesButton.Click += delegate
-			{
-				StartActivity(typeof(FavoritesActivity));
+			ImageButton favoritesButton = FindViewById<ImageButton> (Resource.Id.buttonFavorites);
+			favoritesButton.Click += delegate {
+				StartActivity (typeof(FavoritesActivity));
 			};
-			ImageButton settingsButton = FindViewById<ImageButton>(Resource.Id.buttonSettings);
-			settingsButton.Click += delegate
-			{
-				StartActivity(typeof(SettingsActivity));
+			ImageButton settingsButton = FindViewById<ImageButton> (Resource.Id.buttonSettings);
+			settingsButton.Click += delegate {
+				StartActivity (typeof(SettingsActivity));
 			};
 			/*ListView listProjectsListView = FindViewById<ListView>(Resource.Id.listProjectsListView);
 			listProjectsListView.ItemClick += delegate
@@ -75,7 +73,7 @@ namespace TranslateHelper.Droid
 		void InitDbIfRequired ()
 		{
 			Core.TranslateProviderManager manager = new Core.TranslateProviderManager ();
-			if (manager.GetItems().Count == 0)
+			if (manager.GetItems ().Count == 0)
 				manager.CreateDefaultData ();
 		}
 

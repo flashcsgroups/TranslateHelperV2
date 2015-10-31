@@ -26,77 +26,65 @@ namespace TranslateHelper.Droid
 			base.OnCreate (bundle);
 			//base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
 			base.ActionBar.Hide ();
-			SetContentView(Resource.Layout.Dictionary);
+			SetContentView (Resource.Layout.Dictionary);
 
 
 
-			EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
+			EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 
 			editSourceText.FocusChange += async (object sender, View.FocusChangeEventArgs e) => {
 				{
 					string resultString = string.Empty;
-					try
-					{
+					try {
 						JsonValue json = await TranslateWordAsync (editSourceText.Text);
 						resultString = json ["text"].ToString ();
-					}
-					catch
-					{
+					} catch {
 						//todo: добавить логгирование
 					}
 
-					UpdateListResults(resultString);
+					UpdateListResults (resultString);
 				}
 			};
 
-			Button buttonTranslate = FindViewById<Button>(Resource.Id.buttonTranslate);
+			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
 			buttonTranslate.Click += async (object sender, EventArgs e) => {
 				{
 					string resultString = string.Empty;
-					try
-					{
+					try {
 						JsonValue json = await TranslateWordAsync (editSourceText.Text);
 						resultString = json ["text"].ToString ();
-					}
-					catch
-					{
+					} catch {
 						//todo: добавить логгирование
 					}
 
-					UpdateListResults(resultString);
+					UpdateListResults (resultString);
 				}
 			};
-			editSourceText.KeyPress  += async (object sender, View.KeyEventArgs e) => {
-				e.Handled = false;
-				if(e.Event.Action == KeyEventActions.Down)
-				{
-					if((e.KeyCode == Keycode.Space)||(e.KeyCode==Keycode.Enter))
-					{
-						e.Handled = true;
-						JsonValue json = await TranslateWordAsync (editSourceText.Text.Trim());
-						UpdateListResults(json ["text"].ToString ());
-					}
+			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
+				string sourceText = editSourceText.Text.Trim ();
+				if (sourceText.Length > 2) {						
+					JsonValue json = await TranslateWordAsync (sourceText);
+					UpdateListResults (json ["text"].ToString ());
 				}
 			};
 
-			ListView resultListView = FindViewById<ListView>(Resource.Id.listResultListView);
+			ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-				string item = (string)resultListView.GetItemAtPosition(e.Position);
-				AddToFavorites(item);
+				string item = (string)resultListView.GetItemAtPosition (e.Position);
+				AddToFavorites (item);
 			};
 		}
 
-		void UpdateListResults(string resultString)
+		void UpdateListResults (string resultString)
 		{
-			if(resultString.Contains("["))
-				{
-					resultString = resultString.Substring (2, resultString.Length - 4);
-				}
+			if (resultString.Contains ("[")) {
+				resultString = resultString.Substring (2, resultString.Length - 4);
+			}
 
-			var ListResultStrings = new List<string>();
-			ListResultStrings.Add(resultString);
-			ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
-			lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+			var ListResultStrings = new List<string> ();
+			ListResultStrings.Add (resultString);
+			ListView lv = FindViewById<ListView> (Resource.Id.listResultListView);
+			lv.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray ());
 
 		}
 
@@ -114,7 +102,7 @@ namespace TranslateHelper.Droid
 
 		}
 
-		private void AddToFavorites(string originalText)
+		private void AddToFavorites (string originalText)
 		{
 			Core.ExpressionManager manager = new Core.ExpressionManager ();
 			manager.SaveTranslatedWord (FindViewById<EditText> (Resource.Id.textSourceString).Text, originalText);

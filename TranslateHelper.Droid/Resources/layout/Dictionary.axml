@@ -24,8 +24,7 @@
             android:text="Английский"
             android:editable="false" />
         <ImageButton
-            android:id="@+id/buttonSettings"
-            style="@style/changeLanButton"
+            android:id="@+id/changeLanButton"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:src="@drawable/change" />
@@ -60,7 +59,7 @@
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/right2" />
+            android:src="@drawable/right" />
     </LinearLayout>
     <ListView
         android:layout_weight="2"
