@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dictList"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="fill">
     <LinearLayout
-        android:layout_weight="7"
+        android:layout_weight="0"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:id="@+id/dictList1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="#00000000">
@@ -20,56 +20,61 @@
             android:id="@+id/textSourceLang"
             android:hint="Исходный язык"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Английский"
             android:editable="false" />
         <ImageButton
             android:id="@+id/changeLanButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/change" />
         <EditText
             android:id="@+id/textDestinationLang"
             android:hint="Конечный язык"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Русский"
             android:editable="false" />
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="7"
+        android:layout_weight="0"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:id="@+id/dictList1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:minHeight="64dp"
         android:gravity="center">
         <EditText
             android:id="@+id/textSourceString"
-            android:layout_weight="1"
             android:hint="Строка для перевода"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minLines="1"
+            android:maxLines="8"
+            android:scrollbars="none"
             android:background="#ff4a00a9"
             android:paddingLeft="15dp" />
-        <ImageButton
-            android:id="@+id/buttonTranslate"
-            android:layout_weight="5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/right" />
     </LinearLayout>
     <ListView
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/listResultListView"
-        android:gravity="fill"
         android:background="#ff3b8b3b" />
+    <ImageButton
+        android:layout_weight="0"
+        android:id="@+id/buttonNew"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/right" />
 </LinearLayout>

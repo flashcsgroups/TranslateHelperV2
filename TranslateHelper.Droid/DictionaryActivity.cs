@@ -31,49 +31,38 @@ namespace TranslateHelper.Droid
 
 
 			EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
+            ImageButton buttonNew = FindViewById<ImageButton>(Resource.Id.buttonNew);
+            ListView resultListView = FindViewById<ListView>(Resource.Id.listResultListView);
 
-			editSourceText.FocusChange += async (object sender, View.FocusChangeEventArgs e) => {
+            
+
+            buttonNew.Click += (object sender, EventArgs e) =>
+            {
 				{
-					string resultString = string.Empty;
-					try {
-						JsonValue json = await TranslateWordAsync (editSourceText.Text);
-						resultString = json ["text"].ToString ();
-					} catch {
-						//todo: добавить логгирование
-					}
-
-					UpdateListResults (resultString);
-				}
-			};
-
-			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
-			buttonTranslate.Click += async (object sender, EventArgs e) => {
-				{
-					string resultString = string.Empty;
-					try {
-						JsonValue json = await TranslateWordAsync (editSourceText.Text);
-						resultString = json ["text"].ToString ();
-					} catch {
-						//todo: добавить логгирование
-					}
-
-					UpdateListResults (resultString);
+                    editSourceText.Text = string.Empty;
+                    UpdateListResults(string.Empty);
 				}
 			};
 			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
-				string sourceText = editSourceText.Text.Trim ();
-				if (sourceText.Length > 2) {						
+				string sourceText = editSourceText.Text;
+
+                if ((sourceText.Length > 0) && (iSSymbolForStartTranslate(sourceText.Last())))
+                {						
 					JsonValue json = await TranslateWordAsync (sourceText);
 					UpdateListResults (json ["text"].ToString ());
 				}
 			};
 
-			ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
 				string item = (string)resultListView.GetItemAtPosition (e.Position);
 				AddToFavorites (item);
 			};
 		}
+
+        private bool iSSymbolForStartTranslate(char p)
+        {
+            return ((p == ' ') || (p == '\n'));
+        }
 
 		void UpdateListResults (string resultString)
 		{
@@ -87,6 +76,15 @@ namespace TranslateHelper.Droid
 			lv.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray ());
 
 		}
+
+        /*void ResetListResults()
+        {
+            ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
+            var ListResultStrings = new List<string>();
+            ListResultStrings.Add("test");
+            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+
+        }*/
 
 		private async Task<JsonValue> TranslateWordAsync (string inputText)
 		{
