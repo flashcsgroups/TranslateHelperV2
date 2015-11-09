@@ -85,6 +85,7 @@
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="BL\Managers\ExpressionManager.cs" />
     <Compile Include="SettingsActivity.cs" />
+    <Compile Include="TranslateServiceResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
