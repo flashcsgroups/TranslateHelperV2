@@ -32,6 +32,8 @@ namespace TranslateHelper.Droid
 
 			EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
+			ImageButton buttonNewBottom = FindViewById<ImageButton> (Resource.Id.buttonNewBottom);
+			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
 			ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 
             
@@ -39,7 +41,29 @@ namespace TranslateHelper.Droid
 			buttonNew.Click += (object sender, EventArgs e) => {
 				{
 					editSourceText.Text = string.Empty;
-					UpdateListResults (string.Empty);
+					//UpdateListResults (string.Empty);
+					ClearTraslatedRegion();
+				}
+			};
+			buttonNewBottom.Click += (object sender, EventArgs e) => {
+				{
+					editSourceText.Text = string.Empty;
+					//UpdateListResults (string.Empty);
+					ClearTraslatedRegion();
+				}
+			};
+			buttonTranslate.Click += async (object sender, EventArgs e) => {
+				{
+					string sourceText = editSourceText.Text;
+					if (sourceText.Length > 0) 
+					{
+						TranslateServiceResult result = await TranslateWordAsync (sourceText);
+						if (string.IsNullOrEmpty (result.errorDescription)) {
+							var jsonResponse = JsonValue.Parse (result.response);
+							UpdateListResults (jsonResponse ["text"].ToString ());
+						} else
+							UpdateListResults (result.errorDescription);
+					}
 				}
 			};
 			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
@@ -62,6 +86,11 @@ namespace TranslateHelper.Droid
 				AddToFavorites (item);
 			};
 
+			ClearTraslatedRegion ();
+		}
+
+		private void ClearTraslatedRegion()
+		{
 			UpdateListResults ("Пока ничего не переведено");
 		}
 

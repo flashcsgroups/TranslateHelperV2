@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainList"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
     <LinearLayout
@@ -12,18 +12,20 @@
         android:orientation="horizontal"
         android:gravity="center">
         <ImageButton
+            android:layout_weight="3"
             android:id="@+id/buttonDictionary"
             style="@style/MainButton"
             android:background="#ff4f52e6"
             android:src="@drawable/book" />
         <ImageButton
+            android:layout_weight="3"
             android:id="@+id/buttonFavorites"
             style="@style/MainButton"
             android:background="#ffe15d00"
             android:src="@drawable/favorites" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/mainList1"
+        android:id="@+id/mainList2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

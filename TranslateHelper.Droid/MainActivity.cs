@@ -15,6 +15,7 @@ using Core = TranslateHelper.Core;
 
 namespace TranslateHelper.Droid
 {
+	//Theme = "@style/MyTheme"
 	[Activity (Label = "TranslateHelper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
 	public class MainActivity : Activity
 	{

@@ -105,18 +105,21 @@
     <AndroidResource Include="Resources\layout\Settings.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\color.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\list.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\book.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\favorites.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\settings.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\right.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\rigth2.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\change.png" />
+    <AndroidResource Include="Resources\drawable\book.png" />
+    <AndroidResource Include="Resources\drawable\change.png" />
+    <AndroidResource Include="Resources\drawable\delete.png" />
+    <AndroidResource Include="Resources\drawable\favorites.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\drawable\list.png" />
+    <AndroidResource Include="Resources\drawable\right.png" />
+    <AndroidResource Include="Resources\drawable\rigth2.png" />
+    <AndroidResource Include="Resources\drawable\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="BL\" />
     <Folder Include="DAL\" />
     <Folder Include="DL\" />
+    <Folder Include="Resources\drawable\" />
   </ItemGroup>
 </Project>

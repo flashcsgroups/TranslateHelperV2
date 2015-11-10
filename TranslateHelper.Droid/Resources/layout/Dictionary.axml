@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#00000000">
+        android:gravity="center">
         <EditText
             android:id="@+id/textSourceLang"
             android:hint="Исходный язык"
@@ -49,8 +48,8 @@
         android:minHeight="64dp"
         android:gravity="center">
         <EditText
-            android:id="@+id/textSourceString"
             android:layout_weight="1"
+            android:id="@+id/textSourceString"
             android:hint="Строка для перевода"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,12 +57,20 @@
             android:minLines="1"
             android:maxLines="8"
             android:scrollbars="none"
-            android:background="#ff4a00a9"
             android:paddingLeft="15dp" />
         <ImageButton
-            android:layout_weight="5"
+            android:layout_weight="1"
             android:id="@+id/buttonNew"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:minWidth="64dp"
+            android:layout_height="64dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/delete" />
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/buttonTranslate"
+            android:layout_width="wrap_content"
+            android:minWidth="64dp"
             android:layout_height="64dp"
             android:scaleType="fitCenter"
             android:src="@drawable/right" />
@@ -76,6 +83,12 @@
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listResultListView"
-        android:background="#ff3b8b3b" />
+        android:id="@+id/listResultListView" />
+    <ImageButton
+        android:layout_weight="0"
+        android:id="@+id/buttonNewBottom"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/delete" />
 </LinearLayout>
