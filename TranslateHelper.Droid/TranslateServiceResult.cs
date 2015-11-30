@@ -4,7 +4,7 @@ using System.Json;
 
 namespace TranslateHelper.Droid
 {
-	public class TranslateServiceResult
+	public struct TranslateServiceResult
 	{
 		public string errorDescription;
 		public HttpStatusCode statuscode;

@@ -14,6 +14,8 @@ using System.Json;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using TranslateHelper.Core.WS;
+using TranslateHelper.Core.BL.Contracts;
 
 namespace TranslateHelper.Droid
 {
@@ -42,43 +44,32 @@ namespace TranslateHelper.Droid
 				{
 					editSourceText.Text = string.Empty;
 					//UpdateListResults (string.Empty);
-					ClearTraslatedRegion();
+					clearTraslatedRegion();
 				}
 			};
 			buttonNewBottom.Click += (object sender, EventArgs e) => {
 				{
 					editSourceText.Text = string.Empty;
 					//UpdateListResults (string.Empty);
-					ClearTraslatedRegion();
+					clearTraslatedRegion();
 				}
 			};
-			buttonTranslate.Click += async (object sender, EventArgs e) => {
-				{
-					string sourceText = editSourceText.Text;
-					if (sourceText.Length > 0) 
-					{
-						TranslateServiceResult result = await TranslateWordAsync (sourceText);
-						if (string.IsNullOrEmpty (result.errorDescription)) {
-							var jsonResponse = JsonValue.Parse (result.response);
-							UpdateListResults (jsonResponse ["text"].ToString ());
-						} else
-							UpdateListResults (result.errorDescription);
-					}
-				}
-			};
+			buttonTranslate.Click += async (object sender, EventArgs e) =>
+            {
+                IRequestTranslateString translater = new TranslateRequest();
+                var result = await translater.Translate(editSourceText.Text, "en-ru");
+                UpdateListResults(string.IsNullOrEmpty(result.errorDescription) ? result.translatedText : result.errorDescription);
+            };
+
 			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
-				string sourceText = editSourceText.Text;
+                
+                string sourceText = editSourceText.Text;
 
 				if ((sourceText.Length > 0) && (iSSymbolForStartTranslate (sourceText.Last ()))) {
-					TranslateServiceResult result = await TranslateWordAsync (sourceText);
-					if (string.IsNullOrEmpty (result.errorDescription)) {
-						var jsonResponse = JsonValue.Parse (result.response);
-						UpdateListResults (jsonResponse ["text"].ToString ());
-					} else
-						UpdateListResults (result.errorDescription);
-					//JsonValue json = await TranslateWordAsync (sourceText);
-					//UpdateListResults (json ["text"].ToString ());
-				}
+                    IRequestTranslateString translater = new TranslateRequest();
+                    var result = await translater.Translate(editSourceText.Text, "en-ru");
+                    UpdateListResults(string.IsNullOrEmpty(result.errorDescription) ? result.translatedText : result.errorDescription);
+                }
 			};
 
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
@@ -86,10 +77,10 @@ namespace TranslateHelper.Droid
 				AddToFavorites (item);
 			};
 
-			ClearTraslatedRegion ();
+			clearTraslatedRegion ();
 		}
 
-		private void ClearTraslatedRegion()
+        private void clearTraslatedRegion()
 		{
 			UpdateListResults ("Пока ничего не переведено");
 		}
@@ -121,12 +112,11 @@ namespace TranslateHelper.Droid
 
         }*/
 
-		private async Task<TranslateServiceResult> TranslateWordAsync (string inputText)
+		/*private async Task<TranslateServiceResult> TranslateWordAsync (string inputText)
 		{
 			TranslateServiceResult RequestResult = new TranslateServiceResult ();
 			string url = string.Format ("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20150918T114904Z.45ab265b9b9ac49d.d4de7a7a003321c5af46dc22110483b086b8125f&text={0}&lang=en-ru&format=plain", inputText);
-			//string url = string.Format ("https://213.180.204.194/api/v1.5/tr.json/translate?key=trnsl.1.1.20150918T114904Z.45ab265b9b9ac49d.d4de7a7a003321c5af46dc22110483b086b8125f&text={0}&lang=en-ru&format=plain", inputText);
-			HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create (new Uri (url));
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create (new Uri (url));
 			request.Method = "GET";
 			//request.Timeout = 20000;
 			try {
@@ -135,10 +125,6 @@ namespace TranslateHelper.Droid
 						using (var reader = new StreamReader (stream)) {
 							RequestResult.response = reader.ReadToEnd ();
 						}
-						//Result.statuscode = ((WebResponse)response)
-						//JsonValue jsonDoc = await Task.Run (() => JsonObject.Load (stream));
-						//return jsonDoc;
-						//Result.response = 
 					}
 				}
 			} catch (WebException E) {
@@ -146,7 +132,7 @@ namespace TranslateHelper.Droid
 			}
 
 			return RequestResult;
-		}
+		}*/
 
 		private void AddToFavorites (string originalText)
 		{
