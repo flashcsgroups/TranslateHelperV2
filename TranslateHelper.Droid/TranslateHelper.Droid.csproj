@@ -78,9 +78,6 @@
     <Compile Include="..\TranslateHelper.Core\DL\SqlLiteHelper.cs">
       <Link>DL\SqlLiteHelper.cs</Link>
     </Compile>
-    <Compile Include="..\TranslateHelper.Core\DL\SQLite2015.cs">
-      <Link>DL\SQLite2015.cs</Link>
-    </Compile>
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="BL\Managers\ExpressionManager.cs" />
@@ -107,6 +104,12 @@
     <Compile Include="..\TranslateHelper.Core\WS\YandexDictionaryJSON.cs">
       <Link>WS\YandexDictionaryJSON.cs</Link>
     </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateResultCollection.cs">
+      <Link>BL\Contracts\TranslateResultCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\WS\TypeTranslateServices.cs">
+      <Link>WS\TypeTranslateServices.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -116,11 +119,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\Dictionary.axml" />
     <AndroidResource Include="Resources\layout\Favorites.axml" />
     <AndroidResource Include="Resources\layout\Settings.axml" />
@@ -130,13 +128,28 @@
     <AndroidResource Include="Resources\drawable\change.png" />
     <AndroidResource Include="Resources\drawable\delete.png" />
     <AndroidResource Include="Resources\drawable\favorites.png" />
-    <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\drawable\list.png" />
     <AndroidResource Include="Resources\drawable\right.png" />
     <AndroidResource Include="Resources\drawable\rigth2.png" />
     <AndroidResource Include="Resources\drawable\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
-  <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+  </ItemGroup>
 </Project>

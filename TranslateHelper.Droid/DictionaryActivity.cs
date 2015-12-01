@@ -56,21 +56,38 @@ namespace TranslateHelper.Droid
 			};
 			buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
-                IRequestTranslateString translater = new TranslateRequest();
-                var result = await translater.Translate(editSourceText.Text, "en-ru");
-                UpdateListResults(string.IsNullOrEmpty(result.errorDescription) ? result.translatedText : result.errorDescription);
+                IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
+                var resultDict = await translaterDict.Translate(editSourceText.Text, "en-ru");
+                if (resultDict.translateResult.Collection.Count > 0)
+                {
+                    UpdateListResults(resultDict);
+                }
+                else
+                {
+                    IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
+                    var resultTrans = await translaterTranslate.Translate(editSourceText.Text, "en-ru");
+                    UpdateListResults(resultTrans);
+                }
             };
 
 			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
                 
                 string sourceText = editSourceText.Text;
-
-				if ((sourceText.Length > 0) && (iSSymbolForStartTranslate (sourceText.Last ()))) {
-                    IRequestTranslateString translater = new TranslateRequest();
-                    var result = await translater.Translate(editSourceText.Text, "en-ru");
-                    UpdateListResults(string.IsNullOrEmpty(result.errorDescription) ? result.translatedText : result.errorDescription);
+                if ((sourceText.Length > 0) && (iSSymbolForStartTranslate (sourceText.Last ()))) {
+                    IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
+                    var resultDict = await translaterDict.Translate(editSourceText.Text, "en-ru");
+                    if (resultDict.translateResult.Collection.Count > 0)
+                    {
+                        UpdateListResults(resultDict);
+                    }
+                    else
+                    {
+                        IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
+                        var resultTrans = await translaterTranslate.Translate(editSourceText.Text, "en-ru");
+                        UpdateListResults(resultTrans);
+                    }
                 }
-			};
+            };
 
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
 				string item = (string)resultListView.GetItemAtPosition (e.Position);
@@ -82,63 +99,60 @@ namespace TranslateHelper.Droid
 
         private void clearTraslatedRegion()
 		{
-			UpdateListResults ("Пока ничего не переведено");
-		}
+            var ListResultStrings = new List<string>();
+            ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
+            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+        }
 
 		private bool iSSymbolForStartTranslate (char p)
 		{
 			return ((p == ' ') || (p == '\n'));
 		}
 
-		void UpdateListResults (string resultString)
-		{
-			if (resultString.Contains ("[")) {
-				resultString = resultString.Substring (2, resultString.Length - 4);
-			}
-
-			var ListResultStrings = new List<string> ();
-			ListResultStrings.Add (resultString);
-			ListView lv = FindViewById<ListView> (Resource.Id.listResultListView);
-			lv.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray ());
-
-		}
-
-		/*void ResetListResults()
+        void UpdateListResults(TranslateRequestResult result)
         {
-            ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
+            if(string.IsNullOrEmpty(result.errorDescription))
+            {
+                if(result.translateResult.Collection.Count > 0)
+                {
+                    var ListResultStrings = new List<string>();
+                    foreach (var item in result.translateResult.Collection)
+                    {
+                        string pos = !string.IsNullOrEmpty(item.Pos) ? " ('" + item.Pos + "')": "";
+                        ListResultStrings.Add(item.TranslatedText + pos);
+                    }
+
+                    ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
+                    lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+                }
+                else
+                {
+                    Android.Widget.Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
+                }
+
+            }
+            else
+            {
+                Android.Widget.Toast.MakeText(this, "Ошибка подключения к интернет", Android.Widget.ToastLength.Short).Show();
+            }
+            /*if (resultString.Contains("["))
+            {
+                resultString = resultString.Substring(2, resultString.Length - 4);
+            }
+
             var ListResultStrings = new List<string>();
-            ListResultStrings.Add("test");
+            ListResultStrings.Add(resultString);
+            ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
             lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+            */
+        }
 
-        }*/
-
-		/*private async Task<TranslateServiceResult> TranslateWordAsync (string inputText)
-		{
-			TranslateServiceResult RequestResult = new TranslateServiceResult ();
-			string url = string.Format ("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20150918T114904Z.45ab265b9b9ac49d.d4de7a7a003321c5af46dc22110483b086b8125f&text={0}&lang=en-ru&format=plain", inputText);
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create (new Uri (url));
-			request.Method = "GET";
-			//request.Timeout = 20000;
-			try {
-				using (WebResponse response = await request.GetResponseAsync ()) {
-					using (Stream stream = response.GetResponseStream ()) {
-						using (var reader = new StreamReader (stream)) {
-							RequestResult.response = reader.ReadToEnd ();
-						}
-					}
-				}
-			} catch (WebException E) {
-				RequestResult.errorDescription = E.Message;
-			}
-
-			return RequestResult;
-		}*/
-
-		private void AddToFavorites (string originalText)
+        private void AddToFavorites (string originalText)
 		{
 			Core.ExpressionManager manager = new Core.ExpressionManager ();
 			manager.SaveTranslatedWord (FindViewById<EditText> (Resource.Id.textSourceString).Text, originalText);
-		}
+            Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
+        }
 	}
 }
 

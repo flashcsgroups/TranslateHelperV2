@@ -49,6 +49,8 @@
     <Compile Include="BL\Contracts\IRequestDictionary.cs" />
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
+    <Compile Include="BL\Contracts\TranslateResultCollection.cs" />
+    <Compile Include="WS\TypeTranslateServices.cs" />
     <Compile Include="WS\YandexTranslateJSON.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DL\SqlLiteHelper.cs" />
@@ -58,7 +60,6 @@
     <Compile Include="BL\TranslatedExpression.cs" />
     <Compile Include="BL\Favorites.cs" />
     <Compile Include="BL\Managers\TranslateProviderManager.cs" />
-    <Compile Include="DL\SQLite2015.cs" />
     <Compile Include="DL\SQLite.cs" />
     <Compile Include="WS\TranslateServiceResult.cs" />
     <Compile Include="WS\TranslateRequest.cs" />

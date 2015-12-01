@@ -11,10 +11,26 @@ namespace TranslateHelper.Core.WS
     {
         private TranslateRequestFactory translater;
 
-        public TranslateRequest()
+        public TranslateRequest(TypeTranslateServices typeSrv)
         {
-            //translater = new YandexTranslateJSON();//запрос к настройкам
-            translater = new YandexDictionaryJSON();
+            //ToDo:Отказаться от свитча. Пока непонятно как.
+            switch (typeSrv)
+            {
+                case TypeTranslateServices.YandexTranslate:
+                    {
+                        translater = new YandexTranslateJSON();
+                    };
+                    break;
+                case TypeTranslateServices.YandexDictionary:
+                    {
+                        translater = new YandexDictionaryJSON();
+                    };
+                    break;
+                default:
+                    {
+                    };
+                    break;
+            }
         }
 
         public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
@@ -32,7 +48,7 @@ namespace TranslateHelper.Core.WS
             }
 
             if(string.IsNullOrEmpty(RequestResult.errorDescription))
-                RequestResult.translatedText = translater.ParseResponse(responseText);
+                RequestResult.translateResult = translater.ParseResponse(responseText);
 
             return RequestResult;
         }

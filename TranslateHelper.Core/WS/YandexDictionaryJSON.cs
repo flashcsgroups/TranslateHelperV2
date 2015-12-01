@@ -21,37 +21,39 @@ namespace TranslateHelper.Core.WS
             return responseString;
         }
 
-        public override string ParseResponse(string responseText)
+        public override TranslateResultCollection ParseResponse(string responseText)
         {
-            string translatedString = string.Empty;
+            TranslateResultCollection result = new TranslateResultCollection();
             var jsonResponse = JsonValue.Parse(responseText);
             JsonValue def = jsonResponse["def"];
             if (def.Count > 0)
             {
-                var trcollection = def[0]["tr"];
-                //translatedString = trcollection[0]["text"].ToString();
-                foreach (JsonValue item in trcollection)
+                foreach(JsonValue defItem in def)
                 {
-                    translatedString += item["text"].ToString() + ",";
-                }
-                if(trcollection[0].ContainsKey("syn"))
-                {
-                    foreach (JsonValue item in trcollection[0]["syn"])
+                    foreach(JsonValue trItem in defItem["tr"])
                     {
-                        translatedString += item["text"].ToString() + ",";
+                        TranslateResult item = new TranslateResult();
+                        item.OriginalText = defItem["text"];
+                        item.Pos = defItem["pos"];
+                        item.Ts = defItem["ts"];
+                        item.TranslatedText = trItem["text"];
+                        if(trItem.ContainsKey("syn"))
+                        {
+                            item.SynonymsCollection = new List<Synonym>();
+                            foreach (JsonValue synItem in trItem["syn"])
+                            {
+                                Synonym syn = new Synonym();
+                                syn.TranslatedText = synItem["text"];
+                                item.SynonymsCollection.Add(syn);
+                            }
+                        }
+                        result.Collection.Add(item);
                     }
-                }
-                /*if (trcollection[0]["syn"].Count > 0)
-                {
-                    foreach (JsonValue item in trcollection[0]["syn"])
-                    {
-                        translatedString += item["text"].ToString() + ",";
-                    }
-                }*/
 
+                }
             }
             
-            return translatedString;
+            return result;
         }
 
         private static async Task<string> GetJsonResponse(string url)

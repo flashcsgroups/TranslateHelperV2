@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Droid", "TranslateHelper.Droid\TranslateHelper.Droid.csproj", "{9D547F07-3170-48AA-8321-D9E5567998D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Droid.UITests", "TranslateHelper.Droid.UITests\TranslateHelper.Droid.UITests.csproj", "{26EB8149-5664-43C3-A429-CB65B2A32E14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Core", "TranslateHelper.Core\TranslateHelper.Core.csproj", "{1592AA1A-5A03-4FFD-B2AA-CBE34AC1FF50}"
 EndProject
@@ -14,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		links.txt = links.txt
 		TranslateHelper.pdf = TranslateHelper.pdf
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Core.Tests", "TranslateHelper.Core.Tests\TranslateHelper.Core.Tests.csproj", "{59012985-F0A1-4626-8893-F8A9B7DF673F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +26,14 @@ Global
 		{9D547F07-3170-48AA-8321-D9E5567998D4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{9D547F07-3170-48AA-8321-D9E5567998D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D547F07-3170-48AA-8321-D9E5567998D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26EB8149-5664-43C3-A429-CB65B2A32E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26EB8149-5664-43C3-A429-CB65B2A32E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26EB8149-5664-43C3-A429-CB65B2A32E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26EB8149-5664-43C3-A429-CB65B2A32E14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1592AA1A-5A03-4FFD-B2AA-CBE34AC1FF50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1592AA1A-5A03-4FFD-B2AA-CBE34AC1FF50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1592AA1A-5A03-4FFD-B2AA-CBE34AC1FF50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1592AA1A-5A03-4FFD-B2AA-CBE34AC1FF50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59012985-F0A1-4626-8893-F8A9B7DF673F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59012985-F0A1-4626-8893-F8A9B7DF673F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59012985-F0A1-4626-8893-F8A9B7DF673F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59012985-F0A1-4626-8893-F8A9B7DF673F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

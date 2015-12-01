@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,6 +41,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\TranslateHelper.Core\TranslateHelper.Core.csproj">
+      <Project>{1592aa1a-5a03-4ffd-b2aa-cbe34ac1ff50}</Project>
+      <Name>TranslateHelper.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TranslateHelper.Droid\TranslateHelper.Droid.csproj">
       <Project>{9D547F07-3170-48AA-8321-D9E5567998D4}</Project>
       <Name>TranslateHelper.Droid</Name>
@@ -50,5 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@ namespace TranslateHelper.Core.WS
 {
     public class YandexTranslateJSON : TranslateRequestFactory
     {
+        //ToDo:Перенести в настройки для хранения в базе
         private string AuthKey = "trnsl.1.1.20150918T114904Z.45ab265b9b9ac49d.d4de7a7a003321c5af46dc22110483b086b8125f";
         public override async Task<string> GetResponse(string sourceString, string direction)
         {
@@ -20,10 +21,16 @@ namespace TranslateHelper.Core.WS
             return responseString;
         }
 
-        public override string ParseResponse(string responseText)
+        public override TranslateResultCollection ParseResponse(string responseText)
         {
-            var jsonResponse = JsonValue.Parse(responseText);
-            return jsonResponse["text"].ToString();
+            TranslateResultCollection result = new TranslateResultCollection();
+            JsonValue jsonResponse = JsonValue.Parse(responseText);
+            if(jsonResponse.ContainsKey("text"))
+            {
+                string textWithoutBrackets = jsonResponse["text"].ToString().Replace(@"[""","").Replace(@"""]", "");
+                result.Collection.Add(new TranslateResult() {TranslatedText = textWithoutBrackets });
+            }
+            return result;
         }
 
         private static async Task<string> GetJsonResponse(string url)
