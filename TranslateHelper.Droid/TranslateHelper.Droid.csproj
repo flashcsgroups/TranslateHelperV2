@@ -82,6 +82,7 @@
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="BL\Managers\ExpressionManager.cs" />
     <Compile Include="SettingsActivity.cs" />
+    <Compile Include="TranslateResultAdapter.cs" />
     <Compile Include="TranslateServiceResult.cs" />
     <Compile Include="..\TranslateHelper.Core\BL\Contracts\IRequestDictionary.cs">
       <Link>BL\Contracts\IRequestDictionary.cs</Link>
@@ -115,6 +116,9 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\TranslateResultItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

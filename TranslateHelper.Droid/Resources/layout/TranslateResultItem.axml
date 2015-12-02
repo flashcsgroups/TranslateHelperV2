@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:id="@+id/mainLayout"
+    android:padding="4dp">
+    <TextView
+        android:id="@+id/IndexTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="30dp"
+        android:textSize="20dip"
+        android:text="1"
+        android:layout_weight="0"
+        android:textColor="@color/black"
+        android:layout_marginRight="5dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/TranslatedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20dip"
+            android:text=""
+            android:textColor="@color/black"
+            android:background="@color/transparent" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/TranscriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dip"
+                android:text=""
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:background="@color/transparent" />
+            <TextView
+                android:id="@+id/PosTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="15dip"
+                android:text=""
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:background="@color/transparent" />
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_weight="1"
+        android:layout_alignParentRight="false">
+        <ImageView
+            android:id="@+id/CalendarImageView"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:padding="4dp"
+            android:src="@drawable/book" />
+    </RelativeLayout>
+</LinearLayout>

@@ -22,8 +22,9 @@ namespace TranslateHelper.Droid
 	[Activity (Label = "Dictionary", Icon = "@drawable/icon", Theme = "@style/MyTheme")]
 	public class DictionaryActivity : Activity
 	{
+        List<TranslateResult> items;
 
-		protected override void OnCreate (Bundle bundle)
+        protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			//base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
@@ -31,8 +32,7 @@ namespace TranslateHelper.Droid
 			SetContentView (Resource.Layout.Dictionary);
 
 
-
-			EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
+            EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
 			ImageButton buttonNewBottom = FindViewById<ImageButton> (Resource.Id.buttonNewBottom);
 			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
@@ -99,9 +99,9 @@ namespace TranslateHelper.Droid
 
         private void clearTraslatedRegion()
 		{
-            var ListResultStrings = new List<string>();
+            /*var ListResultStrings = new List<string>();
             ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
-            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());*/
         }
 
 		private bool iSSymbolForStartTranslate (char p)
@@ -115,15 +115,28 @@ namespace TranslateHelper.Droid
             {
                 if(result.translateResult.Collection.Count > 0)
                 {
-                    var ListResultStrings = new List<string>();
-                    foreach (var item in result.translateResult.Collection)
+                    var listView = FindViewById<ListView>(Resource.Id.listResultListView);
+                    //items = new List<TranslateResult>();
+                    /*items.Add(new Tuple<string, DateTime>("New features of MonoTouch 5.2", new DateTime(2012, 03, 12)));
+                    items.Add(new Tuple<string, DateTime>("MonoTouch and iOS 5.1", new DateTime(2012, 03, 11)));
+                    items.Add(new Tuple<string, DateTime>("Introducing the Xamarin Samples Gallery", new DateTime(2012, 03, 05)));
+                    items.Add(new Tuple<string, DateTime>("Release Candidates and Preview Updates", new DateTime(2012, 03, 01)));
+                    items.Add(new Tuple<string, DateTime>("Xamarin Adding Support for MIPS Architecture to Mono for Android", new DateTime(2012, 02, 29)));*/
+
+
+
+                    //var ListResultStrings = new List<string>();
+                    items = result.translateResult.Collection;
+                    /*foreach (var item in result.translateResult.Collection)
                     {
                         string pos = !string.IsNullOrEmpty(item.Pos) ? " ('" + item.Pos + "')": "";
-                        ListResultStrings.Add(item.TranslatedText + pos);
-                    }
+                        items.Add(new Tuple<string, string>("1", item.TranslatedText + pos));
+                        //ListResultStrings.Add(item.TranslatedText + pos);
+                    }*/
+                    listView.Adapter = new TranslateResultAdapter(this, items);
 
-                    ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
-                    lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+                    //ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
+                    //lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
                 }
                 else
                 {
