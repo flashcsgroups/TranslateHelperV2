@@ -25,7 +25,7 @@ namespace TranslateHelper.Droid
 
     //[Activity (Label = "Dictionary", Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     //[Activity(Label = "Dictionary", Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light")]
-    [Activity (Label = "Dictionary", MainLauncher =true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+    [Activity (Label = "Помощник переводчика", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
         List<TranslateResult> items;
@@ -33,14 +33,14 @@ namespace TranslateHelper.Droid
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			//base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
+			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
 			//base.ActionBar.Hide ();
 			SetContentView (Resource.Layout.Dictionary);
 
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
-			ImageButton buttonNewBottom = FindViewById<ImageButton> (Resource.Id.buttonNewBottom);
+			//ImageButton buttonNewBottom = FindViewById<ImageButton> (Resource.Id.buttonNewBottom);
 			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
 			ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 
@@ -52,12 +52,12 @@ namespace TranslateHelper.Droid
 					clearTraslatedRegion();
 				}
 			};
-			buttonNewBottom.Click += (object sender, EventArgs e) => {
+			/*buttonNewBottom.Click += (object sender, EventArgs e) => {
 				{
 					editSourceText.Text = string.Empty;
 					clearTraslatedRegion();
 				}
-			};
+			};*/
 
             //ToDo:Поправить жесткий копипаст
             buttonTranslate.Click += async (object sender, EventArgs e) =>
@@ -130,6 +130,8 @@ namespace TranslateHelper.Droid
             var ListResultStrings = new List<string>();
             ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
             lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+            TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+            splash.Visibility = ViewStates.Visible;
         }
 
 		private bool iSSymbolForStartTranslate (char p)
@@ -144,6 +146,8 @@ namespace TranslateHelper.Droid
             {
                 if(result.translateResult.Collection.Count > 0)
                 {
+                    TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+                    splash.Visibility = ViewStates.Invisible;
                     var listView = FindViewById<ListView>(Resource.Id.listResultListView);
                     items = result.translateResult.Collection;
                     listView.Adapter = new TranslateResultAdapter(this, items);
@@ -201,24 +205,30 @@ namespace TranslateHelper.Droid
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            menu.Add("Item 1");
-            menu.Add("Item 2");
-            menu.Add("Item 3");
+            MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
             return true;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (item.TitleFormatted.ToString())
+            switch (item.ItemId)
             {
-                case "Item 1":
-                    MenuItemClicked(item.TitleFormatted.ToString()); break;
-                case "Item 2":
-                    MenuItemClicked(item.TitleFormatted.ToString()); break;
-                case "Item 3":
-                    MenuItemClicked(item.TitleFormatted.ToString()); break;
+                case Resource.Id.menu_favorites:
+                    StartActivity(typeof(FavoritesActivity));
+                    return true;
+                case Resource.Id.menu_testing:
+                    //StartActivity(typeof(FavoritesActivity));
+                    return true;
+                case Resource.Id.menu_settings:
+                    StartActivity(typeof(SettingsActivity));
+                    return true;
+                case global::Android.Resource.Id.Home:
+                    StartActivity(typeof(SettingsActivity));
+                    return true;
+                default:
+                    break;
             }
-            return base.OnOptionsItemSelected(item);
+            return true;
         }
 
         void MenuItemClicked(string item)

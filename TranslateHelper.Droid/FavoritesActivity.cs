@@ -14,14 +14,16 @@ using TranslateHelper.Core;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "FavoritesActivity", Icon = "@drawable/icon", Theme = "@style/MyTheme")]			
-	public class FavoritesActivity : Activity
+	//[Activity (Label = "FavoritesActivity", Icon = "@drawable/delete", Theme = "@style/MyTheme")]
+    [Activity(Label = "Избранное", Theme = "@style/MyTheme")]
+    public class FavoritesActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			base.ActionBar.Hide ();
-			SetContentView(Resource.Layout.Favorites);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            ActionBar.SetHomeButtonEnabled(true);
+            SetContentView(Resource.Layout.Favorites);
 
             // Create your application here
             /*TranslatedExpressionManager expr = new TranslatedExpressionManager();
@@ -38,6 +40,34 @@ namespace TranslateHelper.Droid
             //items = result.translateResult.Collection;
             listView.Adapter = new FavoritesAdapter(this, items);
 
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
+
+            /*IMenuItem menuItem = menu.FindItem(Resource.Id.menu_delete_task);
+            menuItem.SetTitle(task.ID == 0 ? "Cancel" : "Delete");
+            */
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                /*case Resource.Id.menu_save_task:
+                    Save();
+                    return true;
+
+                case Resource.Id.menu_delete_task:
+                    CancelDelete();
+                    return true;
+                    */
+                default:
+                    Finish();
+                    return base.OnOptionsItemSelected(item);
+            }
         }
     }
 }

@@ -64,9 +64,9 @@ namespace TranslateHelper.Droid
             posTextView.SetText(listTranslateResult[position].Pos, TextView.BufferType.Normal);
             indexTextView.SetText((position + 1).ToString(), TextView.BufferType.Normal);
             if(item.FavoritesId != 0)
-                favStatePic.SetImageResource(Resource.Drawable.rigth2);
+                favStatePic.SetImageResource(Resource.Drawable.v2alreadyaddedtofav);
             else
-                favStatePic.SetImageResource(Resource.Drawable.book);
+                favStatePic.SetImageResource(Resource.Drawable.v2addtofavorites);
 
             return view;
         }
