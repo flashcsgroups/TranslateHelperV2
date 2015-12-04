@@ -12,7 +12,9 @@ namespace TranslateHelper.Core
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
-		public string Value { get; set; }
+		public string TranslatedText { get; set; }
+        public string TranscriptionText { get; set; }
+        public int DefinitionTypeID { get; set; }
 		[Indexed]
 		public int SourceExpressionID { get; set; }
 	}

@@ -4,23 +4,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
-    android:id="@+id/favoritesLayout"
+    android:id="@+id/mainLayout"
     android:padding="4dp">
     <TextView
+        android:id="@+id/SourceTextView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="20dip"
-        android:text="Избранное"
+        android:text=""
         android:textColor="@color/black"
         android:background="@color/transparent" />
-    <ListView
-        android:layout_weight="5"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/TranslatedTextView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listFavoritesListView" />
+        android:textStyle="italic"
+        android:textSize="20dip"
+        android:text=""
+        android:textColor="@color/black"
+        android:background="@color/transparent" />
 </LinearLayout>

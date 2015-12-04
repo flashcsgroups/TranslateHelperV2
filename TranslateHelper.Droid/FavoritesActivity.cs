@@ -14,7 +14,7 @@ using TranslateHelper.Core;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "FavoritesActivity")]			
+	[Activity (Label = "FavoritesActivity", Icon = "@drawable/icon", Theme = "@style/MyTheme")]			
 	public class FavoritesActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
@@ -23,19 +23,22 @@ namespace TranslateHelper.Droid
 			base.ActionBar.Hide ();
 			SetContentView(Resource.Layout.Favorites);
 
-			// Create your application here
-			ExpressionManager expr = new ExpressionManager();
+            // Create your application here
+            /*TranslatedExpressionManager expr = new TranslatedExpressionManager();
 			var translatedItems = expr.GetTranslatedItems ();
 			var ListFavoritesStrings = new List<string>();
 			foreach (TranslatedExpression item in translatedItems) {
-				ListFavoritesStrings.Add (item.Value);
+				ListFavoritesStrings.Add (item.TranslatedText);
 			}
-			/*ListFavoritesStrings.Add("Транзакция");
-			ListFavoritesStrings.Add("Урегулирование спора");
-			ListFavoritesStrings.Add("Ведение");*/
 			ListView lv = FindViewById<ListView>(Resource.Id.listFavoritesListView);
-			lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListFavoritesStrings.ToArray());
-		}
-	}
+			lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListFavoritesStrings.ToArray());*/
+            var listView = FindViewById<ListView>(Resource.Id.listFavoritesListView);
+            FavoritesManager favManager = new FavoritesManager();
+            var items = favManager.GetItems();
+            //items = result.translateResult.Collection;
+            listView.Adapter = new FavoritesAdapter(this, items);
+
+        }
+    }
 }
 

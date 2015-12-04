@@ -45,12 +45,22 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="BL\Contracts\DataManager.cs" />
     <Compile Include="BL\Contracts\IBusinessEntity.cs" />
     <Compile Include="BL\Contracts\IRequestDictionary.cs" />
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultCollection.cs" />
+    <Compile Include="BL\DefinitionTypes.cs" />
+    <Compile Include="BL\Contracts\IDataManager.cs" />
+    <Compile Include="BL\Managers\SourceExpressionManager.cs" />
+    <Compile Include="BL\Managers\FavoritesManager.cs" />
+    <Compile Include="BL\Managers\DefinitionTypesManager.cs" />
+    <Compile Include="BL\Language.cs" />
+    <Compile Include="DAL\SqlLiteInstance.cs" />
+    <Compile Include="Helpers\JavaCastToCLRHelper.cs" />
     <Compile Include="WS\TypeTranslateServices.cs" />
+    <Compile Include="WS\LocalDatabaseCache.cs" />
     <Compile Include="WS\YandexTranslateJSON.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DL\SqlLiteHelper.cs" />
@@ -64,5 +74,6 @@
     <Compile Include="WS\TranslateServiceResult.cs" />
     <Compile Include="WS\TranslateRequest.cs" />
     <Compile Include="WS\YandexDictionaryJSON.cs" />
+    <Compile Include="BL\Managers\TranslatedExpressionManager.cs" />
   </ItemGroup>
 </Project>

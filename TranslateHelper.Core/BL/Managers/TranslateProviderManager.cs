@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using TranslateHelper.Core.Bl.Contracts;
 
 namespace TranslateHelper.Core
 {
-	public class TranslateProviderManager
-	{
-		public TranslateProviderManager ()
+	public class TranslateProviderManager : IDataManager<TranslateProvider>
+    {
+		public TranslateProviderManager()
 		{
 		}
 
@@ -20,7 +21,14 @@ namespace TranslateHelper.Core
 			repos.SaveItemsInTransaction (providersList);
 		}
 
-		public List<TranslateProvider> GetItems()
+        public TranslateProvider GetItemForId(int Id)
+        {
+            DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider>();
+            TranslateProvider result = repos.GetItem(Id);
+            return result;
+        }
+
+        public List<TranslateProvider> GetItems()
 		{
 			DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider> ();
 			return new List<TranslateProvider> (repos.GetItems ());

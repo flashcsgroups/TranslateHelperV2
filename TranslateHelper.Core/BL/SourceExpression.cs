@@ -11,9 +11,9 @@ namespace TranslateHelper.Core
 		}
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
-		public int DeleteMark { get; set; }
+		public int DeleteMark { get; set; }        
 		[Indexed]
-		public string Expression { get; set; }
+		public string Text { get; set; }
 		[Indexed]
 		public int DirectionID { get; set; }
 	}

@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="FavoritesAdapter.cs" />
     <Compile Include="TranslateResultAdapter.cs" />
@@ -157,9 +156,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\layout\Dictionary.axml" />
     <AndroidResource Include="Resources\layout\Favorites.axml" />
@@ -195,5 +192,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\styles.txt" />
   </ItemGroup>
 </Project>

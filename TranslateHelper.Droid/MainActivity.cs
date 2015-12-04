@@ -16,7 +16,7 @@ using Core = TranslateHelper.Core;
 namespace TranslateHelper.Droid
 {
 	//Theme = "@style/MyTheme"
-	[Activity (Label = "TranslateHelper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+	[Activity (Label = "TranslateHelper", MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
 	public class MainActivity : Activity
 	{
 
@@ -24,25 +24,15 @@ namespace TranslateHelper.Droid
 		{
 			base.OnCreate (bundle);
 
-			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
-			base.ActionBar.Hide ();
+			base.ActionBar.NavigationMode = ActionBarNavigationMode.List;
+			//base.ActionBar.Hide ();
 
 			InitDbIfRequired ();
 
-			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
 			SetClickEvents ();
-
-			// Get our button from the layout resource,
-			// and attach an event to it
-			/*Button button = FindViewById<Button> (Resource.Id.myButton);
-			button.Click += async (sender, e) => {
-				JsonValue json = await TranslateWordAsync ("test");
-				button.Text = json ["text"].ToString ();
-				//button.Text = json["code"].ToString();
-			};*/
-		}
+        }
 
 		protected override void OnResume ()
 		{
@@ -64,22 +54,21 @@ namespace TranslateHelper.Droid
 			settingsButton.Click += delegate {
 				StartActivity (typeof(SettingsActivity));
 			};
-			/*ListView listProjectsListView = FindViewById<ListView>(Resource.Id.listProjectsListView);
-			listProjectsListView.ItemClick += delegate
-			{
-				StartActivity(typeof(ActionProjectActivity));
-			};*/
 		}
 
 		void InitDbIfRequired ()
 		{
-			Core.TranslateProviderManager manager = new Core.TranslateProviderManager ();
-			if (manager.GetItems ().Count == 0)
-				manager.CreateDefaultData ();
-		}
+			Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
+			if (managerProvider.GetItems ().Count == 0)
+                managerProvider.CreateDefaultData ();
 
-		//http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/
-		/*private async Task<JsonValue> TranslateWordAsync (string inputText)
+            Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
+            if (managerTypes.GetItems().Count == 0)
+                managerTypes.CreateDefaultData();
+        }
+
+        //http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/
+        /*private async Task<JsonValue> TranslateWordAsync (string inputText)
 		{
 			//http://developer.xamarin.com/recipes/android/web_services/consuming_services/call_a_rest_web_service/
 			//https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
@@ -96,7 +85,7 @@ namespace TranslateHelper.Droid
 			}
 		}*/
 
-	}
+    }
 }
 
 

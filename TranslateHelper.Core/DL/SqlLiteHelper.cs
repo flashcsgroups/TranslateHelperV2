@@ -28,7 +28,8 @@ namespace TranslateHelper.Core.DL
 			CreateTable<Direction> ();
 			CreateTable<Favorites> ();
 			CreateTable<SourceExpression> ();
-			CreateTable<TranslatedExpression> ();
+            CreateTable<TranslatedExpression>();
+            CreateTable<DefinitionTypes>();
 		}
 
 		public IEnumerable<T> GetItems<T> () where T : BL.Contracts.IBusinessEntity, new()

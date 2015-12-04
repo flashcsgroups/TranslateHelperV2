@@ -14,6 +14,6 @@ namespace TranslateHelper.Core.WS
 {
     public enum TypeTranslateServices
     {
-        YandexTranslate, YandexDictionary
+        YandexTranslate, YandexDictionary, LocalDatabase
     };
 }

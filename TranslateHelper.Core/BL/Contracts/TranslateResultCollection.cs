@@ -30,6 +30,8 @@ namespace TranslateHelper.Core.BL.Contracts
         public string Pos;//часть речи
         public string Ts;//транскрипция
         public string TranslatedText;
+        public int TranslatedExpressionId;//заполнено Id если результат найден в локальном кеше
+        public int FavoritesId;//Заполнено если результат найден в избранном
         public List<Synonym> SynonymsCollection;
         public List<Mean> MeansCollection;
         public List<ExampleText> ExamplesCollection;
