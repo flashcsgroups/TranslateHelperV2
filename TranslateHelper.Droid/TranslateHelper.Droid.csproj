@@ -233,4 +233,16 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\v2change.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v3addtofavorites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v3alreadyaddedtofav.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v3cleartext.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v3search.png" />
+  </ItemGroup>
 </Project>

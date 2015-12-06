@@ -132,6 +132,18 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f02000f
 			public const int v2testing = 2130837519;
 			
+			// aapt resource value: 0x7f020010
+			public const int v3addtofavorites = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int v3alreadyaddedtofav = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int v3cleartext = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int v3search = 2130837523;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
