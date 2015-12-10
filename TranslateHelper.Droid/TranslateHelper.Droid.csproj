@@ -154,6 +154,12 @@
     <Compile Include="..\TranslateHelper.Core\Helpers\JavaCastToCLRHelper.cs">
       <Link>Helpers\JavaCastToCLRHelper.cs</Link>
     </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IHasLabel.cs">
+      <Link>BL\Contracts\IHasLabel.cs</Link>
+    </Compile>
+    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateResultIndexedCollection.cs">
+      <Link>BL\Contracts\TranslateResultIndexedCollection.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -163,6 +169,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FavoritesItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FavoritesSectionListHeader.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FavoritesSectionListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

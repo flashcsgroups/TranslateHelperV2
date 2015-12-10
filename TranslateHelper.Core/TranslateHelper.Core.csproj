@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="BL\Contracts\DataManager.cs" />
     <Compile Include="BL\Contracts\IBusinessEntity.cs" />
+    <Compile Include="BL\Contracts\IHasLabel.cs" />
     <Compile Include="BL\Contracts\IRequestDictionary.cs" />
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
+    <Compile Include="BL\Contracts\TranslateResultIndexedCollection.cs" />
     <Compile Include="BL\Contracts\TranslateResultCollection.cs" />
     <Compile Include="BL\DefinitionTypes.cs" />
     <Compile Include="BL\Contracts\IDataManager.cs" />

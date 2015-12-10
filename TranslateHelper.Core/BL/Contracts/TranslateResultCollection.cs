@@ -24,7 +24,7 @@ namespace TranslateHelper.Core.BL.Contracts
 
 namespace TranslateHelper.Core.BL.Contracts
 {
-    public class TranslateResult
+    public class TranslateResult: IHasLabel, IComparable<TranslateResult>
     {
         public string OriginalText;
         public string Pos;//часть речи
@@ -42,6 +42,17 @@ namespace TranslateHelper.Core.BL.Contracts
             MeansCollection = new List<Mean>();
             ExamplesCollection = new List<ExampleText>();
         }
+
+        int IComparable<TranslateResult>.CompareTo(TranslateResult value)
+        {
+            return OriginalText.CompareTo(value.OriginalText);
+        }
+
+        public string Label
+        {
+            get { return OriginalText[0].ToString(); }
+        }
+
     }
 }
 

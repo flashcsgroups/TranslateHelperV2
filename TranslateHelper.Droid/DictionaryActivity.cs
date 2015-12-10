@@ -62,7 +62,7 @@ namespace TranslateHelper.Droid
             //ToDo:Поправить жесткий копипаст
             buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
-                string sourceText = editSourceText.Text.Trim().Replace('\n', ' ');
+                string sourceText = editSourceText.Text.Trim().Replace('\n', ' ').ToLower();
                 IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                 var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
                 if (resultFromCache.translateResult.Collection.Count > 0)
@@ -91,7 +91,7 @@ namespace TranslateHelper.Droid
                 
                 if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ()))) {
                     //ToDo:убрать перевод строки в контроле
-                    string sourceText = editSourceText.Text.Trim().Replace('\n', ' ');
+                    string sourceText = editSourceText.Text.Trim().Replace('\n', ' ').ToLower();
                     IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                     var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
                     if (resultFromCache.translateResult.Collection.Count > 0)
@@ -142,7 +142,7 @@ namespace TranslateHelper.Droid
         //ToDo: разнести по разным методам вывод и запись в кэш
         void UpdateListResults(string sourceText, TranslateRequestResult result, bool addToLocalCache)
         {
-            if(string.IsNullOrEmpty(result.errorDescription))
+            if (string.IsNullOrEmpty(result.errorDescription))
             {
                 if(result.translateResult.Collection.Count > 0)
                 {
