@@ -28,7 +28,7 @@ namespace TranslateHelper.Droid
         {
             //this.context = context;
             //this.listFavorites = listFavorites;
-            headers = new ArrayAdapter<string>(context, Resource.Layout.FavoritesSectionListHeader);
+			headers = new ArrayAdapter<string>(context, Resource.Layout.FavoritesSectionListHeader);
         }
 
         public void AddSection(string section, IAdapter adapter)
@@ -115,10 +115,18 @@ namespace TranslateHelper.Droid
                 {
                     View itemView = adapter.GetView(position - 1, convertView, parent);
                     Java.Lang.Object obj = adapter.GetItem(position - 1);
-                    var textItemView = itemView.FindViewById<TextView>(Resource.Id.list_item_title);
-                    var test = obj.Cast<TranslateResult>();
-                    //obj.Instance;
-                    textItemView.SetText(test.OriginalText.ToString(), TextView.BufferType.Normal);
+					TranslateResult itemResult = obj.Cast<TranslateResult>();
+
+					var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.SourceTextView);
+					sourceTextView.SetText(itemResult.OriginalText.ToString(), TextView.BufferType.Normal);
+					/*var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.TranslatedTextView);
+					translatedTextView.SetText(itemResult.TranslatedText.ToString(), TextView.BufferType.Normal);*/
+					/*var transcriptionTextView = itemView.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
+					var posTextView = itemView.FindViewById<TextView>(Resource.Id.PosTextView);
+					sourceTextView.SetText(itemResult.OriginalText.ToString(), TextView.BufferType.Normal);
+					translatedTextView.SetText(itemResult.TranslatedText.ToString(), TextView.BufferType.Normal);
+					transcriptionTextView.SetText(itemResult.Ts.ToString(), TextView.BufferType.Normal);
+					posTextView.SetText(itemResult.Pos.ToString(), TextView.BufferType.Normal);*/
                     return itemView;
                 }
 

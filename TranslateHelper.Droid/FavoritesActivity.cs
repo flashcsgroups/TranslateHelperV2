@@ -44,7 +44,7 @@ namespace TranslateHelper.Droid
             listView.FastScrollEnabled = true;
 
             var data = new TranslateResultIndexedCollection<TranslateResult>();
-            foreach (var c in COUNTRIES) data.Add(new TranslateResult() { OriginalText=c});
+			foreach (var c in COUNTRIES) data.Add(new TranslateResult() { OriginalText=c, TranslatedText="Перевод слова", Ts="Транскрипция", Pos="Существительное"});
             var sortedContacts = data.GetSortedData();
             listView.Adapter = CreateAdapter(sortedContacts);
 

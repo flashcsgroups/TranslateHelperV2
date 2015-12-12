@@ -7,7 +7,7 @@
     android:id="@+id/mainLayout"
     android:padding="4dp">
     <TextView
-        android:id="@+id/SourceTextView1"
+        android:id="@+id/SourceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -16,12 +16,30 @@
         android:textColor="@color/black"
         android:background="@color/transparent" />
     <TextView
-        android:id="@+id/TranslatedTextView1"
+        android:id="@+id/TranslatedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="italic"
         android:textSize="20dip"
-        android:text=""
+        android:text="translated"
+        android:textColor="@color/black"
+        android:background="@color/transparent" />
+    <TextView
+        android:id="@+id/TranscriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textSize="20dip"
+        android:text="transcription"
+        android:textColor="@color/black"
+        android:background="@color/transparent" />
+    <TextView
+        android:id="@+id/PosTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textSize="20dip"
+        android:text="pos"
         android:textColor="@color/black"
         android:background="@color/transparent" />
 </LinearLayout>
