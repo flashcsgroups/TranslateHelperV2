@@ -212,7 +212,7 @@ namespace SQLite {
 
             return count;
         }
-
+			
         public class TableInfo {
             public int cid { get; set; }
 

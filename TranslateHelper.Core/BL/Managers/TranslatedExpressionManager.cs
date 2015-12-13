@@ -13,9 +13,14 @@ namespace TranslateHelper.Core
 		{
 		}
 
-        public void CreateDefaultData()
+        public void InitDefaultData()
         {
         }
+
+		public bool NeedUpdateDefaultData()
+		{
+			return false;
+		}
 
         public TranslatedExpression GetItemForId(int id)
         {
@@ -68,6 +73,12 @@ namespace TranslateHelper.Core
                 reposTranslated.Save(translatedItem);
             }
         }
+
+		public List<TranslatedExpression> GetItems()
+		{
+			DAL.Repository<TranslatedExpression> repos = new TranslateHelper.Core.DAL.Repository<TranslatedExpression> ();
+			return new List<TranslatedExpression> (repos.GetItems ());
+		}
 
         //ToDo:Отказаться от передачи INumerator в пользу List
         internal IEnumerable<TranslatedExpression> GetTranslateResultFromLocalCache(int sourceId)

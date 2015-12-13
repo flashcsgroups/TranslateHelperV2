@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace TranslateHelper.Core.BL.Contracts
 {
-    interface IHasLabel
+    public interface IHasLabel
     {
         string Label { get; }
     }

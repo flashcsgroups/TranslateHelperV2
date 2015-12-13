@@ -30,6 +30,7 @@ namespace TranslateHelper.Core.DL
 			CreateTable<SourceExpression> ();
             CreateTable<TranslatedExpression>();
             CreateTable<DefinitionTypes>();
+
 		}
 
 		public IEnumerable<T> GetItems<T> () where T : BL.Contracts.IBusinessEntity, new()

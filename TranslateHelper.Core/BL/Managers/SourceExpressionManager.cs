@@ -13,10 +13,10 @@ namespace TranslateHelper.Core
 		{
 		}
 
-		public void CreateDefaultData ()
+		public void InitDefaultData ()
 		{
 		}
-
+			
         public SourceExpression GetItemForId(int id)
         {
             DAL.Repository<SourceExpression> repos = new TranslateHelper.Core.DAL.Repository<SourceExpression>();

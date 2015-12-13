@@ -15,7 +15,7 @@ namespace TranslateHelper.Core.BL.Contracts
 {
     //ToDo:Заменить использование старого класса TranslateResultCollection на этот
     //ToDo:Работаем с конкретным типом TranslateResult - можно либо отказаться от генерика, либо переименовать класс во что-то более универсальное
-    class TranslateResultIndexedCollection<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>
+    public class TranslateResultIndexedCollection<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>
     {
         private List<T> collection;
 
@@ -27,6 +27,11 @@ namespace TranslateHelper.Core.BL.Contracts
         {
             collection.Add(value);
         }
+
+		public void AddList(List<T> value)
+		{
+			collection = value;
+		}
 
         public IEnumerator<T> GetEnumerator()
         {

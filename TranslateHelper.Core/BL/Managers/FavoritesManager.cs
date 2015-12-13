@@ -13,8 +13,13 @@ namespace TranslateHelper.Core
 		{
 		}
 
-		public void CreateDefaultData ()
+		public void InitDefaultData ()
 		{
+		}
+
+		public bool NeedUpdateDefaultData()
+		{
+			return false;
 		}
 
         public Favorites GetItemForId(int id)
@@ -43,6 +48,26 @@ namespace TranslateHelper.Core
             DAL.Repository<Favorites> repos = new TranslateHelper.Core.DAL.Repository<Favorites>();
             return new List<Favorites>(repos.GetItems());
         }
-    }
+
+		public TranslateResultIndexedCollection<TranslateResult> GetItemsForFavoritesList()
+		{
+			TranslateResultIndexedCollection<TranslateResult> result = new TranslateResultIndexedCollection<TranslateResult> ();
+			TranslatedExpressionManager transExprManager = new TranslatedExpressionManager ();
+			DefinitionTypesManager defTypesManager = new DefinitionTypesManager ();
+			var test = defTypesManager.GetItemForId (0);
+			var transExprItems = transExprManager.GetItems ();
+			var resultView = from favItem in GetItems() join transExprItem in transExprItems on favItem.TranslatedExpressionID equals transExprItem.ID 
+				select new TranslateResult(){
+				OriginalText = transExprItem.SourceExpressionID.ToString(), 
+				TranslatedText = transExprItem.TranslatedText, 
+				Ts = transExprItem.TranscriptionText, 
+				Pos = "test",
+				TranslatedExpressionId = transExprItem.ID,
+				FavoritesId = favItem.ID
+			};
+			result.AddList (resultView.ToList ());
+			return result;
+		}
+	}
 }
 

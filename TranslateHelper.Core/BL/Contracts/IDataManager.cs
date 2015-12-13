@@ -4,7 +4,7 @@ namespace TranslateHelper.Core.Bl.Contracts
 {
     interface IDataManager<T>
     {
-        void CreateDefaultData();
+        void InitDefaultData();
         T GetItemForId(int Id);
     }
 }

@@ -43,9 +43,13 @@ namespace TranslateHelper.Droid
 
             listView.FastScrollEnabled = true;
 
-            var data = new TranslateResultIndexedCollection<TranslateResult>();
-			foreach (var c in COUNTRIES) data.Add(new TranslateResult() { OriginalText=c, TranslatedText="Перевод слова", Ts="Транскрипция", Pos="Существительное"});
-            var sortedContacts = data.GetSortedData();
+			FavoritesManager favManager = new FavoritesManager ();
+			var translateResultIdxCollection = favManager.GetItemsForFavoritesList ();
+
+			//TranslateResultIndexedCollection<TranslateResult> translateResultIdxCollection = new TranslateResultIndexedCollection<TranslateResult>();
+
+			//foreach (var c in COUNTRIES) data.Add(new TranslateResult() { OriginalText=c, TranslatedText="Перевод слова", Ts="Транскрипция", Pos="Существительное"});
+			var sortedContacts = translateResultIdxCollection.GetSortedData();
             listView.Adapter = CreateAdapter(sortedContacts);
 
 
@@ -58,7 +62,7 @@ namespace TranslateHelper.Droid
             {
                 var section = e.Value;
                 var label = e.Key + "(" + section.Count.ToString() + ")";
-                adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.FavoritesSectionListItem, section));
+				adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
             }
             return adapter;
         }

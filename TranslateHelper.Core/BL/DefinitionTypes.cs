@@ -12,8 +12,9 @@ namespace TranslateHelper.Core
 		public DefinitionTypes()
 		{
 		}
-		[PrimaryKey, AutoIncrement]
+		[PrimaryKey, Indexed]
 		public int ID { get; set; }
+		[Indexed]
 		public int DeleteMark { get; set; }
 		[Indexed]
 		public string Name { get; set; }

@@ -36,7 +36,7 @@ namespace TranslateHelper.Droid
 			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
 			//base.ActionBar.Hide ();
 			SetContentView (Resource.Layout.Dictionary);
-
+			InitDbIfRequired();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
@@ -238,6 +238,15 @@ namespace TranslateHelper.Droid
             t.SetGravity(GravityFlags.Center, 0, 0);
             t.Show();
         }
+
+		void InitDbIfRequired ()
+		{
+			Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
+			managerProvider.InitDefaultData ();
+
+			Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
+			managerTypes.InitDefaultData ();
+		}
 
     }
 }

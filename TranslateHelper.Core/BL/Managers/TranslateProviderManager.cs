@@ -10,15 +10,18 @@ namespace TranslateHelper.Core
 		{
 		}
 
-		public void CreateDefaultData ()
+		public void InitDefaultData ()
 		{
 			DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider> ();
-			TranslateProvider[] providersList = new TranslateProvider[] {
-				new TranslateProvider (){ Name = "Yandex" }, 
-				new TranslateProvider (){ Name = "Google" },
-				new TranslateProvider (){ Name = "Offline" }, 
-			};
-			repos.SaveItemsInTransaction (providersList);
+			TranslateProvider[] data = getDefaultData ();
+			if(GetItems().Count != data.Length)
+				repos.SaveItemsInTransaction (data);
+
+		}
+
+		public bool NeedUpdateDefaultData()
+		{
+			return true;
 		}
 
         public TranslateProvider GetItemForId(int Id)
@@ -32,6 +35,17 @@ namespace TranslateHelper.Core
 		{
 			DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider> ();
 			return new List<TranslateProvider> (repos.GetItems ());
+		}
+
+		private TranslateProvider[] getDefaultData()
+		{
+			TranslateProvider[] providersList = new TranslateProvider[] {
+				new TranslateProvider (){ Name = "Yandex", ID = 1 }, 
+				new TranslateProvider (){ Name = "Google", ID = 2 },
+				new TranslateProvider (){ Name = "Offline", ID = 3 }, 
+			};
+
+			return providersList;
 		}
 	}
 }

@@ -48,6 +48,7 @@ namespace TranslateHelper.Core.DAL
 		{
 			return SqlLiteInstance.DB.DeleteItem<T> (id);
 		}
+
 	}
 }
 
