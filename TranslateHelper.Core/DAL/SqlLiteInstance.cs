@@ -26,6 +26,11 @@ namespace TranslateHelper.Core.DAL
             // instantiate the database 
             db = new TranslateHelper.Core.DL.SqlLiteHelper(dbLocation);
 
+            Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
+            managerTypes.InitDefaultData ();
+
+            Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
+            managerProvider.InitDefaultData ();
         }
 
         public static string DatabaseFilePath

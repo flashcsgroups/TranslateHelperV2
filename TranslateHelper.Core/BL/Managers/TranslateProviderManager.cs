@@ -15,13 +15,10 @@ namespace TranslateHelper.Core
 			DAL.Repository<TranslateProvider> repos = new TranslateHelper.Core.DAL.Repository<TranslateProvider> ();
 			TranslateProvider[] data = getDefaultData ();
 			if(GetItems().Count != data.Length)
-				repos.SaveItemsInTransaction (data);
-
-		}
-
-		public bool NeedUpdateDefaultData()
-		{
-			return true;
+            {
+                repos.DeleteAllDataInTable();
+                repos.AddItemsInTransaction(data);
+            }			
 		}
 
         public TranslateProvider GetItemForId(int Id)
@@ -40,10 +37,11 @@ namespace TranslateHelper.Core
 		private TranslateProvider[] getDefaultData()
 		{
 			TranslateProvider[] providersList = new TranslateProvider[] {
-				new TranslateProvider (){ Name = "Yandex", ID = 1 }, 
-				new TranslateProvider (){ Name = "Google", ID = 2 },
-				new TranslateProvider (){ Name = "Offline", ID = 3 }, 
-			};
+                new TranslateProvider (){ Name = "Offline", ID=0}, 
+				new TranslateProvider (){ Name = "Google", ID=10},
+				new TranslateProvider (){ Name = "Yandex", ID=11},
+                new TranslateProvider (){ Name = "Bing", ID=12},
+            };
 
 			return providersList;
 		}

@@ -50,7 +50,13 @@ namespace TranslateHelper.Core.BL.Contracts
 
         public string Label
         {
-            get { return OriginalText[0].ToString(); }
+            get
+            {
+                string label = string.Empty;
+                if (!string.IsNullOrEmpty(OriginalText))
+                    label = OriginalText[0].ToString();
+                return label;
+            }
         }
 
     }

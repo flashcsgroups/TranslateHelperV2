@@ -20,12 +20,8 @@ namespace TranslateHelper.Core
 			var currentData = GetItems ();
 			if (currentData.Count != data.Length) 
 			{
-				foreach (var item in currentData) 
-				{
-					repos.Delete (item.ID);
-				}
-				repos.SaveItemsInTransaction (data);
-				//Delete from TableName
+                repos.DeleteAllDataInTable();
+				repos.AddItemsInTransaction (data);
 			}
 		}
 			
@@ -50,14 +46,10 @@ namespace TranslateHelper.Core
 		private DefinitionTypes[] getDefaultData()
 		{
 			DefinitionTypes[] defTypesList = new DefinitionTypes[] {
-				/*new DefinitionTypes (){ Name = "noun", ID = 1, DeleteMark = 0 }, 
-				new DefinitionTypes (){ Name = "verb", ID = 2, DeleteMark = 0 },
-				new DefinitionTypes (){ Name = "adjective", ID = 3, DeleteMark = 0 },
-				new DefinitionTypes (){ Name = "adverb", ID = 4, DeleteMark = 0 },*/
-				new DefinitionTypes (){ Name = "noun", ID = 100 }, 
-				new DefinitionTypes (){ Name = "verb", ID = 101},
-				new DefinitionTypes (){ Name = "adjective", ID = 102},
-				new DefinitionTypes (){ Name = "adverb", ID = 103},
+				new DefinitionTypes (){ Name = "noun", ID = 0}, 
+				new DefinitionTypes (){ Name = "verb", ID = 1},
+				new DefinitionTypes (){ Name = "adjective", ID = 2},
+				new DefinitionTypes (){ Name = "adverb", ID = 3},
 			};
 			return defTypesList;
 		}

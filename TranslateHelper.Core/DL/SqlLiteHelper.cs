@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using TranslateHelper.Core.BL;
 using SQLite;
+using System;
 
 namespace TranslateHelper.Core.DL
 {
@@ -14,14 +15,14 @@ namespace TranslateHelper.Core.DL
 	{
 		static object locker = new object ();
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Tasky.DL.TaskDatabase"/> TaskDatabase. 
-		/// if the database doesn't exist, it will create the database and all the tables.
-		/// </summary>
-		/// <param name='path'>
-		/// Path.
-		/// </param>
-		public SqlLiteHelper (string path) : base (path)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Tasky.DL.TaskDatabase"/> TaskDatabase. 
+        /// if the database doesn't exist, it will create the database and all the tables.
+        /// </summary>
+        /// <param name='path'>
+        /// Path.
+        /// </param>
+        public SqlLiteHelper (string path) : base (path)
 		{
 			// create the tables
 			CreateTable<TranslateProvider> ();
@@ -30,10 +31,9 @@ namespace TranslateHelper.Core.DL
 			CreateTable<SourceExpression> ();
             CreateTable<TranslatedExpression>();
             CreateTable<DefinitionTypes>();
+        }
 
-		}
-
-		public IEnumerable<T> GetItems<T> () where T : BL.Contracts.IBusinessEntity, new()
+        public IEnumerable<T> GetItems<T> () where T : BL.Contracts.IBusinessEntity, new()
 		{
 			lock (locker) {
 				//return (from i in Table<T> ().Where(i=>i.ID > 8) select i).ToList ();
@@ -52,7 +52,15 @@ namespace TranslateHelper.Core.DL
 			}
 		}
 
-		public int SaveItem<T> (T item) where T : BL.Contracts.IBusinessEntity
+        public int InsertItem<T>(T item) where T : BL.Contracts.IBusinessEntity
+        {
+            lock (locker)
+            {
+                return Insert(item);
+            }
+        }
+
+        public int SaveItem<T> (T item) where T : BL.Contracts.IBusinessEntity
 		{
 			lock (locker) {
 				if (item.ID != 0) {

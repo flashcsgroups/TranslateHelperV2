@@ -6,9 +6,12 @@ namespace TranslateHelper.Core
 {
 	public class TranslatedExpression : IBusinessEntity
 	{
+        //ToDo: добавить геттер для свойств публичных
 		public TranslatedExpression ()
 		{
-		}
+            TranslatedText = string.Empty;
+            TranscriptionText = string.Empty;
+        }
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }

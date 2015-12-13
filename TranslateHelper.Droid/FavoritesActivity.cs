@@ -61,7 +61,7 @@ namespace TranslateHelper.Droid
             foreach (var e in sortedObjects.OrderBy(de => de.Key))
             {
                 var section = e.Value;
-                var label = e.Key + "(" + section.Count.ToString() + ")";
+                var label = e.Key.Trim().Length>0?e.Key.ToUpper():"Ошибки" + " (" + section.Count.ToString() + ")";
 				adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
             }
             return adapter;
@@ -69,7 +69,7 @@ namespace TranslateHelper.Droid
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
+            //MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
 
             /*IMenuItem menuItem = menu.FindItem(Resource.Id.menu_delete_task);
             menuItem.SetTitle(task.ID == 0 ? "Cancel" : "Delete");

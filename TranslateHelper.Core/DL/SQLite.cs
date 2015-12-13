@@ -212,7 +212,28 @@ namespace SQLite {
 
             return count;
         }
-			
+
+        public int DeleteDataInTable<T>()
+        {
+            var ty = typeof(T);
+
+            if (_tables == null)
+            {
+                _tables = new Dictionary<string, TableMapping>();
+            }
+            TableMapping map;
+            if (!_tables.TryGetValue(ty.FullName, out map))
+            {
+                map = GetMapping(ty);
+                _tables.Add(ty.FullName, map);
+            }
+            var query = "delete from " + map.TableName;
+
+            var count = Execute(query);
+
+            return count;
+        }
+
         public class TableInfo {
             public int cid { get; set; }
 

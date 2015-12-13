@@ -21,26 +21,20 @@ using TranslateHelper.Core.Helpers;
 
 namespace TranslateHelper.Droid
 {
-
-
-    //[Activity (Label = "Dictionary", Icon = "@drawable/icon", Theme = "@style/MyTheme")]
-    //[Activity(Label = "Dictionary", Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light")]
-    [Activity (Label = "Помощник переводчика", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+    [Activity (Label = "Translate helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
         List<TranslateResult> items;
 
         protected override void OnCreate (Bundle bundle)
 		{
-			base.OnCreate (bundle);
+            base.OnCreate (bundle);
 			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
-			//base.ActionBar.Hide ();
 			SetContentView (Resource.Layout.Dictionary);
-			InitDbIfRequired();
+			
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
-			//ImageButton buttonNewBottom = FindViewById<ImageButton> (Resource.Id.buttonNewBottom);
 			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
 			ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 
@@ -52,46 +46,13 @@ namespace TranslateHelper.Droid
 					clearTraslatedRegion();
 				}
 			};
-			/*buttonNewBottom.Click += (object sender, EventArgs e) => {
-				{
-					editSourceText.Text = string.Empty;
-					clearTraslatedRegion();
-				}
-			};*/
 
             //ToDo:Поправить жесткий копипаст
             buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
-                string sourceText = editSourceText.Text.Trim().Replace('\n', ' ').ToLower();
-                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
-                var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                if (resultFromCache.translateResult.Collection.Count > 0)
+                string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
+                if(sourceText.Length > 0)
                 {
-                    UpdateListResults(sourceText, resultFromCache, false);
-                }
-                else
-                {
-                    IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
-                    var resultDict = await translaterDict.Translate(sourceText, "en-ru");
-                    if (resultDict.translateResult.Collection.Count > 0)
-                    {
-                        UpdateListResults(sourceText, resultDict, true);
-                    }
-                    else
-                    {
-                        IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
-                        var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
-                        UpdateListResults(sourceText, resultTrans, true);
-                    }
-                }
-            };
-
-            //ToDo:Поправить жесткий копипаст
-			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
-                
-                if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ()))) {
-                    //ToDo:убрать перевод строки в контроле
-                    string sourceText = editSourceText.Text.Trim().Replace('\n', ' ').ToLower();
                     IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                     var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
                     if (resultFromCache.translateResult.Collection.Count > 0)
@@ -111,6 +72,39 @@ namespace TranslateHelper.Droid
                             IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
                             var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
                             UpdateListResults(sourceText, resultTrans, true);
+                        }
+                    }
+                }
+            };
+
+            //ToDo:Поправить жесткий копипаст
+			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
+                
+                if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ()))) {
+                    //ToDo:убрать перевод строки в контроле
+                    string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
+                    if (sourceText.Length > 0)
+                    {
+                        IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+                        var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
+                        if (resultFromCache.translateResult.Collection.Count > 0)
+                        {
+                            UpdateListResults(sourceText, resultFromCache, false);
+                        }
+                        else
+                        {
+                            IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
+                            var resultDict = await translaterDict.Translate(sourceText, "en-ru");
+                            if (resultDict.translateResult.Collection.Count > 0)
+                            {
+                                UpdateListResults(sourceText, resultDict, true);
+                            }
+                            else
+                            {
+                                IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
+                                var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
+                                UpdateListResults(sourceText, resultTrans, true);
+                            }
                         }
                     }
                 }
@@ -238,15 +232,6 @@ namespace TranslateHelper.Droid
             t.SetGravity(GravityFlags.Center, 0, 0);
             t.Show();
         }
-
-		void InitDbIfRequired ()
-		{
-			Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
-			managerProvider.InitDefaultData ();
-
-			Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
-			managerTypes.InitDefaultData ();
-		}
 
     }
 }

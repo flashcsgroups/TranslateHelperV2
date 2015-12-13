@@ -12,7 +12,7 @@ namespace TranslateHelper.Core
 		public DefinitionTypes()
 		{
 		}
-		[PrimaryKey, Indexed]
+		[PrimaryKey]
 		public int ID { get; set; }
 		[Indexed]
 		public int DeleteMark { get; set; }

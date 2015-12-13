@@ -54,17 +54,21 @@ namespace TranslateHelper.Core
 			TranslateResultIndexedCollection<TranslateResult> result = new TranslateResultIndexedCollection<TranslateResult> ();
 			TranslatedExpressionManager transExprManager = new TranslatedExpressionManager ();
 			DefinitionTypesManager defTypesManager = new DefinitionTypesManager ();
+            SourceExpressionManager sourceManager = new SourceExpressionManager();
 			var test = defTypesManager.GetItemForId (0);
 			var transExprItems = transExprManager.GetItems ();
-			var resultView = from favItem in GetItems() join transExprItem in transExprItems on favItem.TranslatedExpressionID equals transExprItem.ID 
-				select new TranslateResult(){
-				OriginalText = transExprItem.SourceExpressionID.ToString(), 
-				TranslatedText = transExprItem.TranslatedText, 
-				Ts = transExprItem.TranscriptionText, 
-				Pos = "test",
-				TranslatedExpressionId = transExprItem.ID,
-				FavoritesId = favItem.ID
-			};
+            var resultView = from favItem in GetItems()
+                             join transExprItem in transExprItems on favItem.TranslatedExpressionID
+                             equals transExprItem.ID 
+				select new TranslateResult()
+                {
+				    OriginalText = sourceManager.GetItemForId(transExprItem.SourceExpressionID).Text, 
+				    TranslatedText = transExprItem.TranslatedText, 
+				    Ts = transExprItem.TranscriptionText, 
+				    Pos = defTypesManager.GetItemForId(transExprItem.DefinitionTypeID).Name,
+				    TranslatedExpressionId = transExprItem.ID,
+				    FavoritesId = favItem.ID
+			    };
 			result.AddList (resultView.ToList ());
 			return result;
 		}
