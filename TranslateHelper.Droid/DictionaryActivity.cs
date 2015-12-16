@@ -50,8 +50,9 @@ namespace TranslateHelper.Droid
             //ToDo:Поправить жесткий копипаст
             buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
-                string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
-                if(sourceText.Length > 0)
+                //string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
+                string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
+                if (sourceText.Length > 0)
                 {
                     IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                     var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
@@ -82,7 +83,8 @@ namespace TranslateHelper.Droid
                 
                 if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ()))) {
                     //ToDo:убрать перевод строки в контроле
-                    string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
+                    //string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
+                    string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
                     if (sourceText.Length > 0)
                     {
                         IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
@@ -112,8 +114,7 @@ namespace TranslateHelper.Droid
 
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
                 var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResult>();
-                string sourceText = editSourceText.Text.Trim().Replace('\n', ' ');//ToDo:Убрать копи паст
-                AddToFavorites(sourceText, item);
+                AddToFavorites(ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text), item);
 			};
 
 			clearTraslatedRegion ();

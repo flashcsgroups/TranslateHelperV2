@@ -1,15 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using TranslateHelper.Core.WS;
-using System.Resources;
-using System.Reflection;
 
-namespace TranslateHelper.Core.Tests
+namespace TranslateHelper.Core.UnitTests
 {
-    /*[TestClass]
+    [TestFixture]
     public class ParseResponseTests
     {
-        [TestMethod]
+        [Test]
         public void TestMust_CheckCountResultLinesForWord_Grow()
         {
             //arrange
@@ -23,7 +21,7 @@ namespace TranslateHelper.Core.Tests
             Assert.AreEqual(result.Collection.Count, 9);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMust_CheckSomeResultLinesForWord_Grow()
         {
             //arrange
@@ -45,7 +43,7 @@ namespace TranslateHelper.Core.Tests
             Assert.AreEqual(result.Collection[5].SynonymsCollection.Count, 0);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMust_CheckCountResultLinesForIncorrectWord()
         {
             //arrange
@@ -58,5 +56,5 @@ namespace TranslateHelper.Core.Tests
             //assert
             Assert.AreEqual(result.Collection.Count, 0);
         }
-    }*/
+    }
 }

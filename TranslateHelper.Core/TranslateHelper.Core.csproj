@@ -59,6 +59,7 @@
     <Compile Include="BL\Managers\DefinitionTypesManager.cs" />
     <Compile Include="BL\Language.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
+    <Compile Include="Helpers\ConvertStrings.cs" />
     <Compile Include="Helpers\JavaCastToCLRHelper.cs" />
     <Compile Include="WS\TypeTranslateServices.cs" />
     <Compile Include="WS\LocalDatabaseCache.cs" />

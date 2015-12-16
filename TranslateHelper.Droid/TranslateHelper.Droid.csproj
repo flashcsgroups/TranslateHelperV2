@@ -55,6 +55,9 @@
     <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TranslateHelper.Core\Helpers\ConvertStrings.cs">
+      <Link>Helpers\ConvertStrings.cs</Link>
+    </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\TranslateHelper.Core\BL\Direction.cs">
