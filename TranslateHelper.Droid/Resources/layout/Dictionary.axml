@@ -20,7 +20,7 @@
             android:hint="Исходный язык"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Английский"
+            android:text="XXXHDPI"
             android:textSize="5sp"
             android:editable="false" />
         <ImageButton
