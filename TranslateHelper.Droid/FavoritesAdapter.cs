@@ -9,9 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using TranslateHelper.Core;
-using TranslateHelper.Core.BL.Contracts;
-using TranslateHelper.Core.Helpers;
+using PortableCore;
+using PortableCore.BL.Contracts;
+using PortableCore.Helpers;
+using Droid.Core;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid
 {

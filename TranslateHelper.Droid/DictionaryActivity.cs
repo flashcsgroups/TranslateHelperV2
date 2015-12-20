@@ -14,10 +14,11 @@ using System.Json;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
-using TranslateHelper.Core.WS;
-using TranslateHelper.Core.BL.Contracts;
-using TranslateHelper.Core;
-using TranslateHelper.Core.Helpers;
+using Droid.Core.Helpers;
+using PortableCore.BL.Contracts;
+using PortableCore.WS;
+using PortableCore.Helpers;
+using PortableCore;
 
 namespace TranslateHelper.Droid
 {
@@ -166,7 +167,7 @@ namespace TranslateHelper.Droid
         {
             if(resultList.Count > 0)
             {
-                Core.TranslatedExpressionManager manager = new Core.TranslatedExpressionManager();
+                TranslatedExpressionManager manager = new TranslatedExpressionManager();
                 //ToDo:передавать дерево результатов
                 manager.AddNewWord(sourceText, resultList);
             }
@@ -174,16 +175,16 @@ namespace TranslateHelper.Droid
 
         private async void AddToFavorites(string sourceText, TranslateResult result)
         {
-            Core.SourceExpressionManager sourceExprManager = new SourceExpressionManager();
+            SourceExpressionManager sourceExprManager = new SourceExpressionManager();
             IEnumerable<SourceExpression> sourceEnumerator = sourceExprManager.GetItemsForText(sourceText);
             List<SourceExpression> listSourceExpr = sourceEnumerator.ToList<SourceExpression>();
             if (listSourceExpr.Count > 0)
             {
                 int sourceId = listSourceExpr[0].ID;
-                Core.TranslatedExpressionManager transExprManager = new Core.TranslatedExpressionManager();
+                TranslatedExpressionManager transExprManager = new TranslatedExpressionManager();
                 IEnumerable<TranslatedExpression> transEnumerator = transExprManager.GetTranslateResultFromLocalCache(sourceId);
                 var transExprItem = transEnumerator.Where(item => item.TranslatedText == result.TranslatedText).Single<TranslatedExpression>();
-                Core.FavoritesManager favoritesManager = new FavoritesManager();
+                FavoritesManager favoritesManager = new FavoritesManager();
                 favoritesManager.AddNewWord(transExprItem.ID);
                 Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
 

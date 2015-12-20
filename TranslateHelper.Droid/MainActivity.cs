@@ -11,7 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Org.Json;
-using Core = TranslateHelper.Core;
+using Core = PortableCore;
 
 namespace TranslateHelper.Droid
 {

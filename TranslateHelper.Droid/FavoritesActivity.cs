@@ -10,8 +10,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using TranslateHelper.Core;
-using TranslateHelper.Core.BL.Contracts;
+using PortableCore;
+using PortableCore.BL.Contracts;
 
 namespace TranslateHelper.Droid
 {

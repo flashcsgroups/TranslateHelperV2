@@ -26,6 +26,8 @@ namespace TranslateHelper.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Droid.Core.Resource.String.ApplicationName = global::TranslateHelper.Droid.Resource.String.ApplicationName;
+			global::Droid.Core.Resource.String.Hello = global::TranslateHelper.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -44,32 +46,32 @@ namespace TranslateHelper.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ab_white = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int ab_white = 2131034113;
 			
-			// aapt resource value: 0x7f040005
-			public const int black = 2130968581;
+			// aapt resource value: 0x7f050005
+			public const int black = 2131034117;
 			
-			// aapt resource value: 0x7f040003
-			public const int blue_background = 2130968579;
+			// aapt resource value: 0x7f050003
+			public const int blue_background = 2131034115;
 			
-			// aapt resource value: 0x7f040007
-			public const int grey = 2130968583;
+			// aapt resource value: 0x7f050007
+			public const int grey = 2131034119;
 			
-			// aapt resource value: 0x7f040006
-			public const int lightgrey = 2130968582;
+			// aapt resource value: 0x7f050006
+			public const int lightgrey = 2131034118;
 			
-			// aapt resource value: 0x7f040002
-			public const int red_background = 2130968578;
+			// aapt resource value: 0x7f050002
+			public const int red_background = 2131034114;
 			
-			// aapt resource value: 0x7f040004
-			public const int transparent = 2130968580;
+			// aapt resource value: 0x7f050004
+			public const int transparent = 2131034116;
 			
-			// aapt resource value: 0x7f040008
-			public const int white = 2130968584;
+			// aapt resource value: 0x7f050008
+			public const int white = 2131034120;
 			
-			// aapt resource value: 0x7f040000
-			public const int white1 = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int white1 = 2131034112;
 			
 			static Color()
 			{
@@ -106,46 +108,49 @@ namespace TranslateHelper.Droid
 			public const int list = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int right = 2130837511;
+			public const int monoandroidsplash = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int rigth2 = 2130837512;
+			public const int right = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int settings = 2130837513;
+			public const int rigth2 = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int v2addtofavorites = 2130837514;
+			public const int settings = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int v2alreadyaddedtofav = 2130837515;
+			public const int v2addtofavorites = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int v2change = 2130837516;
+			public const int v2alreadyaddedtofav = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int v2cleartext = 2130837517;
+			public const int v2change = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int v2search = 2130837518;
+			public const int v2cleartext = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int v2settings = 2130837519;
+			public const int v2search = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int v2testing = 2130837520;
+			public const int v2settings = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int v3addtofavorites = 2130837521;
+			public const int v2testing = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int v3alreadyaddedtofav = 2130837522;
+			public const int v3addtofavorites = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int v3cleartext = 2130837523;
+			public const int v3alreadyaddedtofav = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int v3search = 2130837524;
+			public const int v3cleartext = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int v3search = 2130837525;
 			
 			static Drawable()
 			{
@@ -328,11 +333,17 @@ namespace TranslateHelper.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int app_name = 2131034113;
+			// aapt resource value: 0x7f040001
+			public const int ApplicationName = 2130968577;
 			
-			// aapt resource value: 0x7f050000
-			public const int hello = 2131034112;
+			// aapt resource value: 0x7f040000
+			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int app_name = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int hello = 2130968578;
 			
 			static String()
 			{
@@ -349,6 +360,9 @@ namespace TranslateHelper.Droid
 			
 			// aapt resource value: 0x7f060002
 			public const int MainButton = 2131099650;
+			
+			// aapt resource value: 0x7f060003
+			public const int Mono_Android_Theme_Splash = 2131099651;
 			
 			// aapt resource value: 0x7f060001
 			public const int MyActionBar = 2131099649;

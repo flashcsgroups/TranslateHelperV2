@@ -49,47 +49,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\TranslateHelper.Core\Helpers\ConvertStrings.cs">
-      <Link>Helpers\ConvertStrings.cs</Link>
-    </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\TranslateHelper.Core\BL\Direction.cs">
-      <Link>BL\Direction.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Favorites.cs">
-      <Link>BL\Favorites.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\SourceExpression.cs">
-      <Link>BL\SourceExpression.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\TranslateProvider.cs">
-      <Link>BL\TranslateProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\TranslatedExpression.cs">
-      <Link>BL\TranslatedExpression.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IBusinessEntity.cs">
-      <Link>BL\Contracts\IBusinessEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\TranslateProviderManager.cs">
-      <Link>BL\Managers\TranslateProviderManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DAL\Repository.cs">
-      <Link>DAL\Repository.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DL\SQLite.cs">
-      <Link>DL\SQLite.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DL\SqlLiteHelper.cs">
-      <Link>DL\SqlLiteHelper.cs</Link>
-    </Compile>
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -97,72 +67,6 @@
     <Compile Include="FavoritesAdapter.cs" />
     <Compile Include="TranslateResultAdapter.cs" />
     <Compile Include="TranslateServiceResult.cs" />
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IRequestDictionary.cs">
-      <Link>BL\Contracts\IRequestDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IRequestTranslateString.cs">
-      <Link>BL\Contracts\IRequestTranslateString.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\TranslateServiceResult.cs">
-      <Link>WS\TranslateServiceResult.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\TranslateRequest.cs">
-      <Link>WS\TranslateRequest.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateRequestFactory.cs">
-      <Link>BL\Contracts\TranslateRequestFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\YandexTranslateJSON.cs">
-      <Link>WS\YandexTranslateJSON.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\YandexDictionaryJSON.cs">
-      <Link>WS\YandexDictionaryJSON.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateResultCollection.cs">
-      <Link>BL\Contracts\TranslateResultCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\TypeTranslateServices.cs">
-      <Link>WS\TypeTranslateServices.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\DataManager.cs">
-      <Link>BL\Contracts\DataManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IDataManager.cs">
-      <Link>BL\Contracts\IDataManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\DefinitionTypesManager.cs">
-      <Link>BL\Managers\DefinitionTypesManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\DefinitionTypes.cs">
-      <Link>BL\DefinitionTypes.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Language.cs">
-      <Link>BL\Language.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DAL\SqlLiteInstance.cs">
-      <Link>DAL\SqlLiteInstance.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\TranslatedExpressionManager.cs">
-      <Link>BL\Managers\TranslatedExpressionManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\FavoritesManager.cs">
-      <Link>BL\Managers\FavoritesManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\SourceExpressionManager.cs">
-      <Link>BL\Managers\SourceExpressionManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\LocalDatabaseCache.cs">
-      <Link>WS\LocalDatabaseCache.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\Helpers\JavaCastToCLRHelper.cs">
-      <Link>Helpers\JavaCastToCLRHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IHasLabel.cs">
-      <Link>BL\Contracts\IHasLabel.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateResultIndexedCollection.cs">
-      <Link>BL\Contracts\TranslateResultIndexedCollection.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -261,4 +165,14 @@
     <AndroidResource Include="Resources\drawable\v3search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Droid.Core\Droid.Core.csproj">
+      <Project>{cd149dc2-f753-4143-a3e5-03e7974c31cf}</Project>
+      <Name>Droid.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PortableCore\PortableCore\PortableCore.csproj">
+      <Project>{A94D5121-54C4-44E9-8E0D-5836B23EF2BF}</Project>
+      <Name>PortableCore</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
