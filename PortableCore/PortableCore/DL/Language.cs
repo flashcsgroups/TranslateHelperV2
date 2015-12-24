@@ -2,7 +2,7 @@ using System;
 using PortableCore.BL.Contracts;
 using SQLite;
 
-namespace PortableCore
+namespace PortableCore.DL
 {
     //Todo: не используется, решить нужен или нет
     public class Language : IBusinessEntity

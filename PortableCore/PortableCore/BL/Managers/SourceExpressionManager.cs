@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
-using PortableCore.BL.Contracts;
-using PortableCore.DAL;
+using PortableCore.DL;
+using PortableCore.Core.DAL;
 
-namespace PortableCore
+namespace PortableCore.BL.Managers
 {
 	public class SourceExpressionManager : IDataManager<SourceExpression>
     {
@@ -26,8 +26,8 @@ namespace PortableCore
 
         public IEnumerable<SourceExpression> GetItemsForText(string text)
         {
-            throw new Exception("not realized");
-            //return SqlLiteInstance.DB.Table<SourceExpression>().ToList().Where(item => item.Text == text);
+            var conn = SqlLiteInstance.DB;
+            return conn.Table<SourceExpression>().ToList().Where(item => item.Text == text);
         }
     }
 }

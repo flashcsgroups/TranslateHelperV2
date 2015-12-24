@@ -1,12 +1,9 @@
-using System;
-using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using PortableCore.BL.Contracts;
-using PortableCore.WS;
+using PortableCore.BL.Managers;
+using PortableCore.DL;
 
 namespace PortableCore.WS
 {

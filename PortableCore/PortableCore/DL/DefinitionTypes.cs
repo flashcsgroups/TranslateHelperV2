@@ -2,7 +2,7 @@
 using PortableCore.BL.Contracts;
 using SQLite;
 
-namespace PortableCore
+namespace PortableCore.DL
 {
     /// <summary>
     /// Типы частей речи - существительные, глаголы, прилагательные и т.д.

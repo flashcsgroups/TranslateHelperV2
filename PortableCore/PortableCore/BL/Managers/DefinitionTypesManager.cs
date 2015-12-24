@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
-using PortableCore.BL.Contracts;
-using PortableCore.DAL;
+using PortableCore.DL;
 
-namespace PortableCore
+namespace PortableCore.BL.Managers
 {
 	public class DefinitionTypesManager : IDataManager<DefinitionTypes>
     {
@@ -20,8 +19,8 @@ namespace PortableCore
 			var currentData = GetItems ();
 			if (currentData.Count != data.Length) 
 			{
-                repos.DeleteAllDataInTable();
-				repos.AddItemsInTransaction (data);
+                //repos.DeleteAllDataInTable();
+				//repos.AddItemsInTransaction (data);
 			}
 		}
 			

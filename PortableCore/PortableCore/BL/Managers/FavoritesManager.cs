@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
-using PortableCore.BL.Contracts;
-using PortableCore.DAL;
+using PortableCore.DL;
 
-namespace PortableCore
+namespace PortableCore.BL.Managers
 {
 	public class FavoritesManager : IDataManager<Favorites>
     {
@@ -31,12 +30,11 @@ namespace PortableCore
 
         public Favorites GetItemForTranslatedExpressionId(int translatedExpressionId)
         {
-            throw new Exception("not realized");
-            /*Favorites transExprItem = SqlLiteInstance.DB.Table<Favorites>().ToList().Where(item => item.TranslatedExpressionID == translatedExpressionId).FirstOrDefault();
-            return transExprItem;*/
+            Favorites transExprItem = Core.DAL.SqlLiteInstance.DB.Table<Favorites>().ToList().Where(item => item.TranslatedExpressionID == translatedExpressionId).FirstOrDefault();
+            return transExprItem;
         }
 
-        public void AddNewWord(int translatedExpressionId)
+        private void AddWord(int translatedExpressionId)
         {
             DAL.Repository<Favorites> reposFavorites = new PortableCore.DAL.Repository<Favorites>();
             Favorites itemFavorites = new Favorites();
@@ -73,6 +71,34 @@ namespace PortableCore
 			result.AddList (resultView.ToList ());
 			return result;
 		}
-	}
+
+        public void AddWordToFavorites(string sourceText, TranslateResult result)
+        {
+            SourceExpressionManager sourceExprManager = new SourceExpressionManager();
+            IEnumerable<SourceExpression> sourceEnumerator = sourceExprManager.GetItemsForText(sourceText);
+            List<SourceExpression> listSourceExpr = sourceEnumerator.ToList<SourceExpression>();
+            if (listSourceExpr.Count > 0)
+            {
+                int sourceId = listSourceExpr[0].ID;
+                TranslatedExpressionManager transExprManager = new TranslatedExpressionManager();
+                IEnumerable<TranslatedExpression> transEnumerator = transExprManager.GetTranslateResultFromLocalCache(sourceId);
+                var transExprItem = transEnumerator.Where(item => item.TranslatedText == result.TranslatedText).Single<TranslatedExpression>();
+                FavoritesManager favoritesManager = new FavoritesManager();
+                favoritesManager.AddWord(transExprItem.ID);
+                /*Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
+
+                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+                EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
+                var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
+                if (resultFromCache.translateResult.Collection.Count > 0)
+                {
+                    UpdateListResults(sourceText, resultFromCache, false);
+                }*/
+
+            }
+        }
+
+
+    }
 }
 

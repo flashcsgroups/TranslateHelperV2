@@ -58,11 +58,11 @@ namespace TranslateHelper.Droid
 
 		void InitDbIfRequired ()
 		{
-			Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
+			/*Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
 			managerProvider.InitDefaultData ();
 
             Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
-			managerTypes.InitDefaultData ();
+			managerTypes.InitDefaultData ();*/
         }
 
         //http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/

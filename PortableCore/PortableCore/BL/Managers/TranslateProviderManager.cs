@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using PortableCore.DL;
 using PortableCore.BL.Contracts;
 
-namespace PortableCore
+namespace PortableCore.BL.Managers
 {
 	public class TranslateProviderManager : IDataManager<TranslateProvider>
     {

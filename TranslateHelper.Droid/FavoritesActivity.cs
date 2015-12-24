@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using PortableCore;
 using PortableCore.BL.Contracts;
+using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid
 {

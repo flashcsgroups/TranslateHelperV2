@@ -2,7 +2,7 @@
 using PortableCore.BL.Contracts;
 using SQLite;
 
-namespace PortableCore
+namespace PortableCore.DL
 {
 	public class SourceExpression : IBusinessEntity
 	{

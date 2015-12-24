@@ -2,17 +2,17 @@
 using PortableCore.BL.Contracts;
 using SQLite;
 
-namespace PortableCore
+namespace PortableCore.DL
 {
-	public class TranslateProvider : IBusinessEntity
+	public class Direction : IBusinessEntity
 	{
-		public TranslateProvider ()
+		public Direction ()
 		{
 		}
-		[PrimaryKey]
+		[PrimaryKey, AutoIncrement, Indexed]
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
-        [Indexed]
 		public string Name { get; set; }
+		public int ProviderID { get; set; }
 	}
 }

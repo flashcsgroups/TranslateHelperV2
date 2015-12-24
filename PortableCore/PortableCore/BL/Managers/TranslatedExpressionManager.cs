@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
-using PortableCore.BL.Contracts;
-using PortableCore.DAL;
+using PortableCore.DL;
 
-namespace PortableCore
+namespace PortableCore.BL.Managers
 {
 	public class TranslatedExpressionManager : IDataManager<TranslatedExpression>
     {

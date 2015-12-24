@@ -18,7 +18,9 @@ using Droid.Core.Helpers;
 using PortableCore.BL.Contracts;
 using PortableCore.WS;
 using PortableCore.Helpers;
-using PortableCore;
+using PortableCore.BL.Managers;
+//using PortableCore;
+//using PortableCore.DL;
 
 namespace TranslateHelper.Droid
 {
@@ -57,7 +59,7 @@ namespace TranslateHelper.Droid
                 {
                     IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                     var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                    if (resultFromCache.translateResult.Collection.Count > 0)
+                    /*if (resultFromCache.translateResult.Collection.Count > 0)
                     {
                         UpdateListResults(sourceText, resultFromCache, false);
                     }
@@ -75,12 +77,12 @@ namespace TranslateHelper.Droid
                             var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
                             UpdateListResults(sourceText, resultTrans, true);
                         }
-                    }
+                    }*/
                 }
             };
 
             //ToDo:Поправить жесткий копипаст
-			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
+			/*editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
                 
                 if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ()))) {
                     //ToDo:убрать перевод строки в контроле
@@ -111,7 +113,7 @@ namespace TranslateHelper.Droid
                         }
                     }
                 }
-            };
+            };*/
 
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
                 var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResult>();
@@ -175,27 +177,16 @@ namespace TranslateHelper.Droid
 
         private async void AddToFavorites(string sourceText, TranslateResult result)
         {
-            SourceExpressionManager sourceExprManager = new SourceExpressionManager();
-            IEnumerable<SourceExpression> sourceEnumerator = sourceExprManager.GetItemsForText(sourceText);
-            List<SourceExpression> listSourceExpr = sourceEnumerator.ToList<SourceExpression>();
-            if (listSourceExpr.Count > 0)
+            FavoritesManager favoritesManager = new FavoritesManager();
+            favoritesManager.AddWordToFavorites(sourceText, result);
+            Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
+
+            IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+            EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
+            var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
+            if (resultFromCache.translateResult.Collection.Count > 0)
             {
-                int sourceId = listSourceExpr[0].ID;
-                TranslatedExpressionManager transExprManager = new TranslatedExpressionManager();
-                IEnumerable<TranslatedExpression> transEnumerator = transExprManager.GetTranslateResultFromLocalCache(sourceId);
-                var transExprItem = transEnumerator.Where(item => item.TranslatedText == result.TranslatedText).Single<TranslatedExpression>();
-                FavoritesManager favoritesManager = new FavoritesManager();
-                favoritesManager.AddNewWord(transExprItem.ID);
-                Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
-
-                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
-                EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
-                var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                if (resultFromCache.translateResult.Collection.Count > 0)
-                {
-                    UpdateListResults(sourceText, resultFromCache, false);
-                }
-
+                UpdateListResults(sourceText, resultFromCache, false);
             }
         }
 

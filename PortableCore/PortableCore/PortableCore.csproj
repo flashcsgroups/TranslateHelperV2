@@ -40,19 +40,21 @@
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultCollection.cs" />
     <Compile Include="BL\Contracts\TranslateResultIndexedCollection.cs" />
-    <Compile Include="BL\DefinitionTypes.cs" />
-    <Compile Include="BL\Direction.cs" />
-    <Compile Include="BL\Favorites.cs" />
-    <Compile Include="BL\Language.cs" />
+    <Compile Include="DAL\SqlLiteInstance.cs" />
+    <Compile Include="DL\DefinitionTypes.cs" />
+    <Compile Include="DL\Direction.cs" />
+    <Compile Include="DL\Favorites.cs" />
+    <Compile Include="DL\Language.cs" />
     <Compile Include="BL\Managers\DefinitionTypesManager.cs" />
     <Compile Include="BL\Managers\FavoritesManager.cs" />
     <Compile Include="BL\Managers\SourceExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslatedExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslateProviderManager.cs" />
-    <Compile Include="BL\SourceExpression.cs" />
-    <Compile Include="BL\TranslatedExpression.cs" />
-    <Compile Include="BL\TranslateProvider.cs" />
+    <Compile Include="DL\SourceExpression.cs" />
+    <Compile Include="DL\TranslatedExpression.cs" />
+    <Compile Include="DL\TranslateProvider.cs" />
     <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DL\SqlLiteHelper.cs" />
     <Compile Include="Helpers\ConvertStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WS\LocalDatabaseCache.cs" />
@@ -64,9 +66,7 @@
     <Compile Include="WS\YandexTranslateJSON.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="DL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
