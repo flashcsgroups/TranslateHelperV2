@@ -27,7 +27,7 @@ namespace PortableCore.WS
             TranslateResultCollection result = new TranslateResultCollection();
             //var jsonResponse = JObject.Parse(responseText);
 
-            YandexDictionaryScheme jsonResponse = JsonConvert.DeserializeObject< YandexDictionaryScheme>(responseText);
+            //YandexDictionaryScheme jsonResponse = JsonConvert.DeserializeObject< YandexDictionaryScheme>(responseText);
             //var jsonResponse = JsonValue.Parse(responseText);
             /*var def = jsonResponse["def"];
             if (def.Count() > 0)

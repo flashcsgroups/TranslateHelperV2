@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PortableCore.WS
 {
-    public class YandexDictionaryScheme
+/*public class YandexDictionaryScheme
     {
         public object head;
         public IList<string> def;
     }
 
-    public class YandexDictionaryScheme
+    public class YandexDictionaryScheme*/
 }
