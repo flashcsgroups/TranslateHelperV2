@@ -9,11 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using PortableCore.Core.DL;
 
 namespace TranslateHelper.Droid
 {
-    class App : Application
+    /*class App : Application
     {
+        SqlLiteHelper conn;
+
         protected App(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
         }
@@ -21,13 +24,10 @@ namespace TranslateHelper.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-        //http://developer.xamarin.com/guides/cross-platform/application_fundamentals/data/part_3_using_sqlite_orm/
             var sqliteFilename = "TranslateHelper.db3";
             string libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var path = System.IO.Path.Combine(libraryPath, sqliteFilename);
-            conn = new Connection(path);
-
-            TaskMgr = new TaskManager(conn);
+            conn = new SqlLiteHelper(path);
         }
-    }
+    }*/
 }
