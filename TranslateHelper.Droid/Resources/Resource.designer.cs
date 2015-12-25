@@ -339,11 +339,8 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
 			
-			// aapt resource value: 0x7f040003
-			public const int app_name = 2130968579;
-			
 			// aapt resource value: 0x7f040002
-			public const int hello = 2130968578;
+			public const int app_name = 2130968578;
 			
 			static String()
 			{

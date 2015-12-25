@@ -30,8 +30,9 @@ namespace PortableCore.BL.Managers
 
         public Favorites GetItemForTranslatedExpressionId(int translatedExpressionId)
         {
-            Favorites transExprItem = Core.DAL.SqlLiteInstance.DB.Table<Favorites>().ToList().Where(item => item.TranslatedExpressionID == translatedExpressionId).FirstOrDefault();
-            return transExprItem;
+            throw new Exception("Not realized");
+            //Favorites transExprItem = Core.DAL.SqlLiteInstance.DB.Table<Favorites>().ToList().Where(item => item.TranslatedExpressionID == translatedExpressionId).FirstOrDefault();
+            //return transExprItem;
         }
 
         private void AddWord(int translatedExpressionId)

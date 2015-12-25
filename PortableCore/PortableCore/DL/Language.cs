@@ -1,6 +1,6 @@
 using System;
 using PortableCore.BL.Contracts;
-using SQLite;
+using PortableCore.DL.SQLite;
 
 namespace PortableCore.DL
 {
@@ -10,10 +10,8 @@ namespace PortableCore.DL
         public Language()
         {
         }
-        [PrimaryKey, AutoIncrement, Indexed]
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public int DeleteMark { get; set; }
-        [Indexed]
-        public string Name { get; set; }
     }
 }

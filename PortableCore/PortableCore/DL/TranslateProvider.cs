@@ -1,10 +1,10 @@
 ﻿using System;
 using PortableCore.BL.Contracts;
-using SQLite;
+using PortableCore.DL.SQLite;
 
 namespace PortableCore.DL
 {
-	public class TranslateProvider : IBusinessEntity
+    public class TranslateProvider : IBusinessEntity
 	{
 		public TranslateProvider ()
 		{

@@ -1,21 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
-using Android.OS;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using PortableCore.Core.DL;
 
 namespace TranslateHelper.Droid
 {
-    /*class App : Application
+    [Application]
+    class App : Application
     {
-        SqlLiteHelper conn;
+        //SqlLiteHelper conn;
 
         protected App(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -24,10 +18,18 @@ namespace TranslateHelper.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            var sqliteFilename = "TranslateHelper.db3";
+            var sqliteFilename = "TranslateHelperV2.db3";
             string libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var path = System.IO.Path.Combine(libraryPath, sqliteFilename);
-            conn = new SqlLiteHelper(path);
+            //SqlLiteInstance dbconn = new SqlLiteInstance(new PortableCore.DL.SQLite.Connection(path));
+            //SqlLiteHelper dbconn = new SqlLiteHelper(new PortableCore.DL.SQLite.Connection(path));
+            SqlLiteHelper.InitConnection(new PortableCore.DL.SQLite.Connection(path));
+            SqlLiteHelper.InitTables();
+            //SqlLiteInstance sqlInstance = new SqlLiteInstance(new PortableCore.DL.SQLite.Connection(path));
+            //SqlLiteInstance.DB.CreateTable<Language>();
+            //var sql = new SqlLiteHelper(path);
+            /*var sql = new SQLiteConnection(path);
+            sql.CreateTable<Language>();*/
         }
-    }*/
+    }
 }
