@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
+using PortableCore.Core.DAL;
 
 namespace PortableCore.BL.Managers
 {
@@ -25,9 +26,8 @@ namespace PortableCore.BL.Managers
 
         public IEnumerable<SourceExpression> GetItemsForText(string text)
         {
-            throw new Exception("Not realized");
-            //var conn = SqlLiteInstance.DB;
-            //return conn.Table<SourceExpression>().ToList().Where(item => item.Text == text);
+            var conn = SqlLiteInstance.DB;
+            return conn.Table<SourceExpression>().ToList().Where(item => item.Text == text);
         }
     }
 }

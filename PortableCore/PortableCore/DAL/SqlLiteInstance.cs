@@ -1,15 +1,12 @@
+using PortableCore.BL.Managers;
 using PortableCore.Core.DL;
 using PortableCore.DL;
-using PortableCore.DL.SQLiteBase;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace PortableCore.Core.DAL
 {
     public class SqlLiteInstance
     {
-        public static PortableCore.Core.DL.SqlLiteHelper DB
+        public static SqlLiteHelper DB
         {
             get
             {
@@ -18,18 +15,34 @@ namespace PortableCore.Core.DAL
         }
 
         private static PortableCore.Core.DL.SqlLiteHelper db = null;
-        //protected static string dbLocation;
 
         public SqlLiteInstance(SqlLiteHelper sqlInstanceHelper)
         {
             db = sqlInstanceHelper;
+        }
 
-        /*Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
-        managerTypes.InitDefaultData ();
+        public void InitTables()
+        {
+            db.CreateTable<Language>();
+            db.CreateTable<TranslateProvider>();
+            db.CreateTable<Direction>();
+            db.CreateTable<TranslateProvider>();
+            db.CreateTable<Favorites>();
+            db.CreateTable<SourceExpression>();
+            db.CreateTable<TranslatedExpression>();
+            db.CreateTable<DefinitionTypes>();
 
-        Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
-        managerProvider.InitDefaultData ();*/
+            DefinitionTypesManager managerTypes = new DefinitionTypesManager();
+            managerTypes.InitDefaultData();
+
+            TranslateProviderManager managerProvider = new TranslateProviderManager();
+            managerProvider.InitDefaultData();
+        }
+
     }
+    /*Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
+managerTypes.InitDefaultData ();
 
-    }
+Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
+managerProvider.InitDefaultData ();*/
 }

@@ -12,7 +12,6 @@ using Android.Widget;
 using PortableCore;
 using PortableCore.BL.Contracts;
 using PortableCore.Helpers;
-using Droid.Core;
 using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid

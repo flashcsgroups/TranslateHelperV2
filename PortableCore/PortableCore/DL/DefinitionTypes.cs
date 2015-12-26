@@ -1,7 +1,6 @@
 ﻿using System;
 using PortableCore.BL.Contracts;
-using PortableCore.DL.SQLite;
-
+using SQLite;
 
 namespace PortableCore.DL
 {

@@ -1,32 +1,23 @@
 using System.Linq;
 using System.Collections.Generic;
-using PortableCore.BL.Contracts;
-using System;
 using PortableCore.DL;
+using SQLite;
 using PortableCore.BL.Managers;
-using PortableCore.DL.SQLiteBase;
 
 namespace PortableCore.Core.DL
 {
-	/// <summary>
-	/// TaskDatabase builds on SQLite.Net and represents a specific database, in our case, the Task DB.
-	/// It contains methods for retrieval and persistance as well as db creation, all based on the 
-	/// underlying ORM.
-	/// </summary>
-	public static class SqlLiteHelper 
-	{
+    /// <summary>
+    /// TaskDatabase builds on SQLite.Net and represents a specific database, in our case, the Task DB.
+    /// It contains methods for retrieval and persistance as well as db creation, all based on the 
+    /// underlying ORM.
+    /// </summary>
+    public class SqlLiteHelper: SQLiteConnection
+    {
 		static object locker = new object ();
-        public static SQLiteConnection database;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Tasky.DL.TaskDatabase"/> TaskDatabase. 
-        /// if the database doesn't exist, it will create the database and all the tables.
-        /// </summary>
-        /// <param name='path'>
-        /// Path.
-        /// </param>
-         /*static SqlLiteHelper (SQLiteConnection conn)
+
+        public SqlLiteHelper (string PathToDBfile) : base (PathToDBfile)
 		{
-            database = conn;
+            /*database = conn;
             database.CreateTable<Language>();
             CreateTable<TranslateProvider> ();
             CreateTable<Direction>();
@@ -42,39 +33,45 @@ namespace PortableCore.Core.DL
 
             TranslateProviderManager managerProvider = new TranslateProviderManager ();
             managerProvider.InitDefaultData ();
+            */
+        }
 
-        }*/
-
-        public static void InitConnection(SQLiteConnection conn)
+        /*public static void InitConnection(SQLiteConnection conn)
         {
             database = conn;
-        }
+        }*/
 
-        public static void InitTables()
+        /*public void InitTables()
         {
-            database.CreateTable<Language>();
-            database.CreateTable<TranslateProvider>();
-            database.CreateTable<Direction>();
-            database.CreateTable<TranslateProvider>();
-            database.CreateTable<Favorites>();
-            database.CreateTable<SourceExpression>();
-            database.CreateTable<TranslatedExpression>();
-            database.CreateTable<DefinitionTypes>();
-        }
+            CreateTable<Language>();
+            CreateTable<TranslateProvider>();
+            CreateTable<Direction>();
+            CreateTable<TranslateProvider>();
+            CreateTable<Favorites>();
+            CreateTable<SourceExpression>();
+            CreateTable<TranslatedExpression>();
+            CreateTable<DefinitionTypes>();
 
-        public static IEnumerable<T> GetItems<T>() where T : BL.Contracts.IBusinessEntity, new()
+            DefinitionTypesManager managerTypes = new DefinitionTypesManager();
+            managerTypes.InitDefaultData();
+
+            TranslateProviderManager managerProvider = new TranslateProviderManager();
+            managerProvider.InitDefaultData();
+        }*/
+
+        public IEnumerable<T> GetItems<T>() where T : BL.Contracts.IBusinessEntity, new()
         {
             lock (locker)
             {
-                return (from i in database.Table<T>() select i).ToList();
+                return (from i in Table<T>() select i).ToList();
             }
         }
 
-        public static T GetItem<T>(int id) where T : BL.Contracts.IBusinessEntity, new()
+        public T GetItem<T>(int id) where T : BL.Contracts.IBusinessEntity, new()
         {
             lock (locker)
             {
-                return database.Table<T>().FirstOrDefault(x => x.ID == id);
+                return Table<T>().FirstOrDefault(x => x.ID == id);
                 // Following throws NotSupportedException - thanks aliegeni
                 //return (from i in Table<T> ()
                 //        where i.ID == id
@@ -82,26 +79,34 @@ namespace PortableCore.Core.DL
             }
         }
 
-        public static int SaveItem<T>(T item) where T : BL.Contracts.IBusinessEntity
+        public int SaveItem<T>(T item) where T : BL.Contracts.IBusinessEntity
         {
             lock (locker)
             {
                 if (item.ID != 0)
                 {
-                    database.Update(item);
+                    Update(item);
                     return item.ID;
                 }
                 else {
-                    return database.Insert(item);
+                    return Insert(item);
                 }
             }
         }
 
-        public static int DeleteItem<T>(int id) where T : BL.Contracts.IBusinessEntity, new()
+        public int InsertItem<T>(T item) where T : BL.Contracts.IBusinessEntity
         {
             lock (locker)
             {
-                return database.Delete<T>(new T() { ID = id });
+                return Insert(item);
+            }
+        }
+
+        public int DeleteItem<T>(int id) where T : BL.Contracts.IBusinessEntity, new()
+        {
+            lock (locker)
+            {
+                return Delete<T>(new T() { ID = id });
             }
         }
     }

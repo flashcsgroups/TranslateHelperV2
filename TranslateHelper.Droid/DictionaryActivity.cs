@@ -2,25 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using System.Json;
-using System.Threading.Tasks;
-using System.Net;
-using System.IO;
-using Droid.Core.Helpers;
 using PortableCore.BL.Contracts;
 using PortableCore.WS;
 using PortableCore.Helpers;
 using PortableCore.BL.Managers;
-//using PortableCore;
-//using PortableCore.DL;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid
 {
@@ -53,13 +43,12 @@ namespace TranslateHelper.Droid
             //ToDo:Поправить жесткий копипаст
             buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
-                //string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
                 string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
                 if (sourceText.Length > 0)
                 {
                     IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                     var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                    /*if (resultFromCache.translateResult.Collection.Count > 0)
+                    if (resultFromCache.translateResult.Collection.Count > 0)
                     {
                         UpdateListResults(sourceText, resultFromCache, false);
                     }
@@ -77,7 +66,7 @@ namespace TranslateHelper.Droid
                             var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
                             UpdateListResults(sourceText, resultTrans, true);
                         }
-                    }*/
+                    }
                 }
             };
 

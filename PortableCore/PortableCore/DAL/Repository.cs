@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PortableCore.BL.Contracts;
 using PortableCore.Core.DL;
+using PortableCore.Core.DAL;
 
 namespace PortableCore.DAL
 {
@@ -14,20 +15,21 @@ namespace PortableCore.DAL
 
 		public T GetItem (int id)
 		{
-            //return SqlLiteInstance.DB.GetItem <T> (id);
-            return SqlLiteHelper.GetItem<T>(id);
+            return SqlLiteInstance.DB.GetItem <T> (id);
+            //return SqlLiteHelper.GetItem<T>(id);
         }
 
         public IEnumerable<T> GetItems ()
 		{
-            //return SqlLiteInstance.DB.GetItems<T> ();
-            return SqlLiteHelper.GetItems<T>();
+            var i = SqlLiteInstance.DB;
+            return i.GetItems<T> ();
+            //return SqlLiteHelper.GetItems<T>();
         }
 
         public int Save (T item)
 		{
-            //return SqlLiteInstance.DB.SaveItem<T> (item);
-            return SqlLiteHelper.SaveItem<T>(item);
+            return SqlLiteInstance.DB.SaveItem<T> (item);
+            //return SqlLiteHelper.SaveItem<T>(item);
         }
 
         public void DeleteAllDataInTable()
@@ -40,7 +42,7 @@ namespace PortableCore.DAL
             try
             {
 				foreach (var item in items) {
-                    SqlLiteHelper.SaveItem<T> (item);
+                    SqlLiteInstance.DB.SaveItem<T> (item);
                     //SqlLiteInstance.DB.SaveItem<T>(item);
                 }
             } catch (Exception E) {
@@ -50,28 +52,28 @@ namespace PortableCore.DAL
 
         public void AddItemsInTransaction(IEnumerable<T> items)
         {
-            throw new Exception("Not realized");
-            /*try
+            //throw new Exception("Not realized");
+            try
             {
                 //SqlLiteInstance.DB.BeginTransaction();
-                SqlLiteHelper.BeginTransaction();
+                SqlLiteInstance.DB.BeginTransaction();
                 foreach (var item in items)
                 {
-                    SqlLiteHelper.InsertItem<T>(item);
+                    SqlLiteInstance.DB.InsertItem<T>(item);
                 }
-                SqlLiteHelper.Commit();
+                SqlLiteInstance.DB.Commit();
             }
             catch (Exception E)
             {
-                SqlLiteHelper.Rollback ();
+                SqlLiteInstance.DB.Rollback ();
                 throw new Exception(E.Message, E.InnerException);
-            }*/
+            }
         }
 
         public int Delete (int id)
 		{
-            //return SqlLiteInstance.DB.DeleteItem<T> (id);
-            return SqlLiteHelper.DeleteItem<T>(id);
+            return SqlLiteInstance.DB.DeleteItem<T> (id);
+            //return SqlLiteHelper.DeleteItem<T>(id);
         }
 
     }
