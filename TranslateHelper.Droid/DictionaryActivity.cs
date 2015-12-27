@@ -11,6 +11,7 @@ using PortableCore.WS;
 using PortableCore.Helpers;
 using PortableCore.BL.Managers;
 using Droid.Core.Helpers;
+using System.Threading.Tasks;
 
 namespace TranslateHelper.Droid
 {
@@ -41,33 +42,10 @@ namespace TranslateHelper.Droid
 			};
 
             //ToDo:Поправить жесткий копипаст
-            buttonTranslate.Click += async (object sender, EventArgs e) =>
+            buttonTranslate.Click += (object sender, EventArgs e) =>
             {
-                string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
-                if (sourceText.Length > 0)
-                {
-                    IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
-                    var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                    if (resultFromCache.translateResult.Collection.Count > 0)
-                    {
-                        UpdateListResults(sourceText, resultFromCache, false);
-                    }
-                    else
-                    {
-                        IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
-                        var resultDict = await translaterDict.Translate(sourceText, "en-ru");
-                        if (resultDict.translateResult.Collection.Count > 0)
-                        {
-                            UpdateListResults(sourceText, resultDict, true);
-                        }
-                        else
-                        {
-                            IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
-                            var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
-                            UpdateListResults(sourceText, resultTrans, true);
-                        }
-                    }
-                }
+                //getTranslateResult(editSourceText);
+                TranslateResult result = getTranslateResult(editSourceText.Text);
             };
 
             //ToDo:Поправить жесткий копипаст
@@ -106,11 +84,70 @@ namespace TranslateHelper.Droid
 
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
                 var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResult>();
-                AddToFavorites(ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text), item);
+                addToFavorites(ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text), item);
 			};
 
 			clearTraslatedRegion ();
 		}
+
+        private TranslateResult getTranslateResult(string originalText, string direction)
+        {
+            string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
+            if (convertedSourceText.Length > 0)
+            {
+                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+                var resultFromCache = translaterFromCache.Translate(originalText, direction);
+                if (resultFromCache..translateResult.Collection.Count > 0)
+                {
+                    updateListResults(sourceText, resultFromCache, false);
+                }
+                else
+                {
+                    /*IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
+                    var resultDict = await translaterDict.Translate(sourceText, direction);
+                    if (resultDict.translateResult.Collection.Count > 0)
+                    {
+                        updateListResults(sourceText, resultDict, true);
+                    }
+                    else
+                    {
+                        IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
+                        var resultTrans = await translaterTranslate.Translate(sourceText, direction);
+                        updateListResults(sourceText, resultTrans, true);
+                    }*/
+                }
+            }
+            throw new NotImplementedException();
+        }
+
+        private async Task getTranslateResultOld(EditText editSourceText)
+        {
+            string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
+            if (sourceText.Length > 0)
+            {
+                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+                var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
+                if (resultFromCache.translateResult.Collection.Count > 0)
+                {
+                    updateListResults(sourceText, resultFromCache, false);
+                }
+                else
+                {
+                    IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
+                    var resultDict = await translaterDict.Translate(sourceText, "en-ru");
+                    if (resultDict.translateResult.Collection.Count > 0)
+                    {
+                        updateListResults(sourceText, resultDict, true);
+                    }
+                    else
+                    {
+                        IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
+                        var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
+                        updateListResults(sourceText, resultTrans, true);
+                    }
+                }
+            }
+        }
 
         private void clearTraslatedRegion()
 		{
@@ -127,7 +164,7 @@ namespace TranslateHelper.Droid
         }
 
         //ToDo: разнести по разным методам вывод и запись в кэш
-        void UpdateListResults(string sourceText, TranslateRequestResult result, bool addToLocalCache)
+        void updateListResults(string sourceText, TranslateRequestResult result, bool addToLocalCache)
         {
             if (string.IsNullOrEmpty(result.errorDescription))
             {
@@ -140,7 +177,7 @@ namespace TranslateHelper.Droid
                     listView.Adapter = new TranslateResultAdapter(this, items);
                     if (addToLocalCache)
                     {
-                        AddResultToLocalCache(sourceText, result.translateResult.Collection);
+                        addResultToLocalCache(sourceText, result.translateResult.Collection);
                     }
                 }
                 else
@@ -154,7 +191,7 @@ namespace TranslateHelper.Droid
             }
         }
 
-        private void AddResultToLocalCache(string sourceText, List<TranslateResult> resultList)
+        private void addResultToLocalCache(string sourceText, List<TranslateResult> resultList)
         {
             if(resultList.Count > 0)
             {
@@ -164,7 +201,7 @@ namespace TranslateHelper.Droid
             }
         }
 
-        private async void AddToFavorites(string sourceText, TranslateResult result)
+        private async void addToFavorites(string sourceText, TranslateResult result)
         {
             FavoritesManager favoritesManager = new FavoritesManager();
             favoritesManager.AddWordToFavorites(sourceText, result);
@@ -175,7 +212,7 @@ namespace TranslateHelper.Droid
             var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
             if (resultFromCache.translateResult.Collection.Count > 0)
             {
-                UpdateListResults(sourceText, resultFromCache, false);
+                updateListResults(sourceText, resultFromCache, false);
             }
         }
 
@@ -207,7 +244,7 @@ namespace TranslateHelper.Droid
             return true;
         }
 
-        void MenuItemClicked(string item)
+        void menuItemClicked(string item)
         {
             Console.WriteLine(item + " option menuitem clicked");
             var t = Toast.MakeText(this, "Options Menu '" + item + "' clicked", ToastLength.Short);

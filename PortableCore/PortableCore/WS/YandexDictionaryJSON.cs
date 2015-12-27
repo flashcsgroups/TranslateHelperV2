@@ -8,6 +8,7 @@ using System.Text;
 using PortableCore.BL.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PortableCore.WS.Contracts;
 
 namespace PortableCore.WS
 {
@@ -23,8 +24,9 @@ namespace PortableCore.WS
 
         public override TranslateResultCollection ParseResponse(string responseText)
         {
-            //throw new Exception("not realized");
             TranslateResultCollection result = new TranslateResultCollection();
+            YandexDictionaryScheme deserializedResponse = JsonConvert.DeserializeObject<YandexDictionaryScheme>(responseText);
+            //deserializedResponse.
             //var jsonResponse = JObject.Parse(responseText);
 
             //YandexDictionaryScheme jsonResponse = JsonConvert.DeserializeObject< YandexDictionaryScheme>(responseText);
@@ -56,7 +58,7 @@ namespace PortableCore.WS
 
                 }
             }*/
-            
+
             return result;
         }
 

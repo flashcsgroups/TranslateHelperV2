@@ -17,7 +17,7 @@ namespace PortableCore.BL.Contracts
 
 namespace PortableCore.BL.Contracts
 {
-    public class TranslateResult: IHasLabel, IComparable<TranslateResult>
+    public class TranslateResult: IHasLabel, IComparable<TranslateResult>, ITranslatedData
     {
         public string OriginalText;
         public string Pos;//часть речи
