@@ -5,7 +5,7 @@ namespace PortableCore.WS
 {
 	public class TranslateRequestResult
 	{
-		public string ErrorDescription { get; private set; }
+        public string errorDescription;//ToDo:переделать на приватное
         public TranslateResultCollection translateResult;//Todo:Устарело, удалить!
         public TranslateResult TranslatedData { get; private set; }
 
@@ -14,10 +14,10 @@ namespace PortableCore.WS
             translateResult = new TranslateResultCollection();
         }
 
-        public TranslateRequestResult(ITranslatedData translatedData)
+        /*public TranslateRequestResult(ITranslatedData translatedData)
         {
             TranslatedData = translatedData;
-        }
+        }*/
     }
 }
 

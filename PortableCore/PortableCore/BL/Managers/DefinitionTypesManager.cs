@@ -46,11 +46,12 @@ namespace PortableCore.BL.Managers
 		private DefinitionTypes[] getDefaultData()
 		{
 			DefinitionTypes[] defTypesList = new DefinitionTypes[] {
-				new DefinitionTypes (){ Name = "noun", ID = 0}, 
-				new DefinitionTypes (){ Name = "verb", ID = 1},
-				new DefinitionTypes (){ Name = "adjective", ID = 2},
-				new DefinitionTypes (){ Name = "adverb", ID = 3},
-			};
+				new DefinitionTypes (){ Name = "noun", ID = (int)DefinitionTypesEnum.noun}, 
+				new DefinitionTypes (){ Name = "verb", ID = (int)DefinitionTypesEnum.verb},
+				new DefinitionTypes (){ Name = "adjective",ID = (int)DefinitionTypesEnum.adjective},
+				new DefinitionTypes (){ Name = "adverb",ID =  (int)DefinitionTypesEnum.adverb},
+                new DefinitionTypes (){ Name = "participle",ID =  (int)DefinitionTypesEnum.participle},
+            };
 			return defTypesList;
 		}
     }

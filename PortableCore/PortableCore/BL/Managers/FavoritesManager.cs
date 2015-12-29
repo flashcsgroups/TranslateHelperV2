@@ -62,7 +62,7 @@ namespace PortableCore.BL.Managers
                              equals transExprItem.ID 
 				select new TranslateResult()
                 {
-				    OriginalText = sourceManager.GetItemForId(transExprItem.SourceExpressionID).Text, 
+				    //OriginalText = sourceManager.GetItemForId(transExprItem.SourceExpressionID).Text, 
 				    TranslatedText = transExprItem.TranslatedText, 
 				    Ts = transExprItem.TranscriptionText, 
 				    Pos = defTypesManager.GetItemForId(transExprItem.DefinitionTypeID).Name,

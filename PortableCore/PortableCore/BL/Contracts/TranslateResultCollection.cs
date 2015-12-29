@@ -13,13 +13,10 @@ namespace PortableCore.BL.Contracts
             Collection = new List<TranslateResult>();
         }
     }
-}
 
-namespace PortableCore.BL.Contracts
-{
-    public class TranslateResult: IHasLabel, IComparable<TranslateResult>, ITranslatedData
+    public class TranslateResult : IHasLabel, IComparable<TranslateResult>
     {
-        public string OriginalText;
+        //устаревшие свойства
         public string Pos;//часть речи
         public string Ts;//транскрипция
         public string TranslatedText;
@@ -29,8 +26,13 @@ namespace PortableCore.BL.Contracts
         public List<Mean> MeansCollection;
         public List<ExampleText> ExamplesCollection;
 
+        //новые свойства
+        public string OriginalText { get; private set; }
+        public List<Definition> Definitions { get; private set; }
+
         public TranslateResult()
         {
+            Definitions = new List<Definition>();
             SynonymsCollection = new List<Synonym>();
             MeansCollection = new List<Mean>();
             ExamplesCollection = new List<ExampleText>();
@@ -53,26 +55,40 @@ namespace PortableCore.BL.Contracts
         }
 
     }
-}
 
-namespace PortableCore.BL.Contracts
-{
+    /// <summary>
+    /// Свойства оригинального слова
+    /// </summary>
+    public class Definition
+    {
+        public DefinitionTypesEnum Pos { get; private set; }
+        public string Transcription { get; private set; }
+        public List<TranslateVariant> TranslateVariants { get; private set; }
+    }
+
+    /// <summary>
+    /// Свойства варианта перевода
+    /// </summary>
+    public class TranslateVariant
+    {
+        public string Text { get; private set; }
+        public DefinitionTypesEnum Pos { get; private set; }
+    }
+
     public struct Synonym
     {
         public string TranslatedText;
     }
-}
 
-namespace PortableCore.BL.Contracts
-{
+
+
     public struct Mean
     {
         public string Text;
     }
-}
 
-namespace PortableCore.BL.Contracts
-{
+
+
     public struct ExampleText
     {
     }

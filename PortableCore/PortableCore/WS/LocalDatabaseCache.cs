@@ -38,7 +38,7 @@ namespace PortableCore.WS
 
                     RequestResult.translateResult.Collection.Add(new TranslateResult()
                         {
-                            OriginalText = sourceString,
+                           // OriginalText = sourceString,
                             TranslatedText = item.TranslatedText,
                             Pos = "*",
                             Ts = item.TranscriptionText,

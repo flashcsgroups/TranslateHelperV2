@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BL\Contracts\DataManager.cs" />
+    <Compile Include="BL\Contracts\DefinitionTypesEnum.cs" />
     <Compile Include="BL\Contracts\IBusinessEntity.cs" />
     <Compile Include="BL\Contracts\IDataManager.cs" />
     <Compile Include="BL\Contracts\IHasLabel.cs" />

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PortableCore.WS.Contracts
 {
     //класс автоматически построен с помощью утилиты JSON to C#
-    public class YandexDictionaryScheme : IDictionaryService
+    public class YandexDictionaryScheme
     {
         //заголовок обычно пустой
         [JsonProperty("head")]

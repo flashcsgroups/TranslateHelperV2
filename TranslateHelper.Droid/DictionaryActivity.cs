@@ -45,7 +45,7 @@ namespace TranslateHelper.Droid
             buttonTranslate.Click += (object sender, EventArgs e) =>
             {
                 //getTranslateResult(editSourceText);
-                TranslateResult result = getTranslateResult(editSourceText.Text);
+                //TranslateResult result = getTranslateResult(editSourceText.Text);
             };
 
             //ToDo:Поправить жесткий копипаст
@@ -97,11 +97,11 @@ namespace TranslateHelper.Droid
             {
                 IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
                 var resultFromCache = translaterFromCache.Translate(originalText, direction);
-                if (resultFromCache..translateResult.Collection.Count > 0)
+                /*if (resultFromCache.translateResult.Collection.Count > 0)
                 {
                     updateListResults(sourceText, resultFromCache, false);
                 }
-                else
+                else*/
                 {
                     /*IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
                     var resultDict = await translaterDict.Translate(sourceText, direction);
