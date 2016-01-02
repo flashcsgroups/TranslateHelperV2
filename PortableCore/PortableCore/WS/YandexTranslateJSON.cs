@@ -21,6 +21,20 @@ namespace PortableCore.WS
             return responseString;
         }
 
+        public override TranslateResult Parse(string responseText)
+        {
+            throw new Exception("not realized");
+            TranslateResult result = new TranslateResult("");
+            var jsonResponse = JsonConvert.DeserializeObject(responseText);
+            /*JsonValue jsonResponse = JsonValue.Parse(responseText);
+            if(jsonResponse.ContainsKey("text"))
+            {
+                string textWithoutBrackets = jsonResponse["text"].ToString().Replace(@"[""","").Replace(@"""]", "");
+                result.Collection.Add(new TranslateResult() {TranslatedText = textWithoutBrackets });
+            }*/
+            return result;
+        }
+
         public override TranslateResultCollection ParseResponse(string responseText)
         {
             throw new Exception("not realized");

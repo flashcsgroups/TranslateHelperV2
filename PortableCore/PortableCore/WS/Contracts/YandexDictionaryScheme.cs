@@ -15,9 +15,7 @@ namespace PortableCore.WS.Contracts
         private Dictionary<string, string> Head { get; set; }
         //варианты для разных частей речи
         [JsonProperty("def")]
-        private List<Def> Def { get; set; }
-
-        //public List<>
+        public List<Def> Def { get; private set; }
     }
 
     //данные вариантов по типам речи, элементов столько, сколько вариантов - сущ., предлог и т.д.
@@ -25,63 +23,63 @@ namespace PortableCore.WS.Contracts
     {
         //исходное слово
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; private set; }
         //тип речи
         [JsonProperty("pos")]
-        public string Pos { get; set; }
+        public string Pos { get; private set; }
         //транскрипция
         [JsonProperty("ts")]
-        public string Ts { get; set; }
+        public string Ts { get; private set; }
 
         [JsonProperty("tr")]
-        public List<Tr> Tr { get; set; }
+        public List<Tr> Tr { get; private set; }
     }
 
     //перевод
     public class Tr
     {
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; private set; }
         [JsonProperty("pos")]
-        public string Pos { get; set; }
+        public string Pos { get; private set; }
         [JsonProperty("syn")]
-        public List<Syn> Syn { get; set; }
+        public List<Syn> Syn { get; private set; }
         [JsonProperty("mean")]
-        public List<Mean> Mean { get; set; }
+        public List<Mean> Mean { get; private set; }
         [JsonProperty("ex")]
-        public List<Ex> Ex { get; set; }
+        public List<Ex> Ex { get; private set; }
     }
 
     //синонимы
     public class Syn
     {
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; private set; }
         [JsonProperty("pos")]
-        public string Pos { get; set; }
+        public string Pos { get; private set; }
     }
 
     //варианты значений
     public class Mean
     {
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; private set; }
     }
 
     //примеры
     public class Ex
     {
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; private set; }
         [JsonProperty("tr")]
-        public List<ExTr> ExTr { get; set; }
+        public List<ExTr> ExTr { get; private set; }
     }
 
     //перевод примера
     public class ExTr
     {
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; private set; }
     }
 
 }

@@ -56,7 +56,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ConvertStringTests.cs" />
-    <Compile Include="TranslateResultStructure.cs" />
+    <Compile Include="LocalDBCache.cs" />
+    <Compile Include="TranslateResultStructureTests.cs" />
     <Compile Include="ParseResponseTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

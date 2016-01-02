@@ -60,7 +60,7 @@ namespace PortableCore.BL.Managers
             var resultView = from favItem in GetItems()
                              join transExprItem in transExprItems on favItem.TranslatedExpressionID
                              equals transExprItem.ID 
-				select new TranslateResult()
+				select new TranslateResult("")
                 {
 				    //OriginalText = sourceManager.GetItemForId(transExprItem.SourceExpressionID).Text, 
 				    TranslatedText = transExprItem.TranslatedText, 

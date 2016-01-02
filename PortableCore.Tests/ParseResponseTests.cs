@@ -7,7 +7,7 @@ namespace PortableCore.Tests
     [TestFixture]
     public class ParseResponseTests
     {
-        [Test]
+        /*[Test]
         public void TestMust_CheckCountResultLinesForWord_Grow()
         {
             //arrange
@@ -41,7 +41,7 @@ namespace PortableCore.Tests
             Assert.AreEqual(result.Collection[5].Pos, "verb");
             Assert.AreEqual(result.Collection[5].Ts, "grəʊ");
             Assert.AreEqual(result.Collection[5].SynonymsCollection.Count, 0);
-        }
+        }*/
 
         [Test]
         public void TestMust_CheckCountResultLinesForIncorrectWord()

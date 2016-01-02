@@ -8,6 +8,6 @@ namespace PortableCore.BL.Contracts
 {
     public enum DefinitionTypesEnum :int
     {
-        noun = 0, verb, adjective, adverb, participle
+        unknown = 0, noun, verb, adjective, adverb, participle
     }
 }

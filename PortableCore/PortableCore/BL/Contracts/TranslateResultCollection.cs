@@ -30,12 +30,21 @@ namespace PortableCore.BL.Contracts
         public string OriginalText { get; private set; }
         public List<Definition> Definitions { get; private set; }
 
-        public TranslateResult()
+        public TranslateResult(string originalText)
         {
+            //new
+            OriginalText = originalText;
             Definitions = new List<Definition>();
+
+            //old
             SynonymsCollection = new List<Synonym>();
             MeansCollection = new List<Mean>();
             ExamplesCollection = new List<ExampleText>();
+        }
+
+        public void AddDefinition(DefinitionTypesEnum pos, string transcription, List<TranslateVariant> translateVariants)
+        {
+            Definitions.Add(new Definition(pos, transcription, translateVariants));
         }
 
         int IComparable<TranslateResult>.CompareTo(TranslateResult value)
@@ -64,6 +73,13 @@ namespace PortableCore.BL.Contracts
         public DefinitionTypesEnum Pos { get; private set; }
         public string Transcription { get; private set; }
         public List<TranslateVariant> TranslateVariants { get; private set; }
+
+        public Definition(DefinitionTypesEnum pos, string transcription, List<TranslateVariant> translateVariants)
+        {
+            Pos = pos;
+            Transcription = transcription;
+            TranslateVariants = translateVariants;
+        }
     }
 
     /// <summary>
@@ -73,6 +89,12 @@ namespace PortableCore.BL.Contracts
     {
         public string Text { get; private set; }
         public DefinitionTypesEnum Pos { get; private set; }
+
+        public TranslateVariant(string text, DefinitionTypesEnum pos)
+        {
+            Text = text;
+            Pos = pos;
+        }
     }
 
     public struct Synonym

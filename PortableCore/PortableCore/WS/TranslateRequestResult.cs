@@ -14,6 +14,11 @@ namespace PortableCore.WS
             translateResult = new TranslateResultCollection();
         }
 
+        public void SetTranslateResult(TranslateResult translatedData)
+        {
+            TranslatedData = translatedData;
+        }
+
         /*public TranslateRequestResult(ITranslatedData translatedData)
         {
             TranslatedData = translatedData;

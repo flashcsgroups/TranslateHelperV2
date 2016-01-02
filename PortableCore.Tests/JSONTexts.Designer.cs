@@ -70,6 +70,32 @@ namespace PortableCore.Tests {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на {
+        ///    &quot;head&quot;: {},
+        ///    &quot;def&quot;: [
+        ///        {
+        ///            &quot;text&quot;: &quot;explicit&quot;,
+        ///            &quot;pos&quot;: &quot;adjective&quot;,
+        ///            &quot;ts&quot;: &quot;ɪksˈplɪsɪt&quot;,
+        ///            &quot;tr&quot;: [
+        ///                {
+        ///                    &quot;text&quot;: &quot;явный&quot;,
+        ///                    &quot;pos&quot;: &quot;прилагательное&quot;,
+        ///                    &quot;syn&quot;: [
+        ///                        {
+        ///                            &quot;text&quot;: &quot;прямой&quot;,
+        ///                            &quot;pos&quot;: &quot;прилагательное&quot;
+        ///                        },
+        ///                        {
+        ///                            &quot;tex [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string YandexDictionaryResponseForWord_Explicit {
+            get {
+                return ResourceManager.GetString("YandexDictionaryResponseForWord_Explicit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на {&quot;head&quot;:{},&quot;def&quot;:[{&quot;text&quot;:&quot;grow&quot;,&quot;pos&quot;:&quot;verb&quot;,&quot;ts&quot;:&quot;grəʊ&quot;,&quot;tr&quot;:[{&quot;text&quot;:&quot;расти&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;несов&quot;,&quot;syn&quot;:[{&quot;text&quot;:&quot;возрастать&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;несов&quot;},{&quot;text&quot;:&quot;вырастать&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;несов&quot;},{&quot;text&quot;:&quot;развиваться&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;несов&quot;},{&quot;text&quot;:&quot;произрастать&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;несов&quot;},{&quot;text&quot;:&quot;подрасти&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;сов&quot;},{&quot;text&quot;:&quot;нарастать&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot;asp&quot;:&quot;несов&quot;},{&quot;text&quot;:&quot;усиливаться&quot;,&quot;pos&quot;:&quot;глагол&quot;,&quot....
         /// </summary>
         public static string YandexDictionaryResponseForWord_Grow {

@@ -4,6 +4,7 @@ using System.Linq;
 using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DL;
+using System;
 
 namespace PortableCore.WS
 {
@@ -27,16 +28,18 @@ namespace PortableCore.WS
                 TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
                 IEnumerable<TranslatedExpression> translateResultCollection = translatedManager.GetTranslateResultFromLocalCache(sourceId);
                 FavoritesManager favManager = new FavoritesManager();
-                foreach(var item in translateResultCollection)
+                List<Tuple<TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites = new List<Tuple<TranslatedExpression, Favorites>>();
+                foreach(TranslatedExpression item in translateResultCollection)
                 {
                     var favoritesItem = favManager.GetItemForTranslatedExpressionId(item.ID);
-                    int favItemId = 0;
+                    /*int favItemId = 0;
                     if (favoritesItem != null)
                     {
                         favItemId = favoritesItem.ID;
-                    }
 
-                    RequestResult.translateResult.Collection.Add(new TranslateResult()
+                    }*/
+                    listOfCoupleTranslateAndFavorites.Add(Tuple.Create(item, favoritesItem));
+                    /*RequestResult.translateResult.Collection.Add(new TranslateResult("")
                         {
                            // OriginalText = sourceString,
                             TranslatedText = item.TranslatedText,
@@ -45,10 +48,37 @@ namespace PortableCore.WS
                             TranslatedExpressionId = item.ID,
                             FavoritesId = favItemId
                         }
-                    );
+                    );*/
                 }
+                var translateResult = ConvertCacheToTranslateResult(sourceString, listOfCoupleTranslateAndFavorites);
+                RequestResult.SetTranslateResult(translateResult);
             }
             return RequestResult;
+        }
+
+        public TranslateResult ConvertCacheToTranslateResult(string sourceString, List<Tuple<TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites)
+        {
+            /*string originalString = string.Empty;
+            if (deserializedObject.Def.Count > 0)
+            {
+                originalString = deserializedObject.Def[0].Text;
+            }
+            else
+            {
+                originalString = "";
+            }*/
+            TranslateResult result = new TranslateResult(sourceString);
+            /*foreach (var def in deserializedObject.Def)
+            {
+                var translateVariantsSource = def.Tr;
+                var translateVariants = new List<TranslateVariant>();
+                foreach (var tr in translateVariantsSource)
+                {
+                    translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionType(tr.Pos)));
+                }
+                result.AddDefinition(DefinitionTypesManager.GetEnumDefinitionType(def.Pos), def.Ts, translateVariants);
+            }*/
+            return result;
         }
 
     }

@@ -9,6 +9,7 @@ using PortableCore.BL.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PortableCore.WS.Contracts;
+using PortableCore.BL.Managers;
 
 namespace PortableCore.WS
 {
@@ -22,6 +23,42 @@ namespace PortableCore.WS
             return responseString;
         }
 
+        public override TranslateResult Parse(string responseText)
+        {
+            TranslateResult result;
+            YandexDictionaryScheme deserializedResponse = JsonConvert.DeserializeObject<YandexDictionaryScheme>(responseText);
+            if (null != deserializedResponse)
+                result = convertResponseToTranslateResult(deserializedResponse);
+            else
+                result = new TranslateResult(string.Empty);
+            return result;
+        }
+
+        private TranslateResult convertResponseToTranslateResult(YandexDictionaryScheme deserializedObject)
+        {
+            string originalString = string.Empty;
+            if(deserializedObject.Def.Count > 0)
+            {
+                originalString = deserializedObject.Def[0].Text;
+            } else
+            {
+                originalString = "";
+            }
+            TranslateResult result = new TranslateResult(originalString);
+            foreach(var def in deserializedObject.Def)
+            {
+                var translateVariantsSource = def.Tr;
+                var translateVariants = new List<TranslateVariant>();
+                foreach(var tr in translateVariantsSource)
+                {
+                    translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
+                }
+                result.AddDefinition(DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
+            }
+            return result;
+        }
+
+        [Obsolete("Удалить!")]
         public override TranslateResultCollection ParseResponse(string responseText)
         {
             TranslateResultCollection result = new TranslateResultCollection();

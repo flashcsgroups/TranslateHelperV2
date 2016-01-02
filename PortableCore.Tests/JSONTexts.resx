@@ -120,6 +120,188 @@
   <data name="YandexDictionaryResponseForIncorrectWord" xml:space="preserve">
     <value>{"head":{},"def":[]}</value>
   </data>
+  <data name="YandexDictionaryResponseForWord_Explicit" xml:space="preserve">
+    <value>{
+    "head": {},
+    "def": [
+        {
+            "text": "explicit",
+            "pos": "adjective",
+            "ts": "ɪksˈplɪsɪt",
+            "tr": [
+                {
+                    "text": "явный",
+                    "pos": "прилагательное",
+                    "syn": [
+                        {
+                            "text": "прямой",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "ясный",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "откровенный",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "очевидный",
+                            "pos": "прилагательное"
+                        }
+                    ],
+                    "mean": [
+                        {
+                            "text": "apparent"
+                        },
+                        {
+                            "text": "direct"
+                        },
+                        {
+                            "text": "bright"
+                        },
+                        {
+                            "text": "open"
+                        }
+                    ],
+                    "ex": [
+                        {
+                            "text": "explicit form",
+                            "tr": [
+                                {
+                                    "text": "явный вид"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "explicit reference",
+                            "tr": [
+                                {
+                                    "text": "прямая ссылка"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "explicit provisions",
+                            "tr": [
+                                {
+                                    "text": "ясные положения"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "explicit recognition",
+                            "tr": [
+                                {
+                                    "text": "откровенное признание"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "точный",
+                    "pos": "прилагательное",
+                    "syn": [
+                        {
+                            "text": "подробный",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "определенный",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "четкий",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "недвусмысленный",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "однозначный",
+                            "pos": "прилагательное"
+                        },
+                        {
+                            "text": "категорический",
+                            "pos": "прилагательное"
+                        }
+                    ],
+                    "mean": [
+                        {
+                            "text": "accurate"
+                        },
+                        {
+                            "text": "certain"
+                        },
+                        {
+                            "text": "clear"
+                        },
+                        {
+                            "text": "categorical"
+                        }
+                    ],
+                    "ex": [
+                        {
+                            "text": "explicit information",
+                            "tr": [
+                                {
+                                    "text": "точная информация"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "explicit description",
+                            "tr": [
+                                {
+                                    "text": "подробное описание"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "explicit instruction",
+                            "tr": [
+                                {
+                                    "text": "четкое указание"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "explicit answer",
+                            "tr": [
+                                {
+                                    "text": "недвусмысленный ответ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "эксплицитный",
+                    "pos": "прилагательное"
+                }
+            ]
+        },
+        {
+            "text": "explicit",
+            "pos": "participle",
+            "ts": "ɪksˈplɪsɪt",
+            "tr": [
+                {
+                    "text": "открытый",
+                    "pos": "причастие",
+                    "mean": [
+                        {
+                            "text": "open"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}</value>
+  </data>
   <data name="YandexDictionaryResponseForWord_Grow" xml:space="preserve">
     <value>{"head":{},"def":[{"text":"grow","pos":"verb","ts":"grəʊ","tr":[{"text":"расти","pos":"глагол","asp":"несов","syn":[{"text":"возрастать","pos":"глагол","asp":"несов"},{"text":"вырастать","pos":"глагол","asp":"несов"},{"text":"развиваться","pos":"глагол","asp":"несов"},{"text":"произрастать","pos":"глагол","asp":"несов"},{"text":"подрасти","pos":"глагол","asp":"сов"},{"text":"нарастать","pos":"глагол","asp":"несов"},{"text":"усиливаться","pos":"глагол","asp":"несов"}],"mean":[{"text":"increase"},{"text":"outgrow"},{"text":"develop"},{"text":"grow up"},{"text":"accrue"}],"ex":[{"text":"grow upwards","tr":[{"text":"расти вверх"}]},{"text":"grow gradually","tr":[{"text":"возрастать постепенно"}]},{"text":"grow further","tr":[{"text":"развиваться дальше"}]}]},{"text":"выращивать","pos":"глагол","asp":"несов","syn":[{"text":"вырастить","pos":"глагол","asp":"сов"},{"text":"растить","pos":"глагол","asp":"несов"},{"text":"культивировать","pos":"глагол","asp":"несов"}],"mean":[{"text":"cultivate"},{"text":"breed"}],"ex":[{"text":"grow food","tr":[{"text":"выращивать продукты"}]},{"text":"grow a beard","tr":[{"text":"вырастить бороду"}]},{"text":"grow grain","tr":[{"text":"растить хлеб"}]}]},{"text":"становиться","pos":"глагол","asp":"несов","syn":[{"text":"перерасти","pos":"глагол","asp":"сов"},{"text":"перерастать","pos":"глагол","asp":"несов"}],"mean":[{"text":"become"},{"text":"degenerate"}],"ex":[{"text":"grow up","tr":[{"text":"становиться взрослым"}]},{"text":"grow in love","tr":[{"text":"перерасти в любовь"}]}]},{"text":"стать","pos":"глагол","asp":"сов","syn":[{"text":"происходить","pos":"глагол","asp":"несов"}],"mean":[{"text":"be"}],"ex":[{"text":"grow longer","tr":[{"text":"стать длиннее"}]}]},{"text":"увеличиваться","pos":"глагол","asp":"несов","syn":[{"text":"разрастись","pos":"глагол","asp":"сов"}],"mean":[{"text":"enlarge"}]},{"text":"разрастаться","pos":"глагол","asp":"несов","mean":[{"text":"expand"}]},{"text":"дорасти","pos":"глагол","asp":"сов"},{"text":"отращивать","pos":"глагол","asp":"несов","mean":[{"text":"sprout"}],"ex":[{"text":"grow beards","tr":[{"text":"отращивать бороды"}]}]}]},{"text":"grow","pos":"noun","ts":"grəʊ","tr":[{"text":"рост","pos":"существительное","gen":"м","syn":[{"text":"выращивание","pos":"существительное","gen":"ср"}],"mean":[{"text":"gain"},{"text":"cultivate"}],"ex":[{"text":"grow rapidly","tr":[{"text":"быстрый рост"}]},{"text":"grow tobacco","tr":[{"text":"выращивание табака"}]}]}]}]}</value>
   </data>

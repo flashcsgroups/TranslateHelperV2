@@ -46,14 +46,52 @@ namespace PortableCore.BL.Managers
 		private DefinitionTypes[] getDefaultData()
 		{
 			DefinitionTypes[] defTypesList = new DefinitionTypes[] {
-				new DefinitionTypes (){ Name = "noun", ID = (int)DefinitionTypesEnum.noun}, 
-				new DefinitionTypes (){ Name = "verb", ID = (int)DefinitionTypesEnum.verb},
-				new DefinitionTypes (){ Name = "adjective",ID = (int)DefinitionTypesEnum.adjective},
-				new DefinitionTypes (){ Name = "adverb",ID =  (int)DefinitionTypesEnum.adverb},
-                new DefinitionTypes (){ Name = "participle",ID =  (int)DefinitionTypesEnum.participle},
+				new DefinitionTypes (){ Name = "noun", ID = (int)GetEnumDefinitionTypeFromName("noun")}, 
+				new DefinitionTypes (){ Name = "verb", ID = (int)GetEnumDefinitionTypeFromName("verb")},
+				new DefinitionTypes (){ Name = "adjective",ID = (int)GetEnumDefinitionTypeFromName("adjective")},
+				new DefinitionTypes (){ Name = "adverb",ID =  (int)GetEnumDefinitionTypeFromName("adverb")},
+                new DefinitionTypes (){ Name = "participle",ID =  (int)GetEnumDefinitionTypeFromName("participle")},
             };
 			return defTypesList;
 		}
+
+        public static DefinitionTypesEnum GetEnumDefinitionTypeFromName(string name)
+        {
+            DefinitionTypesEnum result = DefinitionTypesEnum.unknown;
+
+            switch(name.ToLower())
+            {
+                case "существительное":
+                case "noun":
+                    {
+                        result = DefinitionTypesEnum.noun;
+                    }; break;
+                case "глагол":
+                case "verb":
+                    {
+                        result = DefinitionTypesEnum.verb;
+                    }; break;                    
+                case "прилагательное":
+                case "adjective":
+                    {
+                        result = DefinitionTypesEnum.adjective;
+                    }; break;
+                case "наречие":
+                case "adverb":
+                    {
+                        result = DefinitionTypesEnum.adverb;
+                    }; break;
+                case "частица":
+                case "participle":
+                    {
+                        result = DefinitionTypesEnum.participle;
+                    }; break;
+                default:
+                    {
+                    }; break;
+            }
+            return result;
+        }
     }
 }
 
