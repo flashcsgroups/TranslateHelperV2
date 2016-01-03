@@ -57,7 +57,8 @@ namespace PortableCore.BL.Managers
             SourceExpressionManager sourceManager = new SourceExpressionManager();
 			var test = defTypesManager.GetItemForId (0);
 			var transExprItems = transExprManager.GetItems ();
-            var resultView = from favItem in GetItems()
+            //чтение через definition
+            /*var resultView = from favItem in GetItems()
                              join transExprItem in transExprItems on favItem.TranslatedExpressionID
                              equals transExprItem.ID 
 				select new TranslateResult("")
@@ -68,8 +69,8 @@ namespace PortableCore.BL.Managers
 				    Pos = defTypesManager.GetItemForId(transExprItem.DefinitionTypeID).Name,
 				    TranslatedExpressionId = transExprItem.ID,
 				    FavoritesId = favItem.ID
-			    };
-			result.AddList (resultView.ToList ());
+			    };*/
+			//result.AddList (resultView.ToList ());
 			return result;
 		}
 
@@ -82,10 +83,11 @@ namespace PortableCore.BL.Managers
             {
                 int sourceId = listSourceExpr[0].ID;
                 TranslatedExpressionManager transExprManager = new TranslatedExpressionManager();
-                IEnumerable<TranslatedExpression> transEnumerator = transExprManager.GetTranslateResultFromLocalCache(sourceId);
+                throw new Exception("not realized");
+                /*IEnumerable<TranslatedExpression> transEnumerator = transExprManager.GetTranslateResultFromLocalCache(sourceId);
                 var transExprItem = transEnumerator.Where(item => item.TranslatedText == result.TranslatedText).Single<TranslatedExpression>();
                 FavoritesManager favoritesManager = new FavoritesManager();
-                favoritesManager.AddWord(transExprItem.ID);
+                favoritesManager.AddWord(transExprItem.ID);*/
                 /*Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
 
                 IRequestTranslateString translaterFromCache = new LocalDatabaseCache();

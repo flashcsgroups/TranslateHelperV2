@@ -31,6 +31,7 @@ namespace PortableCore.Core.DAL
             db.CreateTable<SourceExpression>();
             db.CreateTable<TranslatedExpression>();
             db.CreateTable<DefinitionTypes>();
+            db.CreateTable<SourceDefinition>();
 
             DefinitionTypesManager managerTypes = new DefinitionTypesManager();
             managerTypes.InitDefaultData();

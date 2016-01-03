@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
+using PortableCore.Core.DAL;
 
 namespace PortableCore.BL.Managers
 {
@@ -57,7 +58,8 @@ namespace PortableCore.BL.Managers
             List<DefinitionTypes> defTypesList = defTypesManager.GetItems();
 
             DAL.Repository<TranslatedExpression> reposTranslated = new PortableCore.DAL.Repository<TranslatedExpression>();
-            foreach (TranslateResult item in resultList)
+            //запись через Definition
+            /*foreach (TranslateResult item in resultList)
             {
                 TranslatedExpression translatedItem = new TranslatedExpression();
                 translatedItem.TranslatedText = item.TranslatedText;
@@ -70,7 +72,7 @@ namespace PortableCore.BL.Managers
                         translatedItem.DefinitionTypeID = defTypeWithConcreteName.ID;
                 }
                 reposTranslated.Save(translatedItem);
-            }
+            }*/
         }
 
 		public List<TranslatedExpression> GetItems()
@@ -79,12 +81,14 @@ namespace PortableCore.BL.Managers
 			return new List<TranslatedExpression> (repos.GetItems ());
 		}
 
-        //ToDo:Отказаться от передачи INumerator в пользу List
-        public IEnumerable<TranslatedExpression> GetTranslateResultFromLocalCache(int sourceId)
+        /*public List<TranslatedExpression> GetTranslateResultFromLocalCache(int sourceDefinitiondId)
         {
-            throw new Exception("not realized");
-            //return SqlLiteInstance.DB.Table<TranslatedExpression>().ToList().Where(item => item.SourceExpressionID == sourceId);
-        }
+            var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
+                       join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID 
+                       where trItem.DefinitionID == sourceDefinitiondId
+                       select new { trItem.ID, trItem.DefinitionID};
+            return view.ToList();
+        }*/
 
 	}
 }

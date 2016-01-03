@@ -82,6 +82,7 @@ namespace PortableCore.BL.Managers
                         result = DefinitionTypesEnum.adverb;
                     }; break;
                 case "частица":
+                case "причастие":
                 case "participle":
                     {
                         result = DefinitionTypesEnum.participle;

@@ -6,7 +6,7 @@ using PortableCore.BL.Contracts;
 namespace PortableCore.Tests
 {
     [TestFixture]
-    public class TranslateResultStructureTests
+    public class YandexDictionaryTranslateResultStructureTests
     {
         [Test]
         public void TestMust_GetOriginalText()
@@ -48,7 +48,7 @@ namespace PortableCore.Tests
         }
 
         [Test]
-        public void TestMust_GetTranscription()
+        public void TestMust_GetTranscriptionForSource()
         {
             //arrange
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
@@ -74,7 +74,7 @@ namespace PortableCore.Tests
         }
 
         [Test]
-        public void TestMust_GetTranslatedTextForTranslateVariant()
+        public void TestMust_GetTranslatedTextForTranslateDefinition0_Variant0()
         {
             //arrange
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
@@ -84,6 +84,71 @@ namespace PortableCore.Tests
 
             //assert
             Assert.IsTrue(testResult.Definitions[0].TranslateVariants[0].Text == "явный");
+        }
+
+        [Test]
+        public void TestMust_GetTranslatedTextForTranslateDefinition1_Variant0()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
+
+            //act
+            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[1].TranslateVariants[0].Text == "открытый");
+        }
+
+        [Test]
+        public void TestMust_GetPosForTranslateDefinition0_Variant0()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
+
+            //act
+            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[0].TranslateVariants[0].Pos == DefinitionTypesEnum.adjective);
+        }
+
+        [Test]
+        public void TestMust_GetPosForTranslateDefinition1_Variant0()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
+
+            //act
+            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[1].TranslateVariants[0].Pos == DefinitionTypesEnum.participle);
+        }
+
+        [Test]
+        public void TestMust_GetPosForSourceDefinition0()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
+
+            //act
+            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[0].Pos == DefinitionTypesEnum.adjective);
+        }
+
+        [Test]
+        public void TestMust_GetPosForSourceDefinition1()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
+
+            //act
+            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[1].Pos == DefinitionTypesEnum.participle);
         }
 
         [Test]
@@ -100,7 +165,7 @@ namespace PortableCore.Tests
         }
 
         [Test]
-        public void TestMust_GetResultWithIncorrectResponse()
+        public void TestMust_GetTranslateResultForEmptyResponse()
         {
             //arrange
             string responseText = "";
@@ -109,7 +174,7 @@ namespace PortableCore.Tests
             TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
-            Assert.AreEqual(testResult.OriginalText, "");
+            Assert.IsTrue(testResult.OriginalText == "");
         }
         private TranslateResult GetTestTranslateResult<T>(string StringForParse) where T : TranslateRequestFactory, new()
         {

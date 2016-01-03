@@ -4,21 +4,19 @@ using SQLite;
 
 namespace PortableCore.DL
 {
-	public class TranslatedExpression : IBusinessEntity
+	public class SourceDefinition : IBusinessEntity
 	{
         //ToDo: добавить геттер для свойств публичных
-		public TranslatedExpression ()
+		public SourceDefinition()
 		{
-            TranslatedText = string.Empty;
+            TranscriptionText = string.Empty;
         }
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
-
-		public string TranslatedText { get; set; }
+        public string TranscriptionText { get; set; }
         public int DefinitionTypeID { get; set; }
-
 		[Indexed]
-		public int DefinitionID { get; set; }
+		public int SourceExpressionID { get; set; }
 	}
 }
