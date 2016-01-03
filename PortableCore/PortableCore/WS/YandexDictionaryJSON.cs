@@ -19,8 +19,7 @@ namespace PortableCore.WS
         public override async Task<string> GetResponse(string sourceString, string direction)
         {
             string url = string.Format("https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={0}&lang={2}&text={1}", AuthKey, sourceString, direction);
-            string responseString = await GetJsonResponse(url);
-            return responseString;
+            return await GetJsonResponse(url);
         }
 
         public override TranslateResult Parse(string responseText)
@@ -31,30 +30,6 @@ namespace PortableCore.WS
                 result = convertResponseToTranslateResult(deserializedResponse);
             else
                 result = new TranslateResult(string.Empty);
-            return result;
-        }
-
-        private TranslateResult convertResponseToTranslateResult(YandexDictionaryScheme deserializedObject)
-        {
-            string originalString = string.Empty;
-            if(deserializedObject.Def.Count > 0)
-            {
-                originalString = deserializedObject.Def[0].Text;
-            } else
-            {
-                originalString = "";
-            }
-            TranslateResult result = new TranslateResult(originalString);
-            foreach(var def in deserializedObject.Def)
-            {
-                var translateVariantsSource = def.Tr;
-                var translateVariants = new List<TranslateVariant>();
-                foreach(var tr in translateVariantsSource)
-                {
-                    translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
-                }
-                result.AddDefinition(DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
-            }
             return result;
         }
 
@@ -96,6 +71,31 @@ namespace PortableCore.WS
                 }
             }*/
 
+            return result;
+        }
+
+        private TranslateResult convertResponseToTranslateResult(YandexDictionaryScheme deserializedObject)
+        {
+            string originalString = string.Empty;
+            if (deserializedObject.Def.Count > 0)
+            {
+                originalString = deserializedObject.Def[0].Text;
+            }
+            else
+            {
+                originalString = "";
+            }
+            TranslateResult result = new TranslateResult(originalString);
+            foreach (var def in deserializedObject.Def)
+            {
+                var translateVariantsSource = def.Tr;
+                var translateVariants = new List<TranslateVariant>();
+                foreach (var tr in translateVariantsSource)
+                {
+                    translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
+                }
+                result.AddDefinition(DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
+            }
             return result;
         }
 

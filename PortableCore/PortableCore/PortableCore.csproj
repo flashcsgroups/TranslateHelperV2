@@ -41,6 +41,7 @@
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultCollection.cs" />
     <Compile Include="BL\Contracts\TranslateResultIndexedCollection.cs" />
+    <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
     <Compile Include="DL\DefinitionTypes.cs" />
     <Compile Include="DL\Direction.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="BL\Managers\SourceExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslatedExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslateProviderManager.cs" />
+    <Compile Include="DL\SourceDefinition.cs" />
     <Compile Include="DL\SourceExpression.cs" />
     <Compile Include="DL\TranslatedExpression.cs" />
     <Compile Include="DL\TranslateProvider.cs" />

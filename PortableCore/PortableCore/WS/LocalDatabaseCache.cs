@@ -5,6 +5,7 @@ using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DL;
 using System;
+using PortableCore.Core.DAL;
 
 namespace PortableCore.WS
 {
@@ -25,21 +26,35 @@ namespace PortableCore.WS
             if (sourceList.Count > 0)
             {
                 int sourceId = sourceList[0].ID;
-                TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
+                SourceDefinitionManager defManager = new SourceDefinitionManager();
+                List<SourceDefinition> listDefinitions = defManager.GetDefinitions(sourceId);
+                foreach(var defItem in listDefinitions)
+                {
+                    TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
+                    var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
+                               join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID
+                               where trItem.DefinitionID == sourceId
+                               select new { trItem.ID, trItem.DefinitionID };
+
+                    /*List<TranslatedExpression> listTranslatedExpression = translatedManager.GetTranslateResultFromLocalCache(defItem.ID);
+
+                    FavoritesManager favManager = new FavoritesManager();
+                    foreach (TranslatedExpression item in translateResultCollection)
+                    {
+                        var favoritesItem = favManager.GetItemForTranslatedExpressionId(item.ID);
+
+                    }*/
+                }
+
+                /*TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
                 IEnumerable<TranslatedExpression> translateResultCollection = translatedManager.GetTranslateResultFromLocalCache(sourceId);
                 FavoritesManager favManager = new FavoritesManager();
-                List<Tuple<TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites = new List<Tuple<TranslatedExpression, Favorites>>();
+                List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites = new List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>>();
                 foreach(TranslatedExpression item in translateResultCollection)
                 {
                     var favoritesItem = favManager.GetItemForTranslatedExpressionId(item.ID);
-                    /*int favItemId = 0;
-                    if (favoritesItem != null)
-                    {
-                        favItemId = favoritesItem.ID;
-
-                    }*/
-                    listOfCoupleTranslateAndFavorites.Add(Tuple.Create(item, favoritesItem));
-                    /*RequestResult.translateResult.Collection.Add(new TranslateResult("")
+                    listOfCoupleTranslateAndFavorites.Add(Tuple.Create(new SourceExpression(), new SourceDefinition(), item, favoritesItem));
+                    RequestResult.translateResult.Collection.Add(new TranslateResult("")
                         {
                            // OriginalText = sourceString,
                             TranslatedText = item.TranslatedText,
@@ -48,36 +63,31 @@ namespace PortableCore.WS
                             TranslatedExpressionId = item.ID,
                             FavoritesId = favItemId
                         }
-                    );*/
-                }
-                var translateResult = ConvertCacheToTranslateResult(sourceString, listOfCoupleTranslateAndFavorites);
-                RequestResult.SetTranslateResult(translateResult);
+                    );
+                }*/
+                //var translateResult = ConvertDataLocalCacheToTranslateResult(sourceString, listOfCoupleTranslateAndFavorites);
+                //RequestResult.SetTranslateResult(translateResult);
             }
             return RequestResult;
         }
 
-        public TranslateResult ConvertCacheToTranslateResult(string sourceString, List<Tuple<TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites)
+        public TranslateResult ConvertDataLocalCacheToTranslateResult(string sourceString, List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites)
         {
-            /*string originalString = string.Empty;
-            if (deserializedObject.Def.Count > 0)
-            {
-                originalString = deserializedObject.Def[0].Text;
-            }
-            else
-            {
-                originalString = "";
-            }*/
             TranslateResult result = new TranslateResult(sourceString);
-            /*foreach (var def in deserializedObject.Def)
+            foreach (var definition in listOfCoupleTranslateAndFavorites)
             {
-                var translateVariantsSource = def.Tr;
+                var sourceExprItem = definition.Item1;
+                var sourceDefinition = definition.Item2;
+                var transExprItem = definition.Item3;
+                var favItem = definition.Item4;
+                //var translateVariantsSource = def.Tr;
                 var translateVariants = new List<TranslateVariant>();
-                foreach (var tr in translateVariantsSource)
+                /*foreach (var tr in translateVariantsSource)
                 {
                     translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionType(tr.Pos)));
-                }
-                result.AddDefinition(DefinitionTypesManager.GetEnumDefinitionType(def.Pos), def.Ts, translateVariants);
-            }*/
+                }*/
+                result.AddDefinition((DefinitionTypesEnum)sourceDefinition.DefinitionTypeID, sourceDefinition.TranscriptionText, translateVariants);
+            }
             return result;
         }
 
