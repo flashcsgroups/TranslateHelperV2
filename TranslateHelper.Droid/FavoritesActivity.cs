@@ -13,6 +13,7 @@ using Android.Widget;
 using PortableCore;
 using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
+using PortableCore.DAL;
 
 namespace TranslateHelper.Droid
 {
@@ -44,7 +45,7 @@ namespace TranslateHelper.Droid
 
             listView.FastScrollEnabled = true;
 
-			FavoritesManager favManager = new FavoritesManager ();
+			FavoritesManager favManager = new FavoritesManager (SqlLiteInstance.DB);
 			var translateResultIdxCollection = favManager.GetItemsForFavoritesList ();
 
 			//TranslateResultIndexedCollection<TranslateResult> translateResultIdxCollection = new TranslateResultIndexedCollection<TranslateResult>();

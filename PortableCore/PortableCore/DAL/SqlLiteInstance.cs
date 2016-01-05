@@ -1,8 +1,7 @@
 using PortableCore.BL.Managers;
-using PortableCore.Core.DL;
 using PortableCore.DL;
 
-namespace PortableCore.Core.DAL
+namespace PortableCore.DAL
 {
     public class SqlLiteInstance
     {
@@ -14,7 +13,7 @@ namespace PortableCore.Core.DAL
             }
         }
 
-        private static PortableCore.Core.DL.SqlLiteHelper db = null;
+        private static PortableCore.DL.SqlLiteHelper db = null;
 
         public SqlLiteInstance(SqlLiteHelper sqlInstanceHelper)
         {
@@ -33,17 +32,12 @@ namespace PortableCore.Core.DAL
             db.CreateTable<DefinitionTypes>();
             db.CreateTable<SourceDefinition>();
 
-            DefinitionTypesManager managerTypes = new DefinitionTypesManager();
+            DefinitionTypesManager managerTypes = new DefinitionTypesManager(db);
             managerTypes.InitDefaultData();
 
-            TranslateProviderManager managerProvider = new TranslateProviderManager();
+            TranslateProviderManager managerProvider = new TranslateProviderManager(db);
             managerProvider.InitDefaultData();
         }
 
     }
-    /*Core.DefinitionTypesManager managerTypes = new Core.DefinitionTypesManager();
-managerTypes.InitDefaultData ();
-
-Core.TranslateProviderManager managerProvider = new Core.TranslateProviderManager ();
-managerProvider.InitDefaultData ();*/
 }

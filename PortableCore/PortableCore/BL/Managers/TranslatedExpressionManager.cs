@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
-using PortableCore.Core.DAL;
+using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
 	public class TranslatedExpressionManager : IDataManager<TranslatedExpression>
     {
-		public TranslatedExpressionManager ()
-		{
-		}
+        ISQLiteTesting db;
+
+        public TranslatedExpressionManager(ISQLiteTesting dbHelper)
+        {
+            db = dbHelper;
+        }
 
         public void InitDefaultData()
         {
@@ -33,8 +36,8 @@ namespace PortableCore.BL.Managers
         public void AddNewWord(string originalExpression, List<TranslateResult> resultList)
 		{
             //ToDo:запись сделать через менеджер
-            SourceExpressionManager sourceManager = new SourceExpressionManager();
-            IEnumerable<SourceExpression> localCacheDataList = sourceManager.GetItemsForText(originalExpression);
+            SourceExpressionManager sourceManager = new SourceExpressionManager(db);
+            IEnumerable<SourceExpression> localCacheDataList = sourceManager.GetSourceExpressionCollection(originalExpression);
 
             int sourceItemID = 0;
 
@@ -49,12 +52,12 @@ namespace PortableCore.BL.Managers
                 itemSource.Text = originalExpression;
                 if(sourceExpr.Save(itemSource) == 1)
                 {
-                    localCacheDataList = sourceManager.GetItemsForText(originalExpression);
+                    localCacheDataList = sourceManager.GetSourceExpressionCollection(originalExpression);
                     sourceItemID = localCacheDataList.ToList()[0].ID;
                 }
             }
 
-            DefinitionTypesManager defTypesManager = new DefinitionTypesManager();
+            DefinitionTypesManager defTypesManager = new DefinitionTypesManager(db);
             List<DefinitionTypes> defTypesList = defTypesManager.GetItems();
 
             DAL.Repository<TranslatedExpression> reposTranslated = new PortableCore.DAL.Repository<TranslatedExpression>();
@@ -81,14 +84,15 @@ namespace PortableCore.BL.Managers
 			return new List<TranslatedExpression> (repos.GetItems ());
 		}
 
-        /*public List<TranslatedExpression> GetTranslateResultFromLocalCache(int sourceDefinitiondId)
+        public List<Tuple<TranslatedExpression, Favorites>> GetListOfCoupleTranslatedExpressionAndFavorite(List<SourceDefinition> listOfDefinitions)
         {
+            var arrayDefinitionIDs = from item in listOfDefinitions select item.ID;
             var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
                        join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID 
-                       where trItem.DefinitionID == sourceDefinitiondId
-                       select new { trItem.ID, trItem.DefinitionID};
+                       where arrayDefinitionIDs.Contains(trItem.DefinitionID) 
+                       select new Tuple<TranslatedExpression, Favorites>(trItem, favItem);
             return view.ToList();
-        }*/
+        }
 
 	}
 }

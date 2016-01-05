@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
-using PortableCore.Core.DAL;
+using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
 	public class SourceExpressionManager : IDataManager<SourceExpression>
     {
-		public SourceExpressionManager()
-		{
-		}
+        ISQLiteTesting db;
+
+        public SourceExpressionManager(ISQLiteTesting dbHelper)
+        {
+            db = dbHelper;
+        }
 
 		public void InitDefaultData ()
-		{
+		{                                                                                                                                                                                                                                                       
 		}
 			
         public SourceExpression GetItemForId(int id)
@@ -24,11 +27,11 @@ namespace PortableCore.BL.Managers
             return result;
         }
 
-        public IEnumerable<SourceExpression> GetItemsForText(string text)
+        public IEnumerable<SourceExpression> GetSourceExpressionCollection(string sourceText)
         {
-            var conn = SqlLiteInstance.DB;
-            return conn.Table<SourceExpression>().ToList().Where(item => item.Text == text);
+            return db.Table<SourceExpression>().ToList().Where(item => item.Text == sourceText);
         }
+
     }
 }
 

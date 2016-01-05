@@ -7,9 +7,12 @@ namespace PortableCore.BL.Managers
 {
 	public class TranslateProviderManager : IDataManager<TranslateProvider>
     {
-		public TranslateProviderManager()
-		{
-		}
+        ISQLiteTesting db;
+
+        public TranslateProviderManager(ISQLiteTesting dbHelper)
+        {
+            db = dbHelper;
+        }
 
 		public void InitDefaultData ()
 		{

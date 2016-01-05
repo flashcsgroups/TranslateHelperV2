@@ -5,47 +5,44 @@ using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DL;
 using System;
-using PortableCore.Core.DAL;
+using PortableCore.DAL;
 
-namespace PortableCore.WS
+namespace PortableCore.DAL
 {
-    public class LocalDatabaseCache : IRequestTranslateString
+    public class LocalDBCacheReader : IRequestTranslateString
     {
-        public LocalDatabaseCache()
-        {
+        private SqlLiteHelper db;
 
+        public LocalDBCacheReader(SqlLiteHelper dbHelper)
+        {
+            db = dbHelper;
         }
 
         public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
         {
             TranslateRequestResult RequestResult = new TranslateRequestResult();
 
-            SourceExpressionManager sourceManager = new SourceExpressionManager();
-            IEnumerable<SourceExpression> sourceListIterator = sourceManager.GetItemsForText(sourceString);
-            var sourceList = sourceListIterator.ToList<SourceExpression>();
+            SourceExpressionManager sourceManager = new SourceExpressionManager(db);
+            List<SourceExpression> sourceList = sourceManager.GetSourceExpressionCollection(sourceString).ToList<SourceExpression>();
             if (sourceList.Count > 0)
             {
-                int sourceId = sourceList[0].ID;
-                SourceDefinitionManager defManager = new SourceDefinitionManager();
-                List<SourceDefinition> listDefinitions = defManager.GetDefinitions(sourceId);
-                foreach(var defItem in listDefinitions)
+                SourceDefinitionManager defManager = new SourceDefinitionManager(db);
+                List<SourceDefinition> definitionsList = defManager.GetDefinitionCollection(sourceList[0].ID);
+
+                TranslatedExpressionManager translatedManager = new TranslatedExpressionManager(db);
+                var translatedList = translatedManager.GetListOfCoupleTranslatedExpressionAndFavorite(definitionsList);
+
+                RequestResult.SetTranslateResult(createTranslateResult(sourceList, definitionsList, translatedList));
+                //getTranslatedResults(sourceId, listOfDefinitions);
+
+                /*List<TranslatedExpression> listTranslatedExpression = translatedManager.GetTranslateResultFromLocalCache(defItem.ID);
+
+                FavoritesManager favManager = new FavoritesManager();
+                foreach (TranslatedExpression item in translateResultCollection)
                 {
-                    TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
-                    var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
-                               join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID
-                               where trItem.DefinitionID == sourceId
-                               select new { trItem.ID, trItem.DefinitionID };
+                    var favoritesItem = favManager.GetItemForTranslatedExpressionId(item.ID);
 
-                    /*List<TranslatedExpression> listTranslatedExpression = translatedManager.GetTranslateResultFromLocalCache(defItem.ID);
-
-                    FavoritesManager favManager = new FavoritesManager();
-                    foreach (TranslatedExpression item in translateResultCollection)
-                    {
-                        var favoritesItem = favManager.GetItemForTranslatedExpressionId(item.ID);
-
-                    }*/
-                }
-
+                }*/
                 /*TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
                 IEnumerable<TranslatedExpression> translateResultCollection = translatedManager.GetTranslateResultFromLocalCache(sourceId);
                 FavoritesManager favManager = new FavoritesManager();
@@ -70,6 +67,41 @@ namespace PortableCore.WS
             }
             return RequestResult;
         }
+
+        private TranslateResult createTranslateResult(List<SourceExpression> sourceList, List<SourceDefinition> definitionsList, List<Tuple<TranslatedExpression, Favorites>> translatedList)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*public void GetTranslatedResults(int sourceId, List<SourceDefinition> listDefinitions)
+        {
+            IEnumerable<TranslateResult> view;
+
+            foreach (var defItem in listDefinitions)
+            {
+                TranslatedExpressionManager translatedManager = new TranslatedExpressionManager();
+                view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
+                       join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID
+                       where trItem.DefinitionID == sourceId
+                       select new { trItem.ID, trItem.DefinitionID };
+
+
+            }
+        }*/
+
+        /*public List<SourceDefinition> GetDefinitions(int sourceId)
+        {
+            SourceDefinitionManager defManager = new SourceDefinitionManager();
+            List<SourceDefinition> listDefinitions = defManager.GetDefinitionCollection(sourceId);
+            return listDefinitions;
+        }*/
+
+        /*public List<SourceExpression> GetSourceExprCollection(string sourceString)
+        {
+            SourceExpressionManager sourceManager = new SourceExpressionManager();
+            IEnumerable<SourceExpression> sourceListIterator = sourceManager.GetItemsForText(sourceString);
+            return sourceListIterator.ToList<SourceExpression>();
+        }*/
 
         public TranslateResult ConvertDataLocalCacheToTranslateResult(string sourceString, List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites)
         {

@@ -1,8 +1,8 @@
 using System;
 using Android.App;
 using Android.Runtime;
-using PortableCore.Core.DL;
-using PortableCore.Core.DAL;
+using PortableCore.DL;
+using PortableCore.DAL;
 
 namespace TranslateHelper.App
 {

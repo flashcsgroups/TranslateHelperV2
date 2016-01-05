@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using PortableCore.DL;
 using SQLite;
 using PortableCore.BL.Managers;
+using System;
 
-namespace PortableCore.Core.DL
+namespace PortableCore.DL
 {
     /// <summary>
     /// TaskDatabase builds on SQLite.Net and represents a specific database, in our case, the Task DB.
     /// It contains methods for retrieval and persistance as well as db creation, all based on the 
     /// underlying ORM.
     /// </summary>
-    public class SqlLiteHelper: SQLiteConnection
+    public class SqlLiteHelper: SQLiteConnection, ISQLiteTesting
     {
 		static object locker = new object ();
 
@@ -108,6 +109,11 @@ namespace PortableCore.Core.DL
             {
                 return Delete<T>(new T() { ID = id });
             }
+        }
+
+        IEnumerable<T> ISQLiteTesting.Table<T>() 
+        {
+            return Table<T>();
         }
     }
 }

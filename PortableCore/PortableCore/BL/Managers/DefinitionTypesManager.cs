@@ -8,9 +8,12 @@ namespace PortableCore.BL.Managers
 {
 	public class DefinitionTypesManager : IDataManager<DefinitionTypes>
     {
-		public DefinitionTypesManager()
-		{
-		}
+        ISQLiteTesting db;
+
+        public DefinitionTypesManager(ISQLiteTesting dbHelper)
+        {
+            db = dbHelper;
+        }
 
 		public void InitDefaultData ()
 		{

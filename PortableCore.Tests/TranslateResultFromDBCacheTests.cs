@@ -4,6 +4,7 @@ using PortableCore.WS;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
 using System.Collections.Generic;
+using PortableCore.DAL;
 
 namespace PortableCore.Tests
 {
@@ -11,11 +12,22 @@ namespace PortableCore.Tests
     public class TranslateResultFromDBCacheTests
     {
         [Test]
+        public void TestMust_GetOneTranslatedStringFormDB()
+        {
+            //arrange
+            string sourceString = "explicit";
+            //act
+            //LocalDBCacheReader dbReader = new LocalDBCacheReader();
+            //List<TranslateResult> list = dbReader.GetSourceExprCollection(sourceString).getDefinitions().getTranslatedExpressions().GetTranslateResults();
+            //assert
+        }
+
+        /*[Test]
         public void TestMust_GetOneDefinitionForSourceText()
         {
             //arrange
             string originalWord = "explicit";
-            LocalDatabaseCache cache = new LocalDatabaseCache();
+            LocalDBCacheReader cache = new LocalDBCacheReader();
             List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites;
             SourceExpression sourceItem1;
             listOfCoupleTranslateAndFavorites = new List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>>();
@@ -33,7 +45,7 @@ namespace PortableCore.Tests
         {
             //arrange
             string originalWord = "explicit";
-            LocalDatabaseCache cache = new LocalDatabaseCache();
+            LocalDBCacheReader cache = new LocalDBCacheReader();
             List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites;
             SourceExpression sourceItem1;
             listOfCoupleTranslateAndFavorites = new List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>>();
@@ -52,7 +64,7 @@ namespace PortableCore.Tests
         {
             //arrange
             string originalWord = "explicit";
-            LocalDatabaseCache cache = new LocalDatabaseCache();
+            LocalDBCacheReader cache = new LocalDBCacheReader();
             List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites;
             SourceExpression sourceItem1;
             listOfCoupleTranslateAndFavorites = new List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>>();
@@ -82,6 +94,6 @@ namespace PortableCore.Tests
             var trItem2 = new TranslatedExpression() { DefinitionTypeID = (int)DefinitionTypesEnum.adjective, ID = 4, DefinitionID = defItem2.ID, TranslatedText = "открытый" };
             var favItem2 = new Favorites() { ID = 1, TranslatedExpressionID = trItem2.ID };
             listOfCoupleTranslateAndFavorites.Add(new Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>(sourceItem1, defItem2, trItem2, favItem2));
-        }
+        }*/
     }
 }

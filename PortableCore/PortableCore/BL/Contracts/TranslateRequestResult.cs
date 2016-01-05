@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using PortableCore.BL.Contracts;
 
-namespace PortableCore.WS
+namespace PortableCore.BL.Contracts
 {
 	public class TranslateRequestResult
 	{

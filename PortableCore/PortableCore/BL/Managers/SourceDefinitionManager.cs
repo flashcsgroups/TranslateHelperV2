@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
-using PortableCore.Core.DAL;
+using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
 	public class SourceDefinitionManager : IDataManager<SourceDefinition>
     {
-		public SourceDefinitionManager()
+        ISQLiteTesting db;
+
+		public SourceDefinitionManager(ISQLiteTesting dbHelper)
 		{
+            db = dbHelper;
 		}
 
         public void InitDefaultData()
@@ -35,10 +38,10 @@ namespace PortableCore.BL.Managers
 			return new List<SourceDefinition> (repos.GetItems ());
 		}
 
-        public List<SourceDefinition> GetDefinitions(int sourceId)
+        public List<SourceDefinition> GetDefinitionCollection(int sourceId)
         {
-            //DAL.Repository<SourceDefinition> repos = new PortableCore.DAL.Repository<SourceDefinition>();
-            var definitionsView = from defItem in SqlLiteInstance.DB.Table<SourceDefinition>() where defItem.SourceExpressionID == sourceId select defItem;
+            //var definitionsView = from defItem in SqlLiteInstance.DB.Table<SourceDefinition>() where defItem.SourceExpressionID == sourceId select defItem;
+            var definitionsView = from defItem in db.Table<SourceDefinition>() where defItem.SourceExpressionID == sourceId select defItem;
             return definitionsView.ToList();
         }
     }

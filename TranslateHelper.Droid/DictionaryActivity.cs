@@ -12,6 +12,7 @@ using PortableCore.Helpers;
 using PortableCore.BL.Managers;
 using Droid.Core.Helpers;
 using System.Threading.Tasks;
+using PortableCore.DAL;
 
 namespace TranslateHelper.Droid
 {
@@ -95,7 +96,7 @@ namespace TranslateHelper.Droid
             string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             if (convertedSourceText.Length > 0)
             {
-                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+                IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
                 var resultFromCache = translaterFromCache.Translate(originalText, direction);
                 /*if (resultFromCache.translateResult.Collection.Count > 0)
                 {
@@ -125,7 +126,7 @@ namespace TranslateHelper.Droid
             string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
             if (sourceText.Length > 0)
             {
-                IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+                IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
                 var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
                 if (resultFromCache.translateResult.Collection.Count > 0)
                 {
@@ -195,7 +196,7 @@ namespace TranslateHelper.Droid
         {
             if(resultList.Count > 0)
             {
-                TranslatedExpressionManager manager = new TranslatedExpressionManager();
+                TranslatedExpressionManager manager = new TranslatedExpressionManager(SqlLiteInstance.DB);
                 //ToDo:передавать дерево результатов
                 manager.AddNewWord(sourceText, resultList);
             }
@@ -203,11 +204,11 @@ namespace TranslateHelper.Droid
 
         private async void addToFavorites(string sourceText, TranslateResult result)
         {
-            FavoritesManager favoritesManager = new FavoritesManager();
+            FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
             favoritesManager.AddWordToFavorites(sourceText, result);
             Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
 
-            IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
+            IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
             EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
             var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
             if (resultFromCache.translateResult.Collection.Count > 0)

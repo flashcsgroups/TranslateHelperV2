@@ -8,9 +8,12 @@ namespace PortableCore.BL.Managers
 {
 	public class FavoritesManager : IDataManager<Favorites>
     {
-		public FavoritesManager()
-		{
-		}
+        ISQLiteTesting db;
+
+        public FavoritesManager(ISQLiteTesting dbHelper)
+        {
+            db = dbHelper;
+        }
 
 		public void InitDefaultData ()
 		{
@@ -52,9 +55,9 @@ namespace PortableCore.BL.Managers
 		public TranslateResultIndexedCollection<TranslateResult> GetItemsForFavoritesList()
 		{
 			TranslateResultIndexedCollection<TranslateResult> result = new TranslateResultIndexedCollection<TranslateResult> ();
-			TranslatedExpressionManager transExprManager = new TranslatedExpressionManager ();
-			DefinitionTypesManager defTypesManager = new DefinitionTypesManager ();
-            SourceExpressionManager sourceManager = new SourceExpressionManager();
+			TranslatedExpressionManager transExprManager = new TranslatedExpressionManager (db);
+			DefinitionTypesManager defTypesManager = new DefinitionTypesManager (db);
+            SourceExpressionManager sourceManager = new SourceExpressionManager(db);
 			var test = defTypesManager.GetItemForId (0);
 			var transExprItems = transExprManager.GetItems ();
             //чтение через definition
@@ -76,13 +79,13 @@ namespace PortableCore.BL.Managers
 
         public void AddWordToFavorites(string sourceText, TranslateResult result)
         {
-            SourceExpressionManager sourceExprManager = new SourceExpressionManager();
-            IEnumerable<SourceExpression> sourceEnumerator = sourceExprManager.GetItemsForText(sourceText);
+            SourceExpressionManager sourceExprManager = new SourceExpressionManager(db);
+            IEnumerable<SourceExpression> sourceEnumerator = sourceExprManager.GetSourceExpressionCollection(sourceText);
             List<SourceExpression> listSourceExpr = sourceEnumerator.ToList<SourceExpression>();
             if (listSourceExpr.Count > 0)
             {
                 int sourceId = listSourceExpr[0].ID;
-                TranslatedExpressionManager transExprManager = new TranslatedExpressionManager();
+                TranslatedExpressionManager transExprManager = new TranslatedExpressionManager(db);
                 throw new Exception("not realized");
                 /*IEnumerable<TranslatedExpression> transEnumerator = transExprManager.GetTranslateResultFromLocalCache(sourceId);
                 var transExprItem = transEnumerator.Where(item => item.TranslatedText == result.TranslatedText).Single<TranslatedExpression>();
