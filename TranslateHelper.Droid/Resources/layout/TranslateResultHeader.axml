@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:id="@+id/trHeaderLayout">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false">
+        <TextView
+            android:id="@+id/OriginalTextTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dip"
+            android:text=""
+            android:padding="4dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:background="@color/transparent" />
+        <TextView
+            android:id="@+id/OriginalTextTranscriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dip"
+            android:text=""
+            android:padding="4dp"
+            android:textColor="@color/lightgrey"
+            android:textStyle="normal"
+            android:background="@color/transparent" />
+        <TextView
+            android:id="@+id/PosTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textSize="20dip"
+            android:text=""
+            android:padding="4dp"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            android:background="@color/transparent" />
+        <TextView
+            android:id="@+id/ExamplesLinkTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textSize="20dip"
+            android:text=""
+            android:padding="4dp"
+            android:textColor="@color/blue"
+            android:textStyle="normal"
+            android:background="@color/transparent"
+            android:linksClickable="true"
+            android:autoLink="all" />
+    </LinearLayout>
+    <ListView
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listVariantListView" />
+</LinearLayout>

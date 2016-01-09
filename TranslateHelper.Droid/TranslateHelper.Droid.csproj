@@ -88,7 +88,8 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="FavoritesAdapter.cs" />
-    <Compile Include="TranslateResultAdapter.cs" />
+    <Compile Include="TranslateResultVewVariantAdapter.cs" />
+    <Compile Include="TranslateResultVewHeaderAdapter.cs" />
     <Compile Include="TranslateServiceResult.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +98,7 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\TranslateResultItem.axml">
+    <AndroidResource Include="Resources\layout\TranslateResultHeader.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FavoritesItem.axml">
@@ -110,6 +111,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
+    <AndroidResource Include="Resources\layout\TranslateResultSectionListHeader.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TranslateResultSectionListItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

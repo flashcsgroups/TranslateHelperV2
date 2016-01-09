@@ -22,79 +22,30 @@ namespace PortableCore.WS
             return await GetJsonResponse(url);
         }
 
-        public override TranslateResult Parse(string responseText)
+        public override TranslateResultView Parse(string responseText)
         {
-            TranslateResult result;
+            TranslateResultView result;
             YandexDictionaryScheme deserializedResponse = JsonConvert.DeserializeObject<YandexDictionaryScheme>(responseText);
             if (null != deserializedResponse)
                 result = convertResponseToTranslateResult(deserializedResponse);
             else
-                result = new TranslateResult(string.Empty);
+                result = new TranslateResultView();
             return result;
         }
 
-        [Obsolete("Удалить!")]
-        public override TranslateResultCollection ParseResponse(string responseText)
+        private TranslateResultView convertResponseToTranslateResult(YandexDictionaryScheme deserializedObject)
         {
-            TranslateResultCollection result = new TranslateResultCollection();
-            YandexDictionaryScheme deserializedResponse = JsonConvert.DeserializeObject<YandexDictionaryScheme>(responseText);
-            //deserializedResponse.
-            //var jsonResponse = JObject.Parse(responseText);
-
-            //YandexDictionaryScheme jsonResponse = JsonConvert.DeserializeObject< YandexDictionaryScheme>(responseText);
-            //var jsonResponse = JsonValue.Parse(responseText);
-            /*var def = jsonResponse["def"];
-            if (def.Count() > 0)
-            {
-                foreach(var defItem in def)
-                {
-                    foreach(var trItem in defItem["tr"])
-                    {
-                        TranslateResult item = new TranslateResult();
-                        item.OriginalText = defItem["text"];
-                        item.Pos = defItem["pos"];
-                        item.Ts = defItem["ts"];
-                        item.TranslatedText = trItem["text"];
-                        if(trItem.ContainsKey("syn"))
-                        {
-                            item.SynonymsCollection = new List<Synonym>();
-                            foreach (var synItem in trItem["syn"])
-                            {
-                                Synonym syn = new Synonym();
-                                syn.TranslatedText = synItem["text"];
-                                item.SynonymsCollection.Add(syn);
-                            }
-                        }
-                        result.Collection.Add(item);
-                    }
-
-                }
-            }*/
-
-            return result;
-        }
-
-        private TranslateResult convertResponseToTranslateResult(YandexDictionaryScheme deserializedObject)
-        {
-            string originalString = string.Empty;
-            if (deserializedObject.Def.Count > 0)
-            {
-                originalString = deserializedObject.Def[0].Text;
-            }
-            else
-            {
-                originalString = "";
-            }
-            TranslateResult result = new TranslateResult(originalString);
+            string originalString = deserializedObject.Def.Count > 0 ? deserializedObject.Def[0].Text : string.Empty;
+            TranslateResultView result = new TranslateResultView();
             foreach (var def in deserializedObject.Def)
             {
                 var translateVariantsSource = def.Tr;
-                var translateVariants = new List<TranslateVariant>();
+                var translateVariants = new List<TranslateResultVariant>();
                 foreach (var tr in translateVariantsSource)
                 {
-                    translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
+                    translateVariants.Add(new TranslateResultVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
                 }
-                result.AddDefinition(DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
+                result.AddDefinition(def.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
             }
             return result;
         }

@@ -33,7 +33,7 @@ namespace PortableCore.BL.Managers
         }
 
         //ToDo:Отрефакторить и тест
-        public void AddNewWord(string originalExpression, List<TranslateResult> resultList)
+        public void AddNewWord(string originalExpression, List<TranslateResultView> resultList)
 		{
             //ToDo:запись сделать через менеджер
             SourceExpressionManager sourceManager = new SourceExpressionManager(db);

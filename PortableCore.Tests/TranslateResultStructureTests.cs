@@ -15,10 +15,10 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
-            Assert.IsTrue(testResult.OriginalText == "explicit");
+            Assert.IsTrue(testResult.Definitions[0].OriginalText == "explicit");
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.AreEqual(testResult.Definitions.Count, 2);
@@ -41,7 +41,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.AreEqual(testResult.Definitions[0].Pos, DefinitionTypesEnum.adjective);
@@ -54,7 +54,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[0].Transcription == "ɪksˈplɪsɪt");
@@ -67,7 +67,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.AreEqual(testResult.Definitions[0].TranslateVariants.Count, 3);
@@ -80,7 +80,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[0].TranslateVariants[0].Text == "явный");
@@ -93,7 +93,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[1].TranslateVariants[0].Text == "открытый");
@@ -106,7 +106,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[0].TranslateVariants[0].Pos == DefinitionTypesEnum.adjective);
@@ -119,7 +119,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[1].TranslateVariants[0].Pos == DefinitionTypesEnum.participle);
@@ -132,7 +132,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[0].Pos == DefinitionTypesEnum.adjective);
@@ -145,7 +145,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.IsTrue(testResult.Definitions[1].Pos == DefinitionTypesEnum.participle);
@@ -158,7 +158,7 @@ namespace PortableCore.Tests
             string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
             Assert.AreEqual(testResult.Definitions[0].TranslateVariants[0].Pos, DefinitionTypesEnum.adjective);
@@ -171,12 +171,12 @@ namespace PortableCore.Tests
             string responseText = "";
 
             //act
-            TranslateResult testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
 
             //assert
-            Assert.IsTrue(testResult.OriginalText == "");
+            Assert.AreEqual(testResult.Definitions.Count, 0);
         }
-        private TranslateResult GetTestTranslateResult<T>(string StringForParse) where T : TranslateRequestFactory, new()
+        private TranslateResultView GetTestTranslateResult<T>(string StringForParse) where T : TranslateRequestFactory, new()
         {
             var translater = new T();
             return translater.Parse(StringForParse);

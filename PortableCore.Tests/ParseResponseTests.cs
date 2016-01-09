@@ -43,7 +43,7 @@ namespace PortableCore.Tests
             Assert.AreEqual(result.Collection[5].SynonymsCollection.Count, 0);
         }*/
 
-        [Test]
+        /*[Test]
         public void TestMust_CheckCountResultLinesForIncorrectWord()
         {
             //arrange
@@ -51,11 +51,11 @@ namespace PortableCore.Tests
 
             //act
             YandexDictionaryJSON dict = new YandexDictionaryJSON();
-            var result = dict.ParseResponse(responseText);
+            var result = dict.Parse(responseText);
 
             //assert
             Assert.AreEqual(result.Collection.Count, 0);
-        }
+        }*/
 
         /*[Test]
         public void TestMust_testjson()

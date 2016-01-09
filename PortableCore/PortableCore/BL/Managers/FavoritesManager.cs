@@ -52,32 +52,19 @@ namespace PortableCore.BL.Managers
             return new List<Favorites>(repos.GetItems());
         }
 
-		public TranslateResultIndexedCollection<TranslateResult> GetItemsForFavoritesList()
+		/*public IndexedCollection<TranslateResultView> GetItemsForFavoritesList()
 		{
-			TranslateResultIndexedCollection<TranslateResult> result = new TranslateResultIndexedCollection<TranslateResult> ();
+			IndexedCollection<TranslateResultView> result = new IndexedCollection<TranslateResultView> ();
 			TranslatedExpressionManager transExprManager = new TranslatedExpressionManager (db);
 			DefinitionTypesManager defTypesManager = new DefinitionTypesManager (db);
             SourceExpressionManager sourceManager = new SourceExpressionManager(db);
 			var test = defTypesManager.GetItemForId (0);
 			var transExprItems = transExprManager.GetItems ();
-            //чтение через definition
-            /*var resultView = from favItem in GetItems()
-                             join transExprItem in transExprItems on favItem.TranslatedExpressionID
-                             equals transExprItem.ID 
-				select new TranslateResult("")
-                {
-				    //OriginalText = sourceManager.GetItemForId(transExprItem.SourceExpressionID).Text, 
-				    TranslatedText = transExprItem.TranslatedText, 
-				    Ts = transExprItem.TranscriptionText, 
-				    Pos = defTypesManager.GetItemForId(transExprItem.DefinitionTypeID).Name,
-				    TranslatedExpressionId = transExprItem.ID,
-				    FavoritesId = favItem.ID
-			    };*/
 			//result.AddList (resultView.ToList ());
 			return result;
-		}
+		}*/
 
-        public void AddWordToFavorites(string sourceText, TranslateResult result)
+        public void AddWordToFavorites(string sourceText, TranslateResultView result)
         {
             SourceExpressionManager sourceExprManager = new SourceExpressionManager(db);
             IEnumerable<SourceExpression> sourceEnumerator = sourceExprManager.GetSourceExpressionCollection(sourceText);

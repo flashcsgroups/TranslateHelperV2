@@ -10,39 +10,6 @@
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:id="@+id/listChangeLang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <EditText
-            android:id="@+id/textSourceLang"
-            android:hint="Исходный язык"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Английский"
-            android:textSize="5sp"
-            android:editable="false" />
-        <ImageButton
-            android:id="@+id/changeLanButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/v2change" />
-        <EditText
-            android:id="@+id/textDestinationLang"
-            android:hint="Конечный язык"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Русский"
-            android:textSize="5sp"
-            android:editable="false" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_weight="0"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         android:id="@+id/listInputString"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +17,7 @@
         android:minHeight="24dp"
         android:gravity="center">
         <EditText
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:id="@+id/textSourceString"
             android:hint="Строка для перевода"
             android:layout_width="match_parent"
@@ -65,16 +32,16 @@
             android:layout_weight="2"
             android:id="@+id/buttonNew"
             android:layout_width="wrap_content"
-            android:minWidth="48dp"
-            android:layout_height="48dp"
+            android:minWidth="32dp"
+            android:layout_height="32dp"
             android:scaleType="fitCenter"
             android:src="@drawable/v2cleartext" />
         <ImageButton
             android:layout_weight="2"
             android:id="@+id/buttonTranslate"
             android:layout_width="wrap_content"
-            android:minWidth="48dp"
-            android:layout_height="48dp"
+            android:minWidth="32dp"
+            android:layout_height="32dp"
             android:scaleType="fitCenter"
             android:src="@drawable/v2search" />
     </LinearLayout>

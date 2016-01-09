@@ -11,9 +11,9 @@ namespace PortableCore.DAL
 {
     public class LocalDBCacheReader : IRequestTranslateString
     {
-        private SqlLiteHelper db;
+        private ISQLiteTesting db;
 
-        public LocalDBCacheReader(SqlLiteHelper dbHelper)
+        public LocalDBCacheReader(ISQLiteTesting dbHelper)
         {
             db = dbHelper;
         }
@@ -32,7 +32,7 @@ namespace PortableCore.DAL
                 TranslatedExpressionManager translatedManager = new TranslatedExpressionManager(db);
                 var translatedList = translatedManager.GetListOfCoupleTranslatedExpressionAndFavorite(definitionsList);
 
-                RequestResult.SetTranslateResult(createTranslateResult(sourceList, definitionsList, translatedList));
+                RequestResult.SetTranslateResult(createTranslateResult(sourceString, sourceList, definitionsList, translatedList));
                 //getTranslatedResults(sourceId, listOfDefinitions);
 
                 /*List<TranslatedExpression> listTranslatedExpression = translatedManager.GetTranslateResultFromLocalCache(defItem.ID);
@@ -68,9 +68,20 @@ namespace PortableCore.DAL
             return RequestResult;
         }
 
-        private TranslateResult createTranslateResult(List<SourceExpression> sourceList, List<SourceDefinition> definitionsList, List<Tuple<TranslatedExpression, Favorites>> translatedList)
+        private TranslateResultView createTranslateResult(string sourceString, List<SourceExpression> sourceList, List<SourceDefinition> definitionsList, List<Tuple<TranslatedExpression, Favorites>> translatedList)
         {
-            throw new NotImplementedException();
+            TranslateResultView result = new TranslateResultView();
+            foreach (var definition in definitionsList)
+            {
+                List<TranslateResultVariant> translateVariants = new List<TranslateResultVariant>();
+                var viewVariants = from item in translatedList where item.Item1.DefinitionID == definition.ID select new { item.Item1, item.Item2 };
+                foreach (var item in viewVariants)
+                {
+                    translateVariants.Add(new TranslateResultVariant(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID)));
+                }
+                result.AddDefinition(sourceString, (DefinitionTypesEnum)definition.DefinitionTypeID, definition.TranscriptionText, translateVariants);
+            }
+            return result;
         }
 
         /*public void GetTranslatedResults(int sourceId, List<SourceDefinition> listDefinitions)
@@ -102,26 +113,5 @@ namespace PortableCore.DAL
             IEnumerable<SourceExpression> sourceListIterator = sourceManager.GetItemsForText(sourceString);
             return sourceListIterator.ToList<SourceExpression>();
         }*/
-
-        public TranslateResult ConvertDataLocalCacheToTranslateResult(string sourceString, List<Tuple<SourceExpression, SourceDefinition, TranslatedExpression, Favorites>> listOfCoupleTranslateAndFavorites)
-        {
-            TranslateResult result = new TranslateResult(sourceString);
-            foreach (var definition in listOfCoupleTranslateAndFavorites)
-            {
-                var sourceExprItem = definition.Item1;
-                var sourceDefinition = definition.Item2;
-                var transExprItem = definition.Item3;
-                var favItem = definition.Item4;
-                //var translateVariantsSource = def.Tr;
-                var translateVariants = new List<TranslateVariant>();
-                /*foreach (var tr in translateVariantsSource)
-                {
-                    translateVariants.Add(new TranslateVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionType(tr.Pos)));
-                }*/
-                result.AddDefinition((DefinitionTypesEnum)sourceDefinition.DefinitionTypeID, sourceDefinition.TranscriptionText, translateVariants);
-            }
-            return result;
-        }
-
     }
 }

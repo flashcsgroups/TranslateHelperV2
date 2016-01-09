@@ -39,8 +39,8 @@
     <Compile Include="BL\Contracts\IRequestDictionary.cs" />
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
-    <Compile Include="BL\Contracts\TranslateResultCollection.cs" />
-    <Compile Include="BL\Contracts\TranslateResultIndexedCollection.cs" />
+    <Compile Include="BL\Contracts\TranslateResultView.cs" />
+    <Compile Include="BL\Contracts\IndexedCollection.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
     <Compile Include="DL\DefinitionTypes.cs" />

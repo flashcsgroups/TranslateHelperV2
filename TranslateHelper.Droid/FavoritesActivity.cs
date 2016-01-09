@@ -46,13 +46,13 @@ namespace TranslateHelper.Droid
             listView.FastScrollEnabled = true;
 
 			FavoritesManager favManager = new FavoritesManager (SqlLiteInstance.DB);
-			var translateResultIdxCollection = favManager.GetItemsForFavoritesList ();
+			//var translateResultIdxCollection = favManager.GetItemsForFavoritesList ();
 
 			//TranslateResultIndexedCollection<TranslateResult> translateResultIdxCollection = new TranslateResultIndexedCollection<TranslateResult>();
 
 			//foreach (var c in COUNTRIES) data.Add(new TranslateResult() { OriginalText=c, TranslatedText="Перевод слова", Ts="Транскрипция", Pos="Существительное"});
-			var sortedContacts = translateResultIdxCollection.GetSortedData();
-            listView.Adapter = CreateAdapter(sortedContacts);
+			//var sortedContacts = translateResultIdxCollection.GetSortedData();
+            //listView.Adapter = CreateAdapter(sortedContacts);
 
 
         }

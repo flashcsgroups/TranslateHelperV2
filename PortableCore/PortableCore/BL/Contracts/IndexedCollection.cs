@@ -7,13 +7,11 @@ using System.Text;
 
 namespace PortableCore.BL.Contracts
 {
-    //ToDo:Заменить использование старого класса TranslateResultCollection на этот
-    //ToDo:Работаем с конкретным типом TranslateResult - можно либо отказаться от генерика, либо переименовать класс во что-то более универсальное
-    public class TranslateResultIndexedCollection<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>
+    public class IndexedCollection<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>
     {
         private List<T> collection;
 
-        public TranslateResultIndexedCollection()
+        public IndexedCollection()
         {
             collection = new List<T>();
         }

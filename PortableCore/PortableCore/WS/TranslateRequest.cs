@@ -47,7 +47,7 @@ namespace PortableCore.WS
             }
 
             if(string.IsNullOrEmpty(RequestResult.errorDescription))
-                RequestResult.translateResult = translater.ParseResponse(responseText);
+                RequestResult.SetTranslateResult(translater.Parse(responseText));
 
             return RequestResult;
         }

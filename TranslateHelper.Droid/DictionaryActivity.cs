@@ -19,7 +19,7 @@ namespace TranslateHelper.Droid
     [Activity (Label = "Translate helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
-        List<TranslateResult> items;
+        List<TranslateResultView> items;
 
         protected override void OnCreate (Bundle bundle)
 		{
@@ -46,7 +46,8 @@ namespace TranslateHelper.Droid
             buttonTranslate.Click += (object sender, EventArgs e) =>
             {
                 //getTranslateResult(editSourceText);
-                //TranslateResult result = getTranslateResult(editSourceText.Text);
+                //TranslateResult result = 
+                getTranslateResult(editSourceText.Text, "en-ru");
             };
 
             //ToDo:Поправить жесткий копипаст
@@ -84,33 +85,37 @@ namespace TranslateHelper.Droid
             };*/
 
 			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-                var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResult>();
+                var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResultView>();
                 addToFavorites(ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text), item);
 			};
 
 			clearTraslatedRegion ();
 		}
 
-        private TranslateResult getTranslateResult(string originalText, string direction)
+        private async void getTranslateResult(string originalText, string direction)
         {
             string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             if (convertedSourceText.Length > 0)
             {
-                IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
+                /*IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
                 var resultFromCache = translaterFromCache.Translate(originalText, direction);
-                /*if (resultFromCache.translateResult.Collection.Count > 0)
+                if (resultFromCache.translateResult.Collection.Count > 0)
                 {
                     updateListResults(sourceText, resultFromCache, false);
                 }
                 else*/
                 {
-                    /*IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
-                    var resultDict = await translaterDict.Translate(sourceText, direction);
-                    if (resultDict.translateResult.Collection.Count > 0)
+                    IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
+                    var resultDict = await translaterDict.Translate(originalText, direction);
+                    if (string.IsNullOrEmpty(resultDict.errorDescription))
                     {
-                        updateListResults(sourceText, resultDict, true);
+                        updateListResults(originalText, resultDict.TranslatedData, true);
                     }
                     else
+                    {
+                        Android.Widget.Toast.MakeText(this, "Ошибка подключения к интернет", Android.Widget.ToastLength.Short).Show();
+                    }
+                    /*else
                     {
                         IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
                         var resultTrans = await translaterTranslate.Translate(sourceText, direction);
@@ -118,10 +123,10 @@ namespace TranslateHelper.Droid
                     }*/
                 }
             }
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
-        private async Task getTranslateResultOld(EditText editSourceText)
+        /*private async Task getTranslateResultOld(EditText editSourceText)
         {
             string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
             if (sourceText.Length > 0)
@@ -148,7 +153,7 @@ namespace TranslateHelper.Droid
                     }
                 }
             }
-        }
+        }*/
 
         private void clearTraslatedRegion()
 		{
@@ -165,34 +170,45 @@ namespace TranslateHelper.Droid
         }
 
         //ToDo: разнести по разным методам вывод и запись в кэш
-        void updateListResults(string sourceText, TranslateRequestResult result, bool addToLocalCache)
+        void updateListResults(string sourceText, TranslateResultView resultView, bool addToLocalCache)
         {
-            if (string.IsNullOrEmpty(result.errorDescription))
+            if(resultView.Definitions.Count > 0)
             {
-                if(result.translateResult.Collection.Count > 0)
+                TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+                splash.Visibility = ViewStates.Invisible;
+                var listView = FindViewById<ListView>(Resource.Id.listResultListView);
+                listView.FastScrollEnabled = true;
+
+                //IndexedCollection<TranslateResultView> translateResultCollection = new IndexedCollection<TranslateResultView>();
+
+                //listView.Adapter = CreateAdapter(translateResultCollection.GetSortedData());
+
+                //var items = result.translateResult.Collection;
+                listView.Adapter = new TranslateResultViewHeaderAdapter(this, resultView.Definitions);
+                /*if (addToLocalCache)
                 {
-                    TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-                    splash.Visibility = ViewStates.Invisible;
-                    var listView = FindViewById<ListView>(Resource.Id.listResultListView);
-                    items = result.translateResult.Collection;
-                    listView.Adapter = new TranslateResultAdapter(this, items);
-                    if (addToLocalCache)
-                    {
-                        addResultToLocalCache(sourceText, result.translateResult.Collection);
-                    }
-                }
-                else
-                {
-                    Android.Widget.Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
-                }
+                    addResultToLocalCache(sourceText, result.translateResult.Collection);
+                }*/
             }
             else
             {
-                Android.Widget.Toast.MakeText(this, "Ошибка подключения к интернет", Android.Widget.ToastLength.Short).Show();
+                Android.Widget.Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
             }
         }
 
-        private void addResultToLocalCache(string sourceText, List<TranslateResult> resultList)
+        /*TranslateResultAdapter CreateAdapter<T>(Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
+        {
+            var adapter = new TranslateResultAdapter(this);
+            foreach (var e in sortedObjects.OrderBy(de => de.Key))
+            {
+                var section = e.Value;
+                var label = e.Key.Trim().Length > 0 ? e.Key.ToUpper() : "Ошибки" + " (" + section.Count.ToString() + ")";
+                adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
+            }
+            return adapter;
+        }*/
+
+        private void addResultToLocalCache(string sourceText, List<TranslateResultView> resultList)
         {
             if(resultList.Count > 0)
             {
@@ -202,9 +218,9 @@ namespace TranslateHelper.Droid
             }
         }
 
-        private async void addToFavorites(string sourceText, TranslateResult result)
+        private async void addToFavorites(string sourceText, TranslateResultView result)
         {
-            FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
+            /*FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
             favoritesManager.AddWordToFavorites(sourceText, result);
             Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
 
@@ -214,7 +230,7 @@ namespace TranslateHelper.Droid
             if (resultFromCache.translateResult.Collection.Count > 0)
             {
                 updateListResults(sourceText, resultFromCache, false);
-            }
+            }*/
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
