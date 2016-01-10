@@ -31,7 +31,7 @@ namespace TranslateHelper.Droid
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
 			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
-			ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
+			//ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 
             
 
@@ -84,10 +84,10 @@ namespace TranslateHelper.Droid
                 }
             };*/
 
-			resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+			/*resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
                 var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResultView>();
                 addToFavorites(ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text), item);
-			};
+			};*/
 
 			clearTraslatedRegion ();
 		}
@@ -158,10 +158,10 @@ namespace TranslateHelper.Droid
         private void clearTraslatedRegion()
 		{
             var ListResultStrings = new List<string>();
-            ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
-            lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
-            TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-            splash.Visibility = ViewStates.Visible;
+            //ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
+            //lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
+            //TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+            //splash.Visibility = ViewStates.Visible;
         }
 
 		private bool iSSymbolForStartTranslate (char p)
@@ -174,17 +174,39 @@ namespace TranslateHelper.Droid
         {
             if(resultView.Definitions.Count > 0)
             {
-                TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-                splash.Visibility = ViewStates.Invisible;
-                var listView = FindViewById<ListView>(Resource.Id.listResultListView);
-                listView.FastScrollEnabled = true;
-
+                //TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+                //splash.Visibility = ViewStates.Invisible;
+                //var listView = FindViewById<ListView>(Resource.Id.listResultListView);
+                //listView.FastScrollEnabled = true;
+                //var trHeaderLayout = FindViewById<LinearLayout>(Resource.Id.llTranslateResultsDefs);
+                var scrollViewTranslateResultsDefs = FindViewById<ScrollView>(Resource.Id.scrollViewTranslateResultsDefs);
                 //IndexedCollection<TranslateResultView> translateResultCollection = new IndexedCollection<TranslateResultView>();
 
                 //listView.Adapter = CreateAdapter(translateResultCollection.GetSortedData());
 
                 //var items = result.translateResult.Collection;
-                listView.Adapter = new TranslateResultViewHeaderAdapter(this, resultView.Definitions);
+                //listView.Adapter = new TranslateResultViewHeaderAdapter(this, resultView.Definitions);
+                scrollViewTranslateResultsDefs.RemoveAllViews();
+                scrollViewTranslateResultsDefs.AddView(new DynamicResultViewLayout(this, resultView.Definitions));
+                /*foreach (var def in resultView.Definitions)
+                {
+                    TextView OriginalTextTextView = new TextView(this);
+                    OriginalTextTextView.Text = def.OriginalText;
+                    trHeaderLayout.AddView(OriginalTextTextView);
+                    TextView OriginalTextTranscriptionTextView = new TextView(this);
+                    OriginalTextTranscriptionTextView.Text = def.Transcription;
+                    trHeaderLayout.AddView(OriginalTextTranscriptionTextView);
+                    TextView PosTextView = new TextView(this);
+                    PosTextView.Text = def.Pos.ToString();
+                    trHeaderLayout.AddView(PosTextView);
+                    ListView lvVariants = new ListView(this);
+                    lvVariants.FastScrollEnabled = true;
+                    trHeaderLayout.AddView(lvVariants);
+                    lvVariants.Adapter = new TranslateResultViewVariantAdapter(this, def.TranslateVariants);
+                    //var listVariantView = view.FindViewById<ListView>(Resource.Id.listVariantListView);
+                    //listVariantView.FastScrollEnabled = true;
+                    //listVariantView.Adapter = new TranslateResultViewVariantAdapter(context, listTranslateResultView[position].TranslateVariants);
+                }*/
                 /*if (addToLocalCache)
                 {
                     addResultToLocalCache(sourceText, result.translateResult.Collection);

@@ -45,7 +45,13 @@
             android:scaleType="fitCenter"
             android:src="@drawable/v2search" />
     </LinearLayout>
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollViewTranslateResultsDefs"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
+    <!--LinearLayout
+        android:id="@+id/llTranslateResultsDefs"
         android:layout_weight="5"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
@@ -53,7 +59,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <ListView
+    </LinearLayout-->
+    </ScrollView>
+<!--ListView
             android:layout_weight="0.2"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
@@ -72,6 +80,5 @@
             android:text="Готов что-нибудь перевести!"
             android:textColor="@color/black"
             android:background="@color/transparent"
-            android:id="@+id/splashTextView" />
-    </LinearLayout>
+            android:id="@+id/splashTextView" /-->
 </LinearLayout>

@@ -47,21 +47,21 @@ namespace TranslateHelper.Droid
 
             // Find references to each subview in the list item's view
             //var translatedTextView = view.FindViewById<TextView>(Resource.Id.TranslatedTextView);
-            var originalTextTextView = view.FindViewById<TextView>(Resource.Id.OriginalTextTextView);
+            /*var originalTextTextView = view.FindViewById<TextView>(Resource.Id.OriginalTextTextView);
             var transcriptionTextView = view.FindViewById<TextView>(Resource.Id.OriginalTextTranscriptionTextView);
             var posTextView = view.FindViewById<TextView>(Resource.Id.PosTextView);
-            var examplesLinkTextView = view.FindViewById<TextView>(Resource.Id.ExamplesLinkTextView);
+            var examplesLinkTextView = view.FindViewById<TextView>(Resource.Id.ExamplesLinkTextView);*/
             //var favStatePic = view.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
 
             //Assign this item's values to the various subviews
-            originalTextTextView.SetText(listTranslateResultView[position].OriginalText, TextView.BufferType.Normal);
+            /*originalTextTextView.SetText(listTranslateResultView[position].OriginalText, TextView.BufferType.Normal);
             transcriptionTextView.SetText(string.Format("[{0}]",listTranslateResultView[position].Transcription), TextView.BufferType.Normal);
             posTextView.SetText(listTranslateResultView[position].Pos.ToString(), TextView.BufferType.Normal);
             examplesLinkTextView.SetText("Примеры", TextView.BufferType.Normal);
-
-            var listVariantView = view.FindViewById<ListView>(Resource.Id.listVariantListView);
-            listVariantView.FastScrollEnabled = true;
-            listVariantView.Adapter = new TranslateResultViewVariantAdapter(context, listTranslateResultView[position].TranslateVariants);
+            */
+            //var listVariantView = view.FindViewById<ListView>(Resource.Id.listVariantListView);
+            //listVariantView.FastScrollEnabled = true;
+            //listVariantView.Adapter = new TranslateResultViewVariantAdapter(context, listTranslateResultView[position].TranslateVariants);
 
             /*indexTextView.SetText((position + 1).ToString(), TextView.BufferType.Normal);
             if (item.FavoritesId != 0)

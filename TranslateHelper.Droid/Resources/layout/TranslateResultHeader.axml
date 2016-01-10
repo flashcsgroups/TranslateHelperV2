@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
-    android:id="@+id/trHeaderLayout">
+    android:background="@color/transparent">
     <LinearLayout
+        android:id="@+id/trHeaderLayout"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:clickable="false">
-        <TextView
+    <!--TextView
             android:id="@+id/OriginalTextTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,8 +53,15 @@
             android:textStyle="normal"
             android:background="@color/transparent"
             android:linksClickable="true"
-            android:autoLink="all" />
+            android:autoLink="all" /-->
     </LinearLayout>
+<!--LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_weight="1"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/transparent"
+      android:id="@+id/trVariantLinearLayout"-->
     <ListView
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
