@@ -49,14 +49,14 @@ namespace TranslateHelper.Droid
             //var translatedTextView = view.FindViewById<TextView>(Resource.Id.TranslatedTextView);
             var indexTextView = view.FindViewById<TextView>(Resource.Id.IndexTextView);
             var translatedTextTextView = view.FindViewById<TextView>(Resource.Id.TranslatedTextTextView);
-            var synTextView = view.FindViewById<TextView>(Resource.Id.SynonymsTextView);
+            //var synTextView = view.FindViewById<TextView>(Resource.Id.SynonymsTextView);
             //var examplesLinkTextView = view.FindViewById<TextView>(Resource.Id.ExamplesLinkTextView);
             //var favStatePic = view.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
 
             //Assign this item's values to the various subviews
             indexTextView.SetText((position + 1).ToString(), TextView.BufferType.Normal);
             translatedTextTextView.SetText(listVariantsView[position].Text, TextView.BufferType.Normal);
-            synTextView.SetText("синонимы", TextView.BufferType.Normal);
+            //synTextView.SetText("синонимы", TextView.BufferType.Normal);
             /*if (item.FavoritesId != 0)
                 favStatePic.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
             else

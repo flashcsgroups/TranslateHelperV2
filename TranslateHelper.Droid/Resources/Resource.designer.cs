@@ -168,23 +168,17 @@ namespace TranslateHelper.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f08001a
+			public const int FavoritesStatePic = 2131230746;
+			
 			// aapt resource value: 0x7f080018
 			public const int IndexTextView = 2131230744;
-			
-			// aapt resource value: 0x7f08001b
-			public const int MoreSynonymsLinkTextView = 2131230747;
 			
 			// aapt resource value: 0x7f08000c
 			public const int PosTextView = 2131230732;
 			
 			// aapt resource value: 0x7f080009
 			public const int SourceTextView = 2131230729;
-			
-			// aapt resource value: 0x7f08001c
-			public const int SynonymsCloseTextView = 2131230748;
-			
-			// aapt resource value: 0x7f08001a
-			public const int SynonymsTextView = 2131230746;
 			
 			// aapt resource value: 0x7f08000b
 			public const int TranscriptionTextView = 2131230731;
@@ -219,11 +213,11 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080006
 			public const int favoritesLayout = 2131230726;
 			
-			// aapt resource value: 0x7f080021
-			public const int findForFavorites = 2131230753;
+			// aapt resource value: 0x7f08001f
+			public const int findForFavorites = 2131230751;
 			
-			// aapt resource value: 0x7f08001e
-			public const int group1 = 2131230750;
+			// aapt resource value: 0x7f08001c
+			public const int group1 = 2131230748;
 			
 			// aapt resource value: 0x7f080007
 			public const int listFavoritesListView = 2131230727;
@@ -249,14 +243,14 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080012
 			public const int mainList2 = 2131230738;
 			
+			// aapt resource value: 0x7f08001b
+			public const int menu_favorites = 2131230747;
+			
+			// aapt resource value: 0x7f08001e
+			public const int menu_settings = 2131230750;
+			
 			// aapt resource value: 0x7f08001d
-			public const int menu_favorites = 2131230749;
-			
-			// aapt resource value: 0x7f080020
-			public const int menu_settings = 2131230752;
-			
-			// aapt resource value: 0x7f08001f
-			public const int menu_testing = 2131230751;
+			public const int menu_testing = 2131230749;
 			
 			// aapt resource value: 0x7f080005
 			public const int scrollViewTranslateResultsDefs = 2131230725;
@@ -373,14 +367,20 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f060002
 			public const int MainButton = 2131099650;
 			
-			// aapt resource value: 0x7f060003
-			public const int Mono_Android_Theme_Splash = 2131099651;
+			// aapt resource value: 0x7f060005
+			public const int Mono_Android_Theme_Splash = 2131099653;
 			
 			// aapt resource value: 0x7f060001
 			public const int MyActionBar = 2131099649;
 			
 			// aapt resource value: 0x7f060000
 			public const int MyTheme = 2131099648;
+			
+			// aapt resource value: 0x7f060004
+			public const int VariantHeaderTextView = 2131099652;
+			
+			// aapt resource value: 0x7f060003
+			public const int VariantItemTextView = 2131099651;
 			
 			static Style()
 			{

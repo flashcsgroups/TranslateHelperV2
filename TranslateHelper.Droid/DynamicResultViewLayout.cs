@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using PortableCore.BL.Contracts;
+using Android.Graphics;
+using PortableCore.BL.Managers;
 
 //По мотивам:
 //https://forums.xamarin.com/discussion/6029/how-to-create-ui-elements-dynamically
@@ -39,15 +41,22 @@ namespace TranslateHelper.Droid
                 LinearLayout llData = new LinearLayout(context);
                 llData.Orientation = Orientation.Horizontal;
                 this.AddView(llData);
+
                 TextView OriginalTextTextView = new TextView(context);
                 OriginalTextTextView.Text = def.OriginalText;
+                OriginalTextTextView.SetTextAppearance(context, Resource.Style.VariantHeaderTextView);
                 llHeader.AddView(OriginalTextTextView);
+
                 TextView OriginalTextTranscriptionTextView = new TextView(context);
-                OriginalTextTranscriptionTextView.Text = def.Transcription;
+                OriginalTextTranscriptionTextView.Text = string.Format(" [{0}]", def.Transcription);
+                OriginalTextTranscriptionTextView.SetTextAppearance(context, Resource.Style.VariantHeaderTextView);
                 llHeader.AddView(OriginalTextTranscriptionTextView);
+
                 TextView PosTextView = new TextView(context);
-                PosTextView.Text = def.Pos.ToString();
+                PosTextView.Text = string.Format(", {0}", DefinitionTypesManager.GetRusNameForEnum(def.Pos));
+                PosTextView.SetTextAppearance(context, Resource.Style.VariantHeaderTextView);
                 llHeader.AddView(PosTextView);
+
                 ListView lvVariants = new ListView(context);
                 lvVariants.FastScrollEnabled = true;
 

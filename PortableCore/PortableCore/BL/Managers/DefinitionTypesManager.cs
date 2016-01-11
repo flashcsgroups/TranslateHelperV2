@@ -58,6 +58,47 @@ namespace PortableCore.BL.Managers
 			return defTypesList;
 		}
 
+        /// <summary>
+        /// возвращает наименование перечисления на кириллице
+        /// </summary>
+        /// <param name="typeEnum"></param>
+        /// <returns></returns>
+        public static string GetRusNameForEnum(DefinitionTypesEnum typeEnum)
+        {
+            //ToDo:наверняка можно сделать через ресурсы, надо разобраться как
+            string result = string.Empty;
+            switch(typeEnum)
+            {
+                case DefinitionTypesEnum.adjective:
+                    {
+                        result = "прилагательное";
+                    };break;
+                case DefinitionTypesEnum.adverb:
+                    {
+                        result = "наречие";
+                    }; break;
+                case DefinitionTypesEnum.noun:
+                    {
+                        result = "существительное";
+                    }; break;
+                case DefinitionTypesEnum.participle:
+                    {
+                        result = "причастие";
+                    }; break;
+                case DefinitionTypesEnum.verb:
+                    {
+                        result = "глагол";
+                    }; break;
+                case DefinitionTypesEnum.unknown:
+                default:
+                    {
+                        result = "неизвестная часть речи";
+                    }; break;
+            }
+
+            return result;
+        }
+
         public static DefinitionTypesEnum GetEnumDefinitionTypeFromName(string name)
         {
             DefinitionTypesEnum result = DefinitionTypesEnum.unknown;
