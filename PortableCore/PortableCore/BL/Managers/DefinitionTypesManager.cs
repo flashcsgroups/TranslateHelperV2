@@ -54,8 +54,9 @@ namespace PortableCore.BL.Managers
 				new DefinitionTypes (){ Name = "adjective",ID = (int)GetEnumDefinitionTypeFromName("adjective")},
 				new DefinitionTypes (){ Name = "adverb",ID =  (int)GetEnumDefinitionTypeFromName("adverb")},
                 new DefinitionTypes (){ Name = "participle",ID =  (int)GetEnumDefinitionTypeFromName("participle")},
+                new DefinitionTypes (){ Name = "predicative",ID =  (int)GetEnumDefinitionTypeFromName("predicative")},
             };
-			return defTypesList;
+            return defTypesList;
 		}
 
         /// <summary>
@@ -88,6 +89,10 @@ namespace PortableCore.BL.Managers
                 case DefinitionTypesEnum.verb:
                     {
                         result = "глагол";
+                    }; break;
+                case DefinitionTypesEnum.predicative:
+                    {
+                        result = "предикат";
                     }; break;
                 case DefinitionTypesEnum.unknown:
                 default:
@@ -130,6 +135,11 @@ namespace PortableCore.BL.Managers
                 case "participle":
                     {
                         result = DefinitionTypesEnum.participle;
+                    }; break;
+                case "предикат":
+                case "predicative":
+                    {
+                        result = DefinitionTypesEnum.predicative;
                     }; break;
                 default:
                     {

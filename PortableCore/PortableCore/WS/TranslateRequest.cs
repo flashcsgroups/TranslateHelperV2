@@ -34,7 +34,7 @@ namespace PortableCore.WS
 
         public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
         {
-            TranslateRequestResult RequestResult = new TranslateRequestResult();
+            TranslateRequestResult RequestResult = new TranslateRequestResult(sourceString);
 
             string responseText = string.Empty;
             try

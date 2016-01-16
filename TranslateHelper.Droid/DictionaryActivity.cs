@@ -43,46 +43,19 @@ namespace TranslateHelper.Droid
 			};
 
             //ToDo:Поправить жесткий копипаст
-            buttonTranslate.Click += (object sender, EventArgs e) =>
+            buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
-                //getTranslateResult(editSourceText);
-                //TranslateResult result = 
-                getTranslateResult(editSourceText.Text, "en-ru");
+                await translate(editSourceText.Text);
             };
 
-            //ToDo:Поправить жесткий копипаст
-			/*editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
+			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
                 
-                if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ()))) {
+                if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ())))
+                {
                     //ToDo:убрать перевод строки в контроле
-                    //string sourceText = editSourceText.Text.Replace('\n', ' ').Trim().ToLower();
-                    string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
-                    if (sourceText.Length > 0)
-                    {
-                        IRequestTranslateString translaterFromCache = new LocalDatabaseCache();
-                        var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                        if (resultFromCache.translateResult.Collection.Count > 0)
-                        {
-                            UpdateListResults(sourceText, resultFromCache, false);
-                        }
-                        else
-                        {
-                            IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
-                            var resultDict = await translaterDict.Translate(sourceText, "en-ru");
-                            if (resultDict.translateResult.Collection.Count > 0)
-                            {
-                                UpdateListResults(sourceText, resultDict, true);
-                            }
-                            else
-                            {
-                                IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
-                                var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
-                                UpdateListResults(sourceText, resultTrans, true);
-                            }
-                        }
-                    }
+                    await translate(editSourceText.Text);
                 }
-            };*/
+            };
 
 			/*resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
                 var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResultView>();
@@ -92,7 +65,16 @@ namespace TranslateHelper.Droid
 			clearTraslatedRegion ();
 		}
 
-        private async void getTranslateResult(string originalText, string direction)
+        private async Task translate(string originalText)
+        {
+            TranslateRequestRunner reqRunner = new TranslateRequestRunner(new TranslateRequest(TypeTranslateServices.YandexDictionary), new TranslateRequest(TypeTranslateServices.YandexTranslate));
+            TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, "en-ru");
+            updateListResults(reqResult);
+            LocalDBWriter localDBWriter = new LocalDBWriter(SqlLiteInstance.DB);
+            localDBWriter.saveResultToLocalCache(reqResult);
+        }
+
+        private async void getTranslateResultOLD(string originalText, string direction)
         {
             string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             if (convertedSourceText.Length > 0)
@@ -109,7 +91,7 @@ namespace TranslateHelper.Droid
                     var resultDict = await translaterDict.Translate(originalText, direction);
                     if (string.IsNullOrEmpty(resultDict.errorDescription))
                     {
-                        updateListResults(originalText, resultDict.TranslatedData, true);
+                        //updateListResults(originalText, resultDict.TranslatedData, true);
                     }
                     else
                     {
@@ -126,91 +108,31 @@ namespace TranslateHelper.Droid
             //throw new NotImplementedException();
         }
 
-        /*private async Task getTranslateResultOld(EditText editSourceText)
-        {
-            string sourceText = ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text);
-            if (sourceText.Length > 0)
-            {
-                IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
-                var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-                if (resultFromCache.translateResult.Collection.Count > 0)
-                {
-                    updateListResults(sourceText, resultFromCache, false);
-                }
-                else
-                {
-                    IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
-                    var resultDict = await translaterDict.Translate(sourceText, "en-ru");
-                    if (resultDict.translateResult.Collection.Count > 0)
-                    {
-                        updateListResults(sourceText, resultDict, true);
-                    }
-                    else
-                    {
-                        IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
-                        var resultTrans = await translaterTranslate.Translate(sourceText, "en-ru");
-                        updateListResults(sourceText, resultTrans, true);
-                    }
-                }
-            }
-        }*/
-
         private void clearTraslatedRegion()
 		{
-            var ListResultStrings = new List<string>();
-            //ListView lv = FindViewById<ListView>(Resource.Id.listResultListView);
-            //lv.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ListResultStrings.ToArray());
-            //TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-            //splash.Visibility = ViewStates.Visible;
+            var scrollViewTranslateResultsDefs = FindViewById<ScrollView>(Resource.Id.scrollViewTranslateResultsDefs);
+            scrollViewTranslateResultsDefs.RemoveAllViews();
+            scrollViewTranslateResultsDefs.Visibility = ViewStates.Invisible;
+            TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+            splash.Visibility = ViewStates.Visible;
         }
 
-		private bool iSSymbolForStartTranslate (char p)
+        private bool iSSymbolForStartTranslate (char p)
 		{
 			return ((p == ' ') || (p == '\n'));
         }
 
-        //ToDo: разнести по разным методам вывод и запись в кэш
-        void updateListResults(string sourceText, TranslateResultView resultView, bool addToLocalCache)
+        void updateListResults(TranslateRequestResult requestResult)
         {
-            if(resultView.Definitions.Count > 0)
+            TranslateResultView resultView = requestResult.TranslatedData;
+            if (resultView.Definitions.Count > 0)
             {
-                //TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-                //splash.Visibility = ViewStates.Invisible;
-                //var listView = FindViewById<ListView>(Resource.Id.listResultListView);
-                //listView.FastScrollEnabled = true;
-                //var trHeaderLayout = FindViewById<LinearLayout>(Resource.Id.llTranslateResultsDefs);
+                TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+                splash.Visibility = ViewStates.Invisible;
                 var scrollViewTranslateResultsDefs = FindViewById<ScrollView>(Resource.Id.scrollViewTranslateResultsDefs);
-                //IndexedCollection<TranslateResultView> translateResultCollection = new IndexedCollection<TranslateResultView>();
-
-                //listView.Adapter = CreateAdapter(translateResultCollection.GetSortedData());
-
-                //var items = result.translateResult.Collection;
-                //listView.Adapter = new TranslateResultViewHeaderAdapter(this, resultView.Definitions);
                 scrollViewTranslateResultsDefs.RemoveAllViews();
                 scrollViewTranslateResultsDefs.AddView(new DynamicResultViewLayout(this, resultView.Definitions));
-                /*foreach (var def in resultView.Definitions)
-                {
-                    TextView OriginalTextTextView = new TextView(this);
-                    OriginalTextTextView.Text = def.OriginalText;
-                    trHeaderLayout.AddView(OriginalTextTextView);
-                    TextView OriginalTextTranscriptionTextView = new TextView(this);
-                    OriginalTextTranscriptionTextView.Text = def.Transcription;
-                    trHeaderLayout.AddView(OriginalTextTranscriptionTextView);
-                    TextView PosTextView = new TextView(this);
-                    PosTextView.Text = def.Pos.ToString();
-                    trHeaderLayout.AddView(PosTextView);
-                    ListView lvVariants = new ListView(this);
-                    lvVariants.FastScrollEnabled = true;
-                    trHeaderLayout.AddView(lvVariants);
-                    lvVariants.Adapter = new TranslateResultViewVariantAdapter(this, def.TranslateVariants);
-                    //var listVariantView = view.FindViewById<ListView>(Resource.Id.listVariantListView);
-                    //listVariantView.FastScrollEnabled = true;
-                    //listVariantView.Adapter = new TranslateResultViewVariantAdapter(context, listTranslateResultView[position].TranslateVariants);
-                }*/
-                /*if (addToLocalCache)
-                {
-                    addResultToLocalCache(sourceText, result.translateResult.Collection);
-                }*/
+                scrollViewTranslateResultsDefs.Visibility = ViewStates.Visible;
             }
             else
             {
@@ -218,19 +140,7 @@ namespace TranslateHelper.Droid
             }
         }
 
-        /*TranslateResultAdapter CreateAdapter<T>(Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
-        {
-            var adapter = new TranslateResultAdapter(this);
-            foreach (var e in sortedObjects.OrderBy(de => de.Key))
-            {
-                var section = e.Value;
-                var label = e.Key.Trim().Length > 0 ? e.Key.ToUpper() : "Ошибки" + " (" + section.Count.ToString() + ")";
-                adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
-            }
-            return adapter;
-        }*/
-
-        private void addResultToLocalCache(string sourceText, List<TranslateResultView> resultList)
+        /*private void addResultToLocalCache(string sourceText, List<TranslateResultView> resultList)
         {
             if(resultList.Count > 0)
             {
@@ -238,7 +148,7 @@ namespace TranslateHelper.Droid
                 //ToDo:передавать дерево результатов
                 manager.AddNewWord(sourceText, resultList);
             }
-        }
+        }*/
 
         private async void addToFavorites(string sourceText, TranslateResultView result)
         {

@@ -54,7 +54,13 @@ namespace TranslateHelper.Droid
             //var favStatePic = view.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
 
             //Assign this item's values to the various subviews
-            indexTextView.SetText((position + 1).ToString(), TextView.BufferType.Normal);
+            string indexString = (position + 1).ToString();
+            //для уменьшения количества информации, если вариант только один то незачем индексатор показывать
+            if (listVariantsView.Count <= 1)
+            {
+                indexString = string.Empty;
+            }
+            indexTextView.SetText(indexString, TextView.BufferType.Normal);
             translatedTextTextView.SetText(listVariantsView[position].Text, TextView.BufferType.Normal);
             //synTextView.SetText("синонимы", TextView.BufferType.Normal);
             /*if (item.FavoritesId != 0)

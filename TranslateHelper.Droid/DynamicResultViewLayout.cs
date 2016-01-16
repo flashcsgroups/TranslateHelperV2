@@ -37,6 +37,7 @@ namespace TranslateHelper.Droid
             {
                 LinearLayout llHeader = new LinearLayout(context);
                 llHeader.Orientation = Orientation.Horizontal;
+                llHeader.SetPadding(0, 15, 0, 0);
                 this.AddView(llHeader);
                 LinearLayout llData = new LinearLayout(context);
                 llData.Orientation = Orientation.Horizontal;
@@ -46,7 +47,7 @@ namespace TranslateHelper.Droid
                 OriginalTextTextView.Text = def.OriginalText;
                 OriginalTextTextView.SetTextAppearance(context, Resource.Style.VariantHeaderTextView);
                 llHeader.AddView(OriginalTextTextView);
-
+                
                 TextView OriginalTextTranscriptionTextView = new TextView(context);
                 OriginalTextTranscriptionTextView.Text = string.Format(" [{0}]", def.Transcription);
                 OriginalTextTranscriptionTextView.SetTextAppearance(context, Resource.Style.VariantHeaderTextView);

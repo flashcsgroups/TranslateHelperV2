@@ -17,7 +17,7 @@ namespace PortableCore.Tests
             //arrange
             string sourceString = "explicit";
             //act
-            //LocalDBCacheReader dbReader = new LocalDBCacheReader();
+            //LocalDBReader dbReader = new LocalDBReader();
             //List<TranslateResult> list = dbReader.GetSourceExprCollection(sourceString).getDefinitions().getTranslatedExpressions().GetTranslateResults();
             //assert
         }

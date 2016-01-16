@@ -9,18 +9,18 @@ using PortableCore.DAL;
 
 namespace PortableCore.DAL
 {
-    public class LocalDBCacheReader : IRequestTranslateString
+    public class LocalDBReader : IRequestTranslateString
     {
         private ISQLiteTesting db;
 
-        public LocalDBCacheReader(ISQLiteTesting dbHelper)
+        public LocalDBReader(ISQLiteTesting dbHelper)
         {
             db = dbHelper;
         }
 
         public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
         {
-            TranslateRequestResult RequestResult = new TranslateRequestResult();
+            TranslateRequestResult RequestResult = new TranslateRequestResult(sourceString);
 
             SourceExpressionManager sourceManager = new SourceExpressionManager(db);
             List<SourceExpression> sourceList = sourceManager.GetSourceExpressionCollection(sourceString).ToList<SourceExpression>();

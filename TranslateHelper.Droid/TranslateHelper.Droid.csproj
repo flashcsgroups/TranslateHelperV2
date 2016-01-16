@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicResultViewLayout.cs" />
-    <Compile Include="MainActivity.cs" />
+    <None Include="MainActivity_DEL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="FavoritesAdapter.cs" />
     <Compile Include="TranslateResultVewVariantAdapter.cs" />
-    <Compile Include="TranslateResultVewHeaderAdapter.cs" />
+    <None Include="TranslateResultVewHeaderAdapter_DEL.cs" />
     <Compile Include="TranslateServiceResult.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,9 +99,9 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\TranslateResultHeader.axml">
+    <None Include="Resources\layout\TranslateResultHeader_DEL.axml">
       <SubType>AndroidResource</SubType>
-    </AndroidResource>
+    </None>
     <AndroidResource Include="Resources\layout\FavoritesItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -112,10 +112,10 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
-    <AndroidResource Include="Resources\layout\TranslateResultSectionListHeader.axml">
+    <AndroidResource Include="Resources\layout\TranslateResultSectionListHeader_DEL.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\TranslateResultSectionListItem.axml">
+    <AndroidResource Include="Resources\layout\TranslateResultSectionListItem_DEL.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
@@ -123,9 +123,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml">
+    <None Include="Resources\layout\Main_DEL.axml">
       <SubType>Designer</SubType>
-    </AndroidResource>
+    </None>
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\layout\Dictionary.axml" />
     <AndroidResource Include="Resources\layout\Favorites.axml" />

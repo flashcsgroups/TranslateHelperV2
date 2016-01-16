@@ -8,19 +8,17 @@ namespace PortableCore.BL.Contracts
         public string errorDescription;//ToDo:переделать на приватное
         public TranslateResultView TranslatedData { get; private set; }
 
-        public TranslateRequestResult()
+        public string OriginalText { get; private set; }
+
+        public TranslateRequestResult(string originalText)
         {
+            this.OriginalText = originalText;
         }
 
         public void SetTranslateResult(TranslateResultView translatedData)
         {
             TranslatedData = translatedData;
         }
-
-        /*public TranslateRequestResult(ITranslatedData translatedData)
-        {
-            TranslatedData = translatedData;
-        }*/
     }
 }
 
