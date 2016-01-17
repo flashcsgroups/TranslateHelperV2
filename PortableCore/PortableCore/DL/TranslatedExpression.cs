@@ -19,6 +19,6 @@ namespace PortableCore.DL
         public int DefinitionTypeID { get; set; }
 
 		[Indexed]
-		public int DefinitionID { get; set; }
+		public int SourceDefinitionID { get; set; }
 	}
 }

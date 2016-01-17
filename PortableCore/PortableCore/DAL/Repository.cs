@@ -33,8 +33,14 @@ namespace PortableCore.DAL
             //return SqlLiteHelper.SaveItem<T>(item);
         }
 
+        public int Insert(T item)
+        {
+            return db.InsertOrReplace(item);
+        }
+
         public void DeleteAllDataInTable()
         {
+            db.DeleteAll<T>();
             //SqlLiteInstance.DB.DeleteDataInTable<T>();
         }
 

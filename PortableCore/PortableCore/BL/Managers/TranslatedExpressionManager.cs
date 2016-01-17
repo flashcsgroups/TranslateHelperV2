@@ -89,7 +89,7 @@ namespace PortableCore.BL.Managers
             var arrayDefinitionIDs = from item in listOfDefinitions select item.ID;
             var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
                        join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID 
-                       where arrayDefinitionIDs.Contains(trItem.DefinitionID) 
+                       where arrayDefinitionIDs.Contains(trItem.SourceDefinitionID) 
                        select new Tuple<TranslatedExpression, Favorites>(trItem, favItem);
             return view.ToList();
         }

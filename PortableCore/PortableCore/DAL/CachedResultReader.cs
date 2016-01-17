@@ -9,11 +9,14 @@ using PortableCore.DAL;
 
 namespace PortableCore.DAL
 {
-    public class LocalDBReader : IRequestTranslateString
+    /// <summary>
+    /// ѕредназначен дл€ возврата ранее кешированного результата запроса
+    /// </summary>
+    public class CachedResultReader : IRequestTranslateString
     {
         private ISQLiteTesting db;
 
-        public LocalDBReader(ISQLiteTesting dbHelper)
+        public CachedResultReader(ISQLiteTesting dbHelper)
         {
             db = dbHelper;
         }
@@ -74,7 +77,7 @@ namespace PortableCore.DAL
             foreach (var definition in definitionsList)
             {
                 List<TranslateResultVariant> translateVariants = new List<TranslateResultVariant>();
-                var viewVariants = from item in translatedList where item.Item1.DefinitionID == definition.ID select new { item.Item1, item.Item2 };
+                var viewVariants = from item in translatedList where item.Item1.SourceDefinitionID == definition.ID select new { item.Item1, item.Item2 };
                 foreach (var item in viewVariants)
                 {
                     translateVariants.Add(new TranslateResultVariant(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID)));

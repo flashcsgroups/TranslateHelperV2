@@ -17,25 +17,25 @@ namespace PortableCore.BL.Managers
 
 		public void InitDefaultData ()
 		{
-			DAL.Repository<DefinitionTypes> repos = new PortableCore.DAL.Repository<DefinitionTypes> ();
+			DAL.Repository<DefinitionTypes> repos = new DAL.Repository<DefinitionTypes> ();
 			DefinitionTypes[] data = getDefaultData ();
 			var currentData = GetItems ();
 			if (currentData.Count != data.Length) 
 			{
-                //repos.DeleteAllDataInTable();
-				//repos.AddItemsInTransaction (data);
+                repos.DeleteAllDataInTable();
+				repos.AddItemsInTransaction (data);
 			}
 		}
 			
 		public List<DefinitionTypes> GetItems()
 		{
-			DAL.Repository<DefinitionTypes> repos = new PortableCore.DAL.Repository<DefinitionTypes> ();
+			DAL.Repository<DefinitionTypes> repos = new DAL.Repository<DefinitionTypes> ();
 			return new List<DefinitionTypes> (repos.GetItems ());
 		}
 
         public DefinitionTypes GetItemForId(int id)
         {
-            DAL.Repository<DefinitionTypes> repos = new PortableCore.DAL.Repository<DefinitionTypes>();
+            DAL.Repository<DefinitionTypes> repos = new DAL.Repository<DefinitionTypes>();
             DefinitionTypes result = repos.GetItem(id);
             return result;
         }
