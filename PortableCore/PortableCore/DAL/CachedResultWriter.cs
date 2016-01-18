@@ -20,7 +20,9 @@ namespace TranslateHelper.Droid
             this.sourceExpressionManager = sourceExpressionManager;
         }
 
-        public void SaveResultToLocalCache(TranslateRequestResult result)
+        //ToDo:Нужен общий обработчик ошибок
+        //ToDo:Тест!
+        public void SaveResultToLocalCacheIfNotExist(TranslateRequestResult result)
         {
             if (string.IsNullOrEmpty(result.errorDescription))
             {
@@ -28,17 +30,13 @@ namespace TranslateHelper.Droid
                 string originalText = result.OriginalText;
                 TranslateResultView resultView = result.TranslatedData;
                 IEnumerable<SourceExpression> localCacheDataList = sourceExpressionManager.GetSourceExpressionCollection(originalText);
-                if (localCacheDataList.Count() > 0)
-                {
-                    sourceItemID = localCacheDataList.ToList()[0].ID;
-                }
-                else
+                if (localCacheDataList.Count() == 0)
                 {
                     sourceItemID = writeSourceExpression(originalText, ref localCacheDataList);
+                    writeTranslatedExpression(sourceItemID, resultView);
                 }
-                writeTranslatedExpression(sourceItemID, resultView);
             }
-            else throw new Exception(result.errorDescription);//ToDo:Нужен общий обработчик ошибок
+            else throw new Exception(result.errorDescription);
         }
 
         private void writeTranslatedExpression(int sourceItemID, TranslateResultView resultView)

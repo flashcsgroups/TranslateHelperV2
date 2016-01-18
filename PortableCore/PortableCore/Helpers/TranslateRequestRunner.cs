@@ -1,4 +1,6 @@
 ﻿using PortableCore.BL.Contracts;
+using PortableCore.DAL;
+using PortableCore.DL;
 using PortableCore.WS;
 using System;
 using System.Threading.Tasks;
@@ -7,12 +9,16 @@ namespace PortableCore.Helpers
 {
     public class TranslateRequestRunner
     {
+        ISQLiteTesting db;
         IRequestTranslateString translaterDictSrv;
         IRequestTranslateString translaterTranslateSrv;
+        IRequestTranslateString translaterFromCache;
 
-        public TranslateRequestRunner(IRequestTranslateString translaterDictSrv, IRequestTranslateString translaterTranslateSrv)
+        public TranslateRequestRunner(ISQLiteTesting db, IRequestTranslateString translaterFromCache, IRequestTranslateString translaterDictSrv, IRequestTranslateString translaterTranslateSrv)
         {
-            this.translaterDictSrv = translaterDictSrv;
+            this.db = db;
+            this.translaterFromCache    = translaterFromCache;
+            this.translaterDictSrv      = translaterDictSrv;
             this.translaterTranslateSrv = translaterTranslateSrv;
         }
 
@@ -32,13 +38,8 @@ namespace PortableCore.Helpers
             TranslateRequestResult result = new TranslateRequestResult(convertedSourceText);
             if (convertedSourceText.Length > 0)
             {
-                /*IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
-                var resultFromCache = translaterFromCache.Translate(originalText, direction);
-                if (resultFromCache.translateResult.Collection.Count > 0)
-                {
-                    updateListResults(sourceText, resultFromCache, false);
-                }
-                else*/
+                result = translaterFromCache.Translate(originalText, direction).Result;
+                if (result.TranslatedData.Definitions.Count == 0)
                 {
                     result = await service.Translate(originalText, direction);
                     if (!string.IsNullOrEmpty(result.errorDescription))

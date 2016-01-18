@@ -27,7 +27,7 @@ namespace PortableCore.BL.Managers
 
         public TranslatedExpression GetItemForId(int id)
         {
-            DAL.Repository<TranslatedExpression> repos = new PortableCore.DAL.Repository<TranslatedExpression>();
+            Repository<TranslatedExpression> repos = new Repository<TranslatedExpression>();
             TranslatedExpression result = repos.GetItem(id);
             return result;
         }
@@ -47,7 +47,7 @@ namespace PortableCore.BL.Managers
             }
             else
             {
-                DAL.Repository<SourceExpression> sourceExpr = new PortableCore.DAL.Repository<SourceExpression>();
+                Repository<SourceExpression> sourceExpr = new Repository<SourceExpression>();
                 SourceExpression itemSource = new SourceExpression();
                 itemSource.Text = originalExpression;
                 if(sourceExpr.Save(itemSource) == 1)
@@ -60,27 +60,12 @@ namespace PortableCore.BL.Managers
             DefinitionTypesManager defTypesManager = new DefinitionTypesManager(db);
             List<DefinitionTypes> defTypesList = defTypesManager.GetItems();
 
-            DAL.Repository<TranslatedExpression> reposTranslated = new PortableCore.DAL.Repository<TranslatedExpression>();
-            //запись через Definition
-            /*foreach (TranslateResult item in resultList)
-            {
-                TranslatedExpression translatedItem = new TranslatedExpression();
-                translatedItem.TranslatedText = item.TranslatedText;
-                translatedItem.TranscriptionText = item.Ts;
-                translatedItem.SourceExpressionID = sourceItemID;
-                if(item.Pos != null)
-                {
-                    DefinitionTypes defTypeWithConcreteName = defTypesList.Find(typeItem => typeItem.Name == item.Pos.ToLower());
-                    if (defTypeWithConcreteName != null)
-                        translatedItem.DefinitionTypeID = defTypeWithConcreteName.ID;
-                }
-                reposTranslated.Save(translatedItem);
-            }*/
+            Repository<TranslatedExpression> reposTranslated = new Repository<TranslatedExpression>();
         }
 
 		public List<TranslatedExpression> GetItems()
 		{
-			DAL.Repository<TranslatedExpression> repos = new PortableCore.DAL.Repository<TranslatedExpression> ();
+			Repository<TranslatedExpression> repos = new Repository<TranslatedExpression> ();
 			return new List<TranslatedExpression> (repos.GetItems ());
 		}
 
@@ -88,9 +73,10 @@ namespace PortableCore.BL.Managers
         {
             var arrayDefinitionIDs = from item in listOfDefinitions select item.ID;
             var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
-                       join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID 
+                       join favItem in SqlLiteInstance.DB.Table<Favorites>() on trItem.ID equals favItem.TranslatedExpressionID into favorites
+                       from subFavorite in favorites.DefaultIfEmpty()
                        where arrayDefinitionIDs.Contains(trItem.SourceDefinitionID) 
-                       select new Tuple<TranslatedExpression, Favorites>(trItem, favItem);
+                       select new Tuple<TranslatedExpression, Favorites>(trItem, subFavorite);
             return view.ToList();
         }
 

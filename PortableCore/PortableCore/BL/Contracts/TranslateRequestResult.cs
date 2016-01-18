@@ -13,6 +13,7 @@ namespace PortableCore.BL.Contracts
         public TranslateRequestResult(string originalText)
         {
             this.OriginalText = originalText;
+            TranslatedData = new TranslateResultView();
         }
 
         public void SetTranslateResult(TranslateResultView translatedData)

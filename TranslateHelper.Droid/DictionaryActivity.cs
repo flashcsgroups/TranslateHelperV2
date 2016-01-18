@@ -68,11 +68,14 @@ namespace TranslateHelper.Droid
         private async Task translate(string originalText)
         {
             string convertedText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
-            TranslateRequestRunner reqRunner = new TranslateRequestRunner(new TranslateRequest(TypeTranslateServices.YandexDictionary), new TranslateRequest(TypeTranslateServices.YandexTranslate));
+            TranslateRequestRunner reqRunner = new TranslateRequestRunner(SqlLiteInstance.DB, 
+                new CachedResultReader(SqlLiteInstance.DB), 
+                new TranslateRequest(TypeTranslateServices.YandexDictionary), 
+                new TranslateRequest(TypeTranslateServices.YandexTranslate));
             TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, "en-ru");
             updateListResults(reqResult);
             CachedResultWriter localDBWriter = new CachedResultWriter(SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
-            localDBWriter.SaveResultToLocalCache(reqResult);
+            localDBWriter.SaveResultToLocalCacheIfNotExist(reqResult);
         }
 
         private async void getTranslateResultOLD(string originalText, string direction)

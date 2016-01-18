@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using PortableCore.BL.Contracts;
+using PortableCore.DL;
 using PortableCore.Helpers;
 using System;
 using System.Collections.Generic;
@@ -16,21 +17,52 @@ namespace PortableCore.Tests
         public void TestMust_CreateResultOfSuccessRequest_DictionaryService()
         {
             //arrange
-            IRequestTranslateString translaterTranslateSrv = new testTranslateService();
-
             string testSourceText = "test";
             string testTranscription = "test";
             string testTranslatedText = "тест";
             DefinitionTypesEnum testDefinition = DefinitionTypesEnum.noun;
             List<TranslateResultVariant> variants = new List<TranslateResultVariant>();
             variants.Add(new TranslateResultVariant(testTranslatedText, testDefinition));
-
             List<TranslateResultDefinition> defs = new List<TranslateResultDefinition>();
             defs.Add(new TranslateResultDefinition(testSourceText, testDefinition, testTranscription, variants));
+            IRequestTranslateString translaterDictSrv = new testService(defs, string.Empty);
+            IRequestTranslateString localCacheSrv = new testService(new List<TranslateResultDefinition>(), string.Empty);
+            IRequestTranslateString translaterTranslateSrv = new testTranslateService();
+            SQLiteTest sqliteTestInstance = new SQLiteTest();
 
             //act
-            IRequestTranslateString translaterDictSrv = new testDictService(defs, string.Empty);
-            TranslateRequestRunner runner = new TranslateRequestRunner(translaterDictSrv, translaterTranslateSrv);
+            TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
+            var result = runner.GetDictionaryResult(testSourceText, "en-ru");
+
+            //assert
+            Assert.AreEqual(result.Result.TranslatedData.Definitions.Count, 1);
+            Assert.IsTrue(result.Result.TranslatedData.Definitions[0].OriginalText == testSourceText);
+            Assert.IsTrue(result.Result.TranslatedData.Definitions[0].Pos == testDefinition);
+            Assert.IsTrue(result.Result.TranslatedData.Definitions[0].Transcription == testTranscription);
+            Assert.AreEqual(result.Result.TranslatedData.Definitions[0].TranslateVariants.Count, 1);
+            Assert.IsTrue(result.Result.TranslatedData.Definitions[0].TranslateVariants[0].Text == testTranslatedText);
+            Assert.IsTrue(result.Result.TranslatedData.Definitions[0].TranslateVariants[0].Pos == testDefinition);
+        }
+
+        [Test]
+        public void TestMust_CreateResultOfSuccessRequest_ReadLocalCache()
+        {
+            //arrange
+            string testSourceText = "test";
+            string testTranscription = "test";
+            string testTranslatedText = "тест";
+            DefinitionTypesEnum testDefinition = DefinitionTypesEnum.noun;
+            List<TranslateResultVariant> variants = new List<TranslateResultVariant>();
+            variants.Add(new TranslateResultVariant(testTranslatedText, testDefinition));
+            List<TranslateResultDefinition> defs = new List<TranslateResultDefinition>();
+            defs.Add(new TranslateResultDefinition(testSourceText, testDefinition, testTranscription, variants));
+            IRequestTranslateString translaterDictSrv = new testService(new List<TranslateResultDefinition>(), string.Empty);
+            IRequestTranslateString localCacheSrv = new testService(defs, string.Empty);
+            IRequestTranslateString translaterTranslateSrv = new testTranslateService();
+            SQLiteTest sqliteTestInstance = new SQLiteTest();
+
+            //act
+            TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
             var result = runner.GetDictionaryResult(testSourceText, "en-ru");
 
             //assert
@@ -47,15 +79,17 @@ namespace PortableCore.Tests
         public void TestMust_CreateResultOfErrorRequest_DictionaryService()
         {
             //arrange
-            IRequestTranslateString translaterTranslateSrv = new testTranslateService();
+            SQLiteTest sqliteTestInstance = new SQLiteTest();
 
             string testSourceText = "test";
             string testErrorText = "error";
             List<TranslateResultDefinition> defs = new List<TranslateResultDefinition>();
+            IRequestTranslateString translaterDictSrv = new testService(defs, testErrorText);
+            IRequestTranslateString translaterTranslateSrv = new testTranslateService();
+            IRequestTranslateString localCacheSrv = new testService(defs, testErrorText);
 
             //act
-            IRequestTranslateString translaterDictSrv = new testDictService(defs, testErrorText);
-            TranslateRequestRunner runner = new TranslateRequestRunner(translaterDictSrv, translaterTranslateSrv);
+            TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
 
             string error = string.Empty;
             var result = runner.GetDictionaryResult(testSourceText, "en-ru");
@@ -64,12 +98,21 @@ namespace PortableCore.Tests
             //assert
             Assert.IsTrue(error == "Ошибка подключения к интернет:error");
         }
-        public class testDictService : IRequestTranslateString
+
+        public class SQLiteTest : ISQLiteTesting
+        {
+            public IEnumerable<T> Table<T>() where T : IBusinessEntity, new()
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public class testService : IRequestTranslateString
         {
             private List<TranslateResultDefinition> definitions;
             private string errorText = string.Empty;
 
-            public testDictService(List<TranslateResultDefinition> definitions, string errorText)
+            public testService(List<TranslateResultDefinition> definitions, string errorText)
             {
                 this.definitions = definitions;
                 this.errorText = errorText;
