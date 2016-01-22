@@ -39,7 +39,8 @@ namespace PortableCore.WS
             string responseText = string.Empty;
             try
             {
-                responseText = await translater.GetResponse(sourceString, direction);
+                translater.SetSourceString(sourceString);
+                responseText = await translater.GetResponse(direction);
             }
             catch(Exception e)
             {

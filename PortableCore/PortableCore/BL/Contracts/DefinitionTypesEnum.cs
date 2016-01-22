@@ -8,7 +8,9 @@ namespace PortableCore.BL.Contracts
 {
     public enum DefinitionTypesEnum :int
     {
-        unknown = 0, noun, verb, adjective, adverb, participle,
+        unknown = 0,
+        translater,//элемент определяет что слово получено не из словаря, а из сервиса перевода, там нет типов речи
+        noun, verb, adjective, adverb, participle,
         predicative,
         particle,
         numeral,

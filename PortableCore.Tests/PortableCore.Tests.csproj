@@ -58,7 +58,8 @@
     <Compile Include="ConvertStringTests.cs" />
     <Compile Include="TranslateRequestRunnerTests.cs" />
     <Compile Include="TranslateResultFromDBCacheTests.cs" />
-    <Compile Include="TranslateResultStructureTests.cs" />
+    <Compile Include="YandexTranslateTranslateResultStructureTests.cs" />
+    <Compile Include="YandexDictionaryTranslateResultStructureTests.cs" />
     <Compile Include="ParseResponseTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

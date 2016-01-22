@@ -16,7 +16,14 @@ namespace PortableCore.WS
     public class YandexDictionaryJSON : TranslateRequestFactory
     {
         private string AuthKey = "dict.1.1.20151130T123842Z.c9e307b1d977e039.89e55f949ba679f1f024feba1f6033701acf58bd";
-        public override async Task<string> GetResponse(string sourceString, string direction)
+        private string sourceString;
+
+        public override void SetSourceString(string sourceString)
+        {
+            this.sourceString = sourceString;
+        }
+
+        public override async Task<string> GetResponse(string direction)
         {
             string url = string.Format("https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={0}&lang={2}&text={1}", AuthKey, sourceString, direction);
             return await GetJsonResponse(url);
@@ -50,7 +57,7 @@ namespace PortableCore.WS
             return result;
         }
 
-        private static async Task<string> GetJsonResponse(string url)
+        /*private static async Task<string> GetJsonResponse(string url)
         {
             string result = string.Empty;
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
@@ -69,6 +76,6 @@ namespace PortableCore.WS
             }
 
             return result;
-        }
+        }*/
     }
 }

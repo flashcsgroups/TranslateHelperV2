@@ -103,5 +103,20 @@ namespace PortableCore.Tests {
                 return ResourceManager.GetString("YandexDictionaryResponseForWord_Grow", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {
+        ///&quot;code&quot;: 200,
+        ///&quot;lang&quot;: &quot;en-ru&quot;,
+        ///&quot;text&quot;: [
+        ///&quot;это положительный тест&quot;
+        ///]
+        ///}.
+        /// </summary>
+        public static string YandexTranslateResponse {
+            get {
+                return ResourceManager.GetString("YandexTranslateResponse", resourceCulture);
+            }
+        }
     }
 }

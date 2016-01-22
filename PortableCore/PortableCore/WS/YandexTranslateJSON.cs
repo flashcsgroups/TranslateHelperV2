@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using PortableCore.BL.Contracts;
 using Newtonsoft.Json;
+using PortableCore.WS.Contracts;
 
 namespace PortableCore.WS
 {
@@ -14,45 +15,36 @@ namespace PortableCore.WS
     {
         //ToDo:Перенести в настройки для хранения в базе
         private string AuthKey = "trnsl.1.1.20150918T114904Z.45ab265b9b9ac49d.d4de7a7a003321c5af46dc22110483b086b8125f";
-        public override async Task<string> GetResponse(string sourceString, string direction)
+        private string sourceString;
+
+        public override void SetSourceString(string sourceString)
+        {
+            this.sourceString = sourceString;
+        }
+
+        public override async Task<string> GetResponse(string direction)
         {
             string url = string.Format("https://translate.yandex.net/api/v1.5/tr.json/translate?key={0}&text={1}&lang={2}&format=plain", AuthKey, sourceString, direction);
-            string responseString = await GetJsonResponse(url);
-            return responseString;
+            return await GetJsonResponse(url);
         }
 
         public override TranslateResultView Parse(string responseText)
         {
-            throw new Exception("not realized");
-            TranslateResultView result = new TranslateResultView();
-            var jsonResponse = JsonConvert.DeserializeObject(responseText);
-            /*JsonValue jsonResponse = JsonValue.Parse(responseText);
-            if(jsonResponse.ContainsKey("text"))
-            {
-                string textWithoutBrackets = jsonResponse["text"].ToString().Replace(@"[""","").Replace(@"""]", "");
-                result.Collection.Add(new TranslateResult() {TranslatedText = textWithoutBrackets });
-            }*/
+            TranslateResultView result;
+            YandexTranslateScheme deserializedResponse = JsonConvert.DeserializeObject<YandexTranslateScheme>(responseText);
+            if (null != deserializedResponse)
+                result = convertResponseToTranslateResult(deserializedResponse);
+            else
+                result = new TranslateResultView();
             return result;
         }
 
-        private static async Task<string> GetJsonResponse(string url)
+        private TranslateResultView convertResponseToTranslateResult(YandexTranslateScheme deserializedObject)
         {
-            string result = string.Empty;
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-            request.Method = "GET";
-            //request.Timeout = 20000;
-
-            using (WebResponse response = await request.GetResponseAsync())
-            {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        result = reader.ReadToEnd();
-                    }
-                }
-            }
-
+            TranslateResultView result = new TranslateResultView();
+            var translateVariants = new List<ResultLineData>();
+            translateVariants.Add(new ResultLineData(deserializedObject.Text[0], DefinitionTypesEnum.translater));
+            result.AddDefinition(sourceString, DefinitionTypesEnum.translater, string.Empty, translateVariants);
             return result;
         }
     }
