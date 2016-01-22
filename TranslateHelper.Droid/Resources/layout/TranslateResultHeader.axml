@@ -6,14 +6,40 @@
     android:gravity="center_vertical"
     android:clickable="false">
     <TextView
-        android:id="@+id/IndexTextView"
-        android:layout_marginLeft="20dp"
+        android:id="@+id/OriginalTextTextView"
         android:layout_width="wrap_content"
-        android:textSize="15dp"
-        style="@style/VariantItemTextView" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="20dip"
+        android:text=""
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/transparent"
+        android:layout_marginRight="5dp" />
     <TextView
-        android:id="@+id/TranslatedTextTextView"
-        style="@style/VariantItemTextView" />
+        android:id="@+id/OriginalTextTranscriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="25dip"
+        android:text=""
+        android:padding="4dp"
+        android:textColor="@color/lightgrey"
+        android:textStyle="normal"
+        android:background="@color/transparent"
+        android:layout_marginRight="5dp" />
+    <TextView
+        android:id="@+id/PosTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="15dip"
+        android:text=""
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:background="@color/transparent" />
 <!--TextView
           android:id="@+id/SynonymsTextView"
           android:layout_width="wrap_content"
@@ -49,18 +75,4 @@
           android:textColor="@color/black"
           android:textStyle="italic"
           android:background="@color/transparent" /-->
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-        <ImageView
-            android:id="@+id/FavoritesStatePic"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:src="@drawable/v3addtofavorites" />
-    </RelativeLayout>
 </LinearLayout>

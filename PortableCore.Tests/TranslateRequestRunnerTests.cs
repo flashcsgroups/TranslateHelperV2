@@ -21,8 +21,8 @@ namespace PortableCore.Tests
             string testTranscription = "test";
             string testTranslatedText = "тест";
             DefinitionTypesEnum testDefinition = DefinitionTypesEnum.noun;
-            List<TranslateResultVariant> variants = new List<TranslateResultVariant>();
-            variants.Add(new TranslateResultVariant(testTranslatedText, testDefinition));
+            List<ResultLineData> variants = new List<ResultLineData>();
+            variants.Add(new ResultLineData(testTranslatedText, testDefinition));
             List<TranslateResultDefinition> defs = new List<TranslateResultDefinition>();
             defs.Add(new TranslateResultDefinition(testSourceText, testDefinition, testTranscription, variants));
             IRequestTranslateString translaterDictSrv = new testService(defs, string.Empty);
@@ -52,8 +52,8 @@ namespace PortableCore.Tests
             string testTranscription = "test";
             string testTranslatedText = "тест";
             DefinitionTypesEnum testDefinition = DefinitionTypesEnum.noun;
-            List<TranslateResultVariant> variants = new List<TranslateResultVariant>();
-            variants.Add(new TranslateResultVariant(testTranslatedText, testDefinition));
+            List<ResultLineData> variants = new List<ResultLineData>();
+            variants.Add(new ResultLineData(testTranslatedText, testDefinition));
             List<TranslateResultDefinition> defs = new List<TranslateResultDefinition>();
             defs.Add(new TranslateResultDefinition(testSourceText, testDefinition, testTranscription, variants));
             IRequestTranslateString translaterDictSrv = new testService(new List<TranslateResultDefinition>(), string.Empty);

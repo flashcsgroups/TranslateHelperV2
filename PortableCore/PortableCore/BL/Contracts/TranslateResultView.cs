@@ -31,7 +31,7 @@ namespace PortableCore.BL.Contracts
             //ExamplesCollection = new List<ExampleText>();
         }
 
-        public void AddDefinition(string originalText, DefinitionTypesEnum pos, string transcription, List<TranslateResultVariant> translateVariants)
+        public void AddDefinition(string originalText, DefinitionTypesEnum pos, string transcription, List<ResultLineData> translateVariants)
         {
             Definitions.Add(new TranslateResultDefinition(originalText, pos, transcription, translateVariants));
         }
@@ -45,9 +45,9 @@ namespace PortableCore.BL.Contracts
         public string OriginalText { get; private set; }
         public DefinitionTypesEnum Pos { get; private set; }
         public string Transcription { get; private set; }
-        public List<TranslateResultVariant> TranslateVariants { get; private set; }
+        public List<ResultLineData> TranslateVariants { get; private set; }
 
-        public TranslateResultDefinition(string originalText, DefinitionTypesEnum pos, string transcription, List<TranslateResultVariant> translateVariants)
+        public TranslateResultDefinition(string originalText, DefinitionTypesEnum pos, string transcription, List<ResultLineData> translateVariants)
         {
             OriginalText = originalText;
             Pos = pos;
@@ -59,12 +59,12 @@ namespace PortableCore.BL.Contracts
     /// <summary>
     /// Свойства варианта перевода
     /// </summary>
-    public class TranslateResultVariant
+    public class ResultLineData
     {
         public string Text { get; private set; }
         public DefinitionTypesEnum Pos { get; private set; }
 
-        public TranslateResultVariant(string text, DefinitionTypesEnum pos)
+        public ResultLineData(string text, DefinitionTypesEnum pos)
         {
             Text = text;
             Pos = pos;

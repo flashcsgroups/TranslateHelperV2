@@ -10,7 +10,6 @@ using PortableCore.BL.Contracts;
 using PortableCore.WS;
 using PortableCore.Helpers;
 using PortableCore.BL.Managers;
-using Droid.Core.Helpers;
 using System.Threading.Tasks;
 using PortableCore.DAL;
 
@@ -31,7 +30,6 @@ namespace TranslateHelper.Droid
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
 			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
-			//ListView resultListView = FindViewById<ListView> (Resource.Id.listResultListView);
 
             
 
@@ -42,7 +40,6 @@ namespace TranslateHelper.Droid
 				}
 			};
 
-            //ToDo:Поправить жесткий копипаст
             buttonTranslate.Click += async (object sender, EventArgs e) =>
             {
                 await translate(editSourceText.Text);
@@ -52,7 +49,6 @@ namespace TranslateHelper.Droid
                 
                 if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ())))
                 {
-                    //ToDo:убрать перевод строки в контроле
                     await translate(editSourceText.Text);
                 }
             };
@@ -76,40 +72,6 @@ namespace TranslateHelper.Droid
             updateListResults(reqResult);
             CachedResultWriter localDBWriter = new CachedResultWriter(SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
             localDBWriter.SaveResultToLocalCacheIfNotExist(reqResult);
-        }
-
-        private async void getTranslateResultOLD(string originalText, string direction)
-        {
-            string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
-            if (convertedSourceText.Length > 0)
-            {
-                /*IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
-                var resultFromCache = translaterFromCache.Translate(originalText, direction);
-                if (resultFromCache.translateResult.Collection.Count > 0)
-                {
-                    updateListResults(sourceText, resultFromCache, false);
-                }
-                else*/
-                {
-                    IRequestTranslateString translaterDict = new TranslateRequest(TypeTranslateServices.YandexDictionary);
-                    var resultDict = await translaterDict.Translate(originalText, direction);
-                    if (string.IsNullOrEmpty(resultDict.errorDescription))
-                    {
-                        //updateListResults(originalText, resultDict.TranslatedData, true);
-                    }
-                    else
-                    {
-                        Android.Widget.Toast.MakeText(this, "Ошибка подключения к интернет", Android.Widget.ToastLength.Short).Show();
-                    }
-                    /*else
-                    {
-                        IRequestTranslateString translaterTranslate = new TranslateRequest(TypeTranslateServices.YandexTranslate);
-                        var resultTrans = await translaterTranslate.Translate(sourceText, direction);
-                        updateListResults(sourceText, resultTrans, true);
-                    }*/
-                }
-            }
-            //throw new NotImplementedException();
         }
 
         private void clearTraslatedRegion()

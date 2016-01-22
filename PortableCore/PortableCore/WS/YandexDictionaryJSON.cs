@@ -40,10 +40,10 @@ namespace PortableCore.WS
             foreach (var def in deserializedObject.Def)
             {
                 var translateVariantsSource = def.Tr;
-                var translateVariants = new List<TranslateResultVariant>();
+                var translateVariants = new List<ResultLineData>();
                 foreach (var tr in translateVariantsSource)
                 {
-                    translateVariants.Add(new TranslateResultVariant(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
+                    translateVariants.Add(new ResultLineData(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
                 }
                 result.AddDefinition(def.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
             }

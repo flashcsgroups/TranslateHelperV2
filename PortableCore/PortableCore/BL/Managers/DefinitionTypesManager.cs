@@ -94,6 +94,18 @@ namespace PortableCore.BL.Managers
                     {
                         result = "предикат";
                     }; break;
+                case DefinitionTypesEnum.numeral:
+                    {
+                        result = "числительное";
+                    }; break;
+                case DefinitionTypesEnum.particle:
+                    {
+                        result = "частица";
+                    }; break;
+                case DefinitionTypesEnum.pronoun:
+                    {
+                        result = "местоимение";
+                    }; break;
                 case DefinitionTypesEnum.unknown:
                 default:
                     {
@@ -130,7 +142,6 @@ namespace PortableCore.BL.Managers
                     {
                         result = DefinitionTypesEnum.adverb;
                     }; break;
-                case "частица":
                 case "причастие":
                 case "participle":
                     {
@@ -140,6 +151,21 @@ namespace PortableCore.BL.Managers
                 case "predicative":
                     {
                         result = DefinitionTypesEnum.predicative;
+                    }; break;
+                case "частица":
+                case "particle":
+                    {
+                        result = DefinitionTypesEnum.particle;
+                    }; break;
+                case "числительное":
+                case "numeral":
+                    {
+                        result = DefinitionTypesEnum.numeral;
+                    }; break;
+                case "местоимение":
+                case "pronoun":
+                    {
+                        result = DefinitionTypesEnum.pronoun;
                     }; break;
                 default:
                     {

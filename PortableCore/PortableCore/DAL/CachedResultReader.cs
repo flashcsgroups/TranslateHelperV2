@@ -42,11 +42,11 @@ namespace PortableCore.DAL
             TranslateResultView result = new TranslateResultView();
             foreach (var definition in definitionsList)
             {
-                List<TranslateResultVariant> translateVariants = new List<TranslateResultVariant>();
+                List<ResultLineData> translateVariants = new List<ResultLineData>();
                 var viewVariants = from item in translatedList where item.Item1.SourceDefinitionID == definition.ID select new { item.Item1, item.Item2 };
                 foreach (var item in viewVariants)
                 {
-                    translateVariants.Add(new TranslateResultVariant(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID)));
+                    translateVariants.Add(new ResultLineData(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID)));
                 }
                 result.AddDefinition(sourceString, (DefinitionTypesEnum)definition.DefinitionTypeID, definition.TranscriptionText, translateVariants);
             }

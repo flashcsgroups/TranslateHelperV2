@@ -1,28 +1,53 @@
-﻿using System.Collections.Generic;
-
-using Android.App;
+﻿using Android.App;
 using Android.Views;
 using Android.Widget;
 using PortableCore.BL.Contracts;
+using PortableCore.BL.Managers;
+using System;
+using System.Collections.Generic;
 
 namespace TranslateHelper.Droid
 {
 
-    public class TranslateResultViewVariantAdapter : BaseAdapter<TranslateResultVariant>
+    public class TranslateResultViewVariantAdapter : BaseAdapter<TranslateResultViewVariantAdapter.DataOfOneLine>
     {
         protected Activity context = null;
-        protected IList<TranslateResultVariant> listVariantsView = new List<TranslateResultVariant>();
+        private List<DataOfOneLine> listResultLines = new List<DataOfOneLine>();
+        private List<TranslateResultDefinition> definitions;
+        private int indexLineInGroup = 0;
 
-        public TranslateResultViewVariantAdapter(Activity context, IList<TranslateResultVariant> listVariants)
+        public TranslateResultViewVariantAdapter(Activity context, List<TranslateResultDefinition> definitions)
             : base()
         {
             this.context = context;
-            this.listVariantsView = listVariants;
+            this.definitions = definitions;
+            this.listResultLines = extractDefinitionsToLines(definitions);
         }
 
-        public override TranslateResultVariant this[int position]
+        private List<DataOfOneLine> extractDefinitionsToLines(List<TranslateResultDefinition> definitions)
         {
-            get { return listVariantsView[position]; }
+            List<DataOfOneLine> resultLine = new List<DataOfOneLine>();
+            foreach(var itemDef in definitions)
+            {
+                var groupItem = new DataOfOneLine();
+                groupItem.IsGroup = true;
+                groupItem.Definition = itemDef;
+                resultLine.Add(groupItem);
+                foreach (var itemVariant in itemDef.TranslateVariants)
+                {
+                    var item = new DataOfOneLine();
+                    item.IsGroup = false;
+                    item.Definition = itemDef;
+                    item.TranslateVariant = itemVariant;
+                    resultLine.Add(item);
+                }
+            }
+            return resultLine;
+        }
+
+        public override DataOfOneLine this[int position]
+        {
+            get { return listResultLines[position]; }
         }
 
         public override long GetItemId(int position)
@@ -32,43 +57,50 @@ namespace TranslateHelper.Droid
 
         public override int Count
         {
-            get { return listVariantsView.Count; }
+            get { return listResultLines.Count; }
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            // Get our object for this position
-            var item = listVariantsView[position];
+            var item = listResultLines[position];
+            return item.IsGroup ? getHeaderView(item, position, convertView, parent) : getVariantView(item, position, convertView, parent);
+        }
 
-            //Try to reuse convertView if it's not  null, otherwise inflate it from our item layout
-            // This gives us some performance gains by not always inflating a new view
-            // This will sound familiar to MonoTouch developers with UITableViewCell.DequeueReusableCell()
-            var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultVariant, parent, false)) as LinearLayout;
-            //var view = convertView;
-            // Find references to each subview in the list item's view
-            //var translatedTextView = view.FindViewById<TextView>(Resource.Id.TranslatedTextView);
-            var indexTextView = view.FindViewById<TextView>(Resource.Id.IndexTextView);
-            var translatedTextTextView = view.FindViewById<TextView>(Resource.Id.TranslatedTextTextView);
-            //var synTextView = view.FindViewById<TextView>(Resource.Id.SynonymsTextView);
-            //var examplesLinkTextView = view.FindViewById<TextView>(Resource.Id.ExamplesLinkTextView);
-            //var favStatePic = view.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
+        private LinearLayout getVariantView(DataOfOneLine item, int position, View convertView, ViewGroup parent)
+        {
+            //ToDo:придумать, как не создавать View каждый раз, учитывая что их 2 разных - для хедера и детальной записи
+            //var viewVariant = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultVariant, parent, false)) as LinearLayout;
+            var viewVariant = this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultVariant, parent, false) as LinearLayout;
+            var indexTextView = viewVariant.FindViewById<TextView>(Resource.Id.IndexTextView);
+            string indexString = string.Empty;
+            if(item.Definition.TranslateVariants.Count > 1)
+                indexString = (++indexLineInGroup).ToString();
 
-            //Assign this item's values to the various subviews
-            string indexString = (position + 1).ToString();
-            //для уменьшения количества информации, если вариант только один то незачем индексатор показывать
-            if (listVariantsView.Count <= 1)
-            {
-                indexString = string.Empty;
-            }
             indexTextView.SetText(indexString, TextView.BufferType.Normal);
-            translatedTextTextView.SetText(listVariantsView[position].Text, TextView.BufferType.Normal);
-            //synTextView.SetText("синонимы", TextView.BufferType.Normal);
-            /*if (item.FavoritesId != 0)
-                favStatePic.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
-            else
-                favStatePic.SetImageResource(Resource.Drawable.v3addtofavorites);*/
+            var translatedTextTextView = viewVariant.FindViewById<TextView>(Resource.Id.TranslatedTextTextView);
+            translatedTextTextView.SetText(item.TranslateVariant.Text, TextView.BufferType.Normal);
+            return viewVariant;
+        }
 
-            return view;
+        private LinearLayout getHeaderView(DataOfOneLine item, int position, View convertView, ViewGroup parent)
+        {
+            //var viewHeader = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultHeader, parent, false)) as LinearLayout;
+            var viewHeader = this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultHeader, parent, false) as LinearLayout;
+            var originalTextView = viewHeader.FindViewById<TextView>(Resource.Id.OriginalTextTextView);
+            originalTextView.SetText(item.Definition.OriginalText, TextView.BufferType.Normal);
+            var transcriptionTextView = viewHeader.FindViewById<TextView>(Resource.Id.OriginalTextTranscriptionTextView);
+            transcriptionTextView.SetText(string.Format("[{0}]", item.Definition.Transcription), TextView.BufferType.Normal);
+            var posTextView = viewHeader.FindViewById<TextView>(Resource.Id.PosTextView);
+            posTextView.SetText(DefinitionTypesManager.GetRusNameForEnum(item.Definition.Pos), TextView.BufferType.Normal);
+            indexLineInGroup = 0;
+            return viewHeader;
+        }
+
+        public class DataOfOneLine
+        {
+            internal TranslateResultDefinition Definition;
+            internal bool IsGroup;
+            internal ResultLineData TranslateVariant;
         }
     }
 }
