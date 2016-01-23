@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.OS;
@@ -9,7 +8,6 @@ using Android.Widget;
 using PortableCore.BL.Contracts;
 using PortableCore.WS;
 using PortableCore.Helpers;
-using PortableCore.BL.Managers;
 using System.Threading.Tasks;
 using PortableCore.DAL;
 
@@ -18,14 +16,13 @@ namespace TranslateHelper.Droid
     [Activity (Label = "Translate helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
-        List<TranslateResultView> items;
-
-        protected override void OnCreate (Bundle bundle)
+        protected override async void OnCreate (Bundle bundle)
 		{
             base.OnCreate (bundle);
 			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
-			SetContentView (Resource.Layout.Dictionary);
-			
+            SetContentView(Resource.Layout.Dictionary);
+            //запрос для установки соединения еще до того, как оно понадобится пользователю, для ускорения
+            await callTestRequest();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
@@ -53,25 +50,41 @@ namespace TranslateHelper.Droid
                 }
             };
 
-			/*resultListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-                var item = resultListView.GetItemAtPosition (e.Position).Cast<TranslateResultView>();
-                addToFavorites(ConvertStrings.StringToOneLowerLineWithTrim(editSourceText.Text), item);
-			};*/
-
 			clearTraslatedRegion ();
 		}
 
         private async Task translate(string originalText)
         {
             string convertedText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
-            TranslateRequestRunner reqRunner = new TranslateRequestRunner(SqlLiteInstance.DB, 
-                new CachedResultReader(SqlLiteInstance.DB), 
-                new TranslateRequest(TypeTranslateServices.YandexDictionary), 
+            if(!string.IsNullOrEmpty(convertedText))
+            {
+                TranslateRequestRunner reqRunner = getRequestRunner();
+                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, "en-ru");
+                if (reqResult.TranslatedData.Definitions.Count == 0)
+                {
+                    reqResult = await reqRunner.GetTranslationResult(convertedText, "en-ru");
+                }
+                updateListResults(reqResult);
+            }
+        }
+
+        /// <summary>
+        /// Пустой запрос выполняется чтобы установить связь с сервером до того, как пользователь захочет выполнить реальный запрос - это для ускорения выполнения первого запроса
+        /// </summary>
+        /// <returns></returns>
+        private async Task callTestRequest()
+        {
+            TranslateRequestRunner reqRunner = getRequestRunner();
+            TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(string.Empty, "en-ru");
+        }
+
+        private TranslateRequestRunner getRequestRunner()
+        {
+            TranslateRequestRunner reqRunner = new TranslateRequestRunner(SqlLiteInstance.DB,
+                new CachedResultReader(SqlLiteInstance.DB),
+                new TranslateRequest(TypeTranslateServices.YandexDictionary),
                 new TranslateRequest(TypeTranslateServices.YandexTranslate));
-            TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, "en-ru");
-            updateListResults(reqResult);
-            CachedResultWriter localDBWriter = new CachedResultWriter(SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
-            localDBWriter.SaveResultToLocalCacheIfNotExist(reqResult);
+            return reqRunner;
         }
 
         private void clearTraslatedRegion()
@@ -104,31 +117,6 @@ namespace TranslateHelper.Droid
             {
                 Android.Widget.Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
             }
-        }
-
-        /*private void addResultToLocalCache(string sourceText, List<TranslateResultView> resultList)
-        {
-            if(resultList.Count > 0)
-            {
-                TranslatedExpressionManager manager = new TranslatedExpressionManager(SqlLiteInstance.DB);
-                //ToDo:передавать дерево результатов
-                manager.AddNewWord(sourceText, resultList);
-            }
-        }*/
-
-        private async void addToFavorites(string sourceText, TranslateResultView result)
-        {
-            /*FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
-            favoritesManager.AddWordToFavorites(sourceText, result);
-            Android.Widget.Toast.MakeText(this, "Элемент добавлен в избранное", Android.Widget.ToastLength.Short).Show();
-
-            IRequestTranslateString translaterFromCache = new LocalDBCacheReader(SqlLiteInstance.DB);
-            EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
-            var resultFromCache = await translaterFromCache.Translate(sourceText, "en-ru");
-            if (resultFromCache.translateResult.Collection.Count > 0)
-            {
-                updateListResults(sourceText, resultFromCache, false);
-            }*/
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

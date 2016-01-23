@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="SDyachenko.TranslateHelper" android:installLocation="auto" android:versionName="new version dictionary" android:versionCode="5">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="SDyachenko.TranslateHelper" android:installLocation="auto" android:versionName="translater and add to favorites works" android:versionCode="6">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19" />
 	<application android:label="TranslateHelper" android:icon="@drawable/Icon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

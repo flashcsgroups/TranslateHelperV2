@@ -120,7 +120,7 @@ namespace TranslateHelper.Droid
 
 					/*var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.SourceTextView);
 					sourceTextView.SetText(itemResult.OriginalText.ToString(), TextView.BufferType.Normal);
-					var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.TranslatedTextView);
+					/*var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.TranslatedTextView);
 					translatedTextView.SetText(itemResult.TranslatedText.ToString(), TextView.BufferType.Normal);
 					var transcriptionTextView = itemView.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
 					transcriptionTextView.SetText(string.IsNullOrEmpty(itemResult.Ts)?"":itemResult.Ts, TextView.BufferType.Normal);

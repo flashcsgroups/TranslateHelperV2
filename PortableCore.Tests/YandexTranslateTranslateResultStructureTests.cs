@@ -22,6 +22,32 @@ namespace PortableCore.Tests
             Assert.IsTrue(testResult.Definitions[0].TranslateVariants[0].Text == "это положительный тест");
         }
 
+        [Test]
+        public void TestMust_GetDefinitionTypeSourceString_Translater()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexTranslateResponse;
+
+            //act
+            TranslateResultView testResult = GetTestTranslateResult<YandexTranslateJSON>("this positive test", responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[0].Pos == DefinitionTypesEnum.translater);
+        }
+
+        [Test]
+        public void TestMust_GetDefinitionTypeTranslatedString_Translater()
+        {
+            //arrange
+            string responseText = JSONTexts.YandexTranslateResponse;
+
+            //act
+            TranslateResultView testResult = GetTestTranslateResult<YandexTranslateJSON>("this positive test", responseText);
+
+            //assert
+            Assert.IsTrue(testResult.Definitions[0].TranslateVariants[0].Pos == DefinitionTypesEnum.translater);
+        }
+
         private TranslateResultView GetTestTranslateResult<T>(string OriginalText, string StringForParse) where T : TranslateRequestFactory, new()
         {
             var translater = new T();

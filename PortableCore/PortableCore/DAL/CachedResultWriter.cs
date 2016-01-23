@@ -7,7 +7,7 @@ using PortableCore.BL.Managers;
 using System.Collections.Generic;
 using PortableCore.DAL;
 
-namespace TranslateHelper.Droid
+namespace PortableCore.DAL
 {
     public class CachedResultWriter
     {
@@ -60,8 +60,17 @@ namespace TranslateHelper.Droid
                     translatedItem.SourceDefinitionID = sourceDefId;
                     translatedItem.DefinitionTypeID = (int)curVariant.Pos;
                     reposTranslatedExpression.Save(translatedItem);
+                    fillTranslateResultIdsForNewItem(translatedItem.SourceDefinitionID, translatedItem.DefinitionTypeID, curVariant);
                 }
             }
+        }
+
+        private void fillTranslateResultIdsForNewItem(int sourceDefinitionID, int definitionTypeID, ResultLineData curVariant)
+        {
+            var savedTranslatedExpressionItems = from item in SqlLiteInstance.DB.Table<TranslatedExpression>()
+                                              where (item.SourceDefinitionID == sourceDefinitionID) && (item.DeleteMark == 0) && (item.TranslatedText == curVariant.Text)
+                                              select new TranslatedExpression {ID = item.ID};
+            curVariant.TranslatedExpressionId = savedTranslatedExpressionItems.ToList()[0].ID;
         }
 
         private int getSourceDefinitionItemId(int sourceItemID, TranslateResultDefinition curDefinition)

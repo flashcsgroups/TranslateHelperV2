@@ -7,28 +7,11 @@ namespace PortableCore.BL.Contracts
 {
     public class TranslateResultView 
     {
-        //устаревшие свойства
-        //public string Pos;//часть речи
-        //public string Ts;//транскрипция
-        //public string TranslatedText;
-        //public int TranslatedExpressionId;//заполнено Id если результат найден в локальном кеше
-        //public int FavoritesId;//Заполнено если результат найден в избранном
-        //public List<Synonym> SynonymsCollection;
-        //public List<Mean> MeansCollection;
-        //public List<ExampleText> ExamplesCollection;
-
-        //новые свойства
         public List<TranslateResultDefinition> Definitions { get; private set; }
 
         public TranslateResultView()
         {
-            //new
             Definitions = new List<TranslateResultDefinition>();
-
-            //old
-            //SynonymsCollection = new List<Synonym>();
-            //MeansCollection = new List<Mean>();
-            //ExamplesCollection = new List<ExampleText>();
         }
 
         public void AddDefinition(string originalText, DefinitionTypesEnum pos, string transcription, List<ResultLineData> translateVariants)
@@ -63,6 +46,32 @@ namespace PortableCore.BL.Contracts
     {
         public string Text { get; private set; }
         public DefinitionTypesEnum Pos { get; private set; }
+        private int translatedExpressionId;//Используется для связи с БД, заполняется только после записи в кэш
+        private int favoritesId;//Используется для связи с БД, заполняется только после записи в кэш
+
+        public int TranslatedExpressionId
+        {
+            set
+            {
+                this.translatedExpressionId = value;
+            }
+            get
+            {
+                return this.translatedExpressionId;
+            }
+        }
+
+        public int FavoritesId
+        {
+            set
+            {
+                this.favoritesId = value;
+            }
+            get
+            {
+                return this.favoritesId;
+            }
+        }
 
         public ResultLineData(string text, DefinitionTypesEnum pos)
         {

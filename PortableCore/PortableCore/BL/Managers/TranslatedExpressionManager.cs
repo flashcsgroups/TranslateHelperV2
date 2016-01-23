@@ -32,37 +32,6 @@ namespace PortableCore.BL.Managers
             return result;
         }
 
-        //ToDo:Отрефакторить и тест
-        public void AddNewWord(string originalExpression, List<TranslateResultView> resultList)
-		{
-            //ToDo:запись сделать через менеджер
-            SourceExpressionManager sourceManager = new SourceExpressionManager(db);
-            IEnumerable<SourceExpression> localCacheDataList = sourceManager.GetSourceExpressionCollection(originalExpression);
-
-            int sourceItemID = 0;
-
-            if (localCacheDataList.Count() > 0)
-            {
-                sourceItemID = localCacheDataList.ToList()[0].ID;
-            }
-            else
-            {
-                Repository<SourceExpression> sourceExpr = new Repository<SourceExpression>();
-                SourceExpression itemSource = new SourceExpression();
-                itemSource.Text = originalExpression;
-                if(sourceExpr.Save(itemSource) == 1)
-                {
-                    localCacheDataList = sourceManager.GetSourceExpressionCollection(originalExpression);
-                    sourceItemID = localCacheDataList.ToList()[0].ID;
-                }
-            }
-
-            DefinitionTypesManager defTypesManager = new DefinitionTypesManager(db);
-            List<DefinitionTypes> defTypesList = defTypesManager.GetItems();
-
-            Repository<TranslatedExpression> reposTranslated = new Repository<TranslatedExpression>();
-        }
-
 		public List<TranslatedExpression> GetItems()
 		{
 			Repository<TranslatedExpression> repos = new Repository<TranslatedExpression> ();

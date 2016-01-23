@@ -40,6 +40,7 @@ namespace PortableCore.WS
             return result;
         }
 
+        //ToDo:Ошибка!При записи теряются заглавные буквы, к примеру Russian, из-за этого сбивается разметка
         private TranslateResultView convertResponseToTranslateResult(YandexDictionaryScheme deserializedObject)
         {
             string originalString = deserializedObject.Def.Count > 0 ? deserializedObject.Def[0].Text : string.Empty;
@@ -56,26 +57,5 @@ namespace PortableCore.WS
             }
             return result;
         }
-
-        /*private static async Task<string> GetJsonResponse(string url)
-        {
-            string result = string.Empty;
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-            request.Method = "GET";
-            //request.Timeout = 20000;
-
-            using (WebResponse response = await request.GetResponseAsync())
-            {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        result = reader.ReadToEnd();
-                    }
-                }
-            }
-
-            return result;
-        }*/
     }
 }

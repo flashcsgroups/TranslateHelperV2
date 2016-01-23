@@ -22,7 +22,7 @@ namespace PortableCore.BL.Managers
 			
         public SourceExpression GetItemForId(int id)
         {
-            DAL.Repository<SourceExpression> repos = new PortableCore.DAL.Repository<SourceExpression>();
+            Repository<SourceExpression> repos = new Repository<SourceExpression>();
             SourceExpression result = repos.GetItem(id);
             return result;
         }

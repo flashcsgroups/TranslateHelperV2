@@ -1,7 +1,7 @@
 ﻿using PortableCore.BL.Contracts;
+using PortableCore.BL.Managers;
 using PortableCore.DAL;
 using PortableCore.DL;
-using PortableCore.WS;
 using System;
 using System.Threading.Tasks;
 
@@ -24,19 +24,29 @@ namespace PortableCore.Helpers
 
         public async Task<TranslateRequestResult> GetDictionaryResult(string originalText, string direction)
         {
-            return await request(translaterDictSrv, originalText, direction);
+            var result = await request(translaterDictSrv, originalText, direction);
+            saveResultToLocalCache(result);
+            return result;
+        }
+
+        private void saveResultToLocalCache(TranslateRequestResult result)
+        {
+            CachedResultWriter localDBWriter = new CachedResultWriter(SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
+            localDBWriter.SaveResultToLocalCacheIfNotExist(result);
         }
 
         public async Task<TranslateRequestResult> GetTranslationResult(string originalText, string direction)
         {
-            return await request(translaterTranslateSrv, originalText, direction);
+            var result = await request(translaterTranslateSrv, originalText, direction);
+            saveResultToLocalCache(result);
+            return result;
         }
 
         private async Task<TranslateRequestResult> request(IRequestTranslateString service, string originalText, string direction)
         {
             string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             TranslateRequestResult result = new TranslateRequestResult(convertedSourceText);
-            if (convertedSourceText.Length > 0)
+            //if (convertedSourceText.Length > 0)//проверка мешает при ping - там передается пустая строка
             {
                 result = translaterFromCache.Translate(originalText, direction).Result;
                 if (result.TranslatedData.Definitions.Count == 0)
@@ -49,7 +59,6 @@ namespace PortableCore.Helpers
                     }
                 }
             }
-
             return result;
         }
     }

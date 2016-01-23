@@ -27,14 +27,14 @@ namespace PortableCore.BL.Managers
 
         public SourceDefinition GetItemForId(int id)
         {
-            DAL.Repository<SourceDefinition> repos = new PortableCore.DAL.Repository<SourceDefinition>();
+            Repository<SourceDefinition> repos = new Repository<SourceDefinition>();
             SourceDefinition result = repos.GetItem(id);
             return result;
         }
 
 		public List<SourceDefinition> GetItems()
 		{
-			DAL.Repository<SourceDefinition> repos = new PortableCore.DAL.Repository<SourceDefinition> ();
+            Repository<SourceDefinition> repos = new Repository<SourceDefinition>();
 			return new List<SourceDefinition> (repos.GetItems ());
 		}
 

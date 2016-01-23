@@ -3,7 +3,6 @@ using Android.Views;
 using Android.Widget;
 using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
-using System;
 using System.Collections.Generic;
 
 namespace TranslateHelper.Droid
@@ -14,7 +13,6 @@ namespace TranslateHelper.Droid
         protected Activity context = null;
         private List<DataOfOneLine> listResultLines = new List<DataOfOneLine>();
         private List<TranslateResultDefinition> definitions;
-        private int indexLineInGroup = 0;
 
         public TranslateResultViewVariantAdapter(Activity context, List<TranslateResultDefinition> definitions)
             : base()
@@ -32,6 +30,7 @@ namespace TranslateHelper.Droid
                 var groupItem = new DataOfOneLine();
                 groupItem.IsGroup = true;
                 groupItem.Definition = itemDef;
+                groupItem.TranslateVariant = new ResultLineData(string.Empty, DefinitionTypesEnum.unknown);
                 resultLine.Add(groupItem);
                 foreach (var itemVariant in itemDef.TranslateVariants)
                 {
@@ -72,13 +71,18 @@ namespace TranslateHelper.Droid
             //var viewVariant = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultVariant, parent, false)) as LinearLayout;
             var viewVariant = this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultVariant, parent, false) as LinearLayout;
             var indexTextView = viewVariant.FindViewById<TextView>(Resource.Id.IndexTextView);
-            string indexString = string.Empty;
             if(item.Definition.TranslateVariants.Count > 1)
-                indexString = (++indexLineInGroup).ToString();
+                indexTextView.SetText("-", TextView.BufferType.Normal);
 
-            indexTextView.SetText(indexString, TextView.BufferType.Normal);
             var translatedTextTextView = viewVariant.FindViewById<TextView>(Resource.Id.TranslatedTextTextView);
             translatedTextTextView.SetText(item.TranslateVariant.Text, TextView.BufferType.Normal);
+
+            if(item.TranslateVariant.FavoritesId > 0)
+            {
+                var favoritesImageView = viewVariant.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
+                favoritesImageView.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
+            }
+
             return viewVariant;
         }
 
@@ -87,12 +91,18 @@ namespace TranslateHelper.Droid
             //var viewHeader = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultHeader, parent, false)) as LinearLayout;
             var viewHeader = this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultHeader, parent, false) as LinearLayout;
             var originalTextView = viewHeader.FindViewById<TextView>(Resource.Id.OriginalTextTextView);
-            originalTextView.SetText(item.Definition.OriginalText, TextView.BufferType.Normal);
-            var transcriptionTextView = viewHeader.FindViewById<TextView>(Resource.Id.OriginalTextTranscriptionTextView);
-            transcriptionTextView.SetText(string.Format("[{0}]", item.Definition.Transcription), TextView.BufferType.Normal);
-            var posTextView = viewHeader.FindViewById<TextView>(Resource.Id.PosTextView);
-            posTextView.SetText(DefinitionTypesManager.GetRusNameForEnum(item.Definition.Pos), TextView.BufferType.Normal);
-            indexLineInGroup = 0;
+            if (item.Definition.Pos == DefinitionTypesEnum.translater)
+            {
+                originalTextView.SetText("Перевод предложения:", TextView.BufferType.Normal);
+            }
+            else
+            {
+                originalTextView.SetText(item.Definition.OriginalText, TextView.BufferType.Normal);
+                var transcriptionTextView = viewHeader.FindViewById<TextView>(Resource.Id.OriginalTextTranscriptionTextView);
+                transcriptionTextView.SetText(string.Format("[{0}]", item.Definition.Transcription), TextView.BufferType.Normal);
+                var posTextView = viewHeader.FindViewById<TextView>(Resource.Id.PosTextView);
+                posTextView.SetText(DefinitionTypesManager.GetRusNameForEnum(item.Definition.Pos), TextView.BufferType.Normal);
+            }
             return viewHeader;
         }
 
@@ -101,6 +111,10 @@ namespace TranslateHelper.Droid
             internal TranslateResultDefinition Definition;
             internal bool IsGroup;
             internal ResultLineData TranslateVariant;
+
+            public DataOfOneLine()
+            {
+            }
         }
     }
 }

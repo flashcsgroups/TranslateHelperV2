@@ -46,7 +46,13 @@ namespace PortableCore.DAL
                 var viewVariants = from item in translatedList where item.Item1.SourceDefinitionID == definition.ID select new { item.Item1, item.Item2 };
                 foreach (var item in viewVariants)
                 {
-                    translateVariants.Add(new ResultLineData(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID)));
+                    var dataLine = new ResultLineData(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID));
+                    dataLine.TranslatedExpressionId = item.Item1.ID;
+                    if(item.Item2!=null)
+                    {
+                        dataLine.FavoritesId = item.Item2.ID;
+                    }
+                    translateVariants.Add(dataLine);
                 }
                 result.AddDefinition(sourceString, (DefinitionTypesEnum)definition.DefinitionTypeID, definition.TranscriptionText, translateVariants);
             }
