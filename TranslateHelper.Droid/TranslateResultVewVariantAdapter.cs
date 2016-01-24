@@ -8,10 +8,10 @@ using System.Collections.Generic;
 namespace TranslateHelper.Droid
 {
 
-    public class TranslateResultViewVariantAdapter : BaseAdapter<TranslateResultViewVariantAdapter.DataOfOneLine>
+    public class TranslateResultViewVariantAdapter : BaseAdapter<TranslateResultViewVariantAdapter.LineOfTranslateResult>
     {
         protected Activity context = null;
-        private List<DataOfOneLine> listResultLines = new List<DataOfOneLine>();
+        private List<LineOfTranslateResult> listResultLines = new List<LineOfTranslateResult>();
         private List<TranslateResultDefinition> definitions;
 
         public TranslateResultViewVariantAdapter(Activity context, List<TranslateResultDefinition> definitions)
@@ -22,19 +22,19 @@ namespace TranslateHelper.Droid
             this.listResultLines = extractDefinitionsToLines(definitions);
         }
 
-        private List<DataOfOneLine> extractDefinitionsToLines(List<TranslateResultDefinition> definitions)
+        private List<LineOfTranslateResult> extractDefinitionsToLines(List<TranslateResultDefinition> definitions)
         {
-            List<DataOfOneLine> resultLine = new List<DataOfOneLine>();
+            List<LineOfTranslateResult> resultLine = new List<LineOfTranslateResult>();
             foreach(var itemDef in definitions)
             {
-                var groupItem = new DataOfOneLine();
+                var groupItem = new LineOfTranslateResult();
                 groupItem.IsGroup = true;
                 groupItem.Definition = itemDef;
                 groupItem.TranslateVariant = new ResultLineData(string.Empty, DefinitionTypesEnum.unknown);
                 resultLine.Add(groupItem);
                 foreach (var itemVariant in itemDef.TranslateVariants)
                 {
-                    var item = new DataOfOneLine();
+                    var item = new LineOfTranslateResult();
                     item.IsGroup = false;
                     item.Definition = itemDef;
                     item.TranslateVariant = itemVariant;
@@ -44,7 +44,7 @@ namespace TranslateHelper.Droid
             return resultLine;
         }
 
-        public override DataOfOneLine this[int position]
+        public override LineOfTranslateResult this[int position]
         {
             get { return listResultLines[position]; }
         }
@@ -65,7 +65,7 @@ namespace TranslateHelper.Droid
             return item.IsGroup ? getHeaderView(item, position, convertView, parent) : getVariantView(item, position, convertView, parent);
         }
 
-        private LinearLayout getVariantView(DataOfOneLine item, int position, View convertView, ViewGroup parent)
+        private LinearLayout getVariantView(LineOfTranslateResult item, int position, View convertView, ViewGroup parent)
         {
             //ToDo:придумать, как не создавать View каждый раз, учитывая что их 2 разных - для хедера и детальной записи
             //var viewVariant = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultVariant, parent, false)) as LinearLayout;
@@ -86,7 +86,7 @@ namespace TranslateHelper.Droid
             return viewVariant;
         }
 
-        private LinearLayout getHeaderView(DataOfOneLine item, int position, View convertView, ViewGroup parent)
+        private LinearLayout getHeaderView(LineOfTranslateResult item, int position, View convertView, ViewGroup parent)
         {
             //var viewHeader = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultHeader, parent, false)) as LinearLayout;
             var viewHeader = this.context.LayoutInflater.Inflate(Resource.Layout.TranslateResultHeader, parent, false) as LinearLayout;
@@ -106,13 +106,13 @@ namespace TranslateHelper.Droid
             return viewHeader;
         }
 
-        public class DataOfOneLine
+        public class LineOfTranslateResult
         {
             internal TranslateResultDefinition Definition;
             internal bool IsGroup;
             internal ResultLineData TranslateVariant;
 
-            public DataOfOneLine()
+            public LineOfTranslateResult()
             {
             }
         }

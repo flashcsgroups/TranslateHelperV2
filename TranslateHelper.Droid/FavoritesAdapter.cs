@@ -116,13 +116,13 @@ namespace TranslateHelper.Droid
                 {
                     View itemView = adapter.GetView(position - 1, convertView, parent);
                     Java.Lang.Object obj = adapter.GetItem(position - 1);
-					TranslateResultView itemResult = obj.Cast<TranslateResultView>();
+					FavoritesItem itemResult = obj.Cast<FavoritesItem>();
 
-					/*var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.SourceTextView);
+					var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.SourceTextView);
 					sourceTextView.SetText(itemResult.OriginalText.ToString(), TextView.BufferType.Normal);
-					/*var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.TranslatedTextView);
+					var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.TranslatedTextView);
 					translatedTextView.SetText(itemResult.TranslatedText.ToString(), TextView.BufferType.Normal);
-					var transcriptionTextView = itemView.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
+					/*var transcriptionTextView = itemView.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
 					transcriptionTextView.SetText(string.IsNullOrEmpty(itemResult.Ts)?"":itemResult.Ts, TextView.BufferType.Normal);
 
 					//DefinitionTypesManager defTypeManager = new DefinitionTypesManager ();

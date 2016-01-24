@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
+using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
@@ -24,14 +25,14 @@ namespace PortableCore.BL.Managers
 
         public Favorites GetItemForId(int id)
         {
-            DAL.Repository<Favorites> repos = new DAL.Repository<Favorites>();
+            Repository<Favorites> repos = new Repository<Favorites>();
             Favorites result = repos.GetItem(id);
             return result;
         }
 
         private void AddWord(int translatedExpressionId)
         {
-            DAL.Repository<Favorites> reposFavorites = new DAL.Repository<Favorites>();
+            Repository<Favorites> reposFavorites = new DAL.Repository<Favorites>();
             Favorites itemFavorites = new Favorites();
             itemFavorites.TranslatedExpressionID = translatedExpressionId;
             reposFavorites.Save(itemFavorites);
@@ -39,14 +40,20 @@ namespace PortableCore.BL.Managers
 
         public List<Favorites> GetItems()
         {
-            DAL.Repository<Favorites> repos = new DAL.Repository<Favorites>();
+            Repository<Favorites> repos = new Repository<Favorites>();
             return new List<Favorites>(repos.GetItems());
         }
 
         public void AddWordToFavorites(int translatedExpressionId)
         {
-            FavoritesManager favoritesManager = new FavoritesManager(db);
-            favoritesManager.AddWord(translatedExpressionId);
+            var view = from favItem in SqlLiteInstance.DB.Table<Favorites>()
+                       where favItem.TranslatedExpressionID == translatedExpressionId
+                       select new int[] { favItem.ID };
+            if(view.Count() == 0)
+            {
+                FavoritesManager favoritesManager = new FavoritesManager(db);
+                favoritesManager.AddWord(translatedExpressionId);
+            }
         }
     }
 }

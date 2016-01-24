@@ -7,11 +7,11 @@ using System.Text;
 
 namespace PortableCore.BL.Contracts
 {
-    public class IndexedCollection<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>
+    public class IndexedCollectionOLD<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>
     {
         private List<T> collection;
 
-        public IndexedCollection()
+        public IndexedCollectionOLD()
         {
             collection = new List<T>();
         }

@@ -115,7 +115,7 @@ namespace TranslateHelper.Droid
             }
             else
             {
-                Android.Widget.Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
+                Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
             }
         }
 

@@ -40,7 +40,7 @@
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
-    <Compile Include="BL\Contracts\IndexedCollection.cs" />
+    <None Include="BL\Contracts\IndexedCollectionOLD.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="BL\Managers\ISourceExpressionManager.cs" />
     <Compile Include="DAL\CachedResultWriter.cs" />

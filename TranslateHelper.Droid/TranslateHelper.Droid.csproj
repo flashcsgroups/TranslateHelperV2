@@ -83,12 +83,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicResultViewLayout.cs" />
+    <Compile Include="FavoritesItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="FavoritesAdapter.cs" />
+    <Compile Include="IndexedCollection.cs" />
     <Compile Include="TranslateResultVewVariantAdapter.cs" />
     <AndroidResource Include="Resources\layout\TranslateResultHeader.axml">
       <SubType>AndroidResource</SubType>

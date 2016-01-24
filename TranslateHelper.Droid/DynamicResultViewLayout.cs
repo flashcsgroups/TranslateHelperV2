@@ -37,12 +37,12 @@ namespace TranslateHelper.Droid
         private void LvVariants_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             ListView lvVariants = (ListView)sender;
-            var item = lvVariants.GetItemAtPosition(e.Position).Cast<TranslateResultViewVariantAdapter.DataOfOneLine>();
+            var item = lvVariants.GetItemAtPosition(e.Position).Cast<TranslateResultViewVariantAdapter.LineOfTranslateResult>();
             addToFavorites(item);
         }
 
         //ToDo:Этого не должно быть в слое представления!
-        private void addToFavorites(TranslateResultViewVariantAdapter.DataOfOneLine item)
+        private void addToFavorites(TranslateResultViewVariantAdapter.LineOfTranslateResult item)
         {
             FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
             favoritesManager.AddWordToFavorites(item.TranslateVariant.TranslatedExpressionId);

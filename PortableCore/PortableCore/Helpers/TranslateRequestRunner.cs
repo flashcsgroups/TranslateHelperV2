@@ -25,7 +25,8 @@ namespace PortableCore.Helpers
         public async Task<TranslateRequestResult> GetDictionaryResult(string originalText, string direction)
         {
             var result = await request(translaterDictSrv, originalText, direction);
-            saveResultToLocalCache(result);
+            if(result.TranslatedData.Definitions.Count > 0)
+                saveResultToLocalCache(result);
             return result;
         }
 
@@ -38,7 +39,8 @@ namespace PortableCore.Helpers
         public async Task<TranslateRequestResult> GetTranslationResult(string originalText, string direction)
         {
             var result = await request(translaterTranslateSrv, originalText, direction);
-            saveResultToLocalCache(result);
+            if (result.TranslatedData.Definitions.Count > 0)
+                saveResultToLocalCache(result);
             return result;
         }
 
