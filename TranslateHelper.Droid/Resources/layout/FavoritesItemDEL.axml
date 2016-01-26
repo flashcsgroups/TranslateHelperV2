@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainList"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:id="@+id/mainLayout"
+    android:padding="4dp">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -15,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="12dip"
+            android:textSize="15dip"
             android:text="source"
             android:textColor="@color/black"
             android:layout_marginRight="5dp"
@@ -25,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic"
-            android:textSize="12dip"
+            android:textSize="15dip"
             android:text="transcription"
             android:textColor="@color/lightgrey"
             android:layout_marginRight="5dp"
@@ -35,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic"
-            android:textSize="12dip"
+            android:textSize="15dip"
             android:text="pos"
             android:textColor="@color/black"
             android:background="@color/transparent" />
@@ -45,9 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="italic"
-        android:textSize="13dip"
+        android:textSize="16dip"
         android:text="translated"
         android:textColor="@color/black"
-        android:layout_marginLeft="5dp"
         android:background="@color/transparent" />
 </LinearLayout>

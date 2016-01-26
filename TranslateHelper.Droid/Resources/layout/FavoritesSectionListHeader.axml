@@ -6,4 +6,4 @@
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
     android:paddingLeft="5dip"
-    android:textSize="35sp" />
+    android:textSize="20sp" />

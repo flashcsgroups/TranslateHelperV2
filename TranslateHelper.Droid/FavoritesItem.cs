@@ -13,78 +13,90 @@ using PortableCore.BL.Contracts;
 
 namespace TranslateHelper.Droid
 {
-    public class FavoritesItem : IHasLabel, IComparable<FavoritesItem>
-    {
-        private string originalText = string.Empty;
-        public string OriginalText
-        {
-            get
-            {
-                return originalText;
-            }
+	public class FavoritesItem : IHasLabel, IComparable<FavoritesItem>
+	{
+		private string originalText = string.Empty;
 
-            set
-            {
-                originalText = value;
-            }
-        }
-        private string translatedText;
-        public string TranslatedText
-        {
-            get
-            {
-                return translatedText;
-            }
+		public string OriginalText {
+			get {
+				return originalText;
+			}
 
-            set
-            {
-                translatedText = value;
-            }
-        }
+			set {
+				originalText = value;
+			}
+		}
 
-        private int translatedExpressionId;
-        public int TranslatedExpressionId
-        {
-            get
-            {
-                return translatedExpressionId;
-            }
+		private string translatedText;
 
-            set
-            {
-                translatedExpressionId = value;
-            }
-        }
+		public string TranslatedText {
+			get {
+				return translatedText;
+			}
 
-        private int favoritesId;
-        public int FavoritesId
-        {
-            get
-            {
-                return favoritesId;
-            }
+			set {
+				translatedText = value;
+			}
+		}
 
-            set
-            {
-                favoritesId = value;
-            }
-        }
+		private int translatedExpressionId;
 
-        public string Label
-        {
-            get
-            {
-                string label = string.Empty;
-                if (!string.IsNullOrEmpty(OriginalText))
-                    label = OriginalText[0].ToString();
-                return label;
-            }
-        }
+		public int TranslatedExpressionId {
+			get {
+				return translatedExpressionId;
+			}
 
+			set {
+				translatedExpressionId = value;
+			}
+		}
 
-        public int CompareTo(FavoritesItem other)
-        {
-            return OriginalText.CompareTo(other.OriginalText);
-        }
-    }
+		private int favoritesId;
+
+		public int FavoritesId {
+			get {
+				return favoritesId;
+			}
+
+			set {
+				favoritesId = value;
+			}
+		}
+
+		private DefinitionTypesEnum definitionType;
+
+		public DefinitionTypesEnum DefinitionType {
+			get {
+				return definitionType;
+			}
+			set {
+				definitionType = value;
+			}
+		}
+
+		private string originalTranscription;
+
+		public string OriginalTranscription {
+			get {
+				return originalTranscription;
+			}
+			set {
+				originalTranscription = value;
+			}
+		}
+
+		public string Label {
+			get {
+				string label = string.Empty;
+				if (!string.IsNullOrEmpty (OriginalText))
+					label = OriginalText [0].ToString ();
+				return label;
+			}
+		}
+
+		public int CompareTo (FavoritesItem other)
+		{
+			return OriginalText.CompareTo (other.OriginalText);
+		}
+	}
 }
