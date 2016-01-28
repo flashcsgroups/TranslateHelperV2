@@ -91,9 +91,6 @@
     <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <None Include="Resources\layout\FavoritesItemDEL.axml">
-      <SubType>AndroidResource</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

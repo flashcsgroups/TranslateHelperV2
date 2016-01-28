@@ -34,18 +34,25 @@ namespace TranslateHelper.Droid
             lvVariants.ItemClick += LvVariants_ItemClick;
         }
 
+        //ToDo:Этого не должно быть в слое представления!
         private void LvVariants_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             ListView lvVariants = (ListView)sender;
             var item = lvVariants.GetItemAtPosition(e.Position).Cast<TranslateResultViewVariantAdapter.LineOfTranslateResult>();
-            addToFavorites(item);
+            if(!item.IsGroup)
+            {
+                addToFavorites(item);
+                var favoritesImageView = e.View.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
+                if (favoritesImageView != null)
+                    favoritesImageView.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
+            }
         }
 
         //ToDo:Этого не должно быть в слое представления!
         private void addToFavorites(TranslateResultViewVariantAdapter.LineOfTranslateResult item)
         {
             FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
-            favoritesManager.AddWordToFavorites(item.TranslateVariant.TranslatedExpressionId);
+            item.TranslateVariant.FavoritesId = favoritesManager.AddWordToFavorites(item.TranslateVariant.TranslatedExpressionId);
             Toast.MakeText(this.context, "Элемент добавлен в избранное", ToastLength.Short).Show();
         }
     }

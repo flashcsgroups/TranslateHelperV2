@@ -51,6 +51,7 @@ namespace TranslateHelper.Droid
                     currentIndex = e.Label;
                     if (!results.ContainsKey(currentIndex))
                         results.Add(currentIndex, sectionRows);
+                    else results.TryGetValue(currentIndex, out sectionRows);
                 }
                 sectionRows.Add(e);
             }

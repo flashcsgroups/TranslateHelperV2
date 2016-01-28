@@ -39,12 +39,6 @@ namespace PortableCore.BL.Managers
 			return result;
 		}
 
-		public IEnumerable<DefinitionTypes> GetItemsForName (string name)
-		{
-			throw new Exception ("not realized");
-			//return SqlLiteInstance.DB.Table<DefinitionTypes>().ToList().Where(item => item.Name == name);
-		}
-
 		private DefinitionTypes[] getDefaultData ()
 		{
 			DefinitionTypes[] defTypesList = new DefinitionTypes[] {
@@ -58,7 +52,9 @@ namespace PortableCore.BL.Managers
 				new DefinitionTypes (){ Name = "particle", ID = (int)GetEnumDefinitionTypeFromName ("particle") },
 				new DefinitionTypes (){ Name = "pronoun", ID = (int)GetEnumDefinitionTypeFromName ("pronoun") },
 				new DefinitionTypes (){ Name = "translater", ID = (int)GetEnumDefinitionTypeFromName ("translater") },
-			};
+                new DefinitionTypes (){ Name = "preposition", ID = (int)GetEnumDefinitionTypeFromName ("preposition") },
+                new DefinitionTypes (){ Name = "conjunction", ID = (int)GetEnumDefinitionTypeFromName ("conjunction") },
+            };
 			return defTypesList;
 		}
 
@@ -132,6 +128,18 @@ namespace PortableCore.BL.Managers
 				}
 				;
 				break;
+			case DefinitionTypesEnum.preposition:
+				{
+					result = "предлог";
+				}
+				;
+				break;
+			case DefinitionTypesEnum.conjunction:
+				{
+					result = "союз";
+				}
+				;
+				break;
 			case DefinitionTypesEnum.unknown:
 			default:
 				{
@@ -147,12 +155,27 @@ namespace PortableCore.BL.Managers
 		public static DefinitionTypesEnum GetEnumDefinitionTypeFromName (string name)
 		{
 			DefinitionTypesEnum result = DefinitionTypesEnum.unknown;
-
-			switch (name.ToLower ()) {
+            
+            switch (name.ToLower ()) {
+			case "союз":
+			case "соединение":
+			case "conjunction":
+				{
+					result = DefinitionTypesEnum.conjunction;
+				}
+				;
+				break;
 			case "существительное":
 			case "noun":
 				{
 					result = DefinitionTypesEnum.noun;
+				}
+				;
+				break;
+			case "предлог":
+			case "preposition":
+				{
+					result = DefinitionTypesEnum.preposition;
 				}
 				;
 				break;

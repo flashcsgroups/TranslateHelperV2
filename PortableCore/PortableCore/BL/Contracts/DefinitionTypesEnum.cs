@@ -14,6 +14,8 @@ namespace PortableCore.BL.Contracts
         predicative,
         particle,
         numeral,
-        pronoun
+        pronoun,
+        preposition,
+        conjunction
     }
 }

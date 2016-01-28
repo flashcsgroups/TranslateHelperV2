@@ -44,16 +44,29 @@ namespace PortableCore.BL.Managers
             return new List<Favorites>(repos.GetItems());
         }
 
-        public void AddWordToFavorites(int translatedExpressionId)
+        public int AddWordToFavorites(int translatedExpressionId)
         {
-            var view = from favItem in SqlLiteInstance.DB.Table<Favorites>()
-                       where favItem.TranslatedExpressionID == translatedExpressionId
-                       select new int[] { favItem.ID };
-            if(view.Count() == 0)
+            int FavoriteId = getFavoritId(translatedExpressionId);
+            if (FavoriteId == 0)
             {
                 FavoritesManager favoritesManager = new FavoritesManager(db);
                 favoritesManager.AddWord(translatedExpressionId);
+                FavoriteId = getFavoritId(translatedExpressionId);
             }
+            return FavoriteId;
+        }
+
+        private int getFavoritId(int translatedExpressionId)
+        {
+            int result = 0;
+            var view = from favItem in SqlLiteInstance.DB.Table<Favorites>()
+                   where favItem.TranslatedExpressionID == translatedExpressionId
+                   select new Favorites { ID = favItem.ID, TranslatedExpressionID = translatedExpressionId, DeleteMark = favItem.DeleteMark };
+            if(view.Count() > 0)
+            {
+                result = view.FirstOrDefault().ID;
+            }
+            return result;
         }
     }
 }

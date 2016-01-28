@@ -132,12 +132,12 @@ namespace TranslateHelper.Droid
                 case Resource.Id.menu_favorites:
                     StartActivity(typeof(FavoritesActivity));
                     return true;
-                case Resource.Id.menu_testing:
+                /*case Resource.Id.menu_testing:
                     //StartActivity(typeof(FavoritesActivity));
                     return true;
                 case Resource.Id.menu_settings:
                     StartActivity(typeof(SettingsActivity));
-                    return true;
+                    return true;*/
                 case global::Android.Resource.Id.Home:
                     StartActivity(typeof(SettingsActivity));
                     return true;
