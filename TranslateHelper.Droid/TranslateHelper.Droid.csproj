@@ -28,10 +28,19 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>x86</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkSkip />
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>

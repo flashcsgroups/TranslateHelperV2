@@ -18,6 +18,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableCore.Tests", "Porta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Droid.Core", "Droid.Core\Droid.Core.csproj", "{CD149DC2-F753-4143-A3E5-03E7974C31CF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "http", "http", "{4BBB2391-3B70-48CC-A823-223C8250A313}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\temp\Translate.Yandex.Dictionary.json.postman_collection = ..\..\temp\Translate.Yandex.Dictionary.json.postman_collection
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,5 +89,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4BBB2391-3B70-48CC-A823-223C8250A313} = {33B8C3AF-482F-4821-94F9-A9F100CAA312}
 	EndGlobalSection
 EndGlobal
