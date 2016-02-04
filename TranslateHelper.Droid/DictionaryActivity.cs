@@ -91,9 +91,9 @@ namespace TranslateHelper.Droid
 		{
             var scrollViewTranslateResultsDefs = FindViewById<ScrollView>(Resource.Id.scrollViewTranslateResultsDefs);
             scrollViewTranslateResultsDefs.RemoveAllViews();
-            scrollViewTranslateResultsDefs.Visibility = ViewStates.Invisible;
-            TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-            splash.Visibility = ViewStates.Visible;
+            //scrollViewTranslateResultsDefs.Visibility = ViewStates.Invisible;
+            //TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+            //splash.Visibility = ViewStates.Visible;
         }
 
         private bool iSSymbolForStartTranslate (char p)
@@ -106,8 +106,8 @@ namespace TranslateHelper.Droid
             TranslateResultView resultView = requestResult.TranslatedData;
             if (resultView.Definitions.Count > 0)
             {
-                TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
-                splash.Visibility = ViewStates.Invisible;
+                //TextView splash = FindViewById<TextView>(Resource.Id.splashTextView);
+                //splash.Visibility = ViewStates.Invisible;
                 var scrollViewTranslateResultsDefs = FindViewById<ScrollView>(Resource.Id.scrollViewTranslateResultsDefs);
                 scrollViewTranslateResultsDefs.RemoveAllViews();
                 scrollViewTranslateResultsDefs.AddView(new DynamicResultViewLayout(this, resultView.Definitions));
