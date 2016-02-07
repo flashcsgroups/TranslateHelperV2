@@ -27,10 +27,11 @@ namespace TranslateHelper.Droid
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
 			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
+            ImageButton buttonChangeDest = FindViewById<ImageButton>(Resource.Id.buttonChangeDest);
 
-            
 
-			buttonNew.Click += (object sender, EventArgs e) => {
+
+            buttonNew.Click += (object sender, EventArgs e) => {
 				{
 					editSourceText.Text = string.Empty;
 					clearTraslatedRegion();
@@ -42,7 +43,12 @@ namespace TranslateHelper.Droid
                 await translate(editSourceText.Text);
             };
 
-			editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
+            buttonChangeDest.Click += (object sender, EventArgs e) =>
+            {
+                //await translate(editSourceText.Text);
+            };
+
+            editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
                 
                 if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ())))
                 {
@@ -131,6 +137,13 @@ namespace TranslateHelper.Droid
             {
                 case Resource.Id.menu_favorites:
                     StartActivity(typeof(FavoritesActivity));
+                    return true;
+                case Resource.Id.menu_dest_selector:
+                    AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(this);
+                    dlgBuilder.SetTitle("Выберите направление перевода");
+                    dlgBuilder.SetMessage("Английский > Русский");
+                    Dialog dialog = dlgBuilder.Create();
+                    dialog.Show();
                     return true;
                 /*case Resource.Id.menu_testing:
                     //StartActivity(typeof(FavoritesActivity));

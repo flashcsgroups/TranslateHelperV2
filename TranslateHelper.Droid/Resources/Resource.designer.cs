@@ -201,26 +201,17 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080012
 			public const int TranslatedTextView = 2131230738;
 			
-			// aapt resource value: 0x7f080003
-			public const int buttonChangeDest = 2131230723;
-			
-			// aapt resource value: 0x7f080002
-			public const int buttonFrom = 2131230722;
-			
-			// aapt resource value: 0x7f080009
-			public const int buttonNew = 2131230729;
-			
-			// aapt resource value: 0x7f080004
-			public const int buttonTo = 2131230724;
+			// aapt resource value: 0x7f080005
+			public const int buttonChangeDest = 2131230725;
 			
 			// aapt resource value: 0x7f08000a
-			public const int buttonTranslate = 2131230730;
+			public const int buttonNew = 2131230730;
 			
-			// aapt resource value: 0x7f080008
-			public const int controlButtons = 2131230728;
+			// aapt resource value: 0x7f080006
+			public const int buttonTranslate = 2131230726;
 			
-			// aapt resource value: 0x7f080001
-			public const int destinationPanel = 2131230721;
+			// aapt resource value: 0x7f080009
+			public const int controlButtons = 2131230729;
 			
 			// aapt resource value: 0x7f080000
 			public const int dictList = 2131230720;
@@ -228,14 +219,20 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f08000b
 			public const int favoritesLayout = 2131230731;
 			
-			// aapt resource value: 0x7f080019
-			public const int findForFavorites = 2131230745;
+			// aapt resource value: 0x7f08001a
+			public const int findForFavorites = 2131230746;
+			
+			// aapt resource value: 0x7f080001
+			public const int fromPanel = 2131230721;
+			
+			// aapt resource value: 0x7f080002
+			public const int fromTextView = 2131230722;
 			
 			// aapt resource value: 0x7f08000c
 			public const int listFavoritesListView = 2131230732;
 			
-			// aapt resource value: 0x7f080005
-			public const int listInputString = 2131230725;
+			// aapt resource value: 0x7f080003
+			public const int listInputString = 2131230723;
 			
 			// aapt resource value: 0x7f08000d
 			public const int list_header_title = 2131230733;
@@ -244,13 +241,19 @@ namespace TranslateHelper.Droid
 			public const int mainList = 2131230734;
 			
 			// aapt resource value: 0x7f080018
-			public const int menu_favorites = 2131230744;
+			public const int menu_dest_selector = 2131230744;
+			
+			// aapt resource value: 0x7f080019
+			public const int menu_favorites = 2131230745;
+			
+			// aapt resource value: 0x7f080008
+			public const int scrollViewTranslateResultsDefs = 2131230728;
+			
+			// aapt resource value: 0x7f080004
+			public const int textSourceString = 2131230724;
 			
 			// aapt resource value: 0x7f080007
-			public const int scrollViewTranslateResultsDefs = 2131230727;
-			
-			// aapt resource value: 0x7f080006
-			public const int textSourceString = 2131230726;
+			public const int toTextView = 2131230727;
 			
 			static Id()
 			{

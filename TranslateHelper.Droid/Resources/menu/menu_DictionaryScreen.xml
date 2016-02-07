@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+  <!--group android:id="@+id/group1">
+    <item android:id="@+id/ENRU"
+          android:title="EN RU"
+          android:showAsAction="withText" />
+    <item android:id="@+id/RUEN"
+          android:title="RU EN"
+          android:showAsAction="withText" />
+  </group-->
+  <item android:id="@+id/menu_dest_selector"
+        android:icon="@drawable/v2addtofavorites"
+        android:title="RU > EN"
+        android:showAsAction="ifRoom|withText" />
   <item android:id="@+id/menu_favorites"
         android:icon="@drawable/v2addtofavorites"
         android:title="Избранное"
         android:showAsAction="ifRoom|withText" />
-  <!--group android:id="@+id/group1">
-    <item android:id="@+id/menu_testing"
-          android:icon="@drawable/settings"
-          android:title="Тестирование"
-          android:showAsAction="withText" />
-    <item android:id="@+id/menu_settings"
-          android:icon="@drawable/settings"
-          android:title="Настройки"
-          android:showAsAction="withText" />
-  </group-->
 </menu>
