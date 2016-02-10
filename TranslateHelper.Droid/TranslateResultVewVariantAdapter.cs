@@ -80,7 +80,7 @@ namespace TranslateHelper.Droid
             if(item.TranslateVariant.FavoritesId > 0)
             {
                 var favoritesImageView = viewVariant.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
-                favoritesImageView.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
+                favoritesImageView.SetImageResource(Resource.Drawable.v4alreadyaddedtofav);
             }
 
             return viewVariant;

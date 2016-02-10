@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="SDyachenko.TranslateHelper" android:installLocation="auto" android:versionName="new dict screen" android:versionCode="11">
-	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="SDyachenko.TranslateHelper" android:installLocation="auto" android:versionCode="12" android:versionName="Test">
+	<uses-sdk android:targetSdkVersion="19" />
 	<application android:label="TranslateHelper" android:icon="@drawable/Icon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />

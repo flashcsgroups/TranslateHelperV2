@@ -19,8 +19,8 @@
             android:gravity="left|center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:text="АНГЛИЙСКИЙ"
+            android:textSize="10sp"
+            android:text="АНГЛИЙСКИЙ &gt; РУССКИЙ"
             android:background="@color/transparent"
             android:id="@+id/fromTextView" />
     </LinearLayout>
@@ -48,40 +48,21 @@
             android:scrollbars="none"
             android:textSize="20sp" />
         <ImageButton
-            android:id="@+id/buttonChangeDest"
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:gravity="center"
-            android:src="@drawable/change" />
-        <ImageButton
-            android:id="@+id/buttonTranslate"
+            android:id="@+id/buttonTranslateTop"
             android:layout_width="45dp"
             android:layout_height="40dp"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:gravity="center"
-            android:src="@drawable/v2search" />
+            android:src="@drawable/v4search" />
     </LinearLayout>
-    <TextView
-        android:gravity="left|center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_weight="2"
-        android:textSize="15sp"
-        android:text="РУССКИЙ"
-        android:background="@color/transparent"
-        android:id="@+id/toTextView" />
     <ScrollView
         android:id="@+id/scrollViewTranslateResultsDefs"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_weight="94"
+        android:layout_weight="96"
         android:fillViewport="true">
         <AbsoluteLayout
             android:layout_width="wrap_content"
@@ -109,15 +90,26 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:gravity="center|right">
+        android:gravity="center|center">
         <ImageButton
             android:id="@+id/buttonNew"
             android:layout_width="120dp"
             android:layout_height="45dp"
             android:background="@color/blue50"
-            android:layout_weight="100"
+            android:layout_weight="50"
+            android:layout_marginRight="2dp"
             android:scaleType="fitCenter"
             android:gravity="center"
-            android:src="@drawable/v3cleartext" />
+            android:src="@drawable/v43cleartext" />
+        <ImageButton
+            android:id="@+id/buttonTranslateBottom"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:background="@color/blue50"
+            android:layout_weight="50"
+            android:layout_marginLeft="2dp"
+            android:scaleType="fitCenter"
+            android:gravity="center"
+            android:src="@drawable/v4search" />
     </LinearLayout>
 </LinearLayout>

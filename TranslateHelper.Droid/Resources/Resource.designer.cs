@@ -161,6 +161,27 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f020015
 			public const int v3search = 2130837525;
 			
+			// aapt resource value: 0x7f020016
+			public const int v42cleartext = 2130837526;
+			
+			// aapt resource value: 0x7f020017
+			public const int v43cleartext = 2130837527;
+			
+			// aapt resource value: 0x7f020018
+			public const int v4addtofavorites = 2130837528;
+			
+			// aapt resource value: 0x7f020019
+			public const int v4alreadyaddedtofav = 2130837529;
+			
+			// aapt resource value: 0x7f02001a
+			public const int v4change = 2130837530;
+			
+			// aapt resource value: 0x7f02001b
+			public const int v4cleartext = 2130837531;
+			
+			// aapt resource value: 0x7f02001c
+			public const int v4search = 2130837532;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -174,53 +195,53 @@ namespace TranslateHelper.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080017
-			public const int FavoritesStatePic = 2131230743;
-			
-			// aapt resource value: 0x7f080015
-			public const int IndexTextView = 2131230741;
-			
-			// aapt resource value: 0x7f080013
-			public const int OriginalTextTextView = 2131230739;
+			// aapt resource value: 0x7f080016
+			public const int FavoritesStatePic = 2131230742;
 			
 			// aapt resource value: 0x7f080014
-			public const int OriginalTextTranscriptionTextView = 2131230740;
-			
-			// aapt resource value: 0x7f080011
-			public const int PosTextView = 2131230737;
-			
-			// aapt resource value: 0x7f08000f
-			public const int SourceTextView = 2131230735;
-			
-			// aapt resource value: 0x7f080010
-			public const int TranscriptionTextView = 2131230736;
-			
-			// aapt resource value: 0x7f080016
-			public const int TranslatedTextTextView = 2131230742;
+			public const int IndexTextView = 2131230740;
 			
 			// aapt resource value: 0x7f080012
-			public const int TranslatedTextView = 2131230738;
+			public const int OriginalTextTextView = 2131230738;
 			
-			// aapt resource value: 0x7f080005
-			public const int buttonChangeDest = 2131230725;
+			// aapt resource value: 0x7f080013
+			public const int OriginalTextTranscriptionTextView = 2131230739;
 			
-			// aapt resource value: 0x7f08000a
-			public const int buttonNew = 2131230730;
+			// aapt resource value: 0x7f080010
+			public const int PosTextView = 2131230736;
 			
-			// aapt resource value: 0x7f080006
-			public const int buttonTranslate = 2131230726;
+			// aapt resource value: 0x7f08000e
+			public const int SourceTextView = 2131230734;
+			
+			// aapt resource value: 0x7f08000f
+			public const int TranscriptionTextView = 2131230735;
+			
+			// aapt resource value: 0x7f080015
+			public const int TranslatedTextTextView = 2131230741;
+			
+			// aapt resource value: 0x7f080011
+			public const int TranslatedTextView = 2131230737;
+			
+			// aapt resource value: 0x7f080008
+			public const int buttonNew = 2131230728;
 			
 			// aapt resource value: 0x7f080009
-			public const int controlButtons = 2131230729;
+			public const int buttonTranslateBottom = 2131230729;
+			
+			// aapt resource value: 0x7f080005
+			public const int buttonTranslateTop = 2131230725;
+			
+			// aapt resource value: 0x7f080007
+			public const int controlButtons = 2131230727;
 			
 			// aapt resource value: 0x7f080000
 			public const int dictList = 2131230720;
 			
-			// aapt resource value: 0x7f08000b
-			public const int favoritesLayout = 2131230731;
+			// aapt resource value: 0x7f08000a
+			public const int favoritesLayout = 2131230730;
 			
-			// aapt resource value: 0x7f08001a
-			public const int findForFavorites = 2131230746;
+			// aapt resource value: 0x7f080019
+			public const int findForFavorites = 2131230745;
 			
 			// aapt resource value: 0x7f080001
 			public const int fromPanel = 2131230721;
@@ -228,32 +249,29 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080002
 			public const int fromTextView = 2131230722;
 			
-			// aapt resource value: 0x7f08000c
-			public const int listFavoritesListView = 2131230732;
+			// aapt resource value: 0x7f08000b
+			public const int listFavoritesListView = 2131230731;
 			
 			// aapt resource value: 0x7f080003
 			public const int listInputString = 2131230723;
 			
-			// aapt resource value: 0x7f08000d
-			public const int list_header_title = 2131230733;
+			// aapt resource value: 0x7f08000c
+			public const int list_header_title = 2131230732;
 			
-			// aapt resource value: 0x7f08000e
-			public const int mainList = 2131230734;
+			// aapt resource value: 0x7f08000d
+			public const int mainList = 2131230733;
+			
+			// aapt resource value: 0x7f080017
+			public const int menu_dest_selector = 2131230743;
 			
 			// aapt resource value: 0x7f080018
-			public const int menu_dest_selector = 2131230744;
+			public const int menu_favorites = 2131230744;
 			
-			// aapt resource value: 0x7f080019
-			public const int menu_favorites = 2131230745;
-			
-			// aapt resource value: 0x7f080008
-			public const int scrollViewTranslateResultsDefs = 2131230728;
+			// aapt resource value: 0x7f080006
+			public const int scrollViewTranslateResultsDefs = 2131230726;
 			
 			// aapt resource value: 0x7f080004
 			public const int textSourceString = 2131230724;
-			
-			// aapt resource value: 0x7f080007
-			public const int toTextView = 2131230727;
 			
 			static Id()
 			{

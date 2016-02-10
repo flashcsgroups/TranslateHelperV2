@@ -44,7 +44,7 @@ namespace TranslateHelper.Droid
                 addToFavorites(item);
                 var favoritesImageView = e.View.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
                 if (favoritesImageView != null)
-                    favoritesImageView.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
+                    favoritesImageView.SetImageResource(Resource.Drawable.v4alreadyaddedtofav);
             }
         }
 

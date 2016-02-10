@@ -21,13 +21,15 @@ namespace TranslateHelper.Droid
             base.OnCreate (bundle);
 			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
             SetContentView(Resource.Layout.Dictionary);
+
             //запрос для установки соединения еще до того, как оно понадобится пользователю, для ускорения
             await callTestRequest();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
-			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
-            ImageButton buttonChangeDest = FindViewById<ImageButton>(Resource.Id.buttonChangeDest);
+			ImageButton buttonTranslateTop = FindViewById<ImageButton> (Resource.Id.buttonTranslateTop);
+            ImageButton buttonTranslateBottom = FindViewById<ImageButton>(Resource.Id.buttonTranslateBottom);
+            //ImageButton buttonChangeDest = FindViewById<ImageButton>(Resource.Id.buttonChangeDest);
 
 
 
@@ -38,14 +40,14 @@ namespace TranslateHelper.Droid
 				}
 			};
 
-            buttonTranslate.Click += async (object sender, EventArgs e) =>
+            buttonTranslateTop.Click += async (object sender, EventArgs e) =>
             {
                 await translate(editSourceText.Text);
             };
 
-            buttonChangeDest.Click += (object sender, EventArgs e) =>
+            buttonTranslateBottom.Click += async (object sender, EventArgs e) =>
             {
-                //await translate(editSourceText.Text);
+                await translate(editSourceText.Text);
             };
 
             editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
