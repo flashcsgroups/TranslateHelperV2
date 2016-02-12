@@ -10,16 +10,39 @@ using PortableCore.WS;
 using PortableCore.Helpers;
 using System.Threading.Tasks;
 using PortableCore.DAL;
+using Android.Runtime;
 
 namespace TranslateHelper.Droid
 {
     [Activity (Label = "Translate helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
+        public const string HOCKEYAPP_APPID = "e9137253ae304b09ae2ffbb2016f8eda";
+
         protected override async void OnCreate (Bundle bundle)
 		{
             base.OnCreate (bundle);
-			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
+
+            HockeyApp.CrashManager.Register(this, HOCKEYAPP_APPID);
+            HockeyApp.UpdateManager.Register(this, HOCKEYAPP_APPID);
+            HockeyApp.TraceWriter.Initialize();
+            AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
+            {
+                // Use the trace writer to log exceptions so HockeyApp finds them
+                HockeyApp.TraceWriter.WriteTrace(args.Exception);
+                args.Handled = true;
+            };
+
+            // Wire up the .NET Unhandled Exception handler
+            AppDomain.CurrentDomain.UnhandledException +=
+                (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.ExceptionObject);
+
+            // Wire up the unobserved task exception handler
+            TaskScheduler.UnobservedTaskException +=
+                (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.Exception);
+
+
+            base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
             SetContentView(Resource.Layout.Dictionary);
 
             //запрос для установки соединения еще до того, как оно понадобится пользователю, для ускорения
@@ -42,6 +65,7 @@ namespace TranslateHelper.Droid
 
             buttonTranslateTop.Click += async (object sender, EventArgs e) =>
             {
+                throw new Exception("test");
                 await translate(editSourceText.Text);
             };
 

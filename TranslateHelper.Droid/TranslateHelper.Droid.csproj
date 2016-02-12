@@ -28,13 +28,14 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>x86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>
+    </AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkSkip />
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
     <AndroidStoreUncompressedFileExtensions />
@@ -67,6 +68,9 @@
     <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HockeyApp.Android">
+      <HintPath>..\..\..\Users\sdyachenko\Downloads\hockeyappandroid-3.7.0.0\hockeyappandroid-3.7.0.0\lib\android\HockeyApp.Android.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
