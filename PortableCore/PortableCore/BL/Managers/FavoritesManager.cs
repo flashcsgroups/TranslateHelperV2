@@ -58,15 +58,17 @@ namespace PortableCore.BL.Managers
 
         private int getFavoritId(int translatedExpressionId)
         {
-            int result = 0;
+            int id = 0;
             var view = from favItem in SqlLiteInstance.DB.Table<Favorites>()
                    where favItem.TranslatedExpressionID == translatedExpressionId
                    select new Favorites { ID = favItem.ID, TranslatedExpressionID = translatedExpressionId, DeleteMark = favItem.DeleteMark };
             if(view.Count() > 0)
             {
-                result = view.FirstOrDefault().ID;
+                var firstItem = view.FirstOrDefault();
+                if (firstItem != null)
+                    id = firstItem.ID;
             }
-            return result;
+            return id;
         }
     }
 }
