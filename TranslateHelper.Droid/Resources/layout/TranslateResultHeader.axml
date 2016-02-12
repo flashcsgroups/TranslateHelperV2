@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_marginTop="5dp"
+    android:clickable="false">
+    <TextView
+        android:id="@+id/OriginalTextTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:text=""
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/transparent"
+        android:layout_marginRight="5dp" />
+    <TextView
+        android:id="@+id/OriginalTextTranscriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:text=""
+        android:padding="4dp"
+        android:textColor="@color/lightgrey"
+        android:textStyle="normal"
+        android:background="@color/transparent"
+        android:layout_marginRight="5dp" />
+    <TextView
+        android:id="@+id/PosTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:text=""
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:background="@color/transparent" />
+<!--TextView
+          android:id="@+id/SynonymsTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:textSize="20dip"
+          android:text=""
+          android:padding="4dp"
+          android:textColor="@color/black"
+          android:textStyle="italic"
+          android:background="@color/transparent" />
+    <TextView
+          android:id="@+id/MoreSynonymsLinkTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:textSize="20dip"
+          android:text="Еще"
+          android:padding="4dp"
+          android:textColor="@color/blue"
+          android:textStyle="normal"
+          android:background="@color/transparent"
+          android:linksClickable="true"
+          android:autoLink="all" />
+      <TextView
+          android:id="@+id/SynonymsCloseTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:textSize="20dip"
+          android:text=")"
+          android:padding="4dp"
+          android:textColor="@color/black"
+          android:textStyle="italic"
+          android:background="@color/transparent" /-->
+</LinearLayout>
