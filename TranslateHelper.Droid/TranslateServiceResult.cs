@@ -1,10 +1,8 @@
-﻿using System;
-using System.Net;
-using System.Json;
+﻿using System.Net;
 
 namespace TranslateHelper.Droid
 {
-	public struct TranslateServiceResult
+    public struct TranslateServiceResult
 	{
 		public string errorDescription;
 		public HttpStatusCode statuscode;

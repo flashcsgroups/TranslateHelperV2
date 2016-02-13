@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PortableCore.BL.Contracts.DataManager&lt;T&gt;" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\DataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.BL.Contracts.TranslateRequestFactory" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\TranslateRequestFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.BL.Contracts.TranslateResultCollection" Collapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\TranslateResultCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.BL.Contracts.TranslateResult" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAAABACEAAAAAAAAAAAAABAAAiCAAAAAAAAABAAAAA=</HashCode>
+      <FileName>BL\Contracts\TranslateResultCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.BL.Contracts.TranslateResultIndexedCollection&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAAAAAAAAABAAAEAAAAAAAAAAAAAEAAAAAAAAABA=</HashCode>
+      <FileName>BL\Contracts\TranslateResultIndexedCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.BL.Managers.DefinitionTypesManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAgEAAQAAACAAAAA=</HashCode>
+      <FileName>BL\Managers\DefinitionTypesManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.BL.Managers.FavoritesManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAABEAAAAAAAAABgAAAAEAAAAAAAgAAAAAAACAAAAA=</HashCode>
+      <FileName>BL\Managers\FavoritesManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.BL.Managers.SourceExpressionManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>BL\Managers\SourceExpressionManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.BL.Managers.TranslatedExpressionManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABBAAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAACAAAAA=</HashCode>
+      <FileName>BL\Managers\TranslatedExpressionManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.BL.Managers.TranslateProviderManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAgEAAAAAACAAAAA=</HashCode>
+      <FileName>BL\Managers\TranslateProviderManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DAL.Repository&lt;T&gt;" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIACAAAAAEAAgAAAAAAAAAEAAgAAEAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Repository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.Core.DAL.SqlLiteInstance" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>DAL\SqlLiteInstance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.DL.DefinitionTypes" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DL\DefinitionTypes.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DL.Direction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEgAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DL\Direction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DL.Favorites" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DL\Favorites.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DL.Language" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DL\Language.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DL.SourceExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAEAAAAAAAAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>DL\SourceExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DL.TranslatedExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAEAAhAAAAAEAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DL\TranslatedExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.DL.TranslateProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DL\TranslateProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.Core.DL.SqlLiteHelper" Collapsed="true">
+    <Position X="15.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAABAAAAAIEAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>DL\SqlLiteHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.Helpers.ConvertStrings" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ConvertStrings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.WS.LocalDatabaseCache" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>WS\LocalDatabaseCache.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.WS.TranslateRequest" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>WS\TranslateRequest.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PortableCore.WS.TranslateRequestResult" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>WS\TranslateServiceResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.WS.YandexDictionaryJSON" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAgAAAAAAAAAAAAAAAEACAAAAAAAAAAAAA=</HashCode>
+      <FileName>WS\YandexDictionaryJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortableCore.WS.YandexTranslateJSON" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAgAAAAAAAAAAAAAAAEACAAAAAAAAAAAAA=</HashCode>
+      <FileName>WS\YandexTranslateJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SQLite.SQLiteConnection" Collapsed="true">
+    <Position X="17.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="17.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Struct Name="PortableCore.BL.Contracts.Synonym" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\TranslateResultCollection.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PortableCore.BL.Contracts.Mean" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>BL\Contracts\TranslateResultCollection.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PortableCore.BL.Contracts.ExampleText" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\TranslateResultCollection.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="PortableCore.BL.Contracts.IBusinessEntity" Collapsed="true">
+    <Position X="5.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\IBusinessEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PortableCore.BL.Contracts.IDataManager&lt;T&gt;" Collapsed="true">
+    <Position X="7" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>BL\Contracts\IDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PortableCore.BL.Contracts.IHasLabel" Collapsed="true">
+    <Position X="8.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\IHasLabel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PortableCore.BL.Contracts.IRequestDictionary" Collapsed="true">
+    <Position X="10.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\IRequestDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PortableCore.BL.Contracts.IRequestTranslateString" Collapsed="true">
+    <Position X="12.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>BL\Contracts\IRequestTranslateString.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="PortableCore.WS.TypeTranslateServices" Collapsed="true">
+    <Position X="5.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAIAAAAA=</HashCode>
+      <FileName>WS\TypeTranslateServices.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

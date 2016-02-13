@@ -16,6 +16,7 @@
     <AssemblyName>TranslateHelper.Droid</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <Description>test</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,11 +27,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <AndroidLinkMode>None</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>x86</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkSkip />
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -39,7 +49,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <Debugger>Xamarin</Debugger>
+    <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -47,127 +61,35 @@
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="System.Json" />
+    <Reference Include="SQLite-net, Version=1.0.9.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\sqlite-net-pcl.1.0.11\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLite-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCL.raw, Version=0.7.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\SQLitePCL.raw_basic.0.7.1\lib\MonoAndroid\SQLitePCL.raw.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\TranslateHelper.Core\Helpers\ConvertStrings.cs">
-      <Link>Helpers\ConvertStrings.cs</Link>
-    </Compile>
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\TranslateHelper.Core\BL\Direction.cs">
-      <Link>BL\Direction.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Favorites.cs">
-      <Link>BL\Favorites.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\SourceExpression.cs">
-      <Link>BL\SourceExpression.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\TranslateProvider.cs">
-      <Link>BL\TranslateProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\TranslatedExpression.cs">
-      <Link>BL\TranslatedExpression.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IBusinessEntity.cs">
-      <Link>BL\Contracts\IBusinessEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\TranslateProviderManager.cs">
-      <Link>BL\Managers\TranslateProviderManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DAL\Repository.cs">
-      <Link>DAL\Repository.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DL\SQLite.cs">
-      <Link>DL\SQLite.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DL\SqlLiteHelper.cs">
-      <Link>DL\SqlLiteHelper.cs</Link>
-    </Compile>
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="FavoritesAdapter.cs" />
-    <Compile Include="TranslateResultAdapter.cs" />
+    <Compile Include="IndexedCollection.cs" />
+    <Compile Include="TranslateResultVewVariantAdapter.cs" />
+    <AndroidResource Include="Resources\layout\TranslateResultHeader.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <Compile Include="TranslateServiceResult.cs" />
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IRequestDictionary.cs">
-      <Link>BL\Contracts\IRequestDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IRequestTranslateString.cs">
-      <Link>BL\Contracts\IRequestTranslateString.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\TranslateServiceResult.cs">
-      <Link>WS\TranslateServiceResult.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\TranslateRequest.cs">
-      <Link>WS\TranslateRequest.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateRequestFactory.cs">
-      <Link>BL\Contracts\TranslateRequestFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\YandexTranslateJSON.cs">
-      <Link>WS\YandexTranslateJSON.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\YandexDictionaryJSON.cs">
-      <Link>WS\YandexDictionaryJSON.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateResultCollection.cs">
-      <Link>BL\Contracts\TranslateResultCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\TypeTranslateServices.cs">
-      <Link>WS\TypeTranslateServices.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\DataManager.cs">
-      <Link>BL\Contracts\DataManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IDataManager.cs">
-      <Link>BL\Contracts\IDataManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\DefinitionTypesManager.cs">
-      <Link>BL\Managers\DefinitionTypesManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\DefinitionTypes.cs">
-      <Link>BL\DefinitionTypes.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Language.cs">
-      <Link>BL\Language.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\DAL\SqlLiteInstance.cs">
-      <Link>DAL\SqlLiteInstance.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\TranslatedExpressionManager.cs">
-      <Link>BL\Managers\TranslatedExpressionManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\FavoritesManager.cs">
-      <Link>BL\Managers\FavoritesManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Managers\SourceExpressionManager.cs">
-      <Link>BL\Managers\SourceExpressionManager.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\WS\LocalDatabaseCache.cs">
-      <Link>WS\LocalDatabaseCache.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\Helpers\JavaCastToCLRHelper.cs">
-      <Link>Helpers\JavaCastToCLRHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\IHasLabel.cs">
-      <Link>BL\Contracts\IHasLabel.cs</Link>
-    </Compile>
-    <Compile Include="..\TranslateHelper.Core\BL\Contracts\TranslateResultIndexedCollection.cs">
-      <Link>BL\Contracts\TranslateResultIndexedCollection.cs</Link>
-    </Compile>
+    <Compile Include="FavoritesItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\TranslateResultItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\FavoritesItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\FavoritesSectionListHeader.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -175,16 +97,11 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
-    <AndroidResource Include="Resources\layout-hdpi\Dictionary.axml" />
-    <AndroidResource Include="Resources\layout-mdpi\Dictionary.axml" />
-    <AndroidResource Include="Resources\layout-xhdpi\Dictionary.axml" />
-    <AndroidResource Include="Resources\layout-xxhdpi\Dictionary.axml" />
-    <AndroidResource Include="Resources\layout-xxxhdpi\Dictionary.axml" />
+    <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\layout\Dictionary.axml" />
     <AndroidResource Include="Resources\layout\Favorites.axml" />
@@ -261,10 +178,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Resources\layout-hdpi\" />
-    <Folder Include="Resources\layout-mdpi\" />
-    <Folder Include="Resources\layout-xhdpi\" />
-    <Folder Include="Resources\layout-xxhdpi\" />
-    <Folder Include="Resources\layout-xxxhdpi\" />
+    <ProjectReference Include="..\Droid.Core\Droid.Core.csproj">
+      <Project>{CD149DC2-F753-4143-A3E5-03E7974C31CF}</Project>
+      <Name>Droid.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PortableCore\PortableCore\PortableCore.csproj">
+      <Project>{A94D5121-54C4-44E9-8E0D-5836B23EF2BF}</Project>
+      <Name>PortableCore</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

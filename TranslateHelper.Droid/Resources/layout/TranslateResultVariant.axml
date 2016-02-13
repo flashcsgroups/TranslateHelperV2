@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:clickable="false">
+    <TextView
+        android:id="@+id/IndexTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:textSize="15dp"
+        android:text="-"
+        style="@style/VariantItemTextView" />
+    <TextView
+        android:id="@+id/TranslatedTextTextView"
+        android:text="translated"
+        style="@style/VariantItemTextView" />
+<!--TextView
+          android:id="@+id/SynonymsTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:textSize="20dip"
+          android:text=""
+          android:padding="4dp"
+          android:textColor="@color/black"
+          android:textStyle="italic"
+          android:background="@color/transparent" />
+    <TextView
+          android:id="@+id/MoreSynonymsLinkTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:textSize="20dip"
+          android:text="Еще"
+          android:padding="4dp"
+          android:textColor="@color/blue"
+          android:textStyle="normal"
+          android:background="@color/transparent"
+          android:linksClickable="true"
+          android:autoLink="all" />
+      <TextView
+          android:id="@+id/SynonymsCloseTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:textSize="20dip"
+          android:text=")"
+          android:padding="4dp"
+          android:textColor="@color/black"
+          android:textStyle="italic"
+          android:background="@color/transparent" /-->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right">
+        <ImageView
+            android:id="@+id/FavoritesStatePic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/v3addtofavorites" />
+    </RelativeLayout>
+</LinearLayout>
