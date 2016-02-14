@@ -1,35 +1,26 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using PortableCore;
-using PortableCore.BL.Contracts;
-using PortableCore.Helpers;
 using Droid.Core.Helpers;
 using PortableCore.BL.Managers;
+using PortableCore.DAL;
 
 namespace TranslateHelper.Droid
 {
 
-	public class FavoritesAdapter : BaseAdapter, ISectionIndexer
+    public class FavoritesAdapter : BaseAdapter, ISectionIndexer
 	{
-		//protected Activity context = null;
-		//protected IList<Favorites> listFavorites = new List<Favorites>();
 		Dictionary<string, IAdapter> sections = new Dictionary<string, IAdapter> ();
 		ArrayAdapter<string> headers;
 		const int TypeSectionHeader = 0;
+        Java.Lang.Object[] sectionObjects;
+        private Context context;
 
-		public FavoritesAdapter (Context context)
+        public FavoritesAdapter (Context context)
 		{
-			//this.context = context;
-			//this.listFavorites = listFavorites;
+			this.context = context;
 			headers = new ArrayAdapter<string> (context, Resource.Layout.FavoritesSectionListHeader);
 		}
 
@@ -54,7 +45,24 @@ namespace TranslateHelper.Droid
 			return null;
 		}
 
-		public override int Count {
+        internal void ListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            ListView lvVariants = (ListView)sender;
+            var objItem = GetItem(e.Position);
+            FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
+            favoritesManager.DeleteWord(objItem.Cast<FavoritesItem>().FavoritesId);
+            var sourceTextView = e.View.FindViewById<TextView>(Resource.Id.SourceTextView);
+            sourceTextView.SetTextAppearance(context, Resource.Style.FavoritesDeletedItemTextView);
+            var translatedTextView = e.View.FindViewById<TextView>(Resource.Id.TranslatedTextView);
+            translatedTextView.SetTextAppearance(context, Resource.Style.FavoritesDeletedItemTextView);
+            var transcriptionTextView = e.View.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
+            transcriptionTextView.SetTextAppearance(context, Resource.Style.FavoritesDeletedItemTextView);
+            var posTextView = e.View.FindViewById<TextView>(Resource.Id.PosTextView);
+            posTextView.SetTextAppearance(context, Resource.Style.FavoritesDeletedItemTextView);            
+            Toast.MakeText(context, Resource.String.msg_string_deleted_from_fav, ToastLength.Short).Show();
+        }
+
+        public override int Count {
 			get {
 				return sections.Values.Sum (adapter => adapter.Count + 1);
 			}
@@ -160,9 +168,7 @@ namespace TranslateHelper.Droid
 			return 1;
 		}
 
-		Java.Lang.Object[] sectionObjects;
-
-		public Java.Lang.Object[] GetSections ()
+        public Java.Lang.Object[] GetSections ()
 		{
 			if (sectionObjects == null) {
 				var keys = sections.Keys.ToArray ();
@@ -173,33 +179,5 @@ namespace TranslateHelper.Droid
 			}
 			return sectionObjects;
 		}
-		/*public override Favorites this[int position]
-        {
-            get { return listFavorites[position]; }
-        }
-
-        public override long GetItemId(int position)
-        {
-            return position;
-        }
-
-        public override int Count
-        {
-            get { return listFavorites.Count; }
-        }
-
-        public override View GetView(int position, View convertView, ViewGroup parent)
-        {
-            var item = listFavorites[position];
-            var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.FavoritesItem, parent, false)) as LinearLayout;
-
-            var translatedTextView = view.FindViewById<TextView>(Resource.Id.TranslatedTextView1);
-            var sourceTextView = view.FindViewById<TextView>(Resource.Id.SourceTextView1);
-
-            translatedTextView.SetText(listFavorites[position].TranslatedExpressionID.ToString(), TextView.BufferType.Normal);
-            sourceTextView.SetText("test", TextView.BufferType.Normal);
-
-            return view;
-        }*/
 	}
 }

@@ -1,4 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">TranslateHelper.Droid</string>
+	<string name="app_name">Translate helper</string>
+  <string name="msg_string_deleted_from_fav">Item deleted from favorites</string>
+  <string name="msg_string_added_to_fav">Item added to favorites</string>
+  <string name="msg_unknown_expression">Unknown expression, check text for error</string>
+  <string name="caption_translate_destination">Translate destination</string>
+  <string name="caption_enter_text_for_translate">Text for translate</string>
+  <string name="caption_btn_translate_destination">Destination</string>
+  <string name="caption_btn_favorites">Favorites</string>
+  <string name="act_favorites_caption">Favorites</string>  
 </resources>

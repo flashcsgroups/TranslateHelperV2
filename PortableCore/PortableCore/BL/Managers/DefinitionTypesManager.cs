@@ -54,6 +54,7 @@ namespace PortableCore.BL.Managers
 				new DefinitionTypes (){ Name = "translater", ID = (int)GetEnumDefinitionTypeFromName ("translater") },
                 new DefinitionTypes (){ Name = "preposition", ID = (int)GetEnumDefinitionTypeFromName ("preposition") },
                 new DefinitionTypes (){ Name = "conjunction", ID = (int)GetEnumDefinitionTypeFromName ("conjunction") },
+                new DefinitionTypes (){ Name = "interjection", ID = (int)GetEnumDefinitionTypeFromName ("interjection") },
             };
 			return defTypesList;
 		}
@@ -140,7 +141,13 @@ namespace PortableCore.BL.Managers
 				}
 				;
 				break;
-			case DefinitionTypesEnum.unknown:
+            case DefinitionTypesEnum.interjection:
+                {
+                    result = "междометие";
+                }
+            ;
+                break;
+                case DefinitionTypesEnum.unknown:
 			default:
 				{
 					result = "неизвестная часть речи";
@@ -242,7 +249,14 @@ namespace PortableCore.BL.Managers
 				}
 				;
 				break;
-			default:
+            case "междометие":
+            case "interjection":
+                {
+                    result = DefinitionTypesEnum.interjection;
+                }
+            ;
+                break;
+            default:
 				{
 				}
 				;

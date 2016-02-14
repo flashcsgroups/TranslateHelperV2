@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
   <item android:id="@+id/findForFavorites"
-        android:icon="@drawable/settings"
+        android:icon="@drawable/Icon"
         android:title=""
         android:showAsAction="ifRoom|withText" />
 </menu>

@@ -13,6 +13,7 @@ namespace PortableCore.DL
 		public int ID { get; set; }
 		public int DeleteMark { get; set; }
 		public string Name { get; set; }
-		public int ProviderID { get; set; }
+        public string FullName { get; set; }
+        public int ProviderID { get; set; }
 	}
 }

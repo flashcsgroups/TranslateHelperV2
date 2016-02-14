@@ -32,7 +32,7 @@ namespace PortableCore.Tests
 
             //act
             TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
-            var result = runner.GetDictionaryResult(testSourceText, "en-ru");
+            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection());
 
             //assert
             Assert.AreEqual(result.Result.TranslatedData.Definitions.Count, 1);
@@ -63,7 +63,7 @@ namespace PortableCore.Tests
 
             //act
             TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
-            var result = runner.GetDictionaryResult(testSourceText, "en-ru");
+            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection());
 
             //assert
             Assert.AreEqual(result.Result.TranslatedData.Definitions.Count, 1);
@@ -92,7 +92,7 @@ namespace PortableCore.Tests
             TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
 
             string error = string.Empty;
-            var result = runner.GetDictionaryResult(testSourceText, "en-ru");
+            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection());
             error = result.Exception.InnerException.Message;
 
             //assert
@@ -118,7 +118,7 @@ namespace PortableCore.Tests
                 this.errorText = errorText;
             }
 
-            public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
+            public async Task<TranslateRequestResult> Translate(string sourceString)
             {
                 TranslateRequestResult result = new TranslateRequestResult(sourceString);
                 result.errorDescription = errorText;
@@ -134,7 +134,7 @@ namespace PortableCore.Tests
 
         private class testTranslateService : IRequestTranslateString
         {
-            public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
+            public async Task<TranslateRequestResult> Translate(string sourceString)
             {
                 TranslateRequestResult result = new TranslateRequestResult(sourceString);
                 return result;

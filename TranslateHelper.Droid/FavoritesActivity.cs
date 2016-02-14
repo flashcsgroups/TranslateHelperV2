@@ -18,7 +18,7 @@ using PortableCore.DL;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "Избранное", Theme = "@style/MyTheme")]
+	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
 	public class FavoritesActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
@@ -35,12 +35,14 @@ namespace TranslateHelper.Droid
 			var translateResultIdxCollection = getItemsForFavoritesList ();
 
 			var sortedContacts = translateResultIdxCollection.GetSortedData ();
-			listView.Adapter = CreateAdapter (sortedContacts);
+            var adapter = CreateAdapter(sortedContacts);
+            listView.Adapter = adapter;
+            listView.ItemClick += adapter.ListItemClick;
 
 
 		}
 
-		private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
+        private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
 		{
 			//ToDo:Полный отстой. Во-первых, SQLite не поддерживает join - придется переписывать на обычный запрос, во вторых - запросы в цикле, в-третьих - выбирается вся таблица избранного, а не порция
 			IndexedCollection<FavoritesItem> result = new IndexedCollection<FavoritesItem> ();
@@ -71,7 +73,7 @@ namespace TranslateHelper.Droid
 			var adapter = new FavoritesAdapter (this);
 			foreach (var e in sortedObjects.OrderBy(de => de.Key)) {
 				var section = e.Value;
-				var label = e.Key.Trim ().Length > 0 ? e.Key.ToUpper () : "Ошибки" + " (" + section.Count.ToString () + ")";
+				var label = e.Key.Trim ().Length > 0 ? e.Key.ToUpper () : "Error:" + " (" + section.Count.ToString () + ")";
 				adapter.AddSection (label, new ArrayAdapter<T> (this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
 			}
 			return adapter;

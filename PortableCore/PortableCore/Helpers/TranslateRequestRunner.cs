@@ -1,4 +1,5 @@
-﻿using PortableCore.BL.Contracts;
+﻿using PortableCore.BL;
+using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DAL;
 using PortableCore.DL;
@@ -14,6 +15,7 @@ namespace PortableCore.Helpers
         IRequestTranslateString translaterTranslateSrv;
         IRequestTranslateString translaterFromCache;
 
+        //ToDo:Direction - В интерфейс
         public TranslateRequestRunner(ISQLiteTesting db, IRequestTranslateString translaterFromCache, IRequestTranslateString translaterDictSrv, IRequestTranslateString translaterTranslateSrv)
         {
             this.db = db;
@@ -22,38 +24,38 @@ namespace PortableCore.Helpers
             this.translaterTranslateSrv = translaterTranslateSrv;
         }
 
-        public async Task<TranslateRequestResult> GetDictionaryResult(string originalText, string direction)
+        public async Task<TranslateRequestResult> GetDictionaryResult(string originalText, TranslateDirection direction)
         {
-            var result = await request(translaterDictSrv, originalText, direction);
+            var result = await request(translaterDictSrv, originalText);
             if(result.TranslatedData.Definitions.Count > 0)
-                saveResultToLocalCache(result);
+                saveResultToLocalCache(result, direction);
             return result;
         }
 
-        private void saveResultToLocalCache(TranslateRequestResult result)
+        private void saveResultToLocalCache(TranslateRequestResult result, TranslateDirection direction)
         {
-            CachedResultWriter localDBWriter = new CachedResultWriter(SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
+            CachedResultWriter localDBWriter = new CachedResultWriter(direction, SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
             localDBWriter.SaveResultToLocalCacheIfNotExist(result);
         }
 
-        public async Task<TranslateRequestResult> GetTranslationResult(string originalText, string direction)
+        public async Task<TranslateRequestResult> GetTranslationResult(string originalText, TranslateDirection direction)
         {
-            var result = await request(translaterTranslateSrv, originalText, direction);
+            var result = await request(translaterTranslateSrv, originalText);
             if (result.TranslatedData.Definitions.Count > 0)
-                saveResultToLocalCache(result);
+                saveResultToLocalCache(result, direction);
             return result;
         }
 
-        private async Task<TranslateRequestResult> request(IRequestTranslateString service, string originalText, string direction)
+        private async Task<TranslateRequestResult> request(IRequestTranslateString service, string originalText)
         {
             string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             TranslateRequestResult result = new TranslateRequestResult(convertedSourceText);
             //if (convertedSourceText.Length > 0)//проверка мешает при ping - там передается пустая строка
             {
-                result = translaterFromCache.Translate(originalText, direction).Result;
+                result = translaterFromCache.Translate(originalText).Result;
                 if (result.TranslatedData.Definitions.Count == 0)
                 {
-                    result = await service.Translate(originalText, direction);
+                    result = await service.Translate(originalText);
                     if (!string.IsNullOrEmpty(result.errorDescription))
                     {
                         //ToDo: сделать общий обработчик ошибок

@@ -2,6 +2,7 @@
 using PortableCore.BL.Contracts;
 using PortableCore.DL;
 using PortableCore.DAL;
+using System;
 
 namespace PortableCore.BL.Managers
 {
@@ -30,9 +31,9 @@ namespace PortableCore.BL.Managers
             return result;
         }
 
-        private void AddWord(int translatedExpressionId)
+        private void AddLinkWithTranslateExpression(int translatedExpressionId)
         {
-            Repository<Favorites> reposFavorites = new DAL.Repository<Favorites>();
+            Repository<Favorites> reposFavorites = new Repository<Favorites>();
             Favorites itemFavorites = new Favorites();
             itemFavorites.TranslatedExpressionID = translatedExpressionId;
             reposFavorites.Save(itemFavorites);
@@ -44,30 +45,38 @@ namespace PortableCore.BL.Managers
             return new List<Favorites>(repos.GetItems());
         }
 
-        public int AddWordToFavorites(int translatedExpressionId)
+        public int AddWord(int translatedExpressionId)
         {
             int FavoriteId = getFavoritId(translatedExpressionId);
             if (FavoriteId == 0)
             {
-                FavoritesManager favoritesManager = new FavoritesManager(db);
-                favoritesManager.AddWord(translatedExpressionId);
+                AddLinkWithTranslateExpression(translatedExpressionId);
                 FavoriteId = getFavoritId(translatedExpressionId);
             }
             return FavoriteId;
         }
 
+        public void DeleteWord(int favoritesId)
+        {
+            Repository<Favorites> reposFavorites = new Repository<Favorites>();
+            reposFavorites.Delete(favoritesId);
+        }
+
         private int getFavoritId(int translatedExpressionId)
         {
-            int result = 0;
+            int id = 0;
             var view = from favItem in SqlLiteInstance.DB.Table<Favorites>()
                    where favItem.TranslatedExpressionID == translatedExpressionId
                    select new Favorites { ID = favItem.ID, TranslatedExpressionID = translatedExpressionId, DeleteMark = favItem.DeleteMark };
             if(view.Count() > 0)
             {
-                result = view.FirstOrDefault().ID;
+                var firstItem = view.FirstOrDefault();
+                if (firstItem != null)
+                    id = firstItem.ID;
             }
-            return result;
+            return id;
         }
+
     }
 }
 

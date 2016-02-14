@@ -9,7 +9,7 @@ namespace PortableCore.BL.Managers
 {
 	public interface ISourceExpressionManager
     {
-        IEnumerable<SourceExpression> GetSourceExpressionCollection(string sourceText);
+        IEnumerable<SourceExpression> GetSourceExpressionCollection(string sourceText, TranslateDirection direction);
     }
 }
 

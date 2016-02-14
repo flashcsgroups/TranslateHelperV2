@@ -4,6 +4,9 @@ using Android.Widget;
 using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using System.Collections.Generic;
+using System;
+using Droid.Core.Helpers;
+using PortableCore.DAL;
 
 namespace TranslateHelper.Droid
 {
@@ -44,6 +47,42 @@ namespace TranslateHelper.Droid
             return resultLine;
         }
 
+        internal void ListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            ListView lvVariants = (ListView)sender;
+            var item = lvVariants.GetItemAtPosition(e.Position).Cast<LineOfTranslateResult>();
+            if (!item.IsGroup)
+            {
+                var favoritesImageView = e.View.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
+                FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
+                if (item.TranslateVariant.FavoritesId > 0)
+                {
+                    deleteFromFavorites(item, favoritesManager, favoritesImageView);
+                    Toast.MakeText(this.context, Resource.String.msg_string_deleted_from_fav, ToastLength.Short).Show();
+                }
+                else
+                {
+                    addToFavorites(item, favoritesManager, favoritesImageView);
+                    Toast.MakeText(this.context, Resource.String.msg_string_added_to_fav, ToastLength.Short).Show();
+                }
+            }
+        }
+
+        void deleteFromFavorites(LineOfTranslateResult item, FavoritesManager favoritesManager, ImageView favoritesImageView)
+        {
+            favoritesManager.DeleteWord(item.TranslateVariant.FavoritesId);
+            item.TranslateVariant.FavoritesId = 0;
+            if (favoritesImageView != null)
+                favoritesImageView.SetImageResource(Resource.Drawable.v4addtofavorites);
+        }
+
+        void addToFavorites(LineOfTranslateResult item, FavoritesManager favoritesManager, ImageView favoritesImageView)
+        {
+            item.TranslateVariant.FavoritesId = favoritesManager.AddWord(item.TranslateVariant.TranslatedExpressionId);
+            if (favoritesImageView != null)
+                favoritesImageView.SetImageResource(Resource.Drawable.v4alreadyaddedtofav);
+        }
+
         public override LineOfTranslateResult this[int position]
         {
             get { return listResultLines[position]; }
@@ -80,7 +119,7 @@ namespace TranslateHelper.Droid
             if(item.TranslateVariant.FavoritesId > 0)
             {
                 var favoritesImageView = viewVariant.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
-                favoritesImageView.SetImageResource(Resource.Drawable.v3alreadyaddedtofav);
+                favoritesImageView.SetImageResource(Resource.Drawable.v4alreadyaddedtofav);
             }
 
             return viewVariant;

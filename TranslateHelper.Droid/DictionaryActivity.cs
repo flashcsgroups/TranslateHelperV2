@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Linq;
 using Android.App;
@@ -10,24 +10,49 @@ using PortableCore.WS;
 using PortableCore.Helpers;
 using System.Threading.Tasks;
 using PortableCore.DAL;
+using Android.Runtime;
+using PortableCore.BL;
 
 namespace TranslateHelper.Droid
 {
-    [Activity (Label = "Translate helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+    [Activity (Label = "@string/app_name", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
+        public const string HOCKEYAPP_APPID = "e9137253ae304b09ae2ffbb2016f8eda";
+        TranslateDirection direction = new TranslateDirection();
+
         protected override async void OnCreate (Bundle bundle)
 		{
             base.OnCreate (bundle);
-			base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
+
+            HockeyApp.CrashManager.Register(this, HOCKEYAPP_APPID);
+            HockeyApp.UpdateManager.Register(this, HOCKEYAPP_APPID);
+            HockeyApp.TraceWriter.Initialize();
+            AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
+            {
+                HockeyApp.TraceWriter.WriteTrace(args.Exception);
+                HockeyApp.TraceWriter.WriteTrace(args.Exception.Message);
+                args.Handled = true;
+            };
+
+            AppDomain.CurrentDomain.UnhandledException +=
+                (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.ExceptionObject);
+
+            TaskScheduler.UnobservedTaskException +=
+                (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.Exception);
+
+
+            base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
             SetContentView(Resource.Layout.Dictionary);
+
             //запрос для установки соединения еще до того, как оно понадобится пользователю, для ускорения
-            await callTestRequest();
+            //await callTestRequest();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
-			ImageButton buttonTranslate = FindViewById<ImageButton> (Resource.Id.buttonTranslate);
-            ImageButton buttonChangeDest = FindViewById<ImageButton>(Resource.Id.buttonChangeDest);
+			ImageButton buttonTranslateTop = FindViewById<ImageButton> (Resource.Id.buttonTranslateTop);
+            ImageButton buttonTranslateBottom = FindViewById<ImageButton>(Resource.Id.buttonTranslateBottom);
+            //ImageButton buttonChangeDest = FindViewById<ImageButton>(Resource.Id.buttonChangeDest);
 
 
 
@@ -35,17 +60,18 @@ namespace TranslateHelper.Droid
 				{
 					editSourceText.Text = string.Empty;
 					clearTraslatedRegion();
-				}
-			};
+                    TogglesSoftKeyboard.Show(this);
+                }
+            };
 
-            buttonTranslate.Click += async (object sender, EventArgs e) =>
+            buttonTranslateTop.Click += async (object sender, EventArgs e) =>
             {
                 await translate(editSourceText.Text);
             };
 
-            buttonChangeDest.Click += (object sender, EventArgs e) =>
+            buttonTranslateBottom.Click += async (object sender, EventArgs e) =>
             {
-                //await translate(editSourceText.Text);
+                await translate(editSourceText.Text);
             };
 
             editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
@@ -65,12 +91,16 @@ namespace TranslateHelper.Droid
             if(!string.IsNullOrEmpty(convertedText))
             {
                 TranslateRequestRunner reqRunner = getRequestRunner();
-                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, "en-ru");
+                //string lang = "en-ru";
+                //lang = "ru-en";
+                //TranslateDirection direction = n
+                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, direction);
                 if (reqResult.TranslatedData.Definitions.Count == 0)
                 {
-                    reqResult = await reqRunner.GetTranslationResult(convertedText, "en-ru");
+                    reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
                 }
                 updateListResults(reqResult);
+                TogglesSoftKeyboard.Hide(this);
             }
         }
 
@@ -81,15 +111,16 @@ namespace TranslateHelper.Droid
         private async Task callTestRequest()
         {
             TranslateRequestRunner reqRunner = getRequestRunner();
-            TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(string.Empty, "en-ru");
+            TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(string.Empty, direction);
         }
 
         private TranslateRequestRunner getRequestRunner()
         {
-            TranslateRequestRunner reqRunner = new TranslateRequestRunner(SqlLiteInstance.DB,
-                new CachedResultReader(SqlLiteInstance.DB),
-                new TranslateRequest(TypeTranslateServices.YandexDictionary),
-                new TranslateRequest(TypeTranslateServices.YandexTranslate));
+            TranslateRequestRunner reqRunner = new TranslateRequestRunner( 
+                SqlLiteInstance.DB,
+                new CachedResultReader(direction, SqlLiteInstance.DB),
+                new TranslateRequest(TypeTranslateServices.YandexDictionary, direction),
+                new TranslateRequest(TypeTranslateServices.YandexTranslate, direction));
             return reqRunner;
         }
 
@@ -121,7 +152,7 @@ namespace TranslateHelper.Droid
             }
             else
             {
-                Toast.MakeText(this, "Неизвестное выражение, проверьте текст на наличие ошибок.", Android.Widget.ToastLength.Long).Show();
+                Toast.MakeText(this, Resource.String.msg_unknown_expression, ToastLength.Long).Show();
             }
         }
 
@@ -139,18 +170,14 @@ namespace TranslateHelper.Droid
                     StartActivity(typeof(FavoritesActivity));
                     return true;
                 case Resource.Id.menu_dest_selector:
-                    AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(this);
-                    dlgBuilder.SetTitle("Выберите направление перевода");
+                    /*AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(this);
+                    dlgBuilder.SetTitle(Resource.String.caption_translate_destination);
                     dlgBuilder.SetMessage("Английский > Русский");
                     Dialog dialog = dlgBuilder.Create();
                     dialog.Show();
-                    return true;
-                /*case Resource.Id.menu_testing:
-                    //StartActivity(typeof(FavoritesActivity));
-                    return true;
-                case Resource.Id.menu_settings:
-                    StartActivity(typeof(SettingsActivity));
                     return true;*/
+                    swapDestination();
+                    break;
                 case global::Android.Resource.Id.Home:
                     StartActivity(typeof(SettingsActivity));
                     return true;
@@ -158,6 +185,23 @@ namespace TranslateHelper.Droid
                     break;
             }
             return true;
+        }
+
+        private void swapDestination()
+        {
+            switch (direction.GetCurrentDirectionName())
+            {
+                case "en-ru":
+                    {
+                        direction.SetDirection("ru-en");
+                    }; break;
+                case "ru-en":
+                    {
+                        direction.SetDirection("en-ru");
+                    }; break;
+            }
+            var destinationTextView = FindViewById<TextView>(Resource.Id.destinationTextView);
+            destinationTextView.Text = direction.GetCurrentDirectionNameFull();
         }
 
         void menuItemClicked(string item)
