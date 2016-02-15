@@ -88,6 +88,8 @@
     <Compile Include="DictionaryActivity.cs" />
     <Compile Include="FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="SelectCountTestWordsActivity.cs" />
+    <Compile Include="SelectWordsActivity.cs" />
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="FavoritesAdapter.cs" />
     <Compile Include="IndexedCollection.cs" />
@@ -113,6 +115,12 @@
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
     <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SelectCountTestWords.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TestSelectWords.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -184,5 +192,23 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-ru\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\menu_SelectCountWords.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1star10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1star20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1star50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1star100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\menu_TestSelectWordsScreen.xml" />
   </ItemGroup>
 </Project>

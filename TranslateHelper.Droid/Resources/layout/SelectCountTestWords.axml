@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:textAlignment="center">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="40"
+        android:textSize="30sp"
+        android:text="Сколько слов хотите проверить?"
+        android:background="@color/transparent" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+        <ImageButton
+            android:id="@+id/buttonSelect10Words"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:gravity="left"
+            android:src="@drawable/v1star10" />
+        <ImageButton
+            android:id="@+id/buttonSelect20Words"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:gravity="right"
+            android:src="@drawable/v1star20" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="30"
+        android:layout_gravity="center_horizontal">
+        <ImageButton
+            android:id="@+id/buttonSelect50Words"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:gravity="center"
+            android:src="@drawable/v1star50" />
+        <ImageButton
+            android:id="@+id/buttonSelect100Words"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:gravity="center"
+            android:src="@drawable/v1star100" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="40"
+        android:text=""
+        android:background="@color/transparent" />
+</LinearLayout>

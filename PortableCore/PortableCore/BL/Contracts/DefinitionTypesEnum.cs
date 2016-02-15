@@ -17,6 +17,7 @@ namespace PortableCore.BL.Contracts
         pronoun,
         preposition,
         conjunction,
-        interjection
+        interjection,
+        parenthetic
     }
 }

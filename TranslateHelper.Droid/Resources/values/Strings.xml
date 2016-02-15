@@ -8,5 +8,8 @@
   <string name="caption_enter_text_for_translate">Text for translate</string>
   <string name="caption_btn_translate_destination">Destination</string>
   <string name="caption_btn_favorites">Favorites</string>
-  <string name="act_favorites_caption">Favorites</string>  
+  <string name="caption_btn_testing">Testing</string>
+  <string name="act_favorites_caption">Favorites</string>
+  <string name="act_selectcountwords_caption">Select count of words</string>
+  <string name="act_testselectwords_caption">Test - select word</string>
 </resources>

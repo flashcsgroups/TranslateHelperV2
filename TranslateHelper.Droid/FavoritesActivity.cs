@@ -81,30 +81,25 @@ namespace TranslateHelper.Droid
 
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
-			//MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
-
-			/*IMenuItem menuItem = menu.FindItem(Resource.Id.menu_delete_task);
-            menuItem.SetTitle(task.ID == 0 ? "Cancel" : "Delete");
-            */
+			MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
 			return true;
 		}
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{
-			switch (item.ItemId) {
-			/*case Resource.Id.menu_save_task:
-                    Save();
+			switch (item.ItemId)
+            {
+                case Resource.Id.selectCountWords:
+                    StartActivity(typeof(SelectCountTestWordsActivity));
                     return true;
-
-                case Resource.Id.menu_delete_task:
-                    CancelDelete();
+                case global::Android.Resource.Id.Home:
+                    StartActivity(typeof(DictionaryActivity));
                     return true;
-                    */
-			default:
-				Finish ();
-				return base.OnOptionsItemSelected (item);
+                default:
+                    break;
 			}
-		}
-	}
+            return base.OnOptionsItemSelected(item);
+        }
+    }
 }
 

@@ -8,5 +8,8 @@
   <string name="caption_enter_text_for_translate">Текст для перевода</string>
   <string name="caption_btn_translate_destination">Направление</string>
   <string name="caption_btn_favorites">Избранное</string>
+  <string name="caption_btn_testing">Тестирование</string>
   <string name="act_favorites_caption">Избранное</string>
+  <string name="act_selectcountwords_caption">Выбор количества слов</string>
+  <string name="act_testselectwords_caption">Тест - выбери слово</string>
 </resources>
