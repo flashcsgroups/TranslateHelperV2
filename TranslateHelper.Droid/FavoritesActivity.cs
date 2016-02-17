@@ -53,18 +53,26 @@ namespace TranslateHelper.Droid
 			SourceExpressionManager sourceExprManager = new SourceExpressionManager (SqlLiteInstance.DB);
 			SourceDefinitionManager sourceDefManager = new SourceDefinitionManager (SqlLiteInstance.DB);
 
-			foreach (var item in view) {
-				var sourceDefItem = sourceDefManager.GetItemForId (item.Item1.SourceDefinitionID);
-				var sourceExprItem = sourceExprManager.GetItemForId (sourceDefItem.SourceExpressionID);
-				result.Add (new FavoritesItem () {
-					OriginalText = sourceExprItem.Text,
-					TranslatedText = item.Item1.TranslatedText,
-					TranslatedExpressionId = item.Item1.ID,
-					DefinitionType = (DefinitionTypesEnum)item.Item1.DefinitionTypeID,
-					OriginalTranscription = sourceDefItem.TranscriptionText,
-					FavoritesId = item.Item2.ID
-				});
-			}
+			foreach (var item in view)
+            {
+                if((item.Item1!=null)&(item.Item2!=null))
+                {
+                    var sourceDefItem = sourceDefManager.GetItemForId(item.Item1.SourceDefinitionID);
+                    var sourceExprItem = sourceExprManager.GetItemForId(sourceDefItem.SourceExpressionID);
+                    if ((sourceDefItem != null) && (sourceExprItem != null))
+                    {
+                        result.Add(new FavoritesItem()
+                        {
+                            OriginalText = sourceExprItem.Text,
+                            TranslatedText = item.Item1.TranslatedText,
+                            TranslatedExpressionId = item.Item1.ID,
+                            DefinitionType = (DefinitionTypesEnum)item.Item1.DefinitionTypeID,
+                            OriginalTranscription = sourceDefItem.TranscriptionText,
+                            FavoritesId = item.Item2.ID
+                        });
+                    }
+                }
+            }
 			return result;
 		}
 
