@@ -67,8 +67,9 @@
     <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HockeyApp.Android">
-      <HintPath>..\Droid.Core\lib\HockeyApp.Android.dll</HintPath>
+    <Reference Include="HockeyApp.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Droid.Binary.lib\HockeyApp.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
