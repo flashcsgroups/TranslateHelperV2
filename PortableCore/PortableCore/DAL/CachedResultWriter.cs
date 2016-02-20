@@ -62,6 +62,7 @@ namespace PortableCore.DAL
                     translatedItem.TranslatedText = curVariant.Text;
                     translatedItem.SourceDefinitionID = sourceDefId;
                     translatedItem.DefinitionTypeID = (int)curVariant.Pos;
+                    translatedItem.DirectionID = direction.GetCurrentDirectionId();
                     reposTranslatedExpression.Save(translatedItem);
                     fillTranslateResultIdsForNewItem(translatedItem.SourceDefinitionID, translatedItem.DefinitionTypeID, curVariant);
                 }

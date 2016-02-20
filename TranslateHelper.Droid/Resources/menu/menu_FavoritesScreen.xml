@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-  <item android:id="@+id/selectCountWords"
+  <item android:id="@+id/selectTestLevel"
         android:icon="@drawable/v4search"
         android:title="@string/caption_btn_testing"
         android:showAsAction="ifRoom|withText" />

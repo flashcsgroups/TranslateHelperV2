@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PortableCore.BL.Contracts
 {
-    public abstract class DataManager<T> where T:BL.Contracts.IBusinessEntity
+    public abstract class DataManagerDEL<T> where T:BL.Contracts.IBusinessEntity
     {
         public abstract void CreateDefaultData();
         public List<T> GetItems()

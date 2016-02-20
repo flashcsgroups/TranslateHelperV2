@@ -18,6 +18,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/textOriginalWord"
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
@@ -28,9 +29,9 @@
     <RadioGroup
         android:minWidth="25px"
         android:minHeight="25px"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
         android:layout_weight="40"
         android:id="@+id/radioGroup1">
         <RadioButton
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:checked="true"
-            android:text="Пример"
+            android:text="Тест"
             android:id="@+id/radioButton2" />
         <RadioButton
             android:layout_width="wrap_content"
@@ -53,9 +54,21 @@
             android:text="Я вообще мимо проходил"
             android:id="@+id/radioButton4" />
     </RadioGroup>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkResultText"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="20"
+        android:textSize="40sp"
+        android:text="Error"
+        android:visibility="invisible"
+        android:textColor="#ffff0000" />
     <Button
         android:text="Далее"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button1" />
+        android:id="@+id/buttonSubmitTest" />
 </LinearLayout>

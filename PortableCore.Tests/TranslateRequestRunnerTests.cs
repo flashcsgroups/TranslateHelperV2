@@ -1,12 +1,11 @@
 ﻿using NUnit.Framework;
 using PortableCore.BL.Contracts;
-using PortableCore.DL;
-using PortableCore.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using PortableCore.DL;
+using PortableCore.BL;
+using PortableCore.Helpers;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace PortableCore.Tests
 {
@@ -32,7 +31,7 @@ namespace PortableCore.Tests
 
             //act
             TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
-            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection());
+            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection(sqliteTestInstance));
 
             //assert
             Assert.AreEqual(result.Result.TranslatedData.Definitions.Count, 1);
@@ -63,7 +62,7 @@ namespace PortableCore.Tests
 
             //act
             TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
-            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection());
+            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection(sqliteTestInstance));
 
             //assert
             Assert.AreEqual(result.Result.TranslatedData.Definitions.Count, 1);
@@ -92,7 +91,7 @@ namespace PortableCore.Tests
             TranslateRequestRunner runner = new TranslateRequestRunner(sqliteTestInstance, localCacheSrv, translaterDictSrv, translaterTranslateSrv);
 
             string error = string.Empty;
-            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection());
+            var result = runner.GetDictionaryResult(testSourceText, new BL.TranslateDirection(sqliteTestInstance));
             error = result.Exception.InnerException.Message;
 
             //assert
@@ -101,9 +100,15 @@ namespace PortableCore.Tests
 
         public class SQLiteTest : ISQLiteTesting
         {
-            public IEnumerable<T> Table<T>() where T : IBusinessEntity, new()
+            public IEnumerable<Direction> Table<Direction>() where Direction : IBusinessEntity, new()
             {
-                throw new NotImplementedException();
+                List<Direction> listDirection = new List<Direction>();
+                var item = new Direction();
+                //item.Name = "en-ru";
+                item.ID = 1;
+                //item.ProviderID = 11;
+                listDirection.Add(item);
+                return listDirection;
             }
         }
 

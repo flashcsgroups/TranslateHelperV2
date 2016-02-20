@@ -7,7 +7,7 @@ using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
-	public class TranslatedExpressionManager : IDataManager<TranslatedExpression>
+	public class TranslatedExpressionManager : IInitDataTable<TranslatedExpression>
     {
         ISQLiteTesting db;
 

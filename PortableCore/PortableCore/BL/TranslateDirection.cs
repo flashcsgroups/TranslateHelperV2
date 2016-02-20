@@ -11,31 +11,43 @@ namespace PortableCore.BL
 {
     public class TranslateDirection
     {
-        private  Direction currentDirection;
+        ISQLiteTesting db;
+        Direction currentDirection;
 
-        public TranslateDirection()
+        public TranslateDirection(ISQLiteTesting dbHelper)
+        {
+            db = dbHelper;
+        }
+
+        public void SetDefaultDirection()
         {
             SetDirection("en-ru");//default, Eng->Rus
         }
 
         public int GetCurrentDirectionId()
         {
-            return currentDirection.ID;
+            int id = 0;
+            if (currentDirection != null) id = currentDirection.ID;
+            return id;
         }
 
         public string GetCurrentDirectionName()
         {
-            return currentDirection.Name;
+            string name = string.Empty;
+            if (currentDirection != null) name = currentDirection.Name;
+            return name;
         }
 
         public string GetCurrentDirectionNameFull()
         {
-            return currentDirection.FullName;
+            string fullName = string.Empty;
+            if (currentDirection != null) fullName = currentDirection.FullName;
+            return fullName;
         }
 
         public void SetDirection(string textDirection)
         {
-            DirectionManager dirManager = new DirectionManager(SqlLiteInstance.DB);
+            DirectionManager dirManager = new DirectionManager(db);
             currentDirection = dirManager.GetItemForName(textDirection);
         }
     }

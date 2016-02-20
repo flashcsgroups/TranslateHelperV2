@@ -34,7 +34,7 @@ namespace PortableCore.Helpers
 
         private void saveResultToLocalCache(TranslateRequestResult result, TranslateDirection direction)
         {
-            CachedResultWriter localDBWriter = new CachedResultWriter(direction, SqlLiteInstance.DB, new SourceExpressionManager(SqlLiteInstance.DB));
+            CachedResultWriter localDBWriter = new CachedResultWriter(direction, db, new SourceExpressionManager(db));
             localDBWriter.SaveResultToLocalCacheIfNotExist(result);
         }
 
@@ -50,17 +50,14 @@ namespace PortableCore.Helpers
         {
             string convertedSourceText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             TranslateRequestResult result = new TranslateRequestResult(convertedSourceText);
-            //if (convertedSourceText.Length > 0)//проверка мешает при ping - там передается пустая строка
+            result = translaterFromCache.Translate(originalText).Result;
+            if (result.TranslatedData.Definitions.Count == 0)
             {
-                result = translaterFromCache.Translate(originalText).Result;
-                if (result.TranslatedData.Definitions.Count == 0)
+                result = await service.Translate(originalText);
+                if (!string.IsNullOrEmpty(result.errorDescription))
                 {
-                    result = await service.Translate(originalText);
-                    if (!string.IsNullOrEmpty(result.errorDescription))
-                    {
-                        //ToDo: сделать общий обработчик ошибок
-                        throw new Exception("Ошибка подключения к интернет:" + result.errorDescription);
-                    }
+                    //ToDo: сделать общий обработчик ошибок
+                    throw new Exception("Ошибка подключения к интернет:" + result.errorDescription);
                 }
             }
             return result;

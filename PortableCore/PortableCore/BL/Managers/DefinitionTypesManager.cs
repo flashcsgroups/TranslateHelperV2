@@ -6,7 +6,7 @@ using PortableCore.DL;
 
 namespace PortableCore.BL.Managers
 {
-	public class DefinitionTypesManager : IDataManager<DefinitionTypes>
+	public class DefinitionTypesManager : IInitDataTable<DefinitionTypes>
 	{
 		ISQLiteTesting db;
 

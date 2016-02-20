@@ -14,5 +14,7 @@ namespace PortableCore.DL
 		public int DeleteMark { get; set; }
 		[Indexed]
 		public int TranslatedExpressionID { get; set; }
-	}
+        [Indexed]
+        public int DirectionID { get; set; }
+    }
 }

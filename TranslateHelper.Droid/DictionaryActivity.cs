@@ -15,11 +15,11 @@ using PortableCore.BL;
 
 namespace TranslateHelper.Droid
 {
-    [Activity (Label = "@string/app_name", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+    [Activity (Label = "@string/app_name", MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryActivity : Activity
 	{
         public const string HOCKEYAPP_APPID = "e9137253ae304b09ae2ffbb2016f8eda";
-        TranslateDirection direction = new TranslateDirection();
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
 
         protected override async void OnCreate (Bundle bundle)
 		{
@@ -45,8 +45,7 @@ namespace TranslateHelper.Droid
             base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
             SetContentView(Resource.Layout.Dictionary);
 
-            //запрос для установки соединения еще до того, как оно понадобится пользователю, для ускорения
-            //await callTestRequest();
+            direction.SetDefaultDirection();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
@@ -91,9 +90,6 @@ namespace TranslateHelper.Droid
             if(!string.IsNullOrEmpty(convertedText))
             {
                 TranslateRequestRunner reqRunner = getRequestRunner();
-                //string lang = "en-ru";
-                //lang = "ru-en";
-                //TranslateDirection direction = n
                 TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, direction);
                 if (reqResult.TranslatedData.Definitions.Count == 0)
                 {
@@ -108,11 +104,11 @@ namespace TranslateHelper.Droid
         /// Пустой запрос выполняется чтобы установить связь с сервером до того, как пользователь захочет выполнить реальный запрос - это для ускорения выполнения первого запроса
         /// </summary>
         /// <returns></returns>
-        private async Task callTestRequest()
+        /*private async Task callTestRequest()
         {
             TranslateRequestRunner reqRunner = getRequestRunner();
             TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(string.Empty, direction);
-        }
+        }*/
 
         private TranslateRequestRunner getRequestRunner()
         {

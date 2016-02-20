@@ -1,10 +1,11 @@
 ﻿using PortableCore.DL;
 using PortableCore.BL.Contracts;
 using PortableCore.DAL;
+using System.Linq;
 
 namespace PortableCore.BL.Managers
 {
-    public class DirectionManager : IDataManager<Direction>
+    public class DirectionManager : IInitDataTable<Direction>
     {
         ISQLiteTesting db;
 
@@ -26,7 +27,7 @@ namespace PortableCore.BL.Managers
 
         public Direction GetItemForId(int Id)
         {
-            DAL.Repository<Direction> repos = new DAL.Repository<Direction>();
+            Repository<Direction> repos = new Repository<Direction>();
             Direction result = repos.GetItem(Id);
             return result;
         }
@@ -37,7 +38,8 @@ namespace PortableCore.BL.Managers
             //ToDo:ProviderId получать!
             int YandexProviderId = 11;
             Repository<Direction> repos = new DAL.Repository<Direction>();
-            var view = from item in SqlLiteInstance.DB.Table<Direction>() where item.Name == name && item.ProviderID == YandexProviderId select item;
+            //var view = from item in SqlLiteInstance.DB.Table<Direction>() where item.Name == name && item.ProviderID == YandexProviderId select item;
+            var view = from item in db.Table<Direction>() where item.Name == name && item.ProviderID == YandexProviderId select item;
             if (view.Count() == 1) result = view.First(); 
             return result;
         }

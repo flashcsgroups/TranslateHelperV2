@@ -5,7 +5,7 @@ using PortableCore.BL.Contracts;
 
 namespace PortableCore.BL.Managers
 {
-	public class TranslateProviderManager : IDataManager<TranslateProvider>
+	public class TranslateProviderManager : IInitDataTable<TranslateProvider>
     {
         ISQLiteTesting db;
 

@@ -97,8 +97,8 @@ namespace TranslateHelper.Droid
 		{
 			switch (item.ItemId)
             {
-                case Resource.Id.selectCountWords:
-                    StartActivity(typeof(SelectCountTestWordsActivity));
+                case Resource.Id.selectTestLevel:
+                    StartActivity(typeof(SelectTestLevelActivity));
                     return true;
                 case global::Android.Resource.Id.Home:
                     StartActivity(typeof(DictionaryActivity));

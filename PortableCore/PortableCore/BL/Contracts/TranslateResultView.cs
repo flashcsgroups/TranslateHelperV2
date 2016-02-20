@@ -79,22 +79,4 @@ namespace PortableCore.BL.Contracts
             Pos = pos;
         }
     }
-
-    /*public struct Synonym
-    {
-        public string TranslatedText;
-    }
-
-
-
-    public struct Mean
-    {
-        public string Text;
-    }
-
-
-
-    public struct ExampleText
-    {
-    }*/
 }

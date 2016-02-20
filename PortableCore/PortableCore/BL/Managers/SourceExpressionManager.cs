@@ -7,7 +7,7 @@ using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
-	public class SourceExpressionManager : IDataManager<SourceExpression>, ISourceExpressionManager
+	public class SourceExpressionManager : IInitDataTable<SourceExpression>, ISourceExpressionManager
     {
         ISQLiteTesting db;
 
