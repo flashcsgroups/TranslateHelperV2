@@ -12,3 +12,6 @@ https://blog.xamarin.com/android-tips-hello-appcompatactivity-goodbye-actionbara
 https://github.com/xamarin/monodroid-samples/tree/master/SplashScreen
 http://developer.alexanderklimov.ru/android/theory/appcompat.php
 - mvvmcross
+
+22.02.2016
+- в тестирование добавить разделение по направлениям перевода чтобы не было каши

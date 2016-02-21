@@ -28,7 +28,7 @@ namespace TranslateHelper.Droid
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);
             int countOfWords = Intent.GetIntExtra("countOfWords", 10);
-            presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, countOfWords);
+            presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), countOfWords);
             presenter.StartTest();
             var btnSubmit = FindViewById<Button>(Resource.Id.buttonSubmitTest);
             btnSubmit.Click += (object sender, EventArgs e) => {
@@ -38,22 +38,41 @@ namespace TranslateHelper.Droid
             };
             RadioGroup radioGroup = FindViewById<RadioGroup>(Resource.Id.radioGroup1);
             radioGroup.CheckedChange += RadioGroup_CheckedChange;
-            /*TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
-            direction.SetDefaultDirection();
-            TestSelectWordsReader data = new TestSelectWordsReader(SqlLiteInstance.DB);
-            List<Favorites> favoritesList = data.GetRandomFavorites(countOfWords, direction);*/
         }
 
         private void RadioGroup_CheckedChange(object sender, RadioGroup.CheckedChangeEventArgs e)
         {
-            RadioButton radioButton = FindViewById<RadioButton>(e.CheckedId);
-            presenter.OnSelectVariant(radioButton.Text);
+            if(e.CheckedId!=-1)
+            {
+                RadioButton radioButton = FindViewById<RadioButton>(e.CheckedId);
+                if(radioButton.Checked)
+                    presenter.OnSelectVariant(radioButton.Text);
+            }
         }
 
-        public void SetVariants(string variantText)
+        public void SetVariants(List<string> variants)
         {
-            RadioButton radioButton = FindViewById<RadioButton>(Resource.Id.radioButton2);
-            radioButton.Text = variantText;
+            hideAllResultControls();
+            RadioGroup radioGroup = FindViewById<RadioGroup>(Resource.Id.radioGroup1);
+            radioGroup.ClearCheck();
+            radioGroup.RemoveAllViews();
+            int buttonIndex = 0;
+            foreach(var variantText in variants)
+            {
+                RadioButton button = new RadioButton(this);
+                button.Text = variantText;
+                button.Id = buttonIndex;
+                radioGroup.AddView(button);
+                buttonIndex++;
+            }
+        }
+
+        private void hideAllResultControls()
+        {
+            var checkResultText = FindViewById<TextView>(Resource.Id.checkResultText);
+            checkResultText.Visibility = ViewStates.Invisible;
+            var buttonSubmitTest = FindViewById<TextView>(Resource.Id.buttonSubmitTest);
+            buttonSubmitTest.Visibility = ViewStates.Invisible;
         }
 
         public void SetOriginalWord(string originalWord)
@@ -72,9 +91,6 @@ namespace TranslateHelper.Droid
 
         public void PressSubmit()
         {
-            /*RadioGroup radioGroup = FindViewById<RadioGroup>(Resource.Id.radioGroup1);
-            RadioButton radioButton = FindViewById<RadioButton>(radioGroup.CheckedRadioButtonId);
-            string selectedWord = radioButton.Text;*/
             presenter.OnSubmit();
         }
 
@@ -97,5 +113,17 @@ namespace TranslateHelper.Droid
             return base.OnOptionsItemSelected(item);
         }
 
+        public void SetFinalTest(int countOfTestedWords)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle(Resource.String.msg_tests_repeatOrClose);
+            alert.SetMessage(Resource.String.msg_final_test);
+            alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => { presenter.StartTest(); });
+            alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => {
+                StartActivity(typeof(DictionaryActivity));
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
     }
 }

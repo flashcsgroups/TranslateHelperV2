@@ -3,6 +3,7 @@ using PortableCore.BL.Contracts;
 using System.Collections.Generic;
 using PortableCore.DL;
 using PortableCore.BL;
+using System;
 
 namespace PortableCore.Tests
 {
@@ -14,7 +15,7 @@ namespace PortableCore.Tests
         {
             //arrange
             int countOfWords = 10;
-            SQLiteTest dbHelper = new SQLiteTest();
+            MockSQLite dbHelper = new MockSQLite();
             TranslateDirection direction = new TranslateDirection(dbHelper);
             //direction.SetDefaultDirection();
 
@@ -26,7 +27,7 @@ namespace PortableCore.Tests
             Assert.IsTrue(favoritesList.Count == 10);
         }
 
-        public class SQLiteTest : ISQLiteTesting
+        class MockSQLite : ISQLiteTesting
         {
             public IEnumerable<Favorites> Table<Favorites>() where Favorites : IBusinessEntity, new()
             {
@@ -45,5 +46,174 @@ namespace PortableCore.Tests
             }
         }
 
+        [Test]
+        public void TestMust_StartTestAndGetOriginalWord()
+        {
+            //arrange
+            int countOfVariants;
+            MockTestSelectWordsActivity testActivity;
+            TestSelectWordsPresenter presenter;
+            InitTestData(out countOfVariants, out testActivity, out presenter);
+
+            //act
+            presenter.StartTest();
+
+            //assert
+            Assert.IsTrue(testActivity.OriginalWord == "test");
+            Assert.IsTrue(testActivity.Variants[0] == "0");
+        }
+
+        [Test]
+        public void TestMust_CheckCountVariants()
+        {
+            //arrange
+            int countOfVariants;
+            MockTestSelectWordsActivity testActivity;
+            TestSelectWordsPresenter presenter;
+            InitTestData(out countOfVariants, out testActivity, out presenter);
+
+            //act
+            presenter.StartTest();
+
+            //assert
+            Assert.IsTrue(testActivity.Variants.Count == countOfVariants);
+        }
+
+        [Test]
+        public void TestMust_SuccessfulCheckCorrectVariant()
+        {
+            //arrange
+            int countOfVariants;
+            MockTestSelectWordsActivity testActivity;
+            TestSelectWordsPresenter presenter;
+            InitTestData(out countOfVariants, out testActivity, out presenter);
+
+            //act
+            presenter.StartTest();
+            presenter.OnSelectVariant("тест");
+
+            //assert
+            Assert.IsTrue(testActivity.CheckResult);
+        }
+
+        [Test]
+        public void TestMust_GetErrorForMistakeVariant()
+        {
+            //arrange
+            int countOfVariants;
+            MockTestSelectWordsActivity testActivity;
+            TestSelectWordsPresenter presenter;
+            InitTestData(out countOfVariants, out testActivity, out presenter);
+
+            //act
+            presenter.StartTest();
+            presenter.OnSelectVariant("вапв");
+
+            //assert
+            Assert.IsFalse(testActivity.CheckResult);
+        }
+
+        [Test]
+        public void TestMust_GetFinalMessageText()
+        {
+            //arrange
+            int countOfVariants;
+            MockTestSelectWordsActivity testActivity;
+            TestSelectWordsPresenter presenter;
+            InitTestData(out countOfVariants, out testActivity, out presenter);
+
+            //act
+            presenter.StartTest();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+            presenter.OnSelectVariant("тест");
+            presenter.OnSubmit();
+
+            //assert
+            Assert.IsTrue(testActivity.CountOfTestedWords == 10);
+        }
+
+        private static void InitTestData(out int countOfVariants, out MockTestSelectWordsActivity testActivity, out TestSelectWordsPresenter presenter)
+        {
+            int countOfWords = 10;
+            countOfVariants = 5;
+            MockSQLite dbHelper = new MockSQLite();
+            testActivity = new MockTestSelectWordsActivity();
+            MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
+            TranslateDirection direction = new TranslateDirection(dbHelper);
+            presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, countOfWords);
+        }
+
+        class MockTestSelectWordsActivity : ITestSelectWordsView
+        {
+            public string OriginalWord = string.Empty;
+            public List<string> Variants = new List<string>();
+            public bool CheckResult = false;
+            public int CountOfTestedWords = 0;
+
+            public void SetCheckResult(bool success)
+            {
+                CheckResult = success;
+            }
+
+            public void SetOriginalWord(string originalWord)
+            {
+                OriginalWord = originalWord;
+            }
+
+            public void SetVariants(List<string> variants)
+            {
+                this.Variants = variants;
+            }
+
+            public void SetFinalTest(int countOfTestedWords)
+            {
+                CountOfTestedWords = countOfTestedWords;
+            }
+        }
+
+        class MockTestSelectWordsReader : ITestSelectWordsReader
+        {
+            public List<string> GetIncorrectVariants(string correctWord, int countOfIncorrectWords, TranslateDirection direction)
+            {
+                List<string> result = new List<string>();
+                for(int i=0;i<countOfIncorrectWords;i++)
+                {
+                    result.Add(i.ToString());
+                }
+                return result;
+            }
+
+            public Tuple<string, string> GetNextWord(int translatedExpressionID)
+            {
+                return new Tuple<string, string>("test","тест");
+            }
+
+            public List<Favorites> GetRandomFavorites(int countOfWords, TranslateDirection direction)
+            {
+                List<Favorites> result = new List<Favorites>();
+                for (int i = 0; i < countOfWords; i++)
+                {
+                    result.Add(new Favorites() { ID = i });
+                }
+                return result;
+            }
+        }
     }
 }

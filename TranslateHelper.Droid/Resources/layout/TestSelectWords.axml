@@ -13,7 +13,7 @@
         android:layout_marginBottom="15dp"
         android:layout_weight="1"
         android:textSize="20sp"
-        android:text="Выберите вариант правильного перевода слова:"
+        android:text="@string/act_testselectwords_caption"
         android:background="@color/transparent" />
     <TextView
         android:layout_width="match_parent"
@@ -41,18 +41,6 @@
             android:checked="true"
             android:text="Тест"
             android:id="@+id/radioButton2" />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Фигня какая-то"
-            android:id="@+id/radioButton3" />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Я вообще мимо проходил"
-            android:id="@+id/radioButton4" />
     </RadioGroup>
     <TextView
         android:layout_width="match_parent"
@@ -62,12 +50,12 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_weight="20"
-        android:textSize="40sp"
-        android:text="Error"
+        android:textSize="35sp"
+        android:text="@string/msg_error_try_again"
         android:visibility="invisible"
         android:textColor="#ffff0000" />
     <Button
-        android:text="Далее"
+        android:text="@string/caption_btn_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonSubmitTest" />

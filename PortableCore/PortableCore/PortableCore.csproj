@@ -40,9 +40,12 @@
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
+    <Compile Include="BL\ITestSelectWordsReader.cs" />
+    <Compile Include="BL\ITestSelectWordsView.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="BL\Managers\ISourceExpressionManager.cs" />
     <Compile Include="BL\Managers\DirectionManager.cs" />
+    <Compile Include="BL\TestSelectWordsPresenter.cs" />
     <Compile Include="BL\TestSelectWordsReader.cs" />
     <Compile Include="BL\TranslateDirection.cs" />
     <Compile Include="DAL\CachedResultWriter.cs" />

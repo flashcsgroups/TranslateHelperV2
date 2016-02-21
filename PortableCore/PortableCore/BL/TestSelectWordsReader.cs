@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PortableCore.BL
 {
-    public class TestSelectWordsReader
+    public class TestSelectWordsReader : ITestSelectWordsReader
     {
         ISQLiteTesting db;
         public TestSelectWordsReader(ISQLiteTesting dbHelper)
@@ -20,6 +20,7 @@ namespace PortableCore.BL
         {
             List<Favorites> resultList = new List<Favorites>();
             var directionId = direction.GetCurrentDirectionId();
+            //ToDo:Учесть направление перевода
             //var view = from item in db.Table<Favorites>() where item.DirectionID == directionId select item.ID;
             var view = from item in db.Table<Favorites>() select item.ID;
             var favElements = view.ToList();
@@ -29,11 +30,30 @@ namespace PortableCore.BL
             int maxCountOfWords = countOfWords <= countOfRecords ? countOfWords : countOfRecords;
             for (int i=0;i< maxCountOfWords; i++)
             {
-                int indexOfRecord = rnd.Next(1, countOfRecords);
+                int indexOfRecord = rnd.Next(0, countOfRecords-1);
                 var favItemId = favElements[indexOfRecord];
                 resultList.Add(favManager.GetItemForId(favItemId));
             }
             return resultList;
+        }
+
+        public List<string> GetIncorrectVariants(string correctWord, int countOfIncorrectWords, TranslateDirection direction)
+        {
+            var view = (from item in db.Table<TranslatedExpression>() where item.TranslatedText != correctWord select item.TranslatedText).Take(countOfIncorrectWords);
+            return view.ToList<string>();
+        }
+
+        public Tuple<string, string> GetNextWord(int translatedExpressionID)
+        {
+            TranslatedExpressionManager teManager = new TranslatedExpressionManager(db);
+            TranslatedExpression trexpressionItem = teManager.GetItemForId(translatedExpressionID);
+            string translatedText = trexpressionItem.TranslatedText;
+            SourceDefinitionManager sdManager = new SourceDefinitionManager(db);
+            SourceDefinition sdItem = sdManager.GetItemForId(trexpressionItem.SourceDefinitionID);
+            SourceExpressionManager seManager = new SourceExpressionManager(db);
+            SourceExpression seItem = seManager.GetItemForId(sdItem.SourceExpressionID);
+            Tuple<string, string> pair = new Tuple<string, string>(seItem.Text, translatedText);
+            return pair;
         }
     }
 }

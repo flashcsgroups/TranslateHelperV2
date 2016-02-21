@@ -54,11 +54,11 @@ namespace PortableCore.Helpers
             if (result.TranslatedData.Definitions.Count == 0)
             {
                 result = await service.Translate(originalText);
-                if (!string.IsNullOrEmpty(result.errorDescription))
+                /*if (!string.IsNullOrEmpty(result.errorDescription))
                 {
                     //ToDo: сделать общий обработчик ошибок
                     throw new Exception("Ошибка подключения к интернет:" + result.errorDescription);
-                }
+                }*/
             }
             return result;
         }

@@ -46,14 +46,12 @@ namespace TranslateHelper.Droid
             SetContentView(Resource.Layout.Dictionary);
 
             direction.SetDefaultDirection();
+            updateDestinationCaption();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
 			ImageButton buttonNew = FindViewById<ImageButton> (Resource.Id.buttonNew);
 			ImageButton buttonTranslateTop = FindViewById<ImageButton> (Resource.Id.buttonTranslateTop);
             ImageButton buttonTranslateBottom = FindViewById<ImageButton>(Resource.Id.buttonTranslateBottom);
-            //ImageButton buttonChangeDest = FindViewById<ImageButton>(Resource.Id.buttonChangeDest);
-
-
 
             buttonNew.Click += (object sender, EventArgs e) => {
 				{
@@ -95,20 +93,17 @@ namespace TranslateHelper.Droid
                 {
                     reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
                 }
-                updateListResults(reqResult);
-                TogglesSoftKeyboard.Hide(this);
+                if(string.IsNullOrEmpty(reqResult.errorDescription))
+                {
+                    updateListResults(reqResult);
+                    TogglesSoftKeyboard.Hide(this);
+                }
+                else
+                {
+                    Toast.MakeText(this, reqResult.errorDescription, ToastLength.Long).Show();
+                }
             }
         }
-
-        /// <summary>
-        /// Пустой запрос выполняется чтобы установить связь с сервером до того, как пользователь захочет выполнить реальный запрос - это для ускорения выполнения первого запроса
-        /// </summary>
-        /// <returns></returns>
-        /*private async Task callTestRequest()
-        {
-            TranslateRequestRunner reqRunner = getRequestRunner();
-            TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(string.Empty, direction);
-        }*/
 
         private TranslateRequestRunner getRequestRunner()
         {
@@ -196,6 +191,11 @@ namespace TranslateHelper.Droid
                         direction.SetDirection("en-ru");
                     }; break;
             }
+            updateDestinationCaption();
+        }
+
+        private void updateDestinationCaption()
+        {
             var destinationTextView = FindViewById<TextView>(Resource.Id.destinationTextView);
             destinationTextView.Text = direction.GetCurrentDirectionNameFull();
         }

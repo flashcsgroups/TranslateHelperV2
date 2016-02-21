@@ -13,7 +13,7 @@
         android:layout_marginBottom="15dp"
         android:layout_weight="40"
         android:textSize="30sp"
-        android:text="Сколько слов хотите проверить?"
+        android:text="@string/msg_test_select_count_word"
         android:background="@color/transparent" />
     <LinearLayout
         android:orientation="horizontal"

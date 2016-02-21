@@ -21,7 +21,9 @@ namespace TranslateHelper.Droid
 	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
 	public class FavoritesActivity : Activity
 	{
-		protected override void OnCreate (Bundle bundle)
+        int minimumWordsForStartTest = 5;//Нужен минимальный стартовый набор из слов, без него нет смысла вообще что-то тестировать
+        IndexedCollection<FavoritesItem> translateResultIdxCollection;
+        protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
@@ -32,7 +34,7 @@ namespace TranslateHelper.Droid
 
 			listView.FastScrollEnabled = true;
 
-			var translateResultIdxCollection = getItemsForFavoritesList ();
+			translateResultIdxCollection = getItemsForFavoritesList ();
 
 			var sortedContacts = translateResultIdxCollection.GetSortedData ();
             var adapter = CreateAdapter(sortedContacts);
@@ -89,7 +91,8 @@ namespace TranslateHelper.Droid
 
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
-			MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
+            if(translateResultIdxCollection.Count() > minimumWordsForStartTest)
+                MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
 			return true;
 		}
 
