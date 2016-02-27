@@ -32,7 +32,7 @@ namespace TranslateHelper.Droid
         {
             base.OnResume();
             callTestRequest();
-            Task.Delay(10000);
+            Task.Delay(2000);
             StartActivity(new Intent(Application.Context, typeof(DictionaryActivity)));
             /*Task startupWork = new Task(() =>
             {

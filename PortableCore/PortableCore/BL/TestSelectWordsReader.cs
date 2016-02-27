@@ -3,8 +3,6 @@ using PortableCore.DL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PortableCore.BL
 {
@@ -16,31 +14,54 @@ namespace PortableCore.BL
             db = dbHelper;
         }
 
-        public List<Favorites> GetRandomFavorites(int countOfWords, TranslateDirection direction)
+        public List<FavoriteItem> GetRandomFavorites(int countOfWords, TranslateDirection direction)
         {
-            List<Favorites> resultList = new List<Favorites>();
-            var directionId = direction.GetCurrentDirectionId();
-            //ToDo:Учесть направление перевода
-            //var view = from item in db.Table<Favorites>() where item.DirectionID == directionId select item.ID;
-            var view = from item in db.Table<Favorites>() select item.ID;
-            var favElements = view.ToList();
+            var srcDefView = from item in db.Table<SourceExpression>()
+                             join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
+                             from subSources in sources.DefaultIfEmpty()
+                             where item.DirectionID == direction.GetCurrentDirectionId()
+                             select subSources.ID;
+            var view = from item in db.Table<Favorites>()
+                       join trExprItem in db.Table<TranslatedExpression>() on item.TranslatedExpressionID equals trExprItem.ID into expressions
+                       from subExpressions in expressions.DefaultIfEmpty()
+                       where srcDefView.Contains(subExpressions.SourceDefinitionID)
+                       select new FavoriteItem() {FavoriteId = item.ID, TranslatedExpressionId = item.TranslatedExpressionID, SourceDefinitionId = subExpressions.SourceDefinitionID };
+            var favDistinctView = from item in view
+                                  join sourceDefItem in db.Table<SourceDefinition>() on item.SourceDefinitionId equals sourceDefItem.ID into sources
+                                  from subSources in sources.DefaultIfEmpty()
+                                  select new FavoriteItem() { FavoriteId = item.FavoriteId, TranslatedExpressionId = item.TranslatedExpressionId, SourceDefinitionId = item.SourceDefinitionId, SourceExprId = subSources.SourceExpressionID  };
+            var favElements = favDistinctView.Distinct();
+
             int countOfRecords = favElements.Count();
             FavoritesManager favManager = new FavoritesManager(db);
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             int maxCountOfWords = countOfWords <= countOfRecords ? countOfWords : countOfRecords;
-            for (int i=0;i< maxCountOfWords; i++)
-            {
-                int indexOfRecord = rnd.Next(0, countOfRecords-1);
-                var favItemId = favElements[indexOfRecord];
-                resultList.Add(favManager.GetItemForId(favItemId));
-            }
-            return resultList;
+            return favElements.Take(maxCountOfWords).ToList();
         }
 
-        public List<string> GetIncorrectVariants(string correctWord, int countOfIncorrectWords, TranslateDirection direction)
+        public List<string> GetIncorrectVariants(int excludeCorrectSourceId, int countOfIncorrectWords, TranslateDirection direction)
         {
-            var view = (from item in db.Table<TranslatedExpression>() where item.TranslatedText != correctWord select item.TranslatedText).Take(countOfIncorrectWords);
-            return view.ToList<string>();
+            var srcDefView = from item in db.Table<SourceExpression>()
+                              join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
+                              from subSources in sources.DefaultIfEmpty()
+                              where (item.ID != excludeCorrectSourceId)&&(item.DirectionID == direction.GetCurrentDirectionId()) 
+                              select subSources.ID;
+
+            var view = from item in db.Table<Favorites>()
+                       join trExprItem in db.Table<TranslatedExpression>() on item.TranslatedExpressionID equals trExprItem.ID into expressions
+                       from subExpressions in expressions.DefaultIfEmpty()
+                       where srcDefView.Contains(subExpressions.SourceDefinitionID)
+                       select subExpressions.TranslatedText;
+
+            return view.Take(countOfIncorrectWords).ToList<string>();
+        }
+
+        public int GetCountDifferenceSources()
+        {
+            return (from item in db.Table<SourceExpression>()
+                   where item.DeleteMark == 0
+                   select item.ID).Count();
+            
         }
 
         public Tuple<string, string> GetNextWord(int translatedExpressionID)

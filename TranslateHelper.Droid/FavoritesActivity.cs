@@ -15,13 +15,14 @@ using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DAL;
 using PortableCore.DL;
+using PortableCore.BL;
 
 namespace TranslateHelper.Droid
 {
 	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
 	public class FavoritesActivity : Activity
 	{
-        int minimumWordsForStartTest = 5;//Нужен минимальный стартовый набор из слов, без него нет смысла вообще что-то тестировать
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
         IndexedCollection<FavoritesItem> translateResultIdxCollection;
         protected override void OnCreate (Bundle bundle)
 		{
@@ -30,7 +31,9 @@ namespace TranslateHelper.Droid
 			ActionBar.SetHomeButtonEnabled (true);
 			SetContentView (Resource.Layout.Favorites);
 
-			var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
+            direction.SetDirection(Intent.GetStringExtra("directionName"));
+
+            var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
 
 			listView.FastScrollEnabled = true;
 
@@ -40,8 +43,6 @@ namespace TranslateHelper.Droid
             var adapter = CreateAdapter(sortedContacts);
             listView.Adapter = adapter;
             listView.ItemClick += adapter.ListItemClick;
-
-
 		}
 
         private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
@@ -91,9 +92,8 @@ namespace TranslateHelper.Droid
 
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
-            if(translateResultIdxCollection.Count() > minimumWordsForStartTest)
-                MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
-			return true;
+            MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
+            return true;
 		}
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
@@ -101,7 +101,10 @@ namespace TranslateHelper.Droid
 			switch (item.ItemId)
             {
                 case Resource.Id.selectTestLevel:
-                    StartActivity(typeof(SelectTestLevelActivity));
+                    var intent = new Intent(this, typeof(SelectTestLevelActivity));
+                    intent.PutExtra("directionName", direction.GetCurrentDirectionName());
+                    StartActivity(intent);
+                    //StartActivity(typeof(SelectTestLevelActivity));
                     return true;
                 case global::Android.Resource.Id.Home:
                     StartActivity(typeof(DictionaryActivity));

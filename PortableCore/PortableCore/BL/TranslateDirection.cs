@@ -50,5 +50,20 @@ namespace PortableCore.BL
             DirectionManager dirManager = new DirectionManager(db);
             currentDirection = dirManager.GetItemForName(textDirection);
         }
+
+        public void Invert()
+        {
+            switch (GetCurrentDirectionName())
+            {
+                case "en-ru":
+                    {
+                        SetDirection("ru-en");
+                    }; break;
+                case "ru-en":
+                    {
+                        SetDirection("en-ru");
+                    }; break;
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
+    <Compile Include="BL\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\ITestSelectWordsView.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />

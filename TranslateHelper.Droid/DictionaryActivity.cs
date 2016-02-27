@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using PortableCore.DAL;
 using Android.Runtime;
 using PortableCore.BL;
+using Android.Content;
 
 namespace TranslateHelper.Droid
 {
@@ -87,13 +88,28 @@ namespace TranslateHelper.Droid
             string convertedText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             if(!string.IsNullOrEmpty(convertedText))
             {
-                TranslateRequestRunner reqRunner = getRequestRunner();
+                TranslateRequestRunner reqRunner = getRequestRunner(direction);
                 TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, direction);
-                if (reqResult.TranslatedData.Definitions.Count == 0)
+                if (string.IsNullOrEmpty(reqResult.errorDescription)&&(reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    var changedDirection = new TranslateDirection(SqlLiteInstance.DB);
+                    changedDirection.SetDirection(direction.GetCurrentDirectionName());
+                    changedDirection.Invert();
+                    TranslateRequestRunner reqRunnerOtherDirection = getRequestRunner(changedDirection);
+                    reqResult = await reqRunnerOtherDirection.GetDictionaryResult(convertedText, changedDirection);
+                    if (reqResult.TranslatedData.Definitions.Count > 0)
+                    {
+                        ShowChangeDestinationDialog();
+                    } else
+                    {
+                        reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
+                    }
+                }
+                /*if (reqResult.TranslatedData.Definitions.Count == 0)
                 {
                     reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
-                }
-                if(string.IsNullOrEmpty(reqResult.errorDescription))
+                }*/
+                if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
                     updateListResults(reqResult);
                     TogglesSoftKeyboard.Hide(this);
@@ -105,13 +121,13 @@ namespace TranslateHelper.Droid
             }
         }
 
-        private TranslateRequestRunner getRequestRunner()
+        private TranslateRequestRunner getRequestRunner(TranslateDirection translateDirection)
         {
             TranslateRequestRunner reqRunner = new TranslateRequestRunner( 
                 SqlLiteInstance.DB,
-                new CachedResultReader(direction, SqlLiteInstance.DB),
-                new TranslateRequest(TypeTranslateServices.YandexDictionary, direction),
-                new TranslateRequest(TypeTranslateServices.YandexTranslate, direction));
+                new CachedResultReader(translateDirection, SqlLiteInstance.DB),
+                new TranslateRequest(TypeTranslateServices.YandexDictionary, translateDirection),
+                new TranslateRequest(TypeTranslateServices.YandexTranslate, translateDirection));
             return reqRunner;
         }
 
@@ -158,15 +174,11 @@ namespace TranslateHelper.Droid
             switch (item.ItemId)
             {
                 case Resource.Id.menu_favorites:
-                    StartActivity(typeof(FavoritesActivity));
+                    var intentFavorites = new Intent(this, typeof(FavoritesActivity));
+                    intentFavorites.PutExtra("directionName", direction.GetCurrentDirectionName());
+                    StartActivity(intentFavorites);
                     return true;
                 case Resource.Id.menu_dest_selector:
-                    /*AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(this);
-                    dlgBuilder.SetTitle(Resource.String.caption_translate_destination);
-                    dlgBuilder.SetMessage("Английский > Русский");
-                    Dialog dialog = dlgBuilder.Create();
-                    dialog.Show();
-                    return true;*/
                     swapDestination();
                     break;
                 case global::Android.Resource.Id.Home:
@@ -180,7 +192,7 @@ namespace TranslateHelper.Droid
 
         private void swapDestination()
         {
-            switch (direction.GetCurrentDirectionName())
+            /*switch (direction.GetCurrentDirectionName())
             {
                 case "en-ru":
                     {
@@ -190,7 +202,8 @@ namespace TranslateHelper.Droid
                     {
                         direction.SetDirection("en-ru");
                     }; break;
-            }
+            }*/
+            direction.Invert();
             updateDestinationCaption();
         }
 
@@ -198,6 +211,17 @@ namespace TranslateHelper.Droid
         {
             var destinationTextView = FindViewById<TextView>(Resource.Id.destinationTextView);
             destinationTextView.Text = direction.GetCurrentDirectionNameFull();
+        }
+
+        private void ShowChangeDestinationDialog()
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle(Resource.String.msg_warning);
+            alert.SetMessage(Resource.String.act_autochangedestination);
+            alert.SetPositiveButton(Resource.String.msg_ok, (senderAlert, args) => { swapDestination(); });
+            alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => { });
+            Dialog dialog = alert.Create();
+            dialog.Show();
         }
 
         void menuItemClicked(string item)

@@ -12,7 +12,7 @@ namespace PortableCore.Tests
     [TestFixture]
     public class TranslateRequestRunnerTests
     {
-        [Test]
+        /*[Test]
         public void TestMust_CreateResultOfSuccessRequest_DictionaryService()
         {
             //arrange
@@ -41,9 +41,9 @@ namespace PortableCore.Tests
             Assert.AreEqual(result.Result.TranslatedData.Definitions[0].TranslateVariants.Count, 1);
             Assert.IsTrue(result.Result.TranslatedData.Definitions[0].TranslateVariants[0].Text == testTranslatedText);
             Assert.IsTrue(result.Result.TranslatedData.Definitions[0].TranslateVariants[0].Pos == testDefinition);
-        }
+        }*/
 
-        [Test]
+        /*[Test]
         public void TestMust_CreateResultOfSuccessRequest_ReadLocalCache()
         {
             //arrange
@@ -72,9 +72,9 @@ namespace PortableCore.Tests
             Assert.AreEqual(result.Result.TranslatedData.Definitions[0].TranslateVariants.Count, 1);
             Assert.IsTrue(result.Result.TranslatedData.Definitions[0].TranslateVariants[0].Text == testTranslatedText);
             Assert.IsTrue(result.Result.TranslatedData.Definitions[0].TranslateVariants[0].Pos == testDefinition);
-        }
+        }*/
 
-        [Test]
+        /*[Test]
         public void TestMust_CreateResultOfErrorRequest_DictionaryService()
         {
             //arrange
@@ -96,7 +96,7 @@ namespace PortableCore.Tests
 
             //assert
             Assert.IsTrue(error == "Ошибка подключения к интернет:error");
-        }
+        }*/
 
         public class SQLiteTest : ISQLiteTesting
         {

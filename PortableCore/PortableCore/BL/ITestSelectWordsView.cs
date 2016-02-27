@@ -5,7 +5,7 @@ namespace PortableCore.BL
     public interface ITestSelectWordsView
     {
         void SetOriginalWord(string originalWord);
-        void SetCheckResult(bool success);
+        void SetCheckError();
         void SetVariants(List<string> variants);
         void SetFinalTest(int countOfTestedWords);
     }

@@ -18,6 +18,8 @@ namespace TranslateHelper.Droid
     [Activity(Label = "@string/act_testselectwords_caption", Theme = "@style/MyTheme")]
     public class TestSelectWordsActivity : Activity, ITestSelectWordsView
     {
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
         List<Favorites> favoritesList = new List<Favorites>();
 
@@ -27,52 +29,44 @@ namespace TranslateHelper.Droid
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);
+            direction.SetDirection(Intent.GetStringExtra("directionName"));
             int countOfWords = Intent.GetIntExtra("countOfWords", 10);
-            presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), countOfWords);
+            initSubmitButtons();
+            presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), direction, countOfWords);
             presenter.StartTest();
-            var btnSubmit = FindViewById<Button>(Resource.Id.buttonSubmitTest);
-            btnSubmit.Click += (object sender, EventArgs e) => {
-                {
-                    PressSubmit();
-                }
-            };
-            RadioGroup radioGroup = FindViewById<RadioGroup>(Resource.Id.radioGroup1);
-            radioGroup.CheckedChange += RadioGroup_CheckedChange;
         }
 
-        private void RadioGroup_CheckedChange(object sender, RadioGroup.CheckedChangeEventArgs e)
+        private void initSubmitButtons()
         {
-            if(e.CheckedId!=-1)
+            for (int index = 1; index <= countOfSubmitButtons; index++)
             {
-                RadioButton radioButton = FindViewById<RadioButton>(e.CheckedId);
-                if(radioButton.Checked)
-                    presenter.OnSelectVariant(radioButton.Text);
+                Button submit = getSubmitButtonByName("buttonSubmitTest" + index.ToString());
+                submit.Click += Submit_Click;
+                submit.Visibility = ViewStates.Invisible;
             }
+        }
+
+        private void Submit_Click(object sender, EventArgs e)
+        {
+            PressSubmit(((Button)sender).Text);
+        }
+
+        private Button getSubmitButtonByName(string buttonResourceName)
+        {
+            int res = (int)typeof(Resource.Id).GetField(buttonResourceName).GetValue(null);
+            return FindViewById<Button>(res);
         }
 
         public void SetVariants(List<string> variants)
         {
-            hideAllResultControls();
-            RadioGroup radioGroup = FindViewById<RadioGroup>(Resource.Id.radioGroup1);
-            radioGroup.ClearCheck();
-            radioGroup.RemoveAllViews();
-            int buttonIndex = 0;
-            foreach(var variantText in variants)
+            int buttonIndex = 1;
+            foreach (var variantText in variants)
             {
-                RadioButton button = new RadioButton(this);
-                button.Text = variantText;
-                button.Id = buttonIndex;
-                radioGroup.AddView(button);
+                Button submit = getSubmitButtonByName("buttonSubmitTest" + buttonIndex.ToString());
+                submit.Text = variantText;
+                submit.Visibility = ViewStates.Visible;
                 buttonIndex++;
             }
-        }
-
-        private void hideAllResultControls()
-        {
-            var checkResultText = FindViewById<TextView>(Resource.Id.checkResultText);
-            checkResultText.Visibility = ViewStates.Invisible;
-            var buttonSubmitTest = FindViewById<TextView>(Resource.Id.buttonSubmitTest);
-            buttonSubmitTest.Visibility = ViewStates.Invisible;
         }
 
         public void SetOriginalWord(string originalWord)
@@ -81,17 +75,14 @@ namespace TranslateHelper.Droid
             textOriginalWord.Text = originalWord;
         }
 
-        public void SetCheckResult(bool success)
+        public void SetCheckError()
         {
-            var checkResultText = FindViewById<TextView>(Resource.Id.checkResultText);
-            checkResultText.Visibility = success ? ViewStates.Invisible : ViewStates.Visible;
-            var buttonSubmitTest = FindViewById<TextView>(Resource.Id.buttonSubmitTest);
-            buttonSubmitTest.Visibility = !success ? ViewStates.Invisible : ViewStates.Visible;
+            Toast.MakeText(this, Resource.String.msg_error_try_again, ToastLength.Short).Show();
         }
 
-        public void PressSubmit()
+        public void PressSubmit(string answerText)
         {
-            presenter.OnSubmit();
+            presenter.OnSelectVariant(answerText);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

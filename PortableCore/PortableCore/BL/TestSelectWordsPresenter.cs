@@ -11,39 +11,45 @@ namespace PortableCore.BL
         int maxCountOfWords;
         int countOfWords;
         int positionWordInList;
-        int countOfVariantsWithoutCorrect = 4;//значение по-умолчанию для количества возможных вариантов без учета правильного варианта
+        int countOfVariantsWithoutCorrect = 7;//значение по-умолчанию для количества возможных вариантов без учета правильного варианта
         ITestSelectWordsView view;
         ISQLiteTesting db;
         ITestSelectWordsReader wordsReader;
         TranslateDirection direction;
-        List<Favorites> favoritesList;
+        List<FavoriteItem> favoritesList;
         string rightWord;
 
-        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, int maxCountOfWords)
+        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, TranslateDirection direction, int maxCountOfWords)
         {
             this.view = view;
             this.db = db;
             this.wordsReader = wordsReader;
             this.maxCountOfWords = maxCountOfWords;
-            this.direction = new TranslateDirection(db);
-            direction.SetDefaultDirection();
+            this.direction = direction;
         }
 
         public void OnSelectVariant(string selectedWord)
         {
             int diff = string.Compare(selectedWord, rightWord, StringComparison.CurrentCultureIgnoreCase);
-
-            view.SetCheckResult(diff == 0);                
+            bool checkResult = diff == 0;
+            if (!checkResult)
+            {
+                view.SetCheckError();
+            }
+            else
+            {
+                OnSubmit();
+            }
         }
 
-        public void OnSubmit()
+        private void OnSubmit()
         {
             if(positionWordInList < countOfWords)
             {
                 Tuple<string, string> nextPair = getNextPair();
                 rightWord = nextPair.Item2;
                 view.SetOriginalWord(nextPair.Item1);
-                var variantsArray = getIncorrectWord(countOfVariantsWithoutCorrect);
+                var variantsArray = getIncorrectWord(favoritesList[positionWordInList].SourceExprId, countOfVariantsWithoutCorrect);
                 addToVariantsCorrectWord(variantsArray, rightWord);
                 view.SetVariants(variantsArray);
                 positionWordInList++;
@@ -57,14 +63,18 @@ namespace PortableCore.BL
         private void addToVariantsCorrectWord(List<string> variantsArray, string rightWord)
         {
             int count = variantsArray.Count;
-            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            int indexOfRecord = rnd.Next(0, count - 1);
-            variantsArray.Insert(indexOfRecord, rightWord);
+            if (count > 0)
+            {
+                Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+                int indexOfRecord = rnd.Next(0, count - 1);
+                variantsArray.Insert(indexOfRecord, rightWord);
+            }
+            else throw new Exception("Error adding correct word");
         }
 
-        private List<string> getIncorrectWord(int countOfIncorrectWords)
+        private List<string> getIncorrectWord(int rightWordSourceExpr, int countOfIncorrectWords)
         {
-            return wordsReader.GetIncorrectVariants(rightWord, countOfIncorrectWords, direction);
+            return wordsReader.GetIncorrectVariants(rightWordSourceExpr, countOfIncorrectWords, direction);
         }
 
         public void StartTest()
@@ -77,7 +87,7 @@ namespace PortableCore.BL
         private Tuple<string, string> getNextPair()
         {
             var item = favoritesList[positionWordInList];
-            Tuple<string, string> nextPair = wordsReader.GetNextWord(item.TranslatedExpressionID);
+            Tuple<string, string> nextPair = wordsReader.GetNextWord(item.TranslatedExpressionId);
             return nextPair;
         }
     }
