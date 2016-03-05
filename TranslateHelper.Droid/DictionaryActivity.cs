@@ -134,13 +134,20 @@ namespace TranslateHelper.Droid
         {
             //ToDo:Сделать универсально, не только для Ru и En
             InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(InputMethodService);
-            string lang = inputManager.CurrentInputMethodSubtype.Locale.ToLower();
-            if(lang.Contains("ru"))
+            if(inputManager.CurrentInputMethodSubtype!=null)
             {
-                direction.SetDirection("ru-en");
-            } else
-            {
-                direction.SetDefaultDirection();
+                if(inputManager.CurrentInputMethodSubtype.Locale!=null)
+                {
+                    string lang = inputManager.CurrentInputMethodSubtype.Locale.ToLower();
+                    if (lang.Contains("ru"))
+                    {
+                        direction.SetDirection("ru-en");
+                    }
+                    else
+                    {
+                        direction.SetDefaultDirection();
+                    }
+                }
             }
         }
 
