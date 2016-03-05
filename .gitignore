@@ -38,3 +38,6 @@ Thumbs.db
 
 #dotCover
 *.dotCover
+
+#binary
+!/Droid.Binary.lib/HockeyApp.Android.dll

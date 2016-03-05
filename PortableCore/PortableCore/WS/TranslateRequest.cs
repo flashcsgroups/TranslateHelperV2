@@ -3,15 +3,18 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using PortableCore.BL.Contracts;
+using PortableCore.BL;
 
 namespace PortableCore.WS
 {
     public class TranslateRequest : IRequestTranslateString 
     {
         private TranslateRequestFactory translater;
+        private TranslateDirection direction;
 
-        public TranslateRequest(TypeTranslateServices typeSrv)
+        public TranslateRequest(TypeTranslateServices typeSrv, TranslateDirection direction)
         {
+            this.direction = direction;
             //ToDo:Отказаться от свитча. Пока непонятно как.
             switch (typeSrv)
             {
@@ -32,7 +35,7 @@ namespace PortableCore.WS
             }
         }
 
-        public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
+        public async Task<TranslateRequestResult> Translate(string sourceString)
         {
             TranslateRequestResult RequestResult = new TranslateRequestResult(sourceString);
 
@@ -40,7 +43,7 @@ namespace PortableCore.WS
             try
             {
                 translater.SetSourceString(sourceString);
-                responseText = await translater.GetResponse(direction);
+                responseText = await translater.GetResponse(direction.GetCurrentDirectionName());
             }
             catch(Exception e)
             {

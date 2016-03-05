@@ -6,6 +6,7 @@ using PortableCore.BL.Managers;
 using PortableCore.DL;
 using System;
 using PortableCore.DAL;
+using PortableCore.BL;
 
 namespace PortableCore.DAL
 {
@@ -15,17 +16,19 @@ namespace PortableCore.DAL
     public class CachedResultReader : IRequestTranslateString
     {
         private ISQLiteTesting db;
+        private TranslateDirection direction;
 
-        public CachedResultReader(ISQLiteTesting dbHelper)
+        public CachedResultReader(TranslateDirection direction, ISQLiteTesting dbHelper)
         {
+            this.direction = direction;
             db = dbHelper;
         }
 
-        public async Task<TranslateRequestResult> Translate(string sourceString, string direction)
+        public async Task<TranslateRequestResult> Translate(string sourceString)
         {
             TranslateRequestResult RequestResult = new TranslateRequestResult(sourceString);
             SourceExpressionManager sourceManager = new SourceExpressionManager(db);
-            List<SourceExpression> sourceList = sourceManager.GetSourceExpressionCollection(sourceString).ToList<SourceExpression>();
+            List<SourceExpression> sourceList = sourceManager.GetSourceExpressionCollection(sourceString, direction).ToList();
             if (sourceList.Count > 0)
             {
                 SourceDefinitionManager defManager = new SourceDefinitionManager(db);

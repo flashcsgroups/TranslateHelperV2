@@ -6,6 +6,7 @@ using PortableCore.BL.Managers;
 
 using System.Collections.Generic;
 using PortableCore.DAL;
+using PortableCore.BL;
 
 namespace PortableCore.DAL
 {
@@ -13,9 +14,11 @@ namespace PortableCore.DAL
     {
         private ISQLiteTesting db;
         private ISourceExpressionManager sourceExpressionManager;
+        private TranslateDirection direction;
 
-        public CachedResultWriter(ISQLiteTesting db, ISourceExpressionManager sourceExpressionManager)
+        public CachedResultWriter(TranslateDirection direction, ISQLiteTesting db, ISourceExpressionManager sourceExpressionManager)
         {
+            this.direction = direction;
             this.db = db;
             this.sourceExpressionManager = sourceExpressionManager;
         }
@@ -29,7 +32,7 @@ namespace PortableCore.DAL
                 int sourceItemID = 0;
                 string originalText = result.OriginalText;
                 TranslateResultView resultView = result.TranslatedData;
-                IEnumerable<SourceExpression> localCacheDataList = sourceExpressionManager.GetSourceExpressionCollection(originalText);
+                IEnumerable<SourceExpression> localCacheDataList = sourceExpressionManager.GetSourceExpressionCollection(originalText, direction);
                 if (localCacheDataList.Count() == 0)
                 {
                     sourceItemID = writeSourceExpression(originalText, ref localCacheDataList);
@@ -59,6 +62,7 @@ namespace PortableCore.DAL
                     translatedItem.TranslatedText = curVariant.Text;
                     translatedItem.SourceDefinitionID = sourceDefId;
                     translatedItem.DefinitionTypeID = (int)curVariant.Pos;
+                    translatedItem.DirectionID = direction.GetCurrentDirectionId();
                     reposTranslatedExpression.Save(translatedItem);
                     fillTranslateResultIdsForNewItem(translatedItem.SourceDefinitionID, translatedItem.DefinitionTypeID, curVariant);
                 }
@@ -92,9 +96,10 @@ namespace PortableCore.DAL
             Repository<SourceExpression> sourceExpr = new Repository<SourceExpression>();
             SourceExpression itemSource = new SourceExpression();
             itemSource.Text = originalText;
+            itemSource.DirectionID = direction.GetCurrentDirectionId();
             if (sourceExpr.Save(itemSource) == 1)
             {
-                localCacheDataList = sourceExpressionManager.GetSourceExpressionCollection(originalText);
+                localCacheDataList = sourceExpressionManager.GetSourceExpressionCollection(originalText, direction);
                 sourceItemID = localCacheDataList.ToList()[0].ID;
             }
             return sourceItemID;

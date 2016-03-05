@@ -13,7 +13,7 @@ namespace PortableCore.DAL
             }
         }
 
-        private static PortableCore.DL.SqlLiteHelper db = null;
+        private static SqlLiteHelper db = null;
 
         public SqlLiteInstance(SqlLiteHelper sqlInstanceHelper)
         {
@@ -37,6 +37,9 @@ namespace PortableCore.DAL
 
             TranslateProviderManager managerProvider = new TranslateProviderManager(db);
             managerProvider.InitDefaultData();
+
+            DirectionManager managerDirection = new DirectionManager(db);
+            managerDirection.InitDefaultData();
         }
 
     }

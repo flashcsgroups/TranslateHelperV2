@@ -16,13 +16,13 @@
         android:layout_weight="2"
         android:gravity="left|center">
         <TextView
-            android:gravity="left|center"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:text="АНГЛИЙСКИЙ &gt; РУССКИЙ"
             android:background="@color/transparent"
-            android:id="@+id/fromTextView" />
+            android:id="@+id/destinationTextView" />
     </LinearLayout>
     <LinearLayout
         android:layout_marginRight="0dp"
@@ -38,7 +38,7 @@
         <EditText
             android:layout_weight="1"
             android:id="@+id/textSourceString"
-            android:hint="Строка для перевода"
+            android:hint="@string/caption_enter_text_for_translate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minLines="1"

@@ -1,4 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">TranslateHelper.Droid</string>
+	<string name="app_name">Translate helper</string>
+  <string name="msg_string_deleted_from_fav">Item deleted from favorites</string>
+  <string name="msg_string_added_to_fav">Item added to favorites</string>
+  <string name="msg_unknown_expression">Unknown expression, check text for error</string>
+  <string name="msg_tests_repeatOrClose">Repeat?</string>
+  <string name="msg_warning">Warning</string>
+  <string name="msg_repeat">Repeat</string>
+  <string name="msg_ok">Ok</string>
+  <string name="msg_cancel">Cancel</string>
+  <string name="msg_final_test">You successful finalized test. Want you repeat with new set?</string>
+  <string name="msg_test_select_count_word">How many words you want to check?</string>
+  <string name="msg_error_try_again">Error, try again</string>
+  <string name="msg_testselectwords_select">Select right variant:</string>
+  <string name="caption_translate_destination">Translate destination</string>
+  <string name="caption_enter_text_for_translate">Text for translate</string>
+  <string name="caption_btn_translate_destination">Destination</string>
+  <string name="caption_btn_favorites">Favorites</string>
+  <string name="caption_btn_testing">Testing</string>
+  <string name="caption_btn_continue">Continue</string>
+  <string name="act_favorites_caption">Favorites</string>
+  <string name="act_selectcountwords_caption">Select count of words</string>
+  <string name="act_testselectwords_caption">Testing</string>
+  <string name="act_trytoaddfavorites">Not enough words in favories.Add more words and try again</string>
+  <string name="act_autochangedestination">Do you want to change translate destination?</string>
 </resources>

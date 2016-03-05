@@ -5,6 +5,6 @@ namespace PortableCore.BL.Contracts
 {
     public interface IRequestTranslateString
     {
-        Task<TranslateRequestResult> Translate(string sourceString, string direction);
+        Task<TranslateRequestResult> Translate(string sourceString);
     }
 }

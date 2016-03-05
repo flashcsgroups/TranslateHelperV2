@@ -31,18 +31,24 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BL\Contracts\DataManager.cs" />
+    <Compile Include="BL\Contracts\DataManagerDEL.cs" />
     <Compile Include="BL\Contracts\DefinitionTypesEnum.cs" />
     <Compile Include="BL\Contracts\IBusinessEntity.cs" />
-    <Compile Include="BL\Contracts\IDataManager.cs" />
+    <Compile Include="BL\Contracts\IInitDataTable.cs" />
     <Compile Include="BL\Contracts\IHasLabel.cs" />
     <Compile Include="BL\Contracts\IRequestDictionary.cs" />
     <Compile Include="BL\Contracts\IRequestTranslateString.cs" />
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
-    <None Include="BL\Contracts\IndexedCollectionOLD.cs" />
+    <Compile Include="BL\FavoriteItem.cs" />
+    <Compile Include="BL\ITestSelectWordsReader.cs" />
+    <Compile Include="BL\ITestSelectWordsView.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="BL\Managers\ISourceExpressionManager.cs" />
+    <Compile Include="BL\Managers\DirectionManager.cs" />
+    <Compile Include="BL\TestSelectWordsPresenter.cs" />
+    <Compile Include="BL\TestSelectWordsReader.cs" />
+    <Compile Include="BL\TranslateDirection.cs" />
     <Compile Include="DAL\CachedResultWriter.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
     <Compile Include="DL\DefinitionTypes.cs" />

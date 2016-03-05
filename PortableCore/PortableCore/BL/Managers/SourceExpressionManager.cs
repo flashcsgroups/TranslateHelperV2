@@ -7,7 +7,7 @@ using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
-	public class SourceExpressionManager : IDataManager<SourceExpression>, ISourceExpressionManager
+	public class SourceExpressionManager : IInitDataTable<SourceExpression>, ISourceExpressionManager
     {
         ISQLiteTesting db;
 
@@ -27,9 +27,9 @@ namespace PortableCore.BL.Managers
             return result;
         }
 
-        public IEnumerable<SourceExpression> GetSourceExpressionCollection(string sourceText)
+        public IEnumerable<SourceExpression> GetSourceExpressionCollection(string sourceText, TranslateDirection direction)
         {
-            return db.Table<SourceExpression>().ToList().Where(item => item.Text == sourceText);
+            return db.Table<SourceExpression>().ToList().Where(item => item.Text == sourceText && item.DirectionID == direction.GetCurrentDirectionId());
         }
 
     }

@@ -7,7 +7,7 @@ using PortableCore.DAL;
 
 namespace PortableCore.BL.Managers
 {
-	public class SourceDefinitionManager : IDataManager<SourceDefinition>
+	public class SourceDefinitionManager : IInitDataTable<SourceDefinition>
     {
         ISQLiteTesting db;
 

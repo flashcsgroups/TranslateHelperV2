@@ -13,47 +13,7 @@ namespace PortableCore.DL
 
         public SqlLiteHelper (string PathToDBfile) : base (PathToDBfile)
 		{
-            /*database = conn;
-            database.CreateTable<Language>();
-            CreateTable<TranslateProvider> ();
-            CreateTable<Direction>();
-            CreateTable<TranslateProvider> ();
-			CreateTable<Favorites> ();
-			CreateTable<SourceExpression> ();
-            CreateTable<TranslatedExpression>();
-            CreateTable<DefinitionTypes>();
-            
-
-            DefinitionTypesManager managerTypes = new DefinitionTypesManager();
-            managerTypes.InitDefaultData ();
-
-            TranslateProviderManager managerProvider = new TranslateProviderManager ();
-            managerProvider.InitDefaultData ();
-            */
         }
-
-        /*public static void InitConnection(SQLiteConnection conn)
-        {
-            database = conn;
-        }*/
-
-        /*public void InitTables()
-        {
-            CreateTable<Language>();
-            CreateTable<TranslateProvider>();
-            CreateTable<Direction>();
-            CreateTable<TranslateProvider>();
-            CreateTable<Favorites>();
-            CreateTable<SourceExpression>();
-            CreateTable<TranslatedExpression>();
-            CreateTable<DefinitionTypes>();
-
-            DefinitionTypesManager managerTypes = new DefinitionTypesManager();
-            managerTypes.InitDefaultData();
-
-            TranslateProviderManager managerProvider = new TranslateProviderManager();
-            managerProvider.InitDefaultData();
-        }*/
 
         public IEnumerable<T> GetItems<T>() where T : BL.Contracts.IBusinessEntity, new()
         {
@@ -68,10 +28,6 @@ namespace PortableCore.DL
             lock (locker)
             {
                 return Table<T>().FirstOrDefault(x => x.ID == id);
-                // Following throws NotSupportedException - thanks aliegeni
-                //return (from i in Table<T> ()
-                //        where i.ID == id
-                //        select i).FirstOrDefault ();
             }
         }
 
@@ -102,7 +58,15 @@ namespace PortableCore.DL
         {
             lock (locker)
             {
-                return Delete<T>(new T() { ID = id });
+                return Delete<T>(id);
+            }
+        }
+
+        public int Count<T>() where T : BL.Contracts.IBusinessEntity, new()
+        {
+            lock (locker)
+            {
+                return Table<T>().Count();
             }
         }
 

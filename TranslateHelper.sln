@@ -7,8 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslateHelper.Droid", "Tr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33B8C3AF-482F-4821-94F9-A9F100CAA312}"
 	ProjectSection(SolutionItems) = preProject
-		Errors.txt = Errors.txt
 		links.txt = links.txt
+		tasks.txt = tasks.txt
 		TranslateHelper.pdf = TranslateHelper.pdf
 	EndProjectSection
 EndProject

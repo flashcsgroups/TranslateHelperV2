@@ -9,11 +9,11 @@
           android:showAsAction="withText" />
   </group-->
   <item android:id="@+id/menu_dest_selector"
-        android:icon="@drawable/v2addtofavorites"
-        android:title="RU > EN"
+        android:icon="@drawable/v5change"
+        android:title="@string/caption_btn_translate_destination"
         android:showAsAction="ifRoom|withText" />
   <item android:id="@+id/menu_favorites"
-        android:icon="@drawable/v2addtofavorites"
-        android:title="Избранное"
+        android:icon="@drawable/v1favorites"
+        android:title="@string/caption_btn_favorites"
         android:showAsAction="ifRoom|withText" />
 </menu>

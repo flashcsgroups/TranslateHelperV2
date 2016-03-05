@@ -1,0 +1,17 @@
+24.01.2016
+- ќтображение звездочек только после перечтени€ fixed
+- Ќе учитываетс€ регистр при записи в кеш
+- Ќе добавл€етс€ в избранное предложение (translater) fixed
+- ¬ избранное можно добавить дважды fixed
+
+21.02.2016
+- ƒл€ создани€ splashscreen нужно включать библиотеку дл€ поддержки материального дизайна
+https://blog.xamarin.com/android-tips-hello-material-design-v7-appcompat/
+https://blog.xamarin.com/android-tips-hello-appcompatactivity-goodbye-actionbaractivity/
+примеры здесь:
+https://github.com/xamarin/monodroid-samples/tree/master/SplashScreen
+http://developer.alexanderklimov.ru/android/theory/appcompat.php
+- mvvmcross
+
+22.02.2016
+- в тестирование добавить разделение по направлени€м перевода чтобы не было каши fixed

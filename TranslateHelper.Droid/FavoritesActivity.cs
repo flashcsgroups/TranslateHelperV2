@@ -15,32 +15,37 @@ using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DAL;
 using PortableCore.DL;
+using PortableCore.BL;
 
 namespace TranslateHelper.Droid
 {
-	[Activity (Label = "Избранное", Theme = "@style/MyTheme")]
+	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
 	public class FavoritesActivity : Activity
 	{
-		protected override void OnCreate (Bundle bundle)
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        IndexedCollection<FavoritesItem> translateResultIdxCollection;
+        protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 			ActionBar.SetHomeButtonEnabled (true);
 			SetContentView (Resource.Layout.Favorites);
 
-			var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
+            direction.SetDirection(Intent.GetStringExtra("directionName"));
+
+            var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
 
 			listView.FastScrollEnabled = true;
 
-			var translateResultIdxCollection = getItemsForFavoritesList ();
+			translateResultIdxCollection = getItemsForFavoritesList ();
 
 			var sortedContacts = translateResultIdxCollection.GetSortedData ();
-			listView.Adapter = CreateAdapter (sortedContacts);
-
-
+            var adapter = CreateAdapter(sortedContacts);
+            listView.Adapter = adapter;
+            listView.ItemClick += adapter.ListItemClick;
 		}
 
-		private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
+        private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
 		{
 			//ToDo:Полный отстой. Во-первых, SQLite не поддерживает join - придется переписывать на обычный запрос, во вторых - запросы в цикле, в-третьих - выбирается вся таблица избранного, а не порция
 			IndexedCollection<FavoritesItem> result = new IndexedCollection<FavoritesItem> ();
@@ -51,18 +56,26 @@ namespace TranslateHelper.Droid
 			SourceExpressionManager sourceExprManager = new SourceExpressionManager (SqlLiteInstance.DB);
 			SourceDefinitionManager sourceDefManager = new SourceDefinitionManager (SqlLiteInstance.DB);
 
-			foreach (var item in view) {
-				var sourceDefItem = sourceDefManager.GetItemForId (item.Item1.SourceDefinitionID);
-				var sourceExprItem = sourceExprManager.GetItemForId (sourceDefItem.SourceExpressionID);
-				result.Add (new FavoritesItem () {
-					OriginalText = sourceExprItem.Text,
-					TranslatedText = item.Item1.TranslatedText,
-					TranslatedExpressionId = item.Item1.ID,
-					DefinitionType = (DefinitionTypesEnum)item.Item1.DefinitionTypeID,
-					OriginalTranscription = sourceDefItem.TranscriptionText,
-					FavoritesId = item.Item2.ID
-				});
-			}
+			foreach (var item in view)
+            {
+                if((item.Item1!=null)&(item.Item2!=null))
+                {
+                    var sourceDefItem = sourceDefManager.GetItemForId(item.Item1.SourceDefinitionID);
+                    var sourceExprItem = sourceExprManager.GetItemForId(sourceDefItem.SourceExpressionID);
+                    if ((sourceDefItem != null) && (sourceExprItem != null))
+                    {
+                        result.Add(new FavoritesItem()
+                        {
+                            OriginalText = sourceExprItem.Text,
+                            TranslatedText = item.Item1.TranslatedText,
+                            TranslatedExpressionId = item.Item1.ID,
+                            DefinitionType = (DefinitionTypesEnum)item.Item1.DefinitionTypeID,
+                            OriginalTranscription = sourceDefItem.TranscriptionText,
+                            FavoritesId = item.Item2.ID
+                        });
+                    }
+                }
+            }
 			return result;
 		}
 
@@ -71,7 +84,7 @@ namespace TranslateHelper.Droid
 			var adapter = new FavoritesAdapter (this);
 			foreach (var e in sortedObjects.OrderBy(de => de.Key)) {
 				var section = e.Value;
-				var label = e.Key.Trim ().Length > 0 ? e.Key.ToUpper () : "Ошибки" + " (" + section.Count.ToString () + ")";
+				var label = e.Key.Trim ().Length > 0 ? e.Key.ToUpper () : "Error:" + " (" + section.Count.ToString () + ")";
 				adapter.AddSection (label, new ArrayAdapter<T> (this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
 			}
 			return adapter;
@@ -79,30 +92,28 @@ namespace TranslateHelper.Droid
 
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
-			//MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
-
-			/*IMenuItem menuItem = menu.FindItem(Resource.Id.menu_delete_task);
-            menuItem.SetTitle(task.ID == 0 ? "Cancel" : "Delete");
-            */
-			return true;
+            MenuInflater.Inflate(Resource.Menu.menu_FavoritesScreen, menu);
+            return true;
 		}
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{
-			switch (item.ItemId) {
-			/*case Resource.Id.menu_save_task:
-                    Save();
+			switch (item.ItemId)
+            {
+                case Resource.Id.selectTestLevel:
+                    var intent = new Intent(this, typeof(SelectTestLevelActivity));
+                    intent.PutExtra("directionName", direction.GetCurrentDirectionName());
+                    StartActivity(intent);
+                    //StartActivity(typeof(SelectTestLevelActivity));
                     return true;
-
-                case Resource.Id.menu_delete_task:
-                    CancelDelete();
+                case global::Android.Resource.Id.Home:
+                    StartActivity(typeof(DictionaryActivity));
                     return true;
-                    */
-			default:
-				Finish ();
-				return base.OnOptionsItemSelected (item);
+                default:
+                    break;
 			}
-		}
-	}
+            return base.OnOptionsItemSelected(item);
+        }
+    }
 }
 

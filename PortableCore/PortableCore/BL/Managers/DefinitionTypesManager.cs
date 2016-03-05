@@ -6,7 +6,7 @@ using PortableCore.DL;
 
 namespace PortableCore.BL.Managers
 {
-	public class DefinitionTypesManager : IDataManager<DefinitionTypes>
+	public class DefinitionTypesManager : IInitDataTable<DefinitionTypes>
 	{
 		ISQLiteTesting db;
 
@@ -54,6 +54,8 @@ namespace PortableCore.BL.Managers
 				new DefinitionTypes (){ Name = "translater", ID = (int)GetEnumDefinitionTypeFromName ("translater") },
                 new DefinitionTypes (){ Name = "preposition", ID = (int)GetEnumDefinitionTypeFromName ("preposition") },
                 new DefinitionTypes (){ Name = "conjunction", ID = (int)GetEnumDefinitionTypeFromName ("conjunction") },
+                new DefinitionTypes (){ Name = "interjection", ID = (int)GetEnumDefinitionTypeFromName ("interjection") },
+                new DefinitionTypes (){ Name = "parenthetic", ID = (int)GetEnumDefinitionTypeFromName ("parenthetic") },                
             };
 			return defTypesList;
 		}
@@ -140,7 +142,19 @@ namespace PortableCore.BL.Managers
 				}
 				;
 				break;
-			case DefinitionTypesEnum.unknown:
+            case DefinitionTypesEnum.interjection:
+                {
+                    result = "междометие";
+                }
+                ;
+                break;
+            case DefinitionTypesEnum.parenthetic:
+                {
+                    result = "вводное слово";
+                }
+                ;
+                    break;
+                case DefinitionTypesEnum.unknown:
 			default:
 				{
 					result = "неизвестная часть речи";
@@ -242,7 +256,21 @@ namespace PortableCore.BL.Managers
 				}
 				;
 				break;
-			default:
+            case "междометие":
+            case "interjection":
+                {
+                    result = DefinitionTypesEnum.interjection;
+                }
+            ;
+                break;
+                case "вводное слово":                    
+                case "parenthetic":
+                    {
+                        result = DefinitionTypesEnum.parenthetic;
+                    }
+            ;
+                    break;
+                default:
 				{
 				}
 				;
