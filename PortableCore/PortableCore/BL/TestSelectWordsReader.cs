@@ -18,17 +18,17 @@ namespace PortableCore.BL
         {
             var srcDefView = from item in db.Table<SourceExpression>()
                              join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
-                             from subSources in sources.DefaultIfEmpty()
+                             from subSources in sources.DefaultIfEmpty(new SourceDefinition())
                              where item.DirectionID == direction.GetCurrentDirectionId()
                              select subSources.ID;
             var view = from item in db.Table<Favorites>()
                        join trExprItem in db.Table<TranslatedExpression>() on item.TranslatedExpressionID equals trExprItem.ID into expressions
-                       from subExpressions in expressions.DefaultIfEmpty()
+                       from subExpressions in expressions.DefaultIfEmpty(new TranslatedExpression())
                        where srcDefView.Contains(subExpressions.SourceDefinitionID)
                        select new FavoriteItem() {FavoriteId = item.ID, TranslatedExpressionId = item.TranslatedExpressionID, SourceDefinitionId = subExpressions.SourceDefinitionID };
             var favDistinctView = from item in view
                                   join sourceDefItem in db.Table<SourceDefinition>() on item.SourceDefinitionId equals sourceDefItem.ID into sources
-                                  from subSources in sources.DefaultIfEmpty()
+                                  from subSources in sources.DefaultIfEmpty(new SourceDefinition())
                                   select new FavoriteItem() { FavoriteId = item.FavoriteId, TranslatedExpressionId = item.TranslatedExpressionId, SourceDefinitionId = item.SourceDefinitionId, SourceExprId = subSources.SourceExpressionID  };
             var favElements = favDistinctView.Distinct();
 
@@ -56,10 +56,10 @@ namespace PortableCore.BL
             return view.Take(countOfIncorrectWords).ToList<string>();
         }
 
-        public int GetCountDifferenceSources()
+        public int GetCountDifferenceSources(TranslateDirection direction)
         {
             return (from item in db.Table<SourceExpression>()
-                   where item.DeleteMark == 0
+                   where item.DeleteMark == 0 && item.DirectionID == direction.GetCurrentDirectionId()
                    select item.ID).Count();
             
         }

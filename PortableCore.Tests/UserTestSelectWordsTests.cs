@@ -190,7 +190,7 @@ namespace PortableCore.Tests
 
         class MockTestSelectWordsReader : ITestSelectWordsReader
         {
-            public int GetCountDifferenceSources()
+            public int GetCountDifferenceSources(TranslateDirection direction)
             {
                 return 10;
             }

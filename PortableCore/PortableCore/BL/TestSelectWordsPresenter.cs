@@ -69,7 +69,7 @@ namespace PortableCore.BL
                 int indexOfRecord = rnd.Next(0, count - 1);
                 variantsArray.Insert(indexOfRecord, rightWord);
             }
-            else throw new Exception("Error adding correct word");
+            //else throw new Exception("Error adding correct word");
         }
 
         private List<string> getIncorrectWord(int rightWordSourceExpr, int countOfIncorrectWords)

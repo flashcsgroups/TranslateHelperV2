@@ -29,7 +29,7 @@ namespace TranslateHelper.Droid
             direction.SetDirection(Intent.GetStringExtra("directionName"));
 
             var testWordsReader = new TestSelectWordsReader(SqlLiteInstance.DB);
-            countOfAvailableWords = testWordsReader.GetCountDifferenceSources();
+            countOfAvailableWords = testWordsReader.GetCountDifferenceSources(direction);
             if (countOfAvailableWords >= 10)
                 initLevelButtons();
             else

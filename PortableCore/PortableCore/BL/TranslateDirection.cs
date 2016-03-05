@@ -53,6 +53,7 @@ namespace PortableCore.BL
 
         public void Invert()
         {
+            //ToDo:Сделать универсально для разных языков
             switch (GetCurrentDirectionName())
             {
                 case "en-ru":

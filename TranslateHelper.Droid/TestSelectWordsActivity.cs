@@ -21,7 +21,6 @@ namespace TranslateHelper.Droid
         TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
         int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
-        List<Favorites> favoritesList = new List<Favorites>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,11 +28,33 @@ namespace TranslateHelper.Droid
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            initTest();
+            initSubmitButtons();
+            presenter.StartTest();
+        }
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            outState.PutString("direction", direction.GetCurrentDirectionName());
+            base.OnSaveInstanceState(outState);
+        }
+
+        protected override void OnRestoreInstanceState(Bundle savedState)
+        {
+            base.OnRestoreInstanceState(savedState);
+            direction.SetDirection(savedState.GetString("direction"));
+            initTest();
+        }
+
+        private void initTest()
+        {
             direction.SetDirection(Intent.GetStringExtra("directionName"));
             int countOfWords = Intent.GetIntExtra("countOfWords", 10);
-            initSubmitButtons();
             presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), direction, countOfWords);
-            presenter.StartTest();
         }
 
         private void initSubmitButtons()
@@ -109,7 +130,11 @@ namespace TranslateHelper.Droid
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle(Resource.String.msg_tests_repeatOrClose);
             alert.SetMessage(Resource.String.msg_final_test);
-            alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => { presenter.StartTest(); });
+            alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => {
+                initTest();
+                initSubmitButtons();
+                presenter.StartTest();
+            });
             alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => {
                 StartActivity(typeof(DictionaryActivity));
             });

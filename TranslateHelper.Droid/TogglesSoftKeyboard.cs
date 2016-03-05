@@ -21,7 +21,8 @@ namespace TranslateHelper.Droid
             {
                 InputMethodManager inputManager = (InputMethodManager)activity.GetSystemService(Context.InputMethodService);
                 var currentFocus = activity.CurrentFocus;
-                inputManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
+                if(currentFocus!=null)
+                    inputManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
             }
         }
 
@@ -31,7 +32,8 @@ namespace TranslateHelper.Droid
             {
                 InputMethodManager inputManager = (InputMethodManager)activity.GetSystemService(Context.InputMethodService);
                 var currentFocus = activity.CurrentFocus;
-                inputManager.ShowSoftInput(currentFocus, ShowFlags.Implicit);  
+                if(currentFocus!=null)
+                    inputManager.ShowSoftInput(currentFocus, ShowFlags.Implicit);  
             }
         }
     }

@@ -138,7 +138,11 @@ namespace TranslateHelper.Droid
             {
                 originalTextView.SetText(item.Definition.OriginalText, TextView.BufferType.Normal);
                 var transcriptionTextView = viewHeader.FindViewById<TextView>(Resource.Id.OriginalTextTranscriptionTextView);
-                transcriptionTextView.SetText(string.Format("[{0}]", item.Definition.Transcription), TextView.BufferType.Normal);
+                if(string.IsNullOrEmpty(item.Definition.Transcription))
+                    transcriptionTextView.SetText(string.Empty, TextView.BufferType.Normal);
+                else
+                    transcriptionTextView.SetText(string.Format("[{0}]", item.Definition.Transcription), TextView.BufferType.Normal);
+
                 var posTextView = viewHeader.FindViewById<TextView>(Resource.Id.PosTextView);
                 posTextView.SetText(DefinitionTypesManager.GetRusNameForEnum(item.Definition.Pos), TextView.BufferType.Normal);
             }

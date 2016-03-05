@@ -13,6 +13,8 @@ using PortableCore.DAL;
 using Android.Runtime;
 using PortableCore.BL;
 using Android.Content;
+using Java.Util;
+using Android.Views.InputMethods;
 
 namespace TranslateHelper.Droid
 {
@@ -88,9 +90,16 @@ namespace TranslateHelper.Droid
             string convertedText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
             if(!string.IsNullOrEmpty(convertedText))
             {
+                setCurrentDirectionFromSoftKeyboard();
+                updateDestinationCaption();
                 TranslateRequestRunner reqRunner = getRequestRunner(direction);
                 TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, direction);
                 if (string.IsNullOrEmpty(reqResult.errorDescription)&&(reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
+                }
+
+                /*if (string.IsNullOrEmpty(reqResult.errorDescription)&&(reqResult.TranslatedData.Definitions.Count == 0))
                 {
                     var changedDirection = new TranslateDirection(SqlLiteInstance.DB);
                     changedDirection.SetDirection(direction.GetCurrentDirectionName());
@@ -104,7 +113,7 @@ namespace TranslateHelper.Droid
                     {
                         reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
                     }
-                }
+                }*/
                 /*if (reqResult.TranslatedData.Definitions.Count == 0)
                 {
                     reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
@@ -118,6 +127,20 @@ namespace TranslateHelper.Droid
                 {
                     Toast.MakeText(this, reqResult.errorDescription, ToastLength.Long).Show();
                 }
+            }
+        }
+
+        private void setCurrentDirectionFromSoftKeyboard()
+        {
+            //ToDo:Сделать универсально, не только для Ru и En
+            InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(InputMethodService);
+            string lang = inputManager.CurrentInputMethodSubtype.Locale.ToLower();
+            if(lang.Contains("ru"))
+            {
+                direction.SetDirection("ru-en");
+            } else
+            {
+                direction.SetDefaultDirection();
             }
         }
 
@@ -192,17 +215,6 @@ namespace TranslateHelper.Droid
 
         private void swapDestination()
         {
-            /*switch (direction.GetCurrentDirectionName())
-            {
-                case "en-ru":
-                    {
-                        direction.SetDirection("ru-en");
-                    }; break;
-                case "ru-en":
-                    {
-                        direction.SetDirection("en-ru");
-                    }; break;
-            }*/
             direction.Invert();
             updateDestinationCaption();
         }
@@ -213,7 +225,7 @@ namespace TranslateHelper.Droid
             destinationTextView.Text = direction.GetCurrentDirectionNameFull();
         }
 
-        private void ShowChangeDestinationDialog()
+        /*private void ShowChangeDestinationDialog()
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle(Resource.String.msg_warning);
@@ -222,7 +234,7 @@ namespace TranslateHelper.Droid
             alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => { });
             Dialog dialog = alert.Create();
             dialog.Show();
-        }
+        }*/
 
         void menuItemClicked(string item)
         {

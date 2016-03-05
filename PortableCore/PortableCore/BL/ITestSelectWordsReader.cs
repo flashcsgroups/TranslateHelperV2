@@ -8,7 +8,7 @@ namespace PortableCore.BL
     {
         List<string> GetIncorrectVariants(int excludeCorrectSourceId, int countOfIncorrectWords, TranslateDirection direction);
         List<FavoriteItem> GetRandomFavorites(int countOfWords, TranslateDirection direction);
-        int GetCountDifferenceSources();
+        int GetCountDifferenceSources(TranslateDirection direction);
         Tuple<string, string> GetNextWord(int translatedExpressionID);
     }
 }
