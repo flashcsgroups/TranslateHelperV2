@@ -166,118 +166,120 @@ namespace PortableCore.BL.Managers
 			return result;
 		}
 
-		public static DefinitionTypesEnum GetEnumDefinitionTypeFromName (string name)
-		{
-			DefinitionTypesEnum result = DefinitionTypesEnum.unknown;
-            
-            switch (name.ToLower ()) {
-			case "союз":
-			case "соединение":
-			case "conjunction":
-				{
-					result = DefinitionTypesEnum.conjunction;
-				}
-				;
-				break;
-			case "существительное":
-			case "noun":
-				{
-					result = DefinitionTypesEnum.noun;
-				}
-				;
-				break;
-			case "предлог":
-			case "preposition":
-				{
-					result = DefinitionTypesEnum.preposition;
-				}
-				;
-				break;
-			case "глагол":
-			case "verb":
-				{
-					result = DefinitionTypesEnum.verb;
-				}
-				;
-				break;                    
-			case "прилагательное":
-			case "adjective":
-				{
-					result = DefinitionTypesEnum.adjective;
-				}
-				;
-				break;
-			case "наречие":
-			case "adverb":
-				{
-					result = DefinitionTypesEnum.adverb;
-				}
-				;
-				break;
-			case "причастие":
-			case "participle":
-				{
-					result = DefinitionTypesEnum.participle;
-				}
-				;
-				break;
-			case "предикат":
-			case "predicative":
-				{
-					result = DefinitionTypesEnum.predicative;
-				}
-				;
-				break;
-			case "частица":
-			case "particle":
-				{
-					result = DefinitionTypesEnum.particle;
-				}
-				;
-				break;
-			case "числительное":
-			case "numeral":
-				{
-					result = DefinitionTypesEnum.numeral;
-				}
-				;
-				break;
-			case "местоимение":
-			case "pronoun":
-				{
-					result = DefinitionTypesEnum.pronoun;
-				}
-				;
-				break;
-			case "перевод предложения":
-			case "translater":
-				{
-					result = DefinitionTypesEnum.translater;
-				}
-				;
-				break;
-            case "междометие":
-            case "interjection":
-                {
-                    result = DefinitionTypesEnum.interjection;
-                }
-            ;
-                break;
-                case "вводное слово":                    
+        public static DefinitionTypesEnum GetEnumDefinitionTypeFromName(string name)
+        {
+            DefinitionTypesEnum result = DefinitionTypesEnum.unknown;
+
+            switch (name.ToLower())
+            {
+                case "союз":
+                case "соединение":
+                case "conjunction":
+                    {
+                        result = DefinitionTypesEnum.conjunction;
+                    }
+                    ;
+                    break;
+                case "существительное":
+                case "noun":
+                    {
+                        result = DefinitionTypesEnum.noun;
+                    }
+                    ;
+                    break;
+                case "предлог":
+                case "preposition":
+                    {
+                        result = DefinitionTypesEnum.preposition;
+                    }
+                    ;
+                    break;
+                case "глагол":
+                case "verb":
+                    {
+                        result = DefinitionTypesEnum.verb;
+                    }
+                    ;
+                    break;
+                case "прилагательное":
+                case "adjective":
+                    {
+                        result = DefinitionTypesEnum.adjective;
+                    }
+                    ;
+                    break;
+                case "наречие":
+                case "adverb":
+                    {
+                        result = DefinitionTypesEnum.adverb;
+                    }
+                    ;
+                    break;
+                case "причастие":
+                case "participle":
+                    {
+                        result = DefinitionTypesEnum.participle;
+                    }
+                    ;
+                    break;
+                case "предикат":
+                case "предикатив":
+                case "predicative":
+                    {
+                        result = DefinitionTypesEnum.predicative;
+                    }
+                    ;
+                    break;
+                case "частица":
+                case "particle":
+                    {
+                        result = DefinitionTypesEnum.particle;
+                    }
+                    ;
+                    break;
+                case "числительное":
+                case "numeral":
+                    {
+                        result = DefinitionTypesEnum.numeral;
+                    }
+                    ;
+                    break;
+                case "местоимение":
+                case "pronoun":
+                    {
+                        result = DefinitionTypesEnum.pronoun;
+                    }
+                    ;
+                    break;
+                case "перевод предложения":
+                case "translater":
+                    {
+                        result = DefinitionTypesEnum.translater;
+                    }
+                    ;
+                    break;
+                case "междометие":
+                case "interjection":
+                    {
+                        result = DefinitionTypesEnum.interjection;
+                    }
+                ;
+                    break;
+                case "вводное слово":
                 case "parenthetic":
                     {
                         result = DefinitionTypesEnum.parenthetic;
                     }
-            ;
+                ;
                     break;
                 default:
-				{
-				}
-				;
-				break;
-			}
-			return result;
-		}
-	}
+                    {
+                    }
+                    ;
+                    break;
+            }
+            return result;
+        }
+    }
 }
 

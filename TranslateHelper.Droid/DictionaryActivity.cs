@@ -15,6 +15,7 @@ using PortableCore.BL;
 using Android.Content;
 using Java.Util;
 using Android.Views.InputMethods;
+using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid
 {
@@ -22,7 +23,10 @@ namespace TranslateHelper.Droid
     public class DictionaryActivity : Activity
 	{
         public const string HOCKEYAPP_APPID = "e9137253ae304b09ae2ffbb2016f8eda";
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
+        delegate Task goTranslateRequest(string originalText);
+        goTranslateRequest RequestReference;
+        string preparedTextForRequest = string.Empty;
 
         protected override async void OnCreate (Bundle bundle)
 		{
@@ -44,6 +48,7 @@ namespace TranslateHelper.Droid
             TaskScheduler.UnobservedTaskException +=
                 (sender, args) => HockeyApp.TraceWriter.WriteTrace(args.Exception);
 
+            RequestReference = new goTranslateRequest(translateRequest);
 
             base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
             SetContentView(Resource.Layout.Dictionary);
@@ -64,60 +69,60 @@ namespace TranslateHelper.Droid
                 }
             };
 
-            buttonTranslateTop.Click += async (object sender, EventArgs e) =>
+            buttonTranslateTop.Click += (object sender, EventArgs e) =>
             {
-                await translate(editSourceText.Text);
+                startRequestWithValidation(editSourceText.Text);
             };
 
-            buttonTranslateBottom.Click += async (object sender, EventArgs e) =>
+            buttonTranslateBottom.Click += (object sender, EventArgs e) =>
             {
-                await translate(editSourceText.Text);
+                startRequestWithValidation(editSourceText.Text);
             };
 
-            editSourceText.TextChanged += async (object sender, Android.Text.TextChangedEventArgs e) => {
+            editSourceText.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) => 
+            {
                 
                 if ((editSourceText.Text.Length > 0) && (iSSymbolForStartTranslate (editSourceText.Text.Last ())))
                 {
-                    await translate(editSourceText.Text);
+                    startRequestWithValidation(editSourceText.Text);
                 }
             };
 
 			clearTraslatedRegion ();
 		}
 
-        private async Task translate(string originalText)
+        private async void startRequestWithValidation(string originalText)
         {
-            string convertedText = ConvertStrings.StringToOneLowerLineWithTrim(originalText);
-            if(!string.IsNullOrEmpty(convertedText))
+            preparedTextForRequest = prepareTextForRequest(originalText);
+            if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
-                setCurrentDirectionFromSoftKeyboard();
-                updateDestinationCaption();
-                TranslateRequestRunner reqRunner = getRequestRunner(direction);
-                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(convertedText, direction);
-                if (string.IsNullOrEmpty(reqResult.errorDescription)&&(reqResult.TranslatedData.Definitions.Count == 0))
+                LocaleKeyboard locale = new LocaleKeyboard(this, InputMethodService);
+                string currentLocale = locale.GetCurrentKeyboardLocale();
+                if (!string.IsNullOrEmpty(currentLocale) && (!direction.IsFrom(currentLocale)))
                 {
-                    reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
+                    ShowChangeDestinationDialog();
+                }
+                else await RequestReference(preparedTextForRequest);
+
+            }
+        }
+
+        private string prepareTextForRequest(string originalText)
+        {
+            return ConvertStrings.StringToOneLowerLineWithTrim(originalText);
+        }
+
+        private async Task translateRequest(string originalText)
+        {
+            if (!string.IsNullOrEmpty(originalText))
+            {
+                TranslateRequestRunner reqRunner = getRequestRunner(direction);
+                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, direction);
+                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    reqResult = await reqRunner.GetTranslationResult(originalText, direction);
                 }
 
-                /*if (string.IsNullOrEmpty(reqResult.errorDescription)&&(reqResult.TranslatedData.Definitions.Count == 0))
-                {
-                    var changedDirection = new TranslateDirection(SqlLiteInstance.DB);
-                    changedDirection.SetDirection(direction.GetCurrentDirectionName());
-                    changedDirection.Invert();
-                    TranslateRequestRunner reqRunnerOtherDirection = getRequestRunner(changedDirection);
-                    reqResult = await reqRunnerOtherDirection.GetDictionaryResult(convertedText, changedDirection);
-                    if (reqResult.TranslatedData.Definitions.Count > 0)
-                    {
-                        ShowChangeDestinationDialog();
-                    } else
-                    {
-                        reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
-                    }
-                }*/
-                /*if (reqResult.TranslatedData.Definitions.Count == 0)
-                {
-                    reqResult = await reqRunner.GetTranslationResult(convertedText, direction);
-                }*/
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
                     updateListResults(reqResult);
@@ -126,27 +131,6 @@ namespace TranslateHelper.Droid
                 else
                 {
                     Toast.MakeText(this, reqResult.errorDescription, ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void setCurrentDirectionFromSoftKeyboard()
-        {
-            //ToDo:Сделать универсально, не только для Ru и En
-            InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(InputMethodService);
-            if(inputManager.CurrentInputMethodSubtype!=null)
-            {
-                if(inputManager.CurrentInputMethodSubtype.Locale!=null)
-                {
-                    string lang = inputManager.CurrentInputMethodSubtype.Locale.ToLower();
-                    if (lang.Contains("ru"))
-                    {
-                        direction.SetDirection("ru-en");
-                    }
-                    else
-                    {
-                        direction.SetDefaultDirection();
-                    }
                 }
             }
         }
@@ -232,16 +216,23 @@ namespace TranslateHelper.Droid
             destinationTextView.Text = direction.GetCurrentDirectionNameFull();
         }
 
-        /*private void ShowChangeDestinationDialog()
+        private void ShowChangeDestinationDialog()
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle(Resource.String.msg_warning);
             alert.SetMessage(Resource.String.act_autochangedestination);
-            alert.SetPositiveButton(Resource.String.msg_ok, (senderAlert, args) => { swapDestination(); });
-            alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => { });
+            alert.SetPositiveButton(Resource.String.msg_ok, (senderAlert, args) => 
+            {
+                swapDestination();
+                RequestReference(preparedTextForRequest);
+            });
+            alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => 
+            {
+                RequestReference(preparedTextForRequest);
+            });
             Dialog dialog = alert.Create();
             dialog.Show();
-        }*/
+        }
 
         void menuItemClicked(string item)
         {

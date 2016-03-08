@@ -52,6 +52,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ConvertStringTests.cs" />
+    <Compile Include="TranslateDirectionTests.cs" />
     <Compile Include="TranslateRequestRunnerTests.cs" />
     <Compile Include="TranslateResultFromDBCacheTests.cs" />
     <Compile Include="UserTestSelectWordsTests.cs" />

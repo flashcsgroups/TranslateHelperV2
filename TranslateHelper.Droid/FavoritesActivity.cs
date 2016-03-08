@@ -22,7 +22,7 @@ namespace TranslateHelper.Droid
 	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
 	public class FavoritesActivity : Activity
 	{
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
         IndexedCollection<FavoritesItem> translateResultIdxCollection;
         protected override void OnCreate (Bundle bundle)
 		{

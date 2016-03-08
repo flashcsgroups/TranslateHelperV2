@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PortableCore.DL;
 using PortableCore.BL;
 using System;
+using PortableCore.BL.Managers;
 
 namespace PortableCore.Tests
 {
@@ -156,7 +157,8 @@ namespace PortableCore.Tests
             MockSQLite dbHelper = new MockSQLite();
             testActivity = new MockTestSelectWordsActivity();
             MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
-            TranslateDirection direction = new TranslateDirection(dbHelper);
+            DirectionManager directionManager = new DirectionManager(dbHelper);
+            TranslateDirection direction = new TranslateDirection(dbHelper, directionManager);
             presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, direction, countOfWords);
         }
 
