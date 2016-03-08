@@ -43,6 +43,7 @@
     <Compile Include="BL\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\ITestSelectWordsView.cs" />
+    <Compile Include="BL\Managers\IDirectionManager.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="BL\Managers\ISourceExpressionManager.cs" />
     <Compile Include="BL\Managers\DirectionManager.cs" />

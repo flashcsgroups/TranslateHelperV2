@@ -15,6 +15,7 @@ using PortableCore.DAL;
 using PortableCore.WS;
 using PortableCore.BL.Contracts;
 using PortableCore.BL;
+using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid
 {
@@ -53,7 +54,7 @@ namespace TranslateHelper.Droid
         /// <returns></returns>
         private void callTestRequest()
         {
-            TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+            TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
             TranslateRequestRunner reqRunner = new TranslateRequestRunner(
                 SqlLiteInstance.DB,
                 new CachedResultReader(direction, SqlLiteInstance.DB),

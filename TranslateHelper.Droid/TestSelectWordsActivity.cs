@@ -12,13 +12,14 @@ using Android.Widget;
 using PortableCore.BL;
 using PortableCore.DL;
 using PortableCore.DAL;
+using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid
 {
     [Activity(Label = "@string/act_testselectwords_caption", Theme = "@style/MyTheme")]
     public class TestSelectWordsActivity : Activity, ITestSelectWordsView
     {
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
         int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
 

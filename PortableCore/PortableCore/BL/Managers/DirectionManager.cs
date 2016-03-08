@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace PortableCore.BL.Managers
 {
-    public class DirectionManager : IInitDataTable<Direction>
+    public class DirectionManager : IInitDataTable<Direction>, IDirectionManager
     {
         ISQLiteTesting db;
 
@@ -17,7 +17,7 @@ namespace PortableCore.BL.Managers
 		public void InitDefaultData ()
 		{
             Repository<Direction> repos = new Repository<Direction>();
-            Direction[] data = getDefaultData ();
+            Direction[] data = GetDefaultData ();
             if(repos.Count() != data.Length)
             {
                 repos.DeleteAllDataInTable();
@@ -44,7 +44,7 @@ namespace PortableCore.BL.Managers
             return result;
         }
 
-        private Direction[] getDefaultData()
+        public Direction[] GetDefaultData()
 		{
             //ToDo:ProviderId переделать на метод получения ID для дефолтного "Yandex"
             Direction[] directionList = new Direction[] {

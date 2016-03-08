@@ -11,13 +11,14 @@ using Android.Views;
 using Android.Widget;
 using PortableCore.DAL;
 using PortableCore.BL;
+using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid
 {
     [Activity(Label = "@string/act_selectcountwords_caption", Theme = "@style/MyTheme")]
     public class SelectTestLevelActivity : Activity
     {
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
         int countOfAvailableWords = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)

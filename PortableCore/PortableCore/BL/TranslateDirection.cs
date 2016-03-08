@@ -13,10 +13,14 @@ namespace PortableCore.BL
     {
         ISQLiteTesting db;
         Direction currentDirection;
+        IDirectionManager directionManager;
+        string currentDirectionFrom = string.Empty;
+        string currentDirectionTo = string.Empty;
 
-        public TranslateDirection(ISQLiteTesting dbHelper)
+        public TranslateDirection(ISQLiteTesting dbHelper, IDirectionManager directionManager)
         {
             db = dbHelper;
+            this.directionManager = directionManager;
         }
 
         public void SetDefaultDirection()
@@ -47,24 +51,40 @@ namespace PortableCore.BL
 
         public void SetDirection(string textDirection)
         {
-            DirectionManager dirManager = new DirectionManager(db);
-            currentDirection = dirManager.GetItemForName(textDirection);
+            currentDirection = directionManager.GetItemForName(textDirection);
+            var arr = textDirection.Split('-');
+            if (arr.Count() > 1)
+            {
+                currentDirectionFrom = arr[0];
+                currentDirectionTo = arr[1];
+            }
+            else throw new Exception("Error parsing direction!");
         }
 
         public void Invert()
         {
-            //ToDo:Сделать универсально для разных языков
-            switch (GetCurrentDirectionName())
-            {
-                case "en-ru":
-                    {
-                        SetDirection("ru-en");
-                    }; break;
-                case "ru-en":
-                    {
-                        SetDirection("en-ru");
-                    }; break;
-            }
+            string tmp = currentDirectionFrom;
+            currentDirectionFrom = currentDirectionTo;
+            currentDirectionTo = tmp;
+            SetDirection(currentDirectionFrom + "-" + currentDirectionTo);
+        }
+
+        /// <summary>
+        /// Истина если параметр локали соответствует языку-источнику в направлении перевода.
+        /// </summary>
+        /// <param name="comparedLocaleName"></param>
+        /// <returns></returns>
+        public bool IsFrom(string comparedLocaleName)
+        {
+            string defaultLatLocale = "zz";//локаль для типа Латиница
+            string localeName = string.Empty;
+            var arr = comparedLocaleName.Split('_');
+            if (arr.Count() > 0)
+                localeName = arr[0].ToLower();
+            else
+                localeName = comparedLocaleName.ToLower();
+            if (localeName == defaultLatLocale) localeName = "en";
+            return currentDirectionFrom == localeName;
         }
     }
 }
