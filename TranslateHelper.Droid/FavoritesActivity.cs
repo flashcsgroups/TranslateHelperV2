@@ -42,7 +42,7 @@ namespace TranslateHelper.Droid
 			var sortedContacts = translateResultIdxCollection.GetSortedData ();
             var adapter = CreateAdapter(sortedContacts);
             listView.Adapter = adapter;
-            listView.ItemClick += adapter.ListItemClick;
+            listView.ItemLongClick += adapter.ListItemLongClick;
 		}
 
         private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
@@ -104,10 +104,11 @@ namespace TranslateHelper.Droid
                     var intent = new Intent(this, typeof(SelectTestLevelActivity));
                     intent.PutExtra("directionName", direction.GetCurrentDirectionName());
                     StartActivity(intent);
-                    //StartActivity(typeof(SelectTestLevelActivity));
                     return true;
                 case global::Android.Resource.Id.Home:
-                    StartActivity(typeof(DictionaryActivity));
+                    var intentDictActivity = new Intent(this, typeof(DictionaryActivity));
+                    intentDictActivity.PutExtra("directionName", direction.GetCurrentDirectionName());
+                    StartActivity(intentDictActivity);
                     return true;
                 default:
                     break;

@@ -33,45 +33,53 @@
         android:id="@+id/tableLayoutAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center|center">
         <TableRow>
             <Button
                 android:text="testing"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest1" />
             <Button
                 android:text="expansion slot"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest2" />
         </TableRow>
         <TableRow>
             <Button
                 android:text="colocation world"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest3" />
             <Button
                 android:text="ok"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest4" />
         </TableRow>
         <TableRow>
             <Button
                 android:text="i love you"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest5" />
             <Button
                 android:text="it's a parking meter"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest6" />
         </TableRow>
         <TableRow>
             <Button
                 android:text="go"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest7" />
             <Button
                 android:text="independent"
                 style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest8" />
         </TableRow>
     </TableLayout>

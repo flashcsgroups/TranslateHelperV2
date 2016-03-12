@@ -45,7 +45,7 @@ namespace TranslateHelper.Droid
 			return null;
 		}
 
-        internal void ListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        internal void ListItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
             ListView lvVariants = (ListView)sender;
             var objItem = GetItem(e.Position);

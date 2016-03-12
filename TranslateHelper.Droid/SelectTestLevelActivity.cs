@@ -88,7 +88,7 @@ namespace TranslateHelper.Droid
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    StartActivity(typeof(FavoritesActivity));
+                    StartDictionaryActivity();
                     return true;
                 default:
                     break;
@@ -101,9 +101,16 @@ namespace TranslateHelper.Droid
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle(Resource.String.msg_warning);
             alert.SetMessage(Resource.String.act_trytoaddfavorites);
-            alert.SetPositiveButton("Ok", (senderAlert, args) => { StartActivity(typeof(DictionaryActivity)); });
+            alert.SetPositiveButton("Ok", (senderAlert, args) => { StartDictionaryActivity(); });
             Dialog dialog = alert.Create();
             dialog.Show();
+        }
+
+        private void StartDictionaryActivity()
+        {
+            var intent = new Intent(this, typeof(FavoritesActivity));
+            intent.PutExtra("directionName", direction.GetCurrentDirectionName());
+            StartActivity(intent);
         }
 
     }
