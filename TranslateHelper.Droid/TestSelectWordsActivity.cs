@@ -118,7 +118,9 @@ namespace TranslateHelper.Droid
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    StartActivity(typeof(SelectTestLevelActivity));
+                    var intent = new Intent(this, typeof(SelectTestLevelActivity));
+                    intent.PutExtra("directionName", direction.GetCurrentDirectionName());
+                    StartActivity(intent);
                     return true;
                 default:
                     break;

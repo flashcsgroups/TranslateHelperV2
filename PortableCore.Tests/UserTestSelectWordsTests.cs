@@ -150,7 +150,7 @@ namespace PortableCore.Tests
             Assert.IsTrue(testActivity.CountOfTestedWords == 10);
         }
 
-        private static void InitTestData(out int countOfVariants, out MockTestSelectWordsActivity testActivity, out TestSelectWordsPresenter presenter)
+        private void InitTestData(out int countOfVariants, out MockTestSelectWordsActivity testActivity, out TestSelectWordsPresenter presenter)
         {
             int countOfWords = 10;
             countOfVariants = 8;

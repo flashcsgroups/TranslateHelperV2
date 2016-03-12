@@ -139,9 +139,6 @@
     <AndroidResource Include="Resources\values\color.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\menu\menu_DictionaryScreen.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -249,5 +246,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\v4search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TestScreenButtonSelector.xml" />
   </ItemGroup>
 </Project>

@@ -132,7 +132,7 @@ namespace TranslateHelper.Droid
 			public const int FavoritesItemSelector = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Icon = 2130837506;
+			public const int icon = 2130837506;
 			
 			// aapt resource value: 0x7f020003
 			public const int monoandroidsplash = 2130837507;
@@ -141,37 +141,40 @@ namespace TranslateHelper.Droid
 			public const int SplashScreen = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int v1favorites = 2130837509;
+			public const int TestScreenButtonSelector = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int v1star10 = 2130837510;
+			public const int v1favorites = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int v1star100 = 2130837511;
+			public const int v1star10 = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int v1star20 = 2130837512;
+			public const int v1star100 = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int v1star50 = 2130837513;
+			public const int v1star20 = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int v43cleartext = 2130837514;
+			public const int v1star50 = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int v4addtofavorites = 2130837515;
+			public const int v43cleartext = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int v4alreadyaddedtofav = 2130837516;
+			public const int v4addtofavorites = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int v4change = 2130837517;
+			public const int v4alreadyaddedtofav = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int v4search = 2130837518;
+			public const int v4change = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int v5change = 2130837519;
+			public const int v4search = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int v5change = 2130837520;
 			
 			static Drawable()
 			{

@@ -53,7 +53,12 @@ namespace TranslateHelper.Droid
             base.ActionBar.NavigationMode = ActionBarNavigationMode.Standard;
             SetContentView(Resource.Layout.Dictionary);
 
-            direction.SetDefaultDirection();
+            string directionName = Intent.GetStringExtra("directionName");
+            if(string.IsNullOrEmpty(directionName))
+                direction.SetDefaultDirection();
+            else
+                direction.SetDirection(directionName);
+
             updateDestinationCaption();
 
             EditText editSourceText = FindViewById<EditText> (Resource.Id.textSourceString);
