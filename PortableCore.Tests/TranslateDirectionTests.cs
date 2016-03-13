@@ -14,14 +14,15 @@ namespace PortableCore.Tests
     [TestFixture]
     public class TranslateDirectionTests
     {
-        [TestCase("zz", "en-ru")]//раскладка ЛАТИНИЦА, приравниваю к английской
+        /*[TestCase("zz", "en-ru")]//раскладка ЛАТИНИЦА, приравниваю к английской
         [TestCase("en_EN", "en-ru")]
         [TestCase("en", "en-ru")]
         [TestCase("En", "en-ru")]
         [TestCase("EN", "en-ru")]
         [TestCase("ru_RU", "ru-en")]
-        [TestCase("Ru", "ru-en")]
-        public void TestMust_CompareCurrentLocale_With_KeyboardLocale_And_GetTrue(string comparedLocale, string strDirection)
+        [TestCase("Ru", "ru-en")]*/
+        [Test, TestCaseSource(nameof(objectsForCaseGetTrue))]
+        public void TestMust_CompareCurrentLocale_With_KeyboardLocale_And_GetTrue(DetectInputLanguage.Language comparedLanguage, string strDirection)
         {
             //arrange
             MockDirectionManager dirManager = new MockDirectionManager();
@@ -29,13 +30,39 @@ namespace PortableCore.Tests
             direction.SetDirection(strDirection);
 
             //act
-            bool result = direction.IsFrom(comparedLocale);
+            bool result = direction.IsFrom(comparedLanguage);
 
             //assert
             Assert.IsTrue(result);
         }
 
-        [TestCase("zz", "ru-en")]//раскладка ЛАТИНИЦА, приравниваю к английской
+        static object[] objectsForCaseGetTrue =
+        {
+            new object[] { DetectInputLanguage.Language.English, "en-ru" },
+            new object[] { DetectInputLanguage.Language.Russian, "ru-en" }
+        };
+
+        [Test, TestCaseSource(nameof(objectsForCaseGetFalse))]
+        public void TestMust_CompareCurrentLocale_With_KeyboardLocale_And_GetFalse(DetectInputLanguage.Language comparedLanguage, string strDirection)
+        {
+            //arrange
+            MockDirectionManager dirManager = new MockDirectionManager();
+            TranslateDirection direction = new TranslateDirection(new MockSQLite(), dirManager);
+            direction.SetDirection(strDirection);
+
+            //act
+            bool result = direction.IsFrom(comparedLanguage);
+
+            //assert
+            Assert.IsFalse(result);
+        }
+        static object[] objectsForCaseGetFalse =
+        {
+            new object[] { DetectInputLanguage.Language.Unknown, "en-ru" },
+            new object[] { DetectInputLanguage.Language.Russian, "en-ru" },
+            new object[] { DetectInputLanguage.Language.English, "ru-en" }
+        };
+        /*[TestCase("zz", "ru-en")]//раскладка ЛАТИНИЦА, приравниваю к английской
         [TestCase("en_En", "ru-en")]
         [TestCase("Ru_ru", "en-ru")]
         [TestCase("en", "ru-en")]
@@ -52,7 +79,7 @@ namespace PortableCore.Tests
 
             //assert
             Assert.IsFalse(result);
-        }
+        }*/
 
         [TestCase("ru-en")]
         [TestCase("en-ru")]

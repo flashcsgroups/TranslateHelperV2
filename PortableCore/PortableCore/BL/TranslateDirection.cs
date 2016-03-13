@@ -74,17 +74,12 @@ namespace PortableCore.BL
         /// </summary>
         /// <param name="comparedLocaleName"></param>
         /// <returns></returns>
-        public bool IsFrom(string comparedLocaleName)
+        public bool IsFrom(DetectInputLanguage.Language lang)
         {
-            string defaultLatLocale = "zz";//локаль для типа Латиница
-            string localeName = string.Empty;
-            var arr = comparedLocaleName.Split('_');
-            if (arr.Count() > 0)
-                localeName = arr[0].ToLower();
-            else
-                localeName = comparedLocaleName.ToLower();
-            if (localeName == defaultLatLocale) localeName = "en";
-            return currentDirectionFrom == localeName;
+            bool result = (lang == DetectInputLanguage.Language.English && currentDirectionFrom == "en");
+            if(!result)
+                result = (lang == DetectInputLanguage.Language.Russian && currentDirectionFrom == "ru");
+            return result;
         }
     }
 }
