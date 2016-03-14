@@ -9,7 +9,7 @@
   <string name="msg_repeat">Повторить</string>
   <string name="msg_ok">Да</string>
   <string name="msg_cancel">Отмена</string>
-  <string name="msg_final_test">Вы успешно завершили тест. Повторить с новыми словами?</string>
+  <string name="msg_final_test">Вы успешно завершили тест. Повторить?</string>
   <string name="msg_test_select_count_word">Сколько слов хотите проверить?</string>
   <string name="msg_error_try_again">Ошибка, попробуйте снова</string>
   <string name="msg_testselectwords_select">Выберите правильный вариант перевода:</string>

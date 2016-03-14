@@ -188,6 +188,12 @@ namespace TranslateHelper.Droid
             return true;
         }
 
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            Java.Lang.JavaSystem.Exit(0);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)

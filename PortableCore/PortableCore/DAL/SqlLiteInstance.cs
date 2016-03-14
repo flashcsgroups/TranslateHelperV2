@@ -20,27 +20,36 @@ namespace PortableCore.DAL
             db = sqlInstanceHelper;
         }
 
-        public void InitTables()
+        /*public void InitTables()
         {
             db.CreateTable<Language>();
             db.CreateTable<TranslateProvider>();
+
             db.CreateTable<Direction>();
+            DirectionManager managerDirection = new DirectionManager(db);
+            managerDirection.InitDefaultData();
+
             db.CreateTable<TranslateProvider>();
-            db.CreateTable<Favorites>();
-            db.CreateTable<SourceExpression>();
-            db.CreateTable<TranslatedExpression>();
-            db.CreateTable<DefinitionTypes>();
-            db.CreateTable<SourceDefinition>();
-
-            DefinitionTypesManager managerTypes = new DefinitionTypesManager(db);
-            managerTypes.InitDefaultData();
-
             TranslateProviderManager managerProvider = new TranslateProviderManager(db);
             managerProvider.InitDefaultData();
 
-            DirectionManager managerDirection = new DirectionManager(db);
-            managerDirection.InitDefaultData();
-        }
+            db.CreateTable<Favorites>();
+
+            db.CreateTable<SourceExpression>();
+            //SourceExpressionManager managerSourceExpression = new SourceExpressionManager(db);
+            //managerSourceExpression.InitDefaultData();
+
+            db.CreateTable<TranslatedExpression>();
+
+            db.CreateTable<DefinitionTypes>();
+            DefinitionTypesManager managerTypes = new DefinitionTypesManager(db);
+            managerTypes.InitDefaultData();
+
+            db.CreateTable<SourceDefinition>();
+
+
+
+        }*/
 
     }
 }

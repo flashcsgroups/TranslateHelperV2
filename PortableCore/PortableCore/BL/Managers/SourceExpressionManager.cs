@@ -17,9 +17,29 @@ namespace PortableCore.BL.Managers
         }
 
 		public void InitDefaultData ()
-		{                                                                                                                                                                                                                                                       
-		}
-			
+		{
+            /*Repository<SourceExpression> repos = new Repository<SourceExpression>();
+            if (repos.Count() == 0)
+                repos.AddItemsInTransaction(getDefaultData());*/
+        }
+
+        /*private SourceExpression[] getDefaultData()
+        {
+            SourceExpression[] defTypesList = new SourceExpression[] {
+                new SourceExpression (){DirectionID=0, Text="this", ID=1},
+                new SourceExpression (){DirectionID=0, Text="test", ID=2},
+                new SourceExpression (){DirectionID=0, Text="as", ID=3},
+                new SourceExpression (){DirectionID=0, Text="you", ID=4},
+                new SourceExpression (){DirectionID=0, Text="can", ID=5},
+                new SourceExpression (){DirectionID=0, Text="see", ID=6},
+                new SourceExpression (){DirectionID=0, Text="that", ID=7},
+                new SourceExpression (){DirectionID=0, Text="here", ID=8},
+                new SourceExpression (){DirectionID=0, Text="I", ID=9},
+                new SourceExpression (){DirectionID=0, Text="write", ID=10},
+            };
+            return defTypesList;
+        }*/
+
         public SourceExpression GetItemForId(int id)
         {
             Repository<SourceExpression> repos = new Repository<SourceExpression>();

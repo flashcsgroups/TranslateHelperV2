@@ -9,7 +9,7 @@
   <string name="msg_repeat">Repeat</string>
   <string name="msg_ok">Ok</string>
   <string name="msg_cancel">Cancel</string>
-  <string name="msg_final_test">You successful finalized test. Want you repeat with new set?</string>
+  <string name="msg_final_test">You successful finalized test. Want you repeat?</string>
   <string name="msg_test_select_count_word">How many words you want to check?</string>
   <string name="msg_error_try_again">Error, try again</string>
   <string name="msg_testselectwords_select">Select right variant:</string>
