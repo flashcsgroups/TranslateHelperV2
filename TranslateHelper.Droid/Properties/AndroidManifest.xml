@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sd.translatehelper" android:installLocation="auto" android:versionCode="23" android:versionName="1.23.1">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sd.translatehelper" android:installLocation="auto" android:versionCode="25" android:versionName="1.25.1RC">
 	<uses-sdk android:targetSdkVersion="19" android:minSdkVersion="15" />
-	<application android:label="TranslateHelper" android:icon="@drawable/Icon">
+	<application android:label="TranslateHelper" android:icon="@drawable/icon">
 		<activity android:name="net.hockeyapp.android.UpdateActivity" />
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

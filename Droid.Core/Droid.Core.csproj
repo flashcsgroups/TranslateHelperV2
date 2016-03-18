@@ -62,6 +62,7 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
+    <EmbeddedResource Include="Resources\TranslateHelperV21.db3" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />

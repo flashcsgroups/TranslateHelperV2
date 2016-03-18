@@ -16,6 +16,7 @@ using Android.Content;
 using Java.Util;
 using Android.Views.InputMethods;
 using PortableCore.BL.Managers;
+using System.Text;
 
 namespace TranslateHelper.Droid
 {
@@ -101,14 +102,13 @@ namespace TranslateHelper.Droid
             preparedTextForRequest = prepareTextForRequest(originalText);
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
-                LocaleKeyboard locale = new LocaleKeyboard(this, InputMethodService);
-                string currentLocale = locale.GetCurrentKeyboardLocale();
-                if (!string.IsNullOrEmpty(currentLocale) && (!direction.IsFrom(currentLocale)))
+                DetectInputLanguage detect = new DetectInputLanguage(originalText);
+                DetectInputLanguage.Language result = detect.Detect();
+                if ((result!=DetectInputLanguage.Language.Unknown) && !direction.IsFrom(result))
                 {
                     ShowChangeDestinationDialog();
                 }
                 else await RequestReference(preparedTextForRequest);
-
             }
         }
 
@@ -186,6 +186,12 @@ namespace TranslateHelper.Droid
         {
             MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
             return true;
+        }
+
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            Java.Lang.JavaSystem.Exit(0);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

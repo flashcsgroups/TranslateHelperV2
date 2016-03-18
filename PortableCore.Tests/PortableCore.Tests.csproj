@@ -55,6 +55,7 @@
     <Compile Include="TranslateDirectionTests.cs" />
     <Compile Include="TranslateRequestRunnerTests.cs" />
     <Compile Include="TranslateResultFromDBCacheTests.cs" />
+    <Compile Include="DetectInputLanguageTests.cs" />
     <Compile Include="UserTestSelectWordsTests.cs" />
     <Compile Include="YandexTranslateTranslateResultStructureTests.cs" />
     <Compile Include="YandexDictionaryTranslateResultStructureTests.cs" />
