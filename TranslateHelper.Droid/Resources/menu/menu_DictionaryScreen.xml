@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/menu_dict">
   <!--group android:id="@+id/group1">
     <item android:id="@+id/ENRU"
           android:title="EN RU"
@@ -9,11 +9,15 @@
           android:showAsAction="withText" />
   </group-->
   <item android:id="@+id/menu_dest_selector"
-        android:icon="@drawable/v5change"
+        android:icon="@drawable/EngRus"
         android:title="@string/caption_btn_translate_destination"
-        android:showAsAction="ifRoom|withText" />
+        android:showAsAction="always" />
   <item android:id="@+id/menu_favorites"
         android:icon="@drawable/v1favorites"
         android:title="@string/caption_btn_favorites"
         android:showAsAction="ifRoom|withText" />
+  <item android:id="@+id/menu_start_test"
+      android:icon="@drawable/v1starttest"
+      android:title="@string/caption_btn_testing"
+      android:showAsAction="ifRoom|withText" />
 </menu>

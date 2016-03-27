@@ -25,7 +25,18 @@ namespace PortableCore.BL
             FavoritesManager favManager = new FavoritesManager(db);
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             int maxCountOfWords = countOfWords <= countOfRecords ? countOfWords : countOfRecords;
-            return favElements.Take(maxCountOfWords).ToList();
+            List<FavoriteItem> items = new List<FavoriteItem>();
+            List<int> usedIdList = new List<int>();
+            for(int i=0;i< maxCountOfWords;i++)
+            {
+                int indexOfRecord = rnd.Next(0, maxCountOfWords - 1);
+                if (usedIdList.Contains(indexOfRecord))
+                    indexOfRecord = rnd.Next(0, maxCountOfWords - 1);
+                //ToDo:нужна проверка в цикле, может быть ситуация с повторными ид
+                items.Add(favElements.ElementAt(indexOfRecord));
+                usedIdList.Add(indexOfRecord);
+            }
+            return items;
         }
 
         private IEnumerable<FavoriteItem> getFavoritesDistinct(IEnumerable<FavoriteItem> view)

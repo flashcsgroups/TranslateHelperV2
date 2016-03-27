@@ -129,52 +129,61 @@ namespace TranslateHelper.Droid
 			public const int btn_background = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int FavoritesItemSelector = 2130837505;
+			public const int EngRus = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int icon = 2130837506;
+			public const int FavoritesItemSelector = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int monoandroidsplash = 2130837507;
+			public const int icon = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int SplashScreen = 2130837508;
+			public const int monoandroidsplash = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int TestScreenButtonSelector = 2130837509;
+			public const int RusEng = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int v1favorites = 2130837510;
+			public const int SplashScreen = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int v1star10 = 2130837511;
+			public const int TestScreenButtonSelector = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int v1star100 = 2130837512;
+			public const int v1favorites = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int v1star20 = 2130837513;
+			public const int v1star10 = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int v1star50 = 2130837514;
+			public const int v1star100 = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int v43cleartext = 2130837515;
+			public const int v1star20 = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int v4addtofavorites = 2130837516;
+			public const int v1star50 = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int v4alreadyaddedtofav = 2130837517;
+			public const int v1starttest = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int v4change = 2130837518;
+			public const int v43cleartext = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int v4search = 2130837519;
+			public const int v4addtofavorites = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int v5change = 2130837520;
+			public const int v4alreadyaddedtofav = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int v4change = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int v4search = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int v5change = 2130837523;
 			
 			static Drawable()
 			{
@@ -189,77 +198,77 @@ namespace TranslateHelper.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f08003d
-			public const int FavoritesStatePic = 2131230781;
-			
 			// aapt resource value: 0x7f08003b
-			public const int IndexTextView = 2131230779;
+			public const int FavoritesStatePic = 2131230779;
 			
 			// aapt resource value: 0x7f080039
-			public const int OriginalTextTextView = 2131230777;
-			
-			// aapt resource value: 0x7f08003a
-			public const int OriginalTextTranscriptionTextView = 2131230778;
-			
-			// aapt resource value: 0x7f080028
-			public const int PosTextView = 2131230760;
-			
-			// aapt resource value: 0x7f080026
-			public const int SourceTextView = 2131230758;
-			
-			// aapt resource value: 0x7f080027
-			public const int TranscriptionTextView = 2131230759;
-			
-			// aapt resource value: 0x7f08003c
-			public const int TranslatedTextTextView = 2131230780;
-			
-			// aapt resource value: 0x7f080029
-			public const int TranslatedTextView = 2131230761;
-			
-			// aapt resource value: 0x7f080020
-			public const int buttonNew = 2131230752;
-			
-			// aapt resource value: 0x7f08002d
-			public const int buttonSelect100Words = 2131230765;
-			
-			// aapt resource value: 0x7f08002a
-			public const int buttonSelect10Words = 2131230762;
-			
-			// aapt resource value: 0x7f08002b
-			public const int buttonSelect20Words = 2131230763;
-			
-			// aapt resource value: 0x7f08002c
-			public const int buttonSelect50Words = 2131230764;
-			
-			// aapt resource value: 0x7f080030
-			public const int buttonSubmitTest1 = 2131230768;
-			
-			// aapt resource value: 0x7f080031
-			public const int buttonSubmitTest2 = 2131230769;
-			
-			// aapt resource value: 0x7f080032
-			public const int buttonSubmitTest3 = 2131230770;
-			
-			// aapt resource value: 0x7f080033
-			public const int buttonSubmitTest4 = 2131230771;
-			
-			// aapt resource value: 0x7f080034
-			public const int buttonSubmitTest5 = 2131230772;
-			
-			// aapt resource value: 0x7f080035
-			public const int buttonSubmitTest6 = 2131230773;
-			
-			// aapt resource value: 0x7f080036
-			public const int buttonSubmitTest7 = 2131230774;
+			public const int IndexTextView = 2131230777;
 			
 			// aapt resource value: 0x7f080037
-			public const int buttonSubmitTest8 = 2131230775;
+			public const int OriginalTextTextView = 2131230775;
 			
-			// aapt resource value: 0x7f080021
-			public const int buttonTranslateBottom = 2131230753;
+			// aapt resource value: 0x7f080038
+			public const int OriginalTextTranscriptionTextView = 2131230776;
 			
-			// aapt resource value: 0x7f08001d
-			public const int buttonTranslateTop = 2131230749;
+			// aapt resource value: 0x7f080026
+			public const int PosTextView = 2131230758;
+			
+			// aapt resource value: 0x7f080024
+			public const int SourceTextView = 2131230756;
+			
+			// aapt resource value: 0x7f080025
+			public const int TranscriptionTextView = 2131230757;
+			
+			// aapt resource value: 0x7f08003a
+			public const int TranslatedTextTextView = 2131230778;
+			
+			// aapt resource value: 0x7f080027
+			public const int TranslatedTextView = 2131230759;
+			
+			// aapt resource value: 0x7f08001e
+			public const int buttonNew = 2131230750;
+			
+			// aapt resource value: 0x7f08002b
+			public const int buttonSelect100Words = 2131230763;
+			
+			// aapt resource value: 0x7f080028
+			public const int buttonSelect10Words = 2131230760;
+			
+			// aapt resource value: 0x7f080029
+			public const int buttonSelect20Words = 2131230761;
+			
+			// aapt resource value: 0x7f08002a
+			public const int buttonSelect50Words = 2131230762;
+			
+			// aapt resource value: 0x7f08002e
+			public const int buttonSubmitTest1 = 2131230766;
+			
+			// aapt resource value: 0x7f08002f
+			public const int buttonSubmitTest2 = 2131230767;
+			
+			// aapt resource value: 0x7f080030
+			public const int buttonSubmitTest3 = 2131230768;
+			
+			// aapt resource value: 0x7f080031
+			public const int buttonSubmitTest4 = 2131230769;
+			
+			// aapt resource value: 0x7f080032
+			public const int buttonSubmitTest5 = 2131230770;
+			
+			// aapt resource value: 0x7f080033
+			public const int buttonSubmitTest6 = 2131230771;
+			
+			// aapt resource value: 0x7f080034
+			public const int buttonSubmitTest7 = 2131230772;
+			
+			// aapt resource value: 0x7f080035
+			public const int buttonSubmitTest8 = 2131230773;
+			
+			// aapt resource value: 0x7f08001f
+			public const int buttonTranslateBottom = 2131230751;
+			
+			// aapt resource value: 0x7f08001b
+			public const int buttonTranslateTop = 2131230747;
 			
 			// aapt resource value: 0x7f08000d
 			public const int button_add_response = 2131230733;
@@ -279,23 +288,17 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080016
 			public const int button_update = 2131230742;
 			
-			// aapt resource value: 0x7f080038
-			public const int checkResultText = 2131230776;
+			// aapt resource value: 0x7f080036
+			public const int checkResultText = 2131230774;
 			
-			// aapt resource value: 0x7f08001f
-			public const int controlButtons = 2131230751;
-			
-			// aapt resource value: 0x7f08001a
-			public const int destinationTextView = 2131230746;
+			// aapt resource value: 0x7f08001d
+			public const int controlButtons = 2131230749;
 			
 			// aapt resource value: 0x7f080018
 			public const int dictList = 2131230744;
 			
-			// aapt resource value: 0x7f080022
-			public const int favoritesLayout = 2131230754;
-			
-			// aapt resource value: 0x7f080019
-			public const int fromPanel = 2131230745;
+			// aapt resource value: 0x7f080020
+			public const int favoritesLayout = 2131230752;
 			
 			// aapt resource value: 0x7f080004
 			public const int input_email = 2131230724;
@@ -312,11 +315,11 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080005
 			public const int input_subject = 2131230725;
 			
-			// aapt resource value: 0x7f08003e
-			public const int label_author = 2131230782;
+			// aapt resource value: 0x7f08003c
+			public const int label_author = 2131230780;
 			
-			// aapt resource value: 0x7f08003f
-			public const int label_date = 2131230783;
+			// aapt resource value: 0x7f08003d
+			public const int label_date = 2131230781;
 			
 			// aapt resource value: 0x7f08000b
 			public const int label_last_updated = 2131230731;
@@ -324,8 +327,8 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080000
 			public const int label_message = 2131230720;
 			
-			// aapt resource value: 0x7f080040
-			public const int label_text = 2131230784;
+			// aapt resource value: 0x7f08003e
+			public const int label_text = 2131230782;
 			
 			// aapt resource value: 0x7f080014
 			public const int label_title = 2131230740;
@@ -333,32 +336,38 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080015
 			public const int label_version = 2131230741;
 			
-			// aapt resource value: 0x7f080023
-			public const int listFavoritesListView = 2131230755;
+			// aapt resource value: 0x7f080021
+			public const int listFavoritesListView = 2131230753;
 			
-			// aapt resource value: 0x7f08001b
-			public const int listInputString = 2131230747;
+			// aapt resource value: 0x7f080019
+			public const int listInputString = 2131230745;
 			
-			// aapt resource value: 0x7f080041
-			public const int list_attachments = 2131230785;
+			// aapt resource value: 0x7f08003f
+			public const int list_attachments = 2131230783;
 			
 			// aapt resource value: 0x7f08000f
 			public const int list_feedback_messages = 2131230735;
 			
-			// aapt resource value: 0x7f080024
-			public const int list_header_title = 2131230756;
+			// aapt resource value: 0x7f080022
+			public const int list_header_title = 2131230754;
 			
-			// aapt resource value: 0x7f080025
-			public const int mainList = 2131230757;
+			// aapt resource value: 0x7f080023
+			public const int mainList = 2131230755;
+			
+			// aapt resource value: 0x7f080041
+			public const int menu_dest_selector = 2131230785;
+			
+			// aapt resource value: 0x7f080040
+			public const int menu_dict = 2131230784;
 			
 			// aapt resource value: 0x7f080042
-			public const int menu_dest_selector = 2131230786;
+			public const int menu_favorites = 2131230786;
 			
 			// aapt resource value: 0x7f080043
-			public const int menu_favorites = 2131230787;
+			public const int menu_start_test = 2131230787;
 			
-			// aapt resource value: 0x7f08001e
-			public const int scrollViewTranslateResultsDefs = 2131230750;
+			// aapt resource value: 0x7f08001c
+			public const int scrollViewTranslateResultsDefs = 2131230748;
 			
 			// aapt resource value: 0x7f080045
 			public const int selectCountWords = 2131230789;
@@ -366,17 +375,17 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080044
 			public const int selectTestLevel = 2131230788;
 			
-			// aapt resource value: 0x7f08002f
-			public const int tableLayoutAnswers = 2131230767;
+			// aapt resource value: 0x7f08002d
+			public const int tableLayoutAnswers = 2131230765;
 			
 			// aapt resource value: 0x7f080046
 			public const int testSelectWords = 2131230790;
 			
-			// aapt resource value: 0x7f08002e
-			public const int textOriginalWord = 2131230766;
+			// aapt resource value: 0x7f08002c
+			public const int textOriginalWord = 2131230764;
 			
-			// aapt resource value: 0x7f08001c
-			public const int textSourceString = 2131230748;
+			// aapt resource value: 0x7f08001a
+			public const int textSourceString = 2131230746;
 			
 			// aapt resource value: 0x7f080010
 			public const int text_headline = 2131230736;
