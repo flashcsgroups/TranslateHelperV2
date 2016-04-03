@@ -47,6 +47,7 @@ namespace PortableCore.BL.Managers
         public Direction[] GetDefaultData()
 		{
             //ToDo:ProviderId переделать на метод получения ID для дефолтного "Yandex"
+            //ToDo:ошибка, id не может быть 0!!!
             Direction[] directionList = new Direction[] {
                 new Direction (){ Name = "en-ru", FullName = "ENGLISH > РУССКИЙ", ID=0, ProviderID = 11}, 
 				new Direction (){ Name = "ru-en", FullName = "РУССКИЙ > ENGLISH", ID=1, ProviderID = 11},

@@ -108,7 +108,7 @@ namespace TranslateHelper.Droid
 
         private void StartDictionaryActivity()
         {
-            var intent = new Intent(this, typeof(FavoritesActivity));
+            var intent = new Intent(this, typeof(DictionaryActivity));
             intent.PutExtra("directionName", direction.GetCurrentDirectionName());
             StartActivity(intent);
         }

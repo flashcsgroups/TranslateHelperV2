@@ -28,6 +28,7 @@ namespace TranslateHelper.Droid
         delegate Task goTranslateRequest(string originalText);
         goTranslateRequest RequestReference;
         string preparedTextForRequest = string.Empty;
+        IMenu currentMenu;
 
         protected override async void OnCreate (Bundle bundle)
 		{
@@ -106,9 +107,11 @@ namespace TranslateHelper.Droid
                 DetectInputLanguage.Language result = detect.Detect();
                 if ((result!=DetectInputLanguage.Language.Unknown) && !direction.IsFrom(result))
                 {
-                    ShowChangeDestinationDialog();
-                }
-                else await RequestReference(preparedTextForRequest);
+                    direction.Invert();
+                    updateDestinationCaption();
+
+                };
+                await RequestReference(preparedTextForRequest);
             }
         }
 
@@ -184,7 +187,8 @@ namespace TranslateHelper.Droid
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
+            currentMenu = menu;
+            MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, currentMenu);
             return true;
         }
 
@@ -204,8 +208,14 @@ namespace TranslateHelper.Droid
                     StartActivity(intentFavorites);
                     return true;
                 case Resource.Id.menu_dest_selector:
-                    swapDestination();
+                    direction.Invert();
+                    updateDestinationCaption();
                     break;
+                case Resource.Id.menu_start_test:
+                    var intentTests = new Intent(this, typeof(SelectTestLevelActivity));
+                    intentTests.PutExtra("directionName", direction.GetCurrentDirectionName());
+                    StartActivity(intentTests);
+                    return true;
                 case global::Android.Resource.Id.Home:
                     StartActivity(typeof(SettingsActivity));
                     return true;
@@ -215,34 +225,26 @@ namespace TranslateHelper.Droid
             return true;
         }
 
-        private void swapDestination()
-        {
-            direction.Invert();
-            updateDestinationCaption();
-        }
-
         private void updateDestinationCaption()
         {
-            var destinationTextView = FindViewById<TextView>(Resource.Id.destinationTextView);
-            destinationTextView.Text = direction.GetCurrentDirectionNameFull();
-        }
-
-        private void ShowChangeDestinationDialog()
-        {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle(Resource.String.msg_warning);
-            alert.SetMessage(Resource.String.act_autochangedestination);
-            alert.SetPositiveButton(Resource.String.msg_ok, (senderAlert, args) => 
+            //ToDo:убрать индексатор
+            if(currentMenu!=null)
             {
-                swapDestination();
-                RequestReference(preparedTextForRequest);
-            });
-            alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => 
-            {
-                RequestReference(preparedTextForRequest);
-            });
-            Dialog dialog = alert.Create();
-            dialog.Show();
+                IMenuItem item = currentMenu.FindItem(Resource.Id.menu_dest_selector);
+                switch (direction.GetCurrentDirectionId())
+                {
+                    case 1:
+                        {
+                            item.SetIcon(Resource.Drawable.EngRus);
+                        }; break;
+                    case 2:
+                        {
+                            item.SetIcon(Resource.Drawable.RusEng);
+                        }; break;
+                    default:
+                        { }; break;
+                }
+            }
         }
 
         void menuItemClicked(string item)
