@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Widget;
 using PortableCore.BL.Contracts;
+using TranslateHelper.Droid.Adapters;
 
 namespace TranslateHelper.Droid
 {

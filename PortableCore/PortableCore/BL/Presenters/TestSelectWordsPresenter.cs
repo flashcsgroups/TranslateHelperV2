@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PortableCore.DL;
+using PortableCore.BL.Views;
+using PortableCore.BL.Models;
 
-namespace PortableCore.BL
+namespace PortableCore.BL.Presenters
 {
-
     public class TestSelectWordsPresenter
     {
         int maxCountOfWords;

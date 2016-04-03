@@ -8,7 +8,7 @@ using System;
 using Droid.Core.Helpers;
 using PortableCore.DAL;
 
-namespace TranslateHelper.Droid
+namespace TranslateHelper.Droid.Adapters
 {
 
     public class TranslateResultViewVariantAdapter : BaseAdapter<TranslateResultViewVariantAdapter.LineOfTranslateResult>

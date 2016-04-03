@@ -5,6 +5,9 @@ using PortableCore.DL;
 using PortableCore.BL;
 using System;
 using PortableCore.BL.Managers;
+using PortableCore.BL.Presenters;
+using PortableCore.BL.Views;
+using PortableCore.BL.Models;
 
 namespace PortableCore.Tests
 {

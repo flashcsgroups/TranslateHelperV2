@@ -16,6 +16,7 @@ using PortableCore.WS;
 using PortableCore.BL.Contracts;
 using PortableCore.BL;
 using PortableCore.BL.Managers;
+using TranslateHelper.Droid.Activities;
 
 namespace TranslateHelper.Droid
 {
@@ -33,8 +34,8 @@ namespace TranslateHelper.Droid
         {
             base.OnResume();
             callTestRequest();
-            Task.Delay(2000);
-            StartActivity(new Intent(Application.Context, typeof(DictionaryActivity)));
+            //Task.Delay(2000);
+            StartActivity(new Intent(Application.Context, typeof(DictionaryChatActivity)));
             /*Task startupWork = new Task(() =>
             {
                 callTestRequest();

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PortableCore.BL
+namespace PortableCore.BL.Views
 {
     public interface ITestSelectWordsView
     {

@@ -13,8 +13,10 @@ using PortableCore.BL;
 using PortableCore.DL;
 using PortableCore.DAL;
 using PortableCore.BL.Managers;
+using PortableCore.BL.Presenters;
+using PortableCore.BL.Views;
 
-namespace TranslateHelper.Droid
+namespace TranslateHelper.Droid.Activities
 {
     [Activity(Label = "@string/act_testselectwords_caption", Theme = "@style/MyTheme")]
     public class TestSelectWordsActivity : Activity, ITestSelectWordsView
@@ -118,7 +120,7 @@ namespace TranslateHelper.Droid
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    var intent = new Intent(this, typeof(DictionaryActivity));
+                    var intent = new Intent(this, typeof(DictionaryChatActivity));
                     intent.PutExtra("directionName", direction.GetCurrentDirectionName());
                     StartActivity(intent);
                     return true;

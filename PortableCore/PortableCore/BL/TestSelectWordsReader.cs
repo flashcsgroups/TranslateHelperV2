@@ -1,4 +1,5 @@
 ﻿using PortableCore.BL.Managers;
+using PortableCore.BL.Models;
 using PortableCore.DL;
 using System;
 using System.Collections.Generic;

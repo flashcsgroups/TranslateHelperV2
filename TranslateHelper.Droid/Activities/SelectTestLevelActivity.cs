@@ -13,7 +13,7 @@ using PortableCore.DAL;
 using PortableCore.BL;
 using PortableCore.BL.Managers;
 
-namespace TranslateHelper.Droid
+namespace TranslateHelper.Droid.Activities
 {
     [Activity(Label = "@string/act_selectcountwords_caption", Theme = "@style/MyTheme")]
     public class SelectTestLevelActivity : Activity
@@ -108,7 +108,7 @@ namespace TranslateHelper.Droid
 
         private void StartDictionaryActivity()
         {
-            var intent = new Intent(this, typeof(DictionaryActivity));
+            var intent = new Intent(this, typeof(DictionaryChatActivity));
             intent.PutExtra("directionName", direction.GetCurrentDirectionName());
             StartActivity(intent);
         }

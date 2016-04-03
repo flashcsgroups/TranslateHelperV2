@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using PortableCore.DL;
 
-namespace TranslateHelper.Droid
+namespace TranslateHelper.Droid.Adapters
 {
     public class TestSelectWordsAdapter : BaseAdapter<Favorites>
     {

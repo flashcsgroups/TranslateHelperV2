@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortableCore.BL
+namespace PortableCore.BL.Models
 {
     public class FavoriteItem : IEquatable<FavoriteItem>
     {

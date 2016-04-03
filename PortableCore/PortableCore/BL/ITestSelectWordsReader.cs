@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PortableCore.DL;
+using PortableCore.BL.Models;
 
 namespace PortableCore.BL
 {
