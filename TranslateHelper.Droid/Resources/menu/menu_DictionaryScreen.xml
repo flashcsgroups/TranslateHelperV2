@@ -15,9 +15,9 @@
   <item android:id="@+id/menu_favorites"
         android:icon="@drawable/v1favorites"
         android:title="@string/caption_btn_favorites"
-        android:showAsAction="ifRoom|withText" />
+        android:showAsAction="always" />
   <item android:id="@+id/menu_start_test"
       android:icon="@drawable/v1starttest"
       android:title="@string/caption_btn_testing"
-      android:showAsAction="ifRoom|withText" />
+      android:showAsAction="always" />
 </menu>

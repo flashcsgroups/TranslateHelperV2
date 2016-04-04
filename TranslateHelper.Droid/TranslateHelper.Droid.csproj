@@ -290,5 +290,19 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\RusEng.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\BubbleChatRobotSelector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bender1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\BubbleChatUserSelector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\OriginalTextInputSelector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\OriginalTextButtonSelector.xml" />
+  </ItemGroup>
 </Project>

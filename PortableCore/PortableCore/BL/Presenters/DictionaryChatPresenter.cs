@@ -69,7 +69,15 @@ namespace PortableCore.BL.Presenters
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
                     bubbles.Add(new BubbleItem() { IsTheDeviceUser = false, Text = reqResult.OriginalText, UserNameText="MyName" });
-                    bubbles.Add(new BubbleItem() { IsTheDeviceUser = true, Text = reqResult.TranslatedData.Definitions[0].Pos.ToString(), UserNameText = "TH" });
+                    string res = string.Empty;
+                    foreach(var item in reqResult.TranslatedData.Definitions)
+                    {
+                        foreach(var itemvar in item.TranslateVariants)
+                        {
+                            res += itemvar.Text + ";";
+                        }
+                    }
+                    bubbles.Add(new BubbleItem() { IsTheDeviceUser = true, Text = res, UserNameText = "TH" });
                     view.UpdateChat(bubbles);
                     //updateListResults(reqResult);
                     //TogglesSoftKeyboard.Hide(this);

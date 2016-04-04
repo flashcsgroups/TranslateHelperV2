@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/forms_centralfragments_chat_chat_editLayout"
-        android:background="@color/transparent"
+        android:background="#E3F2FD"
         android:clipToPadding="false"
         android:listSelector="#00000000"
         android:divider="@null" />
@@ -25,27 +25,27 @@
         android:layout_alignParentBottom="true"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-        android:background="@color/blue"
         android:orientation="horizontal">
         <EditText
             android:id="@+id/textSourceString"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="@string/caption_enter_text_for_translate"
             android:inputType="textMultiLine"
-            android:background="@color/grey"
+            android:background="@drawable/OriginalTextInputSelector"
             android:paddingBottom="12dp"
             android:paddingTop="12dp"
-            android:paddingLeft="20dp"
-            android:textSize="20sp" />
+            android:paddingLeft="10dp"
+            android:maxLines="5"
+            android:textSize="15sp" />
         <ImageButton
             android:id="@+id/buttonTranslate"
             android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:background="@color/transparent"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/OriginalTextButtonSelector"
             android:src="@drawable/v4search" />
     </LinearLayout>
 </RelativeLayout>

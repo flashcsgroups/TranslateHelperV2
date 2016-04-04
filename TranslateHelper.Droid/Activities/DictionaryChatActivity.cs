@@ -33,6 +33,7 @@ namespace TranslateHelper.Droid.Activities
             buttonTranslate.Click += (object sender, EventArgs e) =>
             {
                 presenter.StartRequestWithValidation(editSourceText.Text);
+                editSourceText.Text = string.Empty;
             };
         }
 
@@ -47,6 +48,7 @@ namespace TranslateHelper.Droid.Activities
             var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
             var newAdapter = new BubbleAdapter(this, listBubbles);
             listView.Adapter = newAdapter;
+            listView.SetSelection(listView.Count + 1);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
