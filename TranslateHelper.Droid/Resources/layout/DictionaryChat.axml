@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/transparent">
+    android:background="@color/white">
     <ListView
         android:id="@+id/forms_centralfragments_chat_chat_listView"
         android:layout_width="match_parent"
@@ -37,12 +37,13 @@
             android:paddingBottom="12dp"
             android:paddingTop="12dp"
             android:paddingLeft="10dp"
-            android:maxLines="5"
+            android:maxLines="3"
             android:textSize="15sp" />
         <ImageButton
             android:id="@+id/buttonTranslate"
             android:layout_width="45dp"
             android:layout_height="match_parent"
+            android:gravity="top"
             android:scaleType="fitCenter"
             android:layout_marginLeft="5dp"
             android:background="@drawable/OriginalTextButtonSelector"

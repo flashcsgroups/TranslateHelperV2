@@ -45,8 +45,9 @@ namespace TranslateHelper.Droid.Activities
 
         public void UpdateChat(List<BubbleItem> listBubbles)
         {
+            var metrics = Resources.DisplayMetrics;
             var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
-            var newAdapter = new BubbleAdapter(this, listBubbles);
+            var newAdapter = new BubbleAdapter(this, listBubbles, metrics);
             listView.Adapter = newAdapter;
             listView.SetSelection(listView.Count + 1);
         }
