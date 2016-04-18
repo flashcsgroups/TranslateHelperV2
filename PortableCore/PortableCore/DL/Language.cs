@@ -4,14 +4,15 @@ using SQLite;
 
 namespace PortableCore.DL
 {
-    //Todo: не используется, решить нужен или нет
     public class Language : IBusinessEntity
     {
         public Language()
         {
         }
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Indexed]
         public int ID { get; set; }
+        public string NameEng { get; set; }
+        public string NameLocal { get; set; }
         public int DeleteMark { get; set; }
     }
 }

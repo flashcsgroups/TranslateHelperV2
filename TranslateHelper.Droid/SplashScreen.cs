@@ -35,7 +35,7 @@ namespace TranslateHelper.Droid
             base.OnResume();
             callTestRequest();
             //Task.Delay(2000);
-            StartActivity(new Intent(Application.Context, typeof(DictionaryChatActivity)));
+            StartActivity(new Intent(Application.Context, typeof(DirectionsActivity)));
             /*Task startupWork = new Task(() =>
             {
                 callTestRequest();

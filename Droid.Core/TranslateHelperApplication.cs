@@ -15,7 +15,8 @@ namespace TranslateHelper.App
     public class TranslateHelperApplication : Application
     {
         public static TranslateHelperApplication CurrentInstance { get; private set; }
-        private string sqliteFilename = "TranslateHelperV21.db3";
+        private static string sqliteFilename = "TranslateHelperV21.db3";
+        private bool initTablesInNewDB = true;
 
         protected TranslateHelperApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -25,15 +26,20 @@ namespace TranslateHelper.App
         public override void OnCreate()
         {
             base.OnCreate();
-            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
-            initDb(sqliteFilename);
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback((sender, certificate, chain, policyErrors) => { return true; });
-        }
-
-        private static void initDb(string sqliteFilename)
-        {
+            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var path = Path.Combine(libraryPath, sqliteFilename);
+            if(!initTablesInNewDB)
+                copyInitialDB(path);
+            SqlLiteHelper sqlConnection = new SqlLiteHelper(path);
+            SqlLiteInstance sqlInstance = new SqlLiteInstance(sqlConnection);
+            if(initTablesInNewDB)
+                sqlInstance.InitTables();
+        }
+
+        private static void copyInitialDB(string path)
+        {
             if (!File.Exists(path))
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -46,8 +52,6 @@ namespace TranslateHelper.App
                     }
                 }
             }
-            SqlLiteHelper sqlConnection = new SqlLiteHelper(path);
-            SqlLiteInstance sqlInstance = new SqlLiteInstance(sqlConnection);
         }
 
         private static void copyInitDbFromResourceToFileSystem(string path, Assembly assembly, string resource)

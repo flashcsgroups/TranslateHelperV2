@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\DictionaryChatActivity.cs" />
+    <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
     <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,6 +131,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Bubble.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DirectionsAll.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DirectionsRecent.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

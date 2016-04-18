@@ -20,9 +20,12 @@ namespace PortableCore.DAL
             db = sqlInstanceHelper;
         }
 
-        /*public void InitTables()
+        public void InitTables()
         {
             db.CreateTable<Language>();
+            LanguageManager langManager = new LanguageManager(db);
+            langManager.InitDefaultData();
+
             db.CreateTable<TranslateProvider>();
 
             db.CreateTable<Direction>();
@@ -49,7 +52,7 @@ namespace PortableCore.DAL
 
 
 
-        }*/
+        }
 
     }
 }

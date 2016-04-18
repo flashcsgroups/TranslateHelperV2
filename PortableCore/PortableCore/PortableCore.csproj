@@ -40,6 +40,8 @@
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
     <Compile Include="BL\DetectInputLanguage.cs" />
+    <Compile Include="BL\Managers\ILanguageManager.cs" />
+    <Compile Include="BL\Managers\LanguageManager.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
