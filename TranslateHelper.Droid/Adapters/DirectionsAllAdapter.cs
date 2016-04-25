@@ -6,23 +6,24 @@ using System.Collections.Generic;
 using PortableCore.BL.Models;
 using Android.Util;
 using System;
+using PortableCore.DL;
 
 namespace TranslateHelper.Droid.Adapters
 {
-	public class DirectionsAllAdapter : ArrayAdapter<DirectionsAllItem>
+	public class DirectionsAllAdapter : ArrayAdapter<Language>
 	{
 
 		private Activity context;
-		private List<DirectionsAllItem> directionsList;
-		private DisplayMetrics metrics;
+		private List<Language> directionsList;
+		//private DisplayMetrics metrics;
 		//private int maxWidth = 0;
 
-		public DirectionsAllAdapter (Activity context, List<DirectionsAllItem> directionsList, DisplayMetrics metrics)
+		public DirectionsAllAdapter (Activity context, List<Language> directionsList)
 			: base (context, Resource.Layout.DirectionsAllListItem, directionsList)
 		{
 			this.context = context;
 			this.directionsList = directionsList;
-			this.metrics = metrics;
+			//this.metrics = metrics;
 			//this.maxWidth = Convert.ToInt32 (metrics.WidthPixels * 0.7);
 		}
 
@@ -40,10 +41,11 @@ namespace TranslateHelper.Droid.Adapters
 			//ImageView robotView = view.FindViewById<ImageView> (Resource.Id.list_bubble_robotView);
 			//LinearLayout robotMessage = view.FindViewById<LinearLayout> (Resource.Id.list_bubble_robotMessage);
 			TextView destLangTextView = view.FindViewById<TextView> (Resource.Id.destLangTextView);
-			//robotMessage.SetMaxWidth(maxWidth);
-			//userMessage.SetMaxWidth (maxWidth);
-			//userMessage.Text = item.Text;
-			/*if (item.IsTheDeviceUser == false) {
+            destLangTextView.Text = item.NameLocal;
+            //robotMessage.SetMaxWidth(maxWidth);
+            //userMessage.SetMaxWidth (maxWidth);
+            //userMessage.Text = item.Text;
+            /*if (item.IsTheDeviceUser == false) {
 				robotMessage.Visibility = ViewStates.Gone;
 				view.SetGravity (GravityFlags.Left);
 				userView.Visibility = ViewStates.Visible;
@@ -58,7 +60,7 @@ namespace TranslateHelper.Droid.Adapters
 				robotMessage.SetBackgroundResource (Resource.Drawable.BubbleChatRobotSelector);
 			}*/
 
-			return view;
+            return view;
 		}
 	}
 }
