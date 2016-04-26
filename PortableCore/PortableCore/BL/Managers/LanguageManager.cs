@@ -45,12 +45,12 @@ namespace PortableCore.BL.Managers
         public Language[] GetDefaultData()
 		{
             Language[] directionList = new Language[] {
-                new Language (){ ID=1, NameEng = "Russian", NameLocal = "Русский"},
-                new Language (){ ID=2, NameEng = "English", NameLocal = "English"},
-                new Language (){ ID=3, NameEng = "France", NameLocal = "Français"},
-                new Language (){ ID=4, NameEng = "Spanish", NameLocal = "Español"},
-                new Language (){ ID=5, NameEng = "German", NameLocal = "Deutsch"},
-                new Language (){ ID=6, NameEng = "Italian", NameLocal = "Italiano"},
+                new Language (){ ID=1, NameEng = "Russian", NameLocal = "Русский", NameImageResource="FlagRussia"},
+                new Language (){ ID=2, NameEng = "English", NameLocal = "English", NameImageResource="FlagEnglish"},
+                new Language (){ ID=3, NameEng = "France", NameLocal = "Français", NameImageResource="FlagFrance"},
+                new Language (){ ID=4, NameEng = "Spain", NameLocal = "Español", NameImageResource="FlagSpain"},
+                new Language (){ ID=5, NameEng = "Germany", NameLocal = "Deutsch", NameImageResource="FlagGermany"},
+                new Language (){ ID=6, NameEng = "Italian", NameLocal = "Italiano", NameImageResource="FlagItaly"},
             };
 
 			return directionList;

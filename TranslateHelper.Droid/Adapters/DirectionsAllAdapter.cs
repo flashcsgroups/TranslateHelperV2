@@ -7,6 +7,7 @@ using PortableCore.BL.Models;
 using Android.Util;
 using System;
 using PortableCore.DL;
+using Android.Content.Res;
 
 namespace TranslateHelper.Droid.Adapters
 {
@@ -37,10 +38,11 @@ namespace TranslateHelper.Droid.Adapters
 				           parent,
 				           false)) as LinearLayout;
 
-			//ImageView userView = view.FindViewById<ImageView> (Resource.Id.list_bubble_userView);
-			//ImageView robotView = view.FindViewById<ImageView> (Resource.Id.list_bubble_robotView);
-			//LinearLayout robotMessage = view.FindViewById<LinearLayout> (Resource.Id.list_bubble_robotMessage);
-			TextView destLangTextView = view.FindViewById<TextView> (Resource.Id.destLangTextView);
+			ImageView userView = view.FindViewById<ImageView> (Resource.Id.destLangImageView);
+            userView.SetImageResource(context.Resources.GetIdentifier(item.NameImageResource.ToLower(), "drawable", context.PackageName));
+            //ImageView robotView = view.FindViewById<ImageView> (Resource.Id.list_bubble_robotView);
+            //LinearLayout robotMessage = view.FindViewById<LinearLayout> (Resource.Id.list_bubble_robotMessage);
+            TextView destLangTextView = view.FindViewById<TextView> (Resource.Id.destLangTextView);
             destLangTextView.Text = item.NameLocal;
             //robotMessage.SetMaxWidth(maxWidth);
             //userMessage.SetMaxWidth (maxWidth);

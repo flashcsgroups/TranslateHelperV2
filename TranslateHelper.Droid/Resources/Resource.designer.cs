@@ -49,8 +49,8 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f06000b
 			public const int ab_white = 2131099659;
 			
-			// aapt resource value: 0x7f060016
-			public const int background = 2131099670;
+			// aapt resource value: 0x7f060017
+			public const int background1111 = 2131099671;
 			
 			// aapt resource value: 0x7f060000
 			public const int background_header = 2131099648;
@@ -61,17 +61,17 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f060002
 			public const int background_white = 2131099650;
 			
-			// aapt resource value: 0x7f06000f
-			public const int black = 2131099663;
-			
 			// aapt resource value: 0x7f060010
-			public const int blue = 2131099664;
+			public const int black = 2131099664;
 			
-			// aapt resource value: 0x7f060012
-			public const int blue100 = 2131099666;
+			// aapt resource value: 0x7f060011
+			public const int blue = 2131099665;
 			
 			// aapt resource value: 0x7f060013
-			public const int blue50 = 2131099667;
+			public const int blue100 = 2131099667;
+			
+			// aapt resource value: 0x7f060014
+			public const int blue50 = 2131099668;
 			
 			// aapt resource value: 0x7f06000d
 			public const int blue_background = 2131099661;
@@ -85,11 +85,14 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f060005
 			public const int button_background_selected = 2131099653;
 			
-			// aapt resource value: 0x7f060014
-			public const int grey = 2131099668;
+			// aapt resource value: 0x7f06000e
+			public const int gray_background = 2131099662;
 			
-			// aapt resource value: 0x7f060011
-			public const int lightgrey = 2131099665;
+			// aapt resource value: 0x7f060015
+			public const int grey = 2131099669;
+			
+			// aapt resource value: 0x7f060012
+			public const int lightgrey = 2131099666;
 			
 			// aapt resource value: 0x7f06000c
 			public const int red_background = 2131099660;
@@ -106,11 +109,11 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f060009
 			public const int text_white = 2131099657;
 			
-			// aapt resource value: 0x7f06000e
-			public const int transparent = 2131099662;
+			// aapt resource value: 0x7f06000f
+			public const int transparent = 2131099663;
 			
-			// aapt resource value: 0x7f060015
-			public const int white = 2131099669;
+			// aapt resource value: 0x7f060016
+			public const int white = 2131099670;
 			
 			// aapt resource value: 0x7f06000a
 			public const int white1 = 2131099658;
@@ -147,58 +150,76 @@ namespace TranslateHelper.Droid
 			public const int FavoritesItemSelector = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int icon = 2130837510;
+			public const int FlagEnglish = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int OriginalTextButtonSelector = 2130837511;
+			public const int FlagFrance = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int OriginalTextInputSelector = 2130837512;
+			public const int FlagGermany = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int RusEng = 2130837513;
+			public const int FlagItaly = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int SplashScreen = 2130837514;
+			public const int FlagRussia = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int TestScreenButtonSelector = 2130837515;
+			public const int FlagSpain = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int v1favorites = 2130837516;
+			public const int icon = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int v1star10 = 2130837517;
+			public const int OriginalTextButtonSelector = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int v1star100 = 2130837518;
+			public const int OriginalTextInputSelector = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int v1star20 = 2130837519;
+			public const int RusEng = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int v1star50 = 2130837520;
+			public const int SplashScreen = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int v1starttest = 2130837521;
+			public const int TestScreenButtonSelector = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int v43cleartext = 2130837522;
+			public const int v1favorites = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int v4addtofavorites = 2130837523;
+			public const int v1star10 = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int v4alreadyaddedtofav = 2130837524;
+			public const int v1star100 = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int v4change = 2130837525;
+			public const int v1star20 = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int v4search = 2130837526;
+			public const int v1star50 = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int v5change = 2130837527;
+			public const int v1starttest = 2130837527;
+			
+			// aapt resource value: 0x7f020018
+			public const int v43cleartext = 2130837528;
+			
+			// aapt resource value: 0x7f020019
+			public const int v4addtofavorites = 2130837529;
+			
+			// aapt resource value: 0x7f02001a
+			public const int v4alreadyaddedtofav = 2130837530;
+			
+			// aapt resource value: 0x7f02001b
+			public const int v4change = 2130837531;
+			
+			// aapt resource value: 0x7f02001c
+			public const int v4search = 2130837532;
+			
+			// aapt resource value: 0x7f02001d
+			public const int v5change = 2130837533;
 			
 			static Drawable()
 			{

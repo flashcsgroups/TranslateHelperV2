@@ -17,64 +17,6 @@ namespace PortableCore.Tests
     [TestFixture]
     public class DirectionsPresenterTests
     {
-        /*[Test, TestCaseSource(nameof(objectsForCaseGetTrue))]
-        public void TestMust_CompareCurrentLocale_With_KeyboardLocale_And_GetTrue(DetectInputLanguage.Language comparedLanguage, string strDirection)
-        {
-            //arrange
-            MockDirectionManager dirManager = new MockDirectionManager();
-            TranslateDirection direction = new TranslateDirection(new MockSQLite(), dirManager);
-            direction.SetDirection(strDirection);
-
-            //act
-            bool result = direction.IsFrom(comparedLanguage);
-
-            //assert
-            Assert.IsTrue(result);
-        }
-
-        static object[] objectsForCaseGetTrue =
-        {
-            new object[] { DetectInputLanguage.Language.English, "en-ru" },
-            new object[] { DetectInputLanguage.Language.Russian, "ru-en" }
-        };
-
-        [Test, TestCaseSource(nameof(objectsForCaseGetFalse))]
-        public void TestMust_CompareCurrentLocale_With_KeyboardLocale_And_GetFalse(DetectInputLanguage.Language comparedLanguage, string strDirection)
-        {
-            //arrange
-            MockDirectionManager dirManager = new MockDirectionManager();
-            TranslateDirection direction = new TranslateDirection(new MockSQLite(), dirManager);
-            direction.SetDirection(strDirection);
-
-            //act
-            bool result = direction.IsFrom(comparedLanguage);
-
-            //assert
-            Assert.IsFalse(result);
-        }
-        static object[] objectsForCaseGetFalse =
-        {
-            new object[] { DetectInputLanguage.Language.Unknown, "en-ru" },
-            new object[] { DetectInputLanguage.Language.Russian, "en-ru" },
-            new object[] { DetectInputLanguage.Language.English, "ru-en" }
-        };
-
-        [TestCase("ru-en")]
-        [TestCase("en-ru")]
-        public void TestMust_SetNewDirection(string newDirection)
-        {
-            //arrange
-            MockDirectionManager dirManager = new MockDirectionManager();
-            TranslateDirection direction = new TranslateDirection(new MockSQLite(), dirManager);
-
-            //act
-            direction.SetDirection(newDirection);
-            string result = direction.GetCurrentDirectionName();
-
-            //assert
-            Assert.AreEqual(result, newDirection);
-        }*/
-
         [Test]
         public void TestMust_GetListAllDirections()
         {

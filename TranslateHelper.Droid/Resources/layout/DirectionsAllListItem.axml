@@ -3,6 +3,7 @@
     android:id="@+id/mainList"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/transparent"
     android:orientation="vertical">
     <LinearLayout
         android:orientation="horizontal"
@@ -14,16 +15,17 @@
             android:src="@drawable/bender1"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@color/transparent"
             android:id="@+id/destLangImageView" />
         <TextView
             android:id="@+id/destLangTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16dip"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:textSize="20dip"
             android:text="English"
             android:textColor="@color/black"
-            android:layout_marginRight="5dp"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"
+            android:gravity="center_vertical" />
     </LinearLayout>
 </LinearLayout>

@@ -13,6 +13,7 @@ namespace PortableCore.DL
         public int ID { get; set; }
         public string NameEng { get; set; }
         public string NameLocal { get; set; }
+        public string NameImageResource { get; set; }
         public int DeleteMark { get; set; }
     }
 }
