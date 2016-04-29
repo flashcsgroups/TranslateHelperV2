@@ -16,51 +16,37 @@ namespace TranslateHelper.Droid.Adapters
 
 		private Activity context;
 		private List<Language> directionsList;
-		//private DisplayMetrics metrics;
-		//private int maxWidth = 0;
+        private List<Tuple<string, int>> flagImageIdsList = new List<Tuple<string, int>>();
 
-		public DirectionsAllAdapter (Activity context, List<Language> directionsList)
+        public DirectionsAllAdapter (Activity context, List<Language> directionsList)
 			: base (context, Resource.Layout.DirectionsAllListItem, directionsList)
 		{
 			this.context = context;
 			this.directionsList = directionsList;
-			//this.metrics = metrics;
-			//this.maxWidth = Convert.ToInt32 (metrics.WidthPixels * 0.7);
 		}
 
 		public override View GetView (int position, View convertView, ViewGroup parent)
 		{
 
 			var item = this.directionsList [position];
-			var view = (convertView ??
-			           this.context.LayoutInflater.Inflate (
-				           Resource.Layout.DirectionsAllListItem,
-				           parent,
-				           false)) as LinearLayout;
+			var view = (convertView ?? this.context.LayoutInflater.Inflate (Resource.Layout.DirectionsAllListItem, parent, false)) as LinearLayout;
 
 			ImageView userView = view.FindViewById<ImageView> (Resource.Id.destLangImageView);
-            userView.SetImageResource(context.Resources.GetIdentifier(item.NameImageResource.ToLower(), "drawable", context.PackageName));
-            //ImageView robotView = view.FindViewById<ImageView> (Resource.Id.list_bubble_robotView);
-            //LinearLayout robotMessage = view.FindViewById<LinearLayout> (Resource.Id.list_bubble_robotMessage);
+            var cacheImgItem = flagImageIdsList.Find(i => i.Item1 == item.NameImageResource.ToLower());
+            int flagResourceId = 0;
+            string imgName = item.NameImageResource.ToLower();
+            if (cacheImgItem != null)
+            {
+                flagResourceId = cacheImgItem.Item2;
+            } else
+            {
+                //ToDo:Попробовать вынести в отдельный класс кеша. По непонятной причине в Xamarin не портирован класс Hashtable.
+                flagResourceId = context.Resources.GetIdentifier(imgName, "drawable", context.PackageName);
+                flagImageIdsList.Add(new Tuple<string, int>(imgName, flagResourceId));
+            }
+            userView.SetImageResource(flagResourceId);
             TextView destLangTextView = view.FindViewById<TextView> (Resource.Id.destLangTextView);
             destLangTextView.Text = item.NameLocal;
-            //robotMessage.SetMaxWidth(maxWidth);
-            //userMessage.SetMaxWidth (maxWidth);
-            //userMessage.Text = item.Text;
-            /*if (item.IsTheDeviceUser == false) {
-				robotMessage.Visibility = ViewStates.Gone;
-				view.SetGravity (GravityFlags.Left);
-				userView.Visibility = ViewStates.Visible;
-				robotView.Visibility = ViewStates.Gone;
-				userMessage.SetBackgroundResource (Resource.Drawable.BubbleChatUserSelector);
-				userMessage.SetTextColor (Android.Graphics.Color.White);
-			} else {
-				userMessage.Visibility = ViewStates.Gone;
-				view.SetGravity (GravityFlags.Right);
-				userView.Visibility = ViewStates.Gone;
-				robotView.Visibility = ViewStates.Visible;
-				robotMessage.SetBackgroundResource (Resource.Drawable.BubbleChatRobotSelector);
-			}*/
 
             return view;
 		}

@@ -41,6 +41,11 @@ namespace PortableCore.Tests
             {
                 this.listLanguages = listLanguages;
             }
+
+            public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         class MockSQLite : ISQLiteTesting

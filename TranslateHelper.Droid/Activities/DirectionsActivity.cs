@@ -75,12 +75,17 @@ namespace TranslateHelper.Droid.Activities
 
             listView.FastScrollEnabled = true;
 
-            //translateResultIdxCollection = getItemsForFavoritesList();
-
-            //var sortedContacts = translateResultIdxCollection.GetSortedData();
-            //var adapter = CreateAdapter(sortedContacts);
             listView.Adapter = new DirectionsAllAdapter(this, listLanguage);
             //listView.ItemLongClick += adapter.ListItemLongClick;
+        }
+
+        public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
+        {
+            var listView = FindViewById<ListView>(Resource.Id.listRecentDirections);
+
+            listView.FastScrollEnabled = true;
+
+            listView.Adapter = new DirectionsRecentAdapter(this, listDirections);
         }
     }
 }

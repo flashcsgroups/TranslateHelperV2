@@ -1,5 +1,6 @@
 ﻿using PortableCore.BL.Managers;
 using PortableCore.BL.Views;
+using PortableCore.DAL;
 using PortableCore.DL;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,15 @@ namespace PortableCore.BL.Presenters
 
         public void SelectedRecentLanguagesEvent()
         {
-            //throw new NotImplementedException();
+            List<Tuple<Language, Language>> listDirections = new List<Tuple<Language, Language>>();
+            Repository<Language> repos = new Repository<Language>();
+            var viewItems = from item in db.Table<Language>() select item;
+            for(int i=0;i<3;i++)
+            {
+                listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(0)));
+            }
+
+            view.updateListRecentDirections(listDirections);
         }
 
         public void SelectedAllLanguagesEvent()

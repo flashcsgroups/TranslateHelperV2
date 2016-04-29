@@ -74,6 +74,7 @@
     <Compile Include="Activities\DictionaryChatActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
+    <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Activities\DictionaryActivity.cs" />
@@ -128,6 +129,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DirectionsRecent.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DirectionsRecentListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
