@@ -11,27 +11,27 @@ using Android.Content.Res;
 
 namespace TranslateHelper.Droid.Adapters
 {
-	public class DirectionsRecentAdapter : ArrayAdapter<Tuple<Language, Language>>
-	{
+    public class DirectionsRecentAdapter : ArrayAdapter<Tuple<Language, Language>>
+    {
 
-		private Activity context;
-		private List<Tuple<Language, Language>> directionsList;
+        private Activity context;
+        private List<Tuple<Language, Language>> directionsList;
         private List<Tuple<string, int>> flagImageIdsList = new List<Tuple<string, int>>();
 
         public DirectionsRecentAdapter(Activity context, List<Tuple<Language, Language>> directionsList)
-			: base (context, Resource.Layout.DirectionsRecentListItem, directionsList)
-		{
-			this.context = context;
-			this.directionsList = directionsList;
-		}
+            : base(context, Resource.Layout.DirectionsRecentListItem, directionsList)
+        {
+            this.context = context;
+            this.directionsList = directionsList;
+        }
 
-		public override View GetView (int position, View convertView, ViewGroup parent)
-		{
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
 
-			var item = this.directionsList [position];
-			var view = (convertView ?? this.context.LayoutInflater.Inflate (Resource.Layout.DirectionsRecentListItem, parent, false)) as LinearLayout;
+            var item = this.directionsList[position];
+            var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.DirectionsRecentListItem, parent, false)) as LinearLayout;
 
-			ImageView sourceLangImageView = view.FindViewById<ImageView>(Resource.Id.sourceLangImageView);
+            ImageView sourceLangImageView = view.FindViewById<ImageView>(Resource.Id.sourceLangImageView);
             ImageView destLangImageView = view.FindViewById<ImageView>(Resource.Id.destLangImageView);
             TextView sourceLangTextView = view.FindViewById<TextView>(Resource.Id.sourceLangTextView);
             TextView destLangTextView = view.FindViewById<TextView>(Resource.Id.destLangTextView);
@@ -58,6 +58,6 @@ namespace TranslateHelper.Droid.Adapters
             destLangTextView.Text = item.NameLocal;*/
 
             return view;
-		}
-	}
+        }
+    }
 }

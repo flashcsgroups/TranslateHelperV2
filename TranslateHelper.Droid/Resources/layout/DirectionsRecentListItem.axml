@@ -31,8 +31,7 @@
             android:src="@drawable/v4search"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@color/transparent"
-            android:id="@+id/destLangImageView" />
+            android:background="@color/transparent" />
         <ImageView
             android:src="@drawable/bender1"
             android:layout_width="48dp"

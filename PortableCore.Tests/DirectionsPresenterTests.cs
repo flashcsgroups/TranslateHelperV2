@@ -18,6 +18,20 @@ namespace PortableCore.Tests
     public class DirectionsPresenterTests
     {
         [Test]
+        public void TestMust_GetListRecentDirections()
+        {
+            //arrange
+            var mockView = new MockDirectionsView();
+            var presenter = new DirectionsPresenter(mockView, new MockSQLite());
+
+            //act
+            presenter.SelectedRecentLanguagesEvent();
+
+            //assert
+            Assert.AreEqual(mockView.listDirections.Count, 4);
+        }
+
+        [Test]
         public void TestMust_GetListAllDirections()
         {
             //arrange
@@ -35,7 +49,9 @@ namespace PortableCore.Tests
 
         class MockDirectionsView : IDirectionsView
         {
-            public List<Language> listLanguages;
+            public List<Language> listLanguages { get; private set; }
+
+            public List<Tuple<Language, Language>> listDirections { get; private set; }
 
             public void updateListAllLanguages(List<Language> listLanguages)
             {
@@ -44,7 +60,7 @@ namespace PortableCore.Tests
 
             public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
             {
-                throw new NotImplementedException();
+                this.listDirections = listDirections;
             }
         }
 
