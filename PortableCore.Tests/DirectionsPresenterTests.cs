@@ -28,7 +28,10 @@ namespace PortableCore.Tests
             presenter.SelectedRecentLanguagesEvent();
 
             //assert
-            Assert.AreEqual(mockView.listDirections.Count, 4);
+            Assert.AreEqual(3, mockView.listDirections.Count);
+            Assert.AreEqual(1, mockView.listDirections[0].Item1.ID);//порядок важен
+            Assert.AreEqual(2, mockView.listDirections[1].Item1.ID);
+            Assert.AreEqual(3, mockView.listDirections[2].Item1.ID);
         }
 
         [Test]
@@ -64,13 +67,38 @@ namespace PortableCore.Tests
             }
         }
 
-        class MockSQLite : ISQLiteTesting
+        public class MockSQLite : ISQLiteTesting
         {
-            public IEnumerable<Direction> Table<Direction>() where Direction : IBusinessEntity, new()
+            public IEnumerable<T> Table<T>() where T : IBusinessEntity, new()
             {
-                List<Direction> listFav = new List<Direction>();
-                //listFav.Add(new Direction() { ID = 1 });
-                return listFav;
+                List<T> listItems = new List<T>();
+                var type = typeof(T);
+                if(type == typeof(Language))
+                {
+                    listItems = getMockedDataForLanguage() as List<T>;
+                }
+                if (type == typeof(LastChats))
+                {
+                    listItems = getMockedDataForLastChats() as List<T>;
+                }
+
+                return listItems;
+            }
+
+            private List<LastChats> getMockedDataForLastChats()
+            {
+                List<LastChats> listObj = new List<LastChats>();
+                listObj.Add(new LastChats() { ID = 1, LangFrom = 1, LangTo = 2, LastChanges = DateTime.Parse("2016.01.01") });
+                listObj.Add(new LastChats() { ID = 2, LangFrom = 2, LangTo = 1, LastChanges = DateTime.Parse("2016.01.02") });
+                listObj.Add(new LastChats() { ID = 3, LangFrom = 3, LangTo = 1, LastChanges = DateTime.Parse("2016.01.03") });
+                return listObj;
+            }
+
+            private List<Language> getMockedDataForLanguage()
+            {
+                LanguageManager langMan = new LanguageManager(this);
+                List<Language> listObj  = langMan.GetDefaultData().ToList();
+                return listObj;
             }
         }
 

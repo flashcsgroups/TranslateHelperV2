@@ -24,14 +24,13 @@ namespace PortableCore.BL.Presenters
 
         public void SelectedRecentLanguagesEvent()
         {
-            //ToDo:Убрать зависимость от БД, тогда получится тест написать
             List<Tuple<Language, Language>> listDirections = new List<Tuple<Language, Language>>();
-            Repository<Language> repos = new Repository<Language>();
-            var viewItems = from item in db.Table<Language>() select item;
+            Repository<LastChats> repos = new Repository<LastChats>();
+            /*var viewItems = from item in db.Table<LastChats>() orderby item.LastChanges select new Tuple<Language, Language>() { test = item.LangFrom };
             listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(1)));
             listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(1), viewItems.ElementAt(0)));
             listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(2), viewItems.ElementAt(0)));
-            listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(3)));
+            listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(3)));*/
 
             view.updateListRecentDirections(listDirections);
         }

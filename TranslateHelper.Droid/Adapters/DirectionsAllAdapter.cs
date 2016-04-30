@@ -50,5 +50,10 @@ namespace TranslateHelper.Droid.Adapters
 
             return view;
 		}
-	}
+
+        internal Language GetLanguageItem(int position)
+        {
+            return this.directionsList[position];
+        }
+    }
 }

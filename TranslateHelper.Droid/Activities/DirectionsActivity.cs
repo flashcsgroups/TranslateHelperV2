@@ -22,6 +22,7 @@ namespace TranslateHelper.Droid.Activities
     public class DirectionsActivity : Activity, IDirectionsView
     {
         DirectionsPresenter presenter;
+        DirectionsAllAdapter adapterAllDirections;
         //RecentDirectionsPresenter recentDirectionsPresenter;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -75,9 +76,24 @@ namespace TranslateHelper.Droid.Activities
 
             listView.FastScrollEnabled = true;
 
-            listView.Adapter = new DirectionsAllAdapter(this, listLanguage);
-            //listView.ItemLongClick += adapter.ListItemLongClick;
+            adapterAllDirections = new DirectionsAllAdapter(this, listLanguage);
+            listView.Adapter = adapterAllDirections;
+            listView.ItemClick += ListViewAllDirections_ItemClick;
         }
+
+        private void ListViewAllDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Language langItem = adapterAllDirections.GetLanguageItem(e.Position);
+            var intent = new Intent(this, typeof(DictionaryChatActivity));
+            intent.PutExtra("SelectedLanguageID", langItem.ID);
+            StartActivity(intent);
+        }
+
+        /*private void ListViewAllLang_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Toast.MakeText(this, e.Id.ToString(), ToastLength.Long).Show();
+            
+        }*/
 
         public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
         {

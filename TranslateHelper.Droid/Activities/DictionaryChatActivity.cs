@@ -40,6 +40,8 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
+            int selectedLangId = Intent.GetIntExtra("SelectedLanguageID", -1);
+            Toast.MakeText(this, selectedLangId.ToString(), ToastLength.Long).Show();
             presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB);
         }
 
@@ -57,12 +59,6 @@ namespace TranslateHelper.Droid.Activities
             //currentMenu = menu;
             MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
             return true;
-        }
-
-        public override void OnBackPressed()
-        {
-            base.OnBackPressed();
-            Java.Lang.JavaSystem.Exit(0);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

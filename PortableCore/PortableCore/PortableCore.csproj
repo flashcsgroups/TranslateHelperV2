@@ -46,6 +46,7 @@
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
+    <Compile Include="DL\LastChats.cs" />
     <Compile Include="BL\Views\IDirectionsView.cs" />
     <Compile Include="BL\Views\IDictionaryChatView.cs" />
     <Compile Include="BL\Views\ITestSelectWordsView.cs" />
