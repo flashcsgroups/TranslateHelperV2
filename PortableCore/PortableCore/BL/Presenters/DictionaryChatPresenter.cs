@@ -35,7 +35,7 @@ namespace PortableCore.BL.Presenters
 
         public async void StartRequestWithValidation(string originalText)
         {
-            preparedTextForRequest = prepareTextForRequest(originalText);
+            /*preparedTextForRequest = prepareTextForRequest(originalText);
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
                 DetectInputLanguage detect = new DetectInputLanguage(originalText);
@@ -47,7 +47,7 @@ namespace PortableCore.BL.Presenters
 
                 };
                 await RequestReference(preparedTextForRequest);
-            }
+            }*/
         }
 
         private string prepareTextForRequest(string originalText)

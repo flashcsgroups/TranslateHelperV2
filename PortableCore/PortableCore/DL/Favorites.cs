@@ -16,5 +16,7 @@ namespace PortableCore.DL
 		public int TranslatedExpressionID { get; set; }
         [Indexed]
         public int DirectionID { get; set; }
+        [Indexed]
+        public int ChatHistoryID { get; set; }//ссылка на ид в истории чата, избранное только из него добавляется
     }
 }

@@ -6,3 +6,6 @@ http://www.sitepoint.com/10-free-ui-templates-android-lollipop-ios-8/
 http://hmkcode.com/material-design-app-android-design-support-library-appcompat/
 //http://developer.xamarin.com/recipes/android/web_services/consuming_services/call_a_rest_web_service/
 //https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
+
+скроллинг ListView порциями
+https://forums.xamarin.com/discussion/5000/scrolling-listviews-which-get-data-as-needed

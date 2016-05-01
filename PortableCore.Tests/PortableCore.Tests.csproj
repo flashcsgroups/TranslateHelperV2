@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DictionaryChatPresenterTests.cs" />
     <Compile Include="JSONTexts.Designer.cs">
       <DependentUpon>JSONTexts.resx</DependentUpon>
       <AutoGen>True</AutoGen>

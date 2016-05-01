@@ -50,7 +50,9 @@ namespace PortableCore.DAL
 
             db.CreateTable<SourceDefinition>();
 
+            db.CreateTable<Chats>();
 
+            db.CreateTable<ChatHistory>();
 
         }
 

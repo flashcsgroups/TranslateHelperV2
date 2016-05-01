@@ -6,7 +6,6 @@ namespace PortableCore.DL
 {
 	public class TranslatedExpression : IBusinessEntity
 	{
-        //ToDo: добавить геттер для свойств публичных
 		public TranslatedExpression ()
 		{
             TranslatedText = string.Empty;

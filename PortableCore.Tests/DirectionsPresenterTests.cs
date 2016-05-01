@@ -77,7 +77,7 @@ namespace PortableCore.Tests
                 {
                     listItems = getMockedDataForLanguage() as List<T>;
                 }
-                if (type == typeof(LastChats))
+                if (type == typeof(ChatHistory))
                 {
                     listItems = getMockedDataForLastChats() as List<T>;
                 }
@@ -85,12 +85,12 @@ namespace PortableCore.Tests
                 return listItems;
             }
 
-            private List<LastChats> getMockedDataForLastChats()
+            private List<ChatHistory> getMockedDataForLastChats()
             {
-                List<LastChats> listObj = new List<LastChats>();
-                listObj.Add(new LastChats() { ID = 1, LangFrom = 1, LangTo = 2, LastChanges = DateTime.Parse("2016.01.01") });
-                listObj.Add(new LastChats() { ID = 2, LangFrom = 2, LangTo = 1, LastChanges = DateTime.Parse("2016.01.02") });
-                listObj.Add(new LastChats() { ID = 3, LangFrom = 3, LangTo = 1, LastChanges = DateTime.Parse("2016.01.03") });
+                List<ChatHistory> listObj = new List<ChatHistory>();
+                /*listObj.Add(new ChatHistory() { ID = 1, LangFrom = 1, LangTo = 2, LastChanges = DateTime.Parse("2016.01.01") });
+                listObj.Add(new ChatHistory() { ID = 2, LangFrom = 2, LangTo = 1, LastChanges = DateTime.Parse("2016.01.02") });
+                listObj.Add(new ChatHistory() { ID = 3, LangFrom = 3, LangTo = 1, LastChanges = DateTime.Parse("2016.01.03") });*/
                 return listObj;
             }
 

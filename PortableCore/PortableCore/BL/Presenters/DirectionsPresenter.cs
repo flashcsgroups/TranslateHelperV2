@@ -25,7 +25,7 @@ namespace PortableCore.BL.Presenters
         public void SelectedRecentLanguagesEvent()
         {
             List<Tuple<Language, Language>> listDirections = new List<Tuple<Language, Language>>();
-            Repository<LastChats> repos = new Repository<LastChats>();
+            Repository<ChatHistory> repos = new Repository<ChatHistory>();
             /*var viewItems = from item in db.Table<LastChats>() orderby item.LastChanges select new Tuple<Language, Language>() { test = item.LangFrom };
             listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(1)));
             listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(1), viewItems.ElementAt(0)));
