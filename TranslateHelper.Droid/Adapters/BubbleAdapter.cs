@@ -42,9 +42,10 @@ namespace TranslateHelper.Droid.Adapters
             TextView userMessage = view.FindViewById<TextView>(Resource.Id.list_bubble_userMessage);
             //robotMessage.SetMaxWidth(maxWidth);
             userMessage.SetMaxWidth(maxWidth);
-            userMessage.Text = item.Text;
-            if (item.IsTheDeviceUser == false)
+            //userMessage.Text = item.Text;
+            if (!item.IsRobotResponse)
             {
+                userMessage.Text = item.TextTo;
                 robotMessage.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Left);
                 userView.Visibility = ViewStates.Visible;
@@ -54,7 +55,8 @@ namespace TranslateHelper.Droid.Adapters
             }
             else
             {
-                userMessage.Visibility = ViewStates.Gone;
+                userMessage.Text = item.TextFrom;
+                //userMessage.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Right);
                 userView.Visibility = ViewStates.Gone;
                 robotView.Visibility = ViewStates.Visible;

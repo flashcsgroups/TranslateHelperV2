@@ -40,7 +40,6 @@ namespace PortableCore.BL.Managers
 
         public List<SourceDefinition> GetDefinitionCollection(int sourceId)
         {
-            //var definitionsView = from defItem in SqlLiteInstance.DB.Table<SourceDefinition>() where defItem.SourceExpressionID == sourceId select defItem;
             var definitionsView = from defItem in db.Table<SourceDefinition>() where defItem.SourceExpressionID == sourceId select defItem;
             return definitionsView.ToList();
         }

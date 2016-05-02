@@ -32,7 +32,7 @@ namespace TranslateHelper.Droid.Activities
             ImageButton buttonTranslate = FindViewById<ImageButton>(Resource.Id.buttonTranslate);
             buttonTranslate.Click += (object sender, EventArgs e) =>
             {
-                presenter.StartRequestWithValidation(editSourceText.Text);
+                presenter.UserAddNewTextEvent(editSourceText.Text);
                 editSourceText.Text = string.Empty;
             };
         }

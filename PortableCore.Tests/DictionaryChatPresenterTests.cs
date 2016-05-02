@@ -16,27 +16,28 @@ namespace PortableCore.Tests
     public class DictionaryChatPresenterTests
     {
         [Test]
-        public void TestMethod()
+        public void TestMust_AddUserTextToChat()
         {
             //arrange
             var mockView = new MockDictionaryChatView();
             DictionaryChatPresenter presenter = new DictionaryChatPresenter(mockView, new MockSQLite());
 
             //act
-            //presenter.SelectedRecentLanguagesEvent();
+            string userText = "test";
+            presenter.UserAddNewTextEvent(userText);
 
             //assert
-            /*Assert.AreEqual(3, mockView.listDirections.Count);
-            Assert.AreEqual(1, mockView.listDirections[0].Item1.ID);//порядок важен
-            Assert.AreEqual(2, mockView.listDirections[1].Item1.ID);
-            Assert.AreEqual(3, mockView.listDirections[2].Item1.ID);*/
+            Assert.AreEqual(2, mockView.ListBubbles.Count);
+            Assert.AreEqual(userText, mockView.ListBubbles[0].TextTo);
+            Assert.AreEqual("тест", mockView.ListBubbles[1].TextFrom);
         }
 
         class MockDictionaryChatView : IDictionaryChatView
         {
+            public List<BubbleItem> ListBubbles = new List<BubbleItem>();
             public void UpdateChat(List<BubbleItem> listBubbles)
             {
-                throw new NotImplementedException();
+                this.ListBubbles = listBubbles;
             }
         }
 
