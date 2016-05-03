@@ -32,6 +32,7 @@ namespace PortableCore.BL.Presenters
             direction = new TranslateDirection(this.db, new DirectionManager(this.db));
             direction.SetDefaultDirection();
             RequestReference = new goTranslateRequest(translateRequest);
+            view.UpdateChat(getListBubbles());
         }
 
         public void UserAddNewTextEvent(string userText)
@@ -41,6 +42,7 @@ namespace PortableCore.BL.Presenters
             {
                 addToDBUserRequest(preparedTextForRequest);
                 addToDBDefaultRobotResponse();
+                view.UpdateChat(getListBubbles());
                 startRequestWithValidation(preparedTextForRequest);
             }
         }
@@ -49,7 +51,7 @@ namespace PortableCore.BL.Presenters
         {
             ChatHistory item = new ChatHistory();
             item.UpdateDate = DateTime.Now;
-            item.TextFrom = "wait...";
+            item.TextFrom = "Роюсь в словаре...";
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
             manager.SaveItem(item);
         }
@@ -68,7 +70,18 @@ namespace PortableCore.BL.Presenters
             ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
             ChatHistory defaultRobotItem = chatHistoryManager.GetLastRobotMessage();
             defaultRobotItem.UpdateDate = DateTime.Now;
-            defaultRobotItem.TextFrom = reqResult.TranslatedData.Definitions[0].TranslateVariants[0].Text;
+            defaultRobotItem.TextFrom = string.Empty;
+            foreach (var definition in reqResult.TranslatedData.Definitions)
+            {
+                if(!string.IsNullOrEmpty(definition.Transcription)) defaultRobotItem.Transcription = string.Format("[{0}]", definition.Transcription);
+                if(definition.Pos!=DefinitionTypesEnum.translater) defaultRobotItem.Definition = definition.Pos.ToString();
+                foreach (var textVariant in definition.TranslateVariants)
+                {
+                    defaultRobotItem.TextFrom += textVariant.Text + ", ";
+                }
+                defaultRobotItem.TextFrom = defaultRobotItem.TextFrom.Substring(0, defaultRobotItem.TextFrom.Length - 2);
+                break;//пока для превью хватит
+            }
             chatHistoryManager.SaveItem(defaultRobotItem);
         }
 
@@ -106,20 +119,9 @@ namespace PortableCore.BL.Presenters
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
+                    Task.Delay(1000).Wait();
                     addToDBRobotResponse(reqResult);
-                    var bubbles = getListBubbles();
-                    view.UpdateChat(bubbles);
-                    /*bubbles.Add(new BubbleItem() { IsTheDeviceUser = false, Text = reqResult.OriginalText, UserNameText="MyName" });
-                    string res = string.Empty;
-                    foreach(var item in reqResult.TranslatedData.Definitions)
-                    {
-                        foreach(var itemvar in item.TranslateVariants)
-                        {
-                            res += itemvar.Text + ";";
-                        }
-                    }
-                    bubbles.Add(new BubbleItem() { IsTheDeviceUser = true, Text = res, UserNameText = "TH" });
-                    view.UpdateChat(bubbles);*/
+                    view.UpdateChat(getListBubbles());
                     //updateListResults(reqResult);
                     //TogglesSoftKeyboard.Hide(this);
                 }
@@ -141,7 +143,8 @@ namespace PortableCore.BL.Presenters
                 bubble.TextTo = item.TextTo;
                 bubble.TextFrom = item.TextFrom;
                 bubble.IsRobotResponse = string.IsNullOrEmpty(item.TextTo);
-                bubble.UserNameText = "username";
+                bubble.Transcription = item.Transcription;
+                bubble.Definition = item.Definition;
                 resultBubbles.Add(bubble);
             }
             /*bubbles.Add(new BubbleItem() { IsTheDeviceUser = false, Text = reqResult.OriginalText, UserNameText="MyName" });

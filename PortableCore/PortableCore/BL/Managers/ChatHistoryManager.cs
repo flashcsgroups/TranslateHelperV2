@@ -51,7 +51,8 @@ namespace PortableCore.BL.Managers
 
         internal List<ChatHistory> ReadChatMessages()
         {
-            var view = (from item in db.Table<ChatHistory>() orderby item.ID ascending select item).Take(100);
+            //var view = (from item in db.Table<ChatHistory>() orderby item.ID ascending select item).Take(1000);
+            var view = from item in db.Table<ChatHistory>() orderby item.ID ascending select item;
             return view.ToList();
         }
     }

@@ -15,7 +15,7 @@ namespace TranslateHelper.App
     public class TranslateHelperApplication : Application
     {
         public static TranslateHelperApplication CurrentInstance { get; private set; }
-        private static string sqliteFilename = "TranslateHelperV21.db3";
+        private static string sqliteFilename = "TranslateHelperV22.db3";
         private bool initTablesInNewDB = true;
 
         protected TranslateHelperApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)

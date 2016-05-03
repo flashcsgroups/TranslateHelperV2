@@ -4,9 +4,9 @@
     {
         public string TextFrom;
         public string TextTo;
+        public string Transcription;
+        public string Definition;
 
         public bool IsRobotResponse { get; internal set; }
-        public string Text { get; internal set; }
-        public string UserNameText { get; internal set; }
     }
 }
