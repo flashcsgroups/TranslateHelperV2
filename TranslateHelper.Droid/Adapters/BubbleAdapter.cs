@@ -11,7 +11,6 @@ namespace TranslateHelper.Droid.Adapters
 {
     public class BubbleAdapter : ArrayAdapter<BubbleItem>
     {
-
         private Activity context;
         private List<BubbleItem> bubbleList;
         private DisplayMetrics metrics;
@@ -24,70 +23,75 @@ namespace TranslateHelper.Droid.Adapters
             this.bubbleList = bubbleList;
             this.metrics = metrics;
             this.maxWidth = Convert.ToInt32(metrics.WidthPixels * 0.7);
+            
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
+            ViewHolder holder = null;
             var item = this.bubbleList[position];
-            var view = (convertView ??
-                   this.context.LayoutInflater.Inflate(
-                   Resource.Layout.Bubble,
-                   parent,
-                   false)) as LinearLayout;
+            var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.Bubble, parent, false)) as LinearLayout;
 
-            ImageView userView = view.FindViewById<ImageView>(Resource.Id.list_bubble_userView);
-            ImageView robotView = view.FindViewById<ImageView>(Resource.Id.list_bubble_robotView);
-            LinearLayout robotLayout = view.FindViewById<LinearLayout>(Resource.Id.LayoutRobotView);
-            TextView userMessage = view.FindViewById<TextView>(Resource.Id.UserMessage);
-            TextView robotMessage = view.FindViewById<TextView>(Resource.Id.RobotMessage);
-            TextView transcriptionTextView = view.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
-            TextView defTextView = view.FindViewById<TextView>(Resource.Id.DefinitionTextView);
-            robotMessage.SetMaxWidth(maxWidth);
-            userMessage.SetMaxWidth(maxWidth);
+            if (view != null)
+            {
+                holder = view.Tag as ViewHolder;
+            }
+
+            if (holder == null)
+            {
+                holder = new ViewHolder();
+                holder.Initialize(view);
+                view.Tag = holder;
+            }
+            holder.robotMessage.SetMaxWidth(maxWidth);
+            holder.userMessage.SetMaxWidth(maxWidth);
             if (!item.IsRobotResponse)
             {
-                userMessage.Text = item.TextTo;
-                userView.Visibility = ViewStates.Visible;
-                userMessage.Visibility = ViewStates.Visible;
-                robotView.Visibility = ViewStates.Gone;
-                robotLayout.Visibility = ViewStates.Gone;
+                holder.userMessage.Text = item.TextTo;
+                holder.userView.Visibility = ViewStates.Visible;
+                holder.userMessage.Visibility = ViewStates.Visible;
+                holder.robotView.Visibility = ViewStates.Gone;
+                holder.robotLayout.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Left);
             }
             else
             {
-                robotMessage.Text = item.TextFrom;
-                transcriptionTextView.Text = item.Transcription;
-                defTextView.Text = item.Definition;
-                robotView.Visibility = ViewStates.Visible;
-                robotLayout.Visibility = ViewStates.Visible;
-                userView.Visibility = ViewStates.Gone;
-                userMessage.Visibility = ViewStates.Gone;
+                holder.robotMessage.Text = item.TextFrom;
+                holder.transcriptionTextView.Text = item.Transcription;
+                holder.defTextView.Text = item.Definition;
+                if (string.IsNullOrEmpty(item.Definition)) holder.robotLayoutDefinition.Visibility = ViewStates.Gone;
+                holder.robotView.Visibility = ViewStates.Visible;
+                holder.robotLayout.Visibility = ViewStates.Visible;
+                holder.userView.Visibility = ViewStates.Gone;
+                holder.userMessage.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Right);
             }
-            //userMessage.Text = item.Text;
-            /*if (!item.IsRobotResponse)
-            {
-                userMessage.Text = item.TextTo;
-                robotMessage.Visibility = ViewStates.Gone;
-                view.SetGravity(GravityFlags.Left);
-                userView.Visibility = ViewStates.Visible;
-                robotView.Visibility = ViewStates.Gone;
-                userMessage.SetBackgroundResource(Resource.Drawable.BubbleChatUserSelector);
-                userMessage.SetTextColor(Android.Graphics.Color.White);
-            }
-            else
-            {
-                userMessage.Text = item.TextFrom;
-                //userMessage.Visibility = ViewStates.Gone;
-                view.SetGravity(GravityFlags.Right);
-                userView.Visibility = ViewStates.Gone;
-                robotView.Visibility = ViewStates.Visible;
-                robotMessage.SetBackgroundResource(Resource.Drawable.BubbleChatRobotSelector);
-                //message.SetTextColor(Android.Graphics.Color.Black);
-            }*/
-
             return view;
+        }
+
+        class ViewHolder : Java.Lang.Object
+        {
+            public ImageView userView { get; private set; }
+            public ImageView robotView { get; private set; }
+            public LinearLayout robotLayout { get; private set; }
+            public LinearLayout robotLayoutDefinition { get; private set; }
+            public TextView userMessage { get; private set; }
+            public TextView robotMessage { get; private set; }
+            public TextView transcriptionTextView { get; private set; }
+            public TextView defTextView { get; private set; }
+
+            internal void Initialize(LinearLayout viewElement)
+            {
+                this.userView = viewElement.FindViewById<ImageView>(Resource.Id.list_bubble_userView);
+                this.robotView = viewElement.FindViewById<ImageView>(Resource.Id.list_bubble_robotView);
+                this.robotLayout = viewElement.FindViewById<LinearLayout>(Resource.Id.LayoutRobotView);
+                this.robotLayoutDefinition = viewElement.FindViewById<LinearLayout>(Resource.Id.LayoutDefinitionRobot);
+                this.userMessage = viewElement.FindViewById<TextView>(Resource.Id.UserMessage);
+                this.robotMessage = viewElement.FindViewById<TextView>(Resource.Id.RobotMessage);
+                this.transcriptionTextView = viewElement.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
+                this.defTextView = viewElement.FindViewById<TextView>(Resource.Id.DefinitionTextView);
+            }
         }
     }
 }

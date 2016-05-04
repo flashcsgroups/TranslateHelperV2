@@ -41,7 +41,7 @@ namespace TranslateHelper.Droid.Activities
         {
             base.OnStart();
             int selectedLangId = Intent.GetIntExtra("SelectedLanguageID", -1);
-            Toast.MakeText(this, selectedLangId.ToString(), ToastLength.Long).Show();
+            //Toast.MakeText(this, selectedLangId.ToString(), ToastLength.Long).Show();
             presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB);
         }
 

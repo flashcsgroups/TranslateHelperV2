@@ -71,18 +71,27 @@ namespace PortableCore.BL.Presenters
             ChatHistory defaultRobotItem = chatHistoryManager.GetLastRobotMessage();
             defaultRobotItem.UpdateDate = DateTime.Now;
             defaultRobotItem.TextFrom = string.Empty;
+            string delimiter = ", ";
+            createDBItemsFromResponse(reqResult, chatHistoryManager, defaultRobotItem, delimiter);
+        }
+
+        private void createDBItemsFromResponse(TranslateRequestResult reqResult, ChatHistoryManager chatHistoryManager, ChatHistory defaultRobotItem, string delimiter)
+        {
+            var robotItem = defaultRobotItem;
             foreach (var definition in reqResult.TranslatedData.Definitions)
             {
-                if(!string.IsNullOrEmpty(definition.Transcription)) defaultRobotItem.Transcription = string.Format("[{0}]", definition.Transcription);
-                if(definition.Pos!=DefinitionTypesEnum.translater) defaultRobotItem.Definition = definition.Pos.ToString();
+                if (!string.IsNullOrEmpty(definition.Transcription)) robotItem.Transcription = string.Format("[{0}]", definition.Transcription);
+                if (definition.Pos != DefinitionTypesEnum.translater) robotItem.Definition = definition.Pos.ToString();
+                StringBuilder builderTextFrom = new StringBuilder();
                 foreach (var textVariant in definition.TranslateVariants)
                 {
-                    defaultRobotItem.TextFrom += textVariant.Text + ", ";
+                    builderTextFrom.Append(textVariant.Text);
+                    builderTextFrom.Append(delimiter);
                 }
-                defaultRobotItem.TextFrom = defaultRobotItem.TextFrom.Substring(0, defaultRobotItem.TextFrom.Length - 2);
-                break;//пока для превью хватит
+                robotItem.TextFrom = builderTextFrom.ToString().Remove(builderTextFrom.Length - delimiter.Length, delimiter.Length);
+                chatHistoryManager.SaveItem(robotItem);
+                robotItem = new ChatHistory();
             }
-            chatHistoryManager.SaveItem(defaultRobotItem);
         }
 
         private async void startRequestWithValidation(string originalText)
@@ -119,7 +128,7 @@ namespace PortableCore.BL.Presenters
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
-                    Task.Delay(1000).Wait();
+                    //Task.Delay(1000).Wait();
                     addToDBRobotResponse(reqResult);
                     view.UpdateChat(getListBubbles());
                     //updateListResults(reqResult);
