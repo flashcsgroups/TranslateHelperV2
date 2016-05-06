@@ -44,5 +44,24 @@ namespace PortableCore.BL.Presenters
             }
             view.updateListAllLanguages(listLanguages);
         }
+
+        public Chat FoundExistingOrCreateChat(Language robotLanguage)
+        {
+            LanguageManager languageManager = new LanguageManager(db);
+            Language userLanguage = languageManager.GetItemForNameEng("Russian");
+            ChatManager chatManager = new ChatManager(db);
+            Chat chat = chatManager.GetChatByLanguage(userLanguage, robotLanguage);
+            if(chat == null)
+            {
+                chat = new Chat();
+                chat.LanguageFrom = userLanguage.ID;
+                chat.LanguageCaptionFrom = userLanguage.NameLocal;
+                chat.LanguageTo = robotLanguage.ID;
+                chat.LanguageCaptionTo = robotLanguage.NameLocal;
+                chat.UpdateDate = DateTime.Now;
+                chatManager.SaveItem(chat);
+            }
+            return chat;
+        }
     }
 }

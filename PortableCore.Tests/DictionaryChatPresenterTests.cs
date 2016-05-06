@@ -20,7 +20,7 @@ namespace PortableCore.Tests
         {
             //arrange
             var mockView = new MockDictionaryChatView();
-            DictionaryChatPresenter presenter = new DictionaryChatPresenter(mockView, new MockSQLite());
+            DictionaryChatPresenter presenter = new DictionaryChatPresenter(mockView, new MockSQLite(), 0);
 
             //act
             string userText = "test";

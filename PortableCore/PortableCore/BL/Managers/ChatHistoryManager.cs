@@ -49,10 +49,10 @@ namespace PortableCore.BL.Managers
             return resultItem;
         }
 
-        internal List<ChatHistory> ReadChatMessages()
+        internal List<ChatHistory> ReadChatMessages(Chat chatItem)
         {
             //var view = (from item in db.Table<ChatHistory>() orderby item.ID ascending select item).Take(1000);
-            var view = from item in db.Table<ChatHistory>() orderby item.ID ascending select item;
+            var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID orderby item.ID ascending select item;
             return view.ToList();
         }
     }

@@ -21,16 +21,24 @@ namespace PortableCore.BL.Presenters
         TranslateDirection direction;
         delegate Task goTranslateRequest(string originalText);
         goTranslateRequest RequestReference;
-        //List<BubbleItem> bubbles = new List<BubbleItem>();
         string preparedTextForRequest = string.Empty;
 
+        Chat currentChat;
 
-        public DictionaryChatPresenter(IDictionaryChatView view, ISQLiteTesting db)
+        public DictionaryChatPresenter(IDictionaryChatView view, ISQLiteTesting db, int selectedChatID)
         {
             this.view = view;
             this.db = db;
+            ChatManager chatManager = new ChatManager(db);
+            this.currentChat = chatManager.GetItemForId(selectedChatID);
+            LanguageManager languageManager = new LanguageManager(db);
+            Language userLang = languageManager.GetItemForId(this.currentChat.LanguageFrom);
+            Language robotLang = languageManager.GetItemForId(this.currentChat.LanguageTo);
+
             direction = new TranslateDirection(this.db, new DirectionManager(this.db));
-            direction.SetDefaultDirection();
+            //direction.SetDefaultDirection();
+            direction.SetDirection(string.Format("{0}-{1}", userLang.NameShort, robotLang.NameShort));
+
             RequestReference = new goTranslateRequest(translateRequest);
             view.UpdateChat(getListBubbles());
         }
@@ -50,6 +58,7 @@ namespace PortableCore.BL.Presenters
         private void addToDBDefaultRobotResponse()
         {
             ChatHistory item = new ChatHistory();
+            item.ChatID = currentChat.ID;
             item.UpdateDate = DateTime.Now;
             item.TextFrom = "Роюсь в словаре...";
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
@@ -59,6 +68,7 @@ namespace PortableCore.BL.Presenters
         private void addToDBUserRequest(string userText)
         {
             ChatHistory item = new ChatHistory();
+            item.ChatID = currentChat.ID;
             item.UpdateDate = DateTime.Now;
             item.TextTo = userText;
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
@@ -128,10 +138,8 @@ namespace PortableCore.BL.Presenters
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
-                    //Task.Delay(1000).Wait();
                     addToDBRobotResponse(reqResult);
                     view.UpdateChat(getListBubbles());
-                    //updateListResults(reqResult);
                     //TogglesSoftKeyboard.Hide(this);
                 }
                 else
@@ -145,7 +153,7 @@ namespace PortableCore.BL.Presenters
         {
             List<BubbleItem> resultBubbles = new List<BubbleItem>();
             ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
-            IEnumerable<ChatHistory> history = chatHistoryManager.ReadChatMessages();
+            IEnumerable<ChatHistory> history = chatHistoryManager.ReadChatMessages(currentChat);
             foreach (var item in history)
             {
                 BubbleItem bubble = new BubbleItem();

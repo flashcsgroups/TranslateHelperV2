@@ -17,7 +17,7 @@ using PortableCore.BL.Models;
 
 namespace TranslateHelper.Droid.Activities
 {
-    [Activity(Label = "@string/app_name", MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+    [Activity(Label = "", MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryChatActivity : Activity, IDictionaryChatView
     {
         DictionaryChatPresenter presenter;
@@ -40,9 +40,15 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
-            int selectedLangId = Intent.GetIntExtra("SelectedLanguageID", -1);
-            //Toast.MakeText(this, selectedLangId.ToString(), ToastLength.Long).Show();
-            presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB);
+            int selectedChatID = Intent.GetIntExtra("SelectedChatID", -1);
+            if(selectedChatID >= 0)
+            {
+                presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
+            }
+            else
+            {
+                throw new Exception("Chat not found");
+            }
         }
 
         public void UpdateChat(List<BubbleItem> listBubbles)

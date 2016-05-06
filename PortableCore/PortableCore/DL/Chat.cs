@@ -8,9 +8,9 @@ using SQLite;
 
 namespace PortableCore.DL
 {
-    public class Chats : IBusinessEntity
+    public class Chat : IBusinessEntity
     {
-        public Chats()
+        public Chat()
         {
 
         }

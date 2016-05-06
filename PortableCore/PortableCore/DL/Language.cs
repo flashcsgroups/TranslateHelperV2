@@ -12,6 +12,7 @@ namespace PortableCore.DL
         [PrimaryKey, AutoIncrement, Indexed]
         public int ID { get; set; }
         public string NameEng { get; set; }
+        public string NameShort { get; set; }
         public string NameLocal { get; set; }
         public string NameImageResource { get; set; }
         public int DeleteMark { get; set; }

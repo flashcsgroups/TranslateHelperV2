@@ -40,6 +40,7 @@
     <Compile Include="BL\Contracts\TranslateRequestFactory.cs" />
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
     <Compile Include="BL\DetectInputLanguage.cs" />
+    <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
     <Compile Include="BL\Managers\ILanguageManager.cs" />
     <Compile Include="BL\Managers\LanguageManager.cs" />
@@ -47,7 +48,7 @@
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
-    <Compile Include="DL\Chats.cs" />
+    <Compile Include="DL\Chat.cs" />
     <Compile Include="DL\ChatHistory.cs" />
     <Compile Include="BL\Views\IDirectionsView.cs" />
     <Compile Include="BL\Views\IDictionaryChatView.cs" />

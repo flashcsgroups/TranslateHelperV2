@@ -83,9 +83,10 @@ namespace TranslateHelper.Droid.Activities
 
         private void ListViewAllDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Language langItem = adapterAllDirections.GetLanguageItem(e.Position);
+            Language selectedLanguageItem = adapterAllDirections.GetLanguageItem(e.Position);
+            Chat chat = presenter.FoundExistingOrCreateChat(selectedLanguageItem);
             var intent = new Intent(this, typeof(DictionaryChatActivity));
-            intent.PutExtra("SelectedLanguageID", langItem.ID);
+            intent.PutExtra("SelectedChatID", chat.ID);
             StartActivity(intent);
         }
 
