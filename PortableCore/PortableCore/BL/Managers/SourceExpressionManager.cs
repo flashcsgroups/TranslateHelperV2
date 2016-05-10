@@ -49,7 +49,8 @@ namespace PortableCore.BL.Managers
 
         public IEnumerable<SourceExpression> GetSourceExpressionCollection(string sourceText, TranslateDirection direction)
         {
-            return db.Table<SourceExpression>().ToList().Where(item => item.Text == sourceText && item.DirectionID == direction.GetCurrentDirectionId());
+            //return db.Table<SourceExpression>().ToList().Where(item => item.Text == sourceText && item.DirectionID == direction.GetCurrentDirectionId());
+            return db.Table<SourceExpression>().ToList().Where(item => item.Text == sourceText && item.LanguageFromID == direction.LanguageFrom.ID && item.LanguageToID == direction.LanguageTo.ID);
         }
 
     }

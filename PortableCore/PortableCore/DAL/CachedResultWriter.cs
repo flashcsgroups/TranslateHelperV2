@@ -62,7 +62,9 @@ namespace PortableCore.DAL
                     translatedItem.TranslatedText = curVariant.Text;
                     translatedItem.SourceDefinitionID = sourceDefId;
                     translatedItem.DefinitionTypeID = (int)curVariant.Pos;
-                    translatedItem.DirectionID = direction.GetCurrentDirectionId();
+                    translatedItem.LanguageFromID = direction.LanguageFrom.ID;
+                    translatedItem.LanguageToID = direction.LanguageTo.ID;
+                    //translatedItem.DirectionID = direction.GetCurrentDirectionId();
                     reposTranslatedExpression.Save(translatedItem);
                     fillTranslateResultIdsForNewItem(translatedItem.SourceDefinitionID, translatedItem.DefinitionTypeID, curVariant);
                 }
@@ -96,7 +98,9 @@ namespace PortableCore.DAL
             Repository<SourceExpression> sourceExpr = new Repository<SourceExpression>();
             SourceExpression itemSource = new SourceExpression();
             itemSource.Text = originalText;
-            itemSource.DirectionID = direction.GetCurrentDirectionId();
+            //itemSource.DirectionID = direction.GetCurrentDirectionId();
+            itemSource.LanguageFromID = direction.LanguageFrom.ID;
+            itemSource.LanguageToID = direction.LanguageTo.ID;
             if (sourceExpr.Save(itemSource) == 1)
             {
                 localCacheDataList = sourceExpressionManager.GetSourceExpressionCollection(originalText, direction);

@@ -19,7 +19,11 @@ namespace PortableCore.DL
 
 		[Indexed]
 		public int SourceDefinitionID { get; set; }
+        //[Indexed]
+        //public int DirectionID { get; set; }
         [Indexed]
-        public int DirectionID { get; set; }
+        public int LanguageFromID { get; set; }
+        [Indexed]
+        public int LanguageToID { get; set; }
     }
 }

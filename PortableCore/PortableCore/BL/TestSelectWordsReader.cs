@@ -59,16 +59,18 @@ namespace PortableCore.BL
 
         private IEnumerable<int> getSourceDefinitionByTranslateDirection(TranslateDirection direction)
         {
-            return from item in db.Table<SourceExpression>()
+            throw new NotImplementedException();
+            /*return from item in db.Table<SourceExpression>()
                    join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
                    from subSources in sources.DefaultIfEmpty(new SourceDefinition())
                    where item.DirectionID == direction.GetCurrentDirectionId()
-                   select subSources != null ? subSources.ID : 0;
+                   select subSources != null ? subSources.ID : 0;*/
         }
 
         public List<string> GetIncorrectVariants(int excludeCorrectSourceId, int countOfIncorrectWords, TranslateDirection direction)
         {
-            var srcDefView = from item in db.Table<SourceExpression>()
+            throw new NotImplementedException();
+            /*var srcDefView = from item in db.Table<SourceExpression>()
                               join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
                               from subSources in sources.DefaultIfEmpty()
                               where (item.ID != excludeCorrectSourceId)&&(item.DirectionID == direction.GetCurrentDirectionId()) 
@@ -80,14 +82,15 @@ namespace PortableCore.BL
                        where srcDefView.Contains(subExpressions.SourceDefinitionID)
                        select subExpressions.TranslatedText;
 
-            return view.Take(countOfIncorrectWords).ToList<string>();
+            return view.Take(countOfIncorrectWords).ToList<string>();*/
         }
 
         public int GetCountDifferenceSources(TranslateDirection direction)
         {
-            return (from item in db.Table<SourceExpression>()
+            throw new NotImplementedException();
+            /*return (from item in db.Table<SourceExpression>()
                    where item.DeleteMark == 0 && item.DirectionID == direction.GetCurrentDirectionId()
-                   select item.ID).Count();
+                   select item.ID).Count();*/
             
         }
 

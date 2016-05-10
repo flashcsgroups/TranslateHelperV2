@@ -229,7 +229,7 @@ namespace TranslateHelper.Droid.Activities
             //ToDo:убрать индексатор
             if(currentMenu!=null)
             {
-                IMenuItem item = currentMenu.FindItem(Resource.Id.menu_dest_selector);
+                /*IMenuItem item = currentMenu.FindItem(Resource.Id.menu_dest_selector);
                 switch (direction.GetCurrentDirectionId())
                 {
                     case 1:
@@ -242,7 +242,7 @@ namespace TranslateHelper.Droid.Activities
                         }; break;
                     default:
                         { }; break;
-                }
+                }*/
             }
         }
 

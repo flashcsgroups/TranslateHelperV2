@@ -35,9 +35,8 @@ namespace PortableCore.BL.Presenters
             Language userLang = languageManager.GetItemForId(this.currentChat.LanguageFrom);
             Language robotLang = languageManager.GetItemForId(this.currentChat.LanguageTo);
 
-            direction = new TranslateDirection(this.db, new DirectionManager(this.db));
-            //direction.SetDefaultDirection();
-            direction.SetDirection(string.Format("{0}-{1}", userLang.NameShort, robotLang.NameShort));
+            direction = new TranslateDirection(this.db, new DirectionManager(this.db), languageManager);
+            direction.SetDirection(userLang, robotLang);
 
             RequestReference = new goTranslateRequest(translateRequest);
             view.UpdateChat(getListBubbles());
@@ -106,8 +105,8 @@ namespace PortableCore.BL.Presenters
 
         private async void startRequestWithValidation(string originalText)
         {
-            await RequestReference(originalText);
-            /*preparedTextForRequest = prepareTextForRequest(originalText);
+            //await RequestReference(originalText);
+            preparedTextForRequest = prepareTextForRequest(originalText);
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
                 DetectInputLanguage detect = new DetectInputLanguage(originalText);
@@ -117,7 +116,7 @@ namespace PortableCore.BL.Presenters
                     direction.Invert();
                 };
                 await RequestReference(preparedTextForRequest);
-            }*/
+            }
         }
 
         private string prepareTextForRequest(string originalText)
