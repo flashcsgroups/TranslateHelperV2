@@ -8,6 +8,6 @@ namespace PortableCore.BL.Views
     public interface IDirectionsView
     {
         void updateListAllLanguages(List<Language> listLanguages);
-        void updateListRecentDirections(List<Tuple<Language, Language>> listDirections);
+        void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent);
     }
 }

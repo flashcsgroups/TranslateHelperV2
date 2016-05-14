@@ -21,10 +21,13 @@ namespace TranslateHelper.Droid.Activities
     public class DictionaryChatActivity : Activity, IDictionaryChatView
     {
         DictionaryChatPresenter presenter;
+        private BubbleAdapter bubbleAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            ActionBar.SetHomeButtonEnabled(true);
 
             // Create your application here
             SetContentView(Resource.Layout.DictionaryChat);
@@ -55,9 +58,15 @@ namespace TranslateHelper.Droid.Activities
         {
             var metrics = Resources.DisplayMetrics;
             var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);            
-            var newAdapter = new BubbleAdapter(this, listBubbles, metrics);
-            listView.Adapter = newAdapter;
+            bubbleAdapter = new BubbleAdapter(this, listBubbles, metrics);
+            listView.Adapter = bubbleAdapter;
             listView.SetSelection(listView.Count + 1);
+            listView.ItemClick += ListView_ItemLongClick; ;
+        }
+
+        private void ListView_ItemLongClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            DeleteRowByUserAction(e.Position);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -76,21 +85,36 @@ namespace TranslateHelper.Droid.Activities
                     intentFavorites.PutExtra("directionName", presenter.GetCurrentDirectionName());
                     StartActivity(intentFavorites);
                     return true;
-                case Resource.Id.menu_dest_selector:
-                    /*direction.Invert();
-                    updateDestinationCaption();*/
-                    break;
                 case Resource.Id.menu_start_test:
                     var intentTests = new Intent(this, typeof(SelectTestLevelActivity));
                     intentTests.PutExtra("directionName", presenter.GetCurrentDirectionName());
                     StartActivity(intentTests);
                     return true;
                 case global::Android.Resource.Id.Home:
+                    var intentDirections = new Intent(this, typeof(DirectionsActivity));
+                    StartActivity(intentDirections);
                     return true;
                 default:
                     break;
             }
-            return true;
+            return base.OnOptionsItemSelected(item);
+        }
+
+        public void DeleteRowByUserAction(int elementPositionIndex)
+        {
+            presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
+            //bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
+            /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("");
+            alert.SetMessage("Delete row?");
+            alert.SetPositiveButton("Delete", (senderAlert, args) => {
+                //presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
+                bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
+            });
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();*/
         }
 
         private void updateDestinationCaption()

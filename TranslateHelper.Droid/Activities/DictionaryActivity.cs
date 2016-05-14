@@ -207,10 +207,10 @@ namespace TranslateHelper.Droid.Activities
                     intentFavorites.PutExtra("directionName", direction.GetCurrentDirectionName());
                     StartActivity(intentFavorites);
                     return true;
-                case Resource.Id.menu_dest_selector:
+                /*case Resource.Id.menu_dest_selector:
                     direction.Invert();
                     updateDestinationCaption();
-                    break;
+                    break;*/
                 case Resource.Id.menu_start_test:
                     var intentTests = new Intent(this, typeof(SelectTestLevelActivity));
                     intentTests.PutExtra("directionName", direction.GetCurrentDirectionName());

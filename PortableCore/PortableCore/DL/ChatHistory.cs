@@ -21,6 +21,8 @@ namespace PortableCore.DL
         public string Definition { get; set; }//часть речи
         public int InFavorites { get; set; }//добавлен в избранное
         public int RequestStatus { get; set; }//статус запроса к сервису, для отображения признака ожидания ответа
+        public int LanguageTo { get; set; }//язык на который переводим, может отличаться от направления, заданного для чата, поскольку пользователь может вводить на любом языке чата
+        public int LanguageFrom { get; set; }//аналогично LanguageTo
         [Indexed]
         public DateTime UpdateDate { get; set; }
         public int DeleteMark { get; set; }

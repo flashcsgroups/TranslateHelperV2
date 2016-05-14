@@ -65,6 +65,11 @@ namespace PortableCore.Tests
             {
                 this.listDirections = listDirections;
             }
+
+            public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public class MockSQLite : ISQLiteTesting

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PortableCore.BL.Models;
 using Android.Util;
 using System;
+using PortableCore.DL;
 
 namespace TranslateHelper.Droid.Adapters
 {
@@ -49,9 +50,10 @@ namespace TranslateHelper.Droid.Adapters
             if (!item.IsRobotResponse)
             {
                 holder.userMessage.Text = item.TextTo;
-                holder.userView.Visibility = ViewStates.Visible;
+                holder.userFlagView.Visibility = ViewStates.Visible;
                 holder.userMessage.Visibility = ViewStates.Visible;
-                holder.robotView.Visibility = ViewStates.Gone;
+                holder.userFlagView.SetImageResource(getImageResourceByName(item.LanguageFrom.NameImageResource));
+                holder.robotFlagView.Visibility = ViewStates.Gone;
                 holder.robotLayout.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Left);
             }
@@ -61,30 +63,52 @@ namespace TranslateHelper.Droid.Adapters
                 holder.transcriptionTextView.Text = item.Transcription;
                 holder.defTextView.Text = item.Definition;
                 if (string.IsNullOrEmpty(item.Definition)) holder.robotLayoutDefinition.Visibility = ViewStates.Gone;
-                holder.robotView.Visibility = ViewStates.Visible;
+                holder.robotFlagView.Visibility = ViewStates.Visible;
                 holder.robotLayout.Visibility = ViewStates.Visible;
-                holder.userView.Visibility = ViewStates.Gone;
+                holder.robotFlagView.SetImageResource(getImageResourceByName(item.LanguageTo.NameImageResource));
+                holder.userFlagView.Visibility = ViewStates.Gone;
                 holder.userMessage.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Right);
             }
             return view;
         }
 
+        internal void MarkBubbleItemAsDeleted(int elementPositionIndex)
+        {
+            //this.bubbleList[elementPositionIndex].TextFrom = "deleted!";
+            //this.bubbleList.RemoveAt(elementPositionIndex);
+            this.bubbleList[elementPositionIndex].TextFrom = "";
+            this.bubbleList[elementPositionIndex].TextTo = "";
+        }
+
+        internal BubbleItem GetBubbleItemByIndex(int elementPositionIndex)
+        {
+            BubbleItem result = new BubbleItem();
+            if (this.bubbleList.Count > elementPositionIndex) result = this.bubbleList[elementPositionIndex];
+            return result;
+        }
+
+        private int getImageResourceByName(string imgName)
+        {
+            return context.Resources.GetIdentifier(imgName.ToLower(), "drawable", context.PackageName);
+        }
+
         class ViewHolder : Java.Lang.Object
         {
-            public ImageView userView { get; private set; }
-            public ImageView robotView { get; private set; }
+            public ImageView userFlagView { get; private set; }
+            public ImageView robotFlagView { get; private set; }
             public LinearLayout robotLayout { get; private set; }
             public LinearLayout robotLayoutDefinition { get; private set; }
             public TextView userMessage { get; private set; }
             public TextView robotMessage { get; private set; }
             public TextView transcriptionTextView { get; private set; }
             public TextView defTextView { get; private set; }
+            //public List<Language> languagesList {get; set;}
 
             internal void Initialize(LinearLayout viewElement)
             {
-                this.userView = viewElement.FindViewById<ImageView>(Resource.Id.list_bubble_userView);
-                this.robotView = viewElement.FindViewById<ImageView>(Resource.Id.list_bubble_robotView);
+                this.userFlagView = viewElement.FindViewById<ImageView>(Resource.Id.userFlagView);
+                this.robotFlagView = viewElement.FindViewById<ImageView>(Resource.Id.robotFlagView);
                 this.robotLayout = viewElement.FindViewById<LinearLayout>(Resource.Id.LayoutRobotView);
                 this.robotLayoutDefinition = viewElement.FindViewById<LinearLayout>(Resource.Id.LayoutDefinitionRobot);
                 this.userMessage = viewElement.FindViewById<TextView>(Resource.Id.UserMessage);
@@ -93,5 +117,6 @@ namespace TranslateHelper.Droid.Adapters
                 this.defTextView = viewElement.FindViewById<TextView>(Resource.Id.DefinitionTextView);
             }
         }
+
     }
 }

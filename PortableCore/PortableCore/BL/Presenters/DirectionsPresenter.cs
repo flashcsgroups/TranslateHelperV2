@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PortableCore.BL.Models;
 
 namespace PortableCore.BL.Presenters
 {
@@ -15,6 +16,7 @@ namespace PortableCore.BL.Presenters
         IDirectionsView view;
         ISQLiteTesting db;
         List<Language> listLanguages = new List<Language>();
+        List<DirectionsRecentItem> listDirectionsRecent;
 
         public DirectionsPresenter(IDirectionsView view, ISQLiteTesting db)
         {
@@ -24,15 +26,29 @@ namespace PortableCore.BL.Presenters
 
         public void SelectedRecentLanguagesEvent()
         {
-            List<Tuple<Language, Language>> listDirections = new List<Tuple<Language, Language>>();
-            Repository<ChatHistory> repos = new Repository<ChatHistory>();
-            /*var viewItems = from item in db.Table<LastChats>() orderby item.LastChanges select new Tuple<Language, Language>() { test = item.LangFrom };
-            listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(1)));
-            listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(1), viewItems.ElementAt(0)));
-            listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(2), viewItems.ElementAt(0)));
-            listDirections.Add(new Tuple<Language, Language>(viewItems.ElementAt(0), viewItems.ElementAt(3)));*/
+            if(listDirectionsRecent == null)
+                listDirectionsRecent = getLastChats();
 
-            view.updateListRecentDirections(listDirections);
+            view.updateListRecentDirections(listDirectionsRecent);
+        }
+
+        public void ShowRecentOrFullListLanguages()
+        {
+            if (listDirectionsRecent == null)
+                listDirectionsRecent = getLastChats();
+
+            if (listDirectionsRecent.Count > 0)
+            {
+                SelectedRecentLanguagesEvent();
+            }
+        }
+
+        private List<DirectionsRecentItem> getLastChats()
+        {
+            List<DirectionsRecentItem> listDirectionsRecent;
+            ChatManager chatManager = new ChatManager(db);
+            listDirectionsRecent = chatManager.GetChatsForLastDays(10);
+            return listDirectionsRecent;
         }
 
         public void SelectedAllLanguagesEvent()

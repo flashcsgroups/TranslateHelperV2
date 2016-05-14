@@ -16,27 +16,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/transparent"
-            android:id="@+id/sourceLangImageView" />
-        <TextView
-            android:id="@+id/sourceLangTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
-            android:textSize="20dip"
-            android:text="English"
-            android:textColor="@color/black"
-            android:background="@color/transparent"
-            android:gravity="center_vertical" />
-        <ImageView
-            android:src="@drawable/v4search"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@color/transparent" />
-        <ImageView
-            android:src="@drawable/bender1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@color/transparent"
             android:id="@+id/destLangImageView" />
         <TextView
             android:id="@+id/destLangTextView"
@@ -46,6 +25,16 @@
             android:textSize="20dip"
             android:text="English"
             android:textColor="@color/black"
+            android:background="@color/transparent"
+            android:gravity="center_vertical" />
+        <TextView
+            android:id="@+id/destLangCountMsgTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:textSize="15dip"
+            android:text="(25)"
+            android:textColor="@color/lightgrey"
             android:background="@color/transparent"
             android:gravity="center_vertical" />
     </LinearLayout>

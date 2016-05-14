@@ -51,9 +51,19 @@ namespace PortableCore.BL.Managers
 
         internal List<ChatHistory> ReadChatMessages(Chat chatItem)
         {
-            //var view = (from item in db.Table<ChatHistory>() orderby item.ID ascending select item).Take(1000);
             var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID orderby item.ID ascending select item;
             return view.ToList();
+        }
+
+        internal int GetCountOfMessagesForChat(int chatId)
+        {
+            return db.Table<ChatHistory>().Count(t => t.ChatID == chatId);
+        }
+
+        internal void DeleteItemById(int historyRowId)
+        {
+            Repository<ChatHistory> repo = new Repository<ChatHistory>();
+            int result = repo.Delete(historyRowId);
         }
     }
 }

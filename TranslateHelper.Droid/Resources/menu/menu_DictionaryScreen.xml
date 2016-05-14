@@ -8,10 +8,10 @@
           android:title="RU EN"
           android:showAsAction="withText" />
   </group-->
-  <item android:id="@+id/menu_dest_selector"
+  <!--item android:id="@+id/menu_dest_selector"
         android:icon="@drawable/EngRus"
         android:title="@string/caption_btn_translate_destination"
-        android:showAsAction="always" />
+        android:showAsAction="always" />-->
   <item android:id="@+id/menu_favorites"
         android:icon="@drawable/v1favorites"
         android:title="@string/caption_btn_favorites"

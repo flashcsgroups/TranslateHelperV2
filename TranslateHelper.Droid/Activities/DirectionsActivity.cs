@@ -23,7 +23,7 @@ namespace TranslateHelper.Droid.Activities
     {
         DirectionsPresenter presenter;
         DirectionsAllAdapter adapterAllDirections;
-        //RecentDirectionsPresenter recentDirectionsPresenter;
+        DirectionsRecentAdapter adapterRecentDirections;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,7 +41,7 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
-            base.ActionBar.SelectTab(base.ActionBar.GetTabAt(1));
+            presenter.ShowRecentOrFullListLanguages();
         }
 
         private void addTab(string caption, int layout, Action tabSelectedAction)
@@ -54,20 +54,6 @@ namespace TranslateHelper.Droid.Activities
                 tabSelectedAction();
             };
             base.ActionBar.AddTab(tab);
-        }
-
-        private void initLayerRecent()
-        {
-            /*var listView = FindViewById<ListView>(Resource.Id.listFavoritesListView);
-
-            listView.FastScrollEnabled = true;
-
-            translateResultIdxCollection = getItemsForFavoritesList();
-
-            var sortedContacts = translateResultIdxCollection.GetSortedData();
-            var adapter = CreateAdapter(sortedContacts);
-            listView.Adapter = adapter;
-            listView.ItemLongClick += adapter.ListItemLongClick;*/
         }
 
         public void updateListAllLanguages(List<Language> listLanguage)
@@ -85,24 +71,31 @@ namespace TranslateHelper.Droid.Activities
         {
             Language selectedLanguageItem = adapterAllDirections.GetLanguageItem(e.Position);
             Chat chat = presenter.FoundExistingOrCreateChat(selectedLanguageItem);
-            var intent = new Intent(this, typeof(DictionaryChatActivity));
-            intent.PutExtra("SelectedChatID", chat.ID);
-            StartActivity(intent);
+            startChatActivityByChatId(chat.ID);
         }
 
-        /*private void ListViewAllLang_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Toast.MakeText(this, e.Id.ToString(), ToastLength.Long).Show();
-            
-        }*/
-
-        public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
+        public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
         {
             var listView = FindViewById<ListView>(Resource.Id.listRecentDirections);
 
             listView.FastScrollEnabled = true;
 
-            listView.Adapter = new DirectionsRecentAdapter(this, listDirections);
+            adapterRecentDirections = new DirectionsRecentAdapter(this, listDirectionsRecent);
+            listView.Adapter = adapterRecentDirections;
+            listView.ItemClick += ListViewRecentDirections_ItemClick;
+        }
+
+        private void ListViewRecentDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var recentChat = adapterRecentDirections.GetLanguageItem(e.Position);
+            startChatActivityByChatId(recentChat.ChatId);
+        }
+
+        private void startChatActivityByChatId(int chatId)
+        {
+            var intent = new Intent(this, typeof(DictionaryChatActivity));
+            intent.PutExtra("SelectedChatID", chatId);
+            StartActivity(intent);
         }
     }
 }

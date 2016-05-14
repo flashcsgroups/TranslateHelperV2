@@ -45,6 +45,7 @@
     <Compile Include="BL\Managers\ILanguageManager.cs" />
     <Compile Include="BL\Managers\LanguageManager.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />
+    <Compile Include="BL\Models\DirectionsRecentItem.cs" />
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />

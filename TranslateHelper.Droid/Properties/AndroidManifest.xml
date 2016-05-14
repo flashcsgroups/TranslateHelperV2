@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sd.translatehelper" android:installLocation="auto" android:versionCode="28" android:versionName="2.0.2-alpha">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sd.translatehelper" android:installLocation="auto" android:versionCode="30" android:versionName="2.0.4-alpha">
 	<uses-sdk android:targetSdkVersion="19" android:minSdkVersion="15" />
 	<application android:label="TranslateHelper" android:icon="@drawable/icon">
 		<activity android:name="net.hockeyapp.android.UpdateActivity" />

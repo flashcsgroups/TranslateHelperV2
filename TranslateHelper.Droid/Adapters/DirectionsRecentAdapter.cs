@@ -11,14 +11,14 @@ using Android.Content.Res;
 
 namespace TranslateHelper.Droid.Adapters
 {
-    public class DirectionsRecentAdapter : ArrayAdapter<Tuple<Language, Language>>
+    public class DirectionsRecentAdapter : ArrayAdapter<DirectionsRecentItem>
     {
 
         private Activity context;
-        private List<Tuple<Language, Language>> directionsList;
+        private List<DirectionsRecentItem> directionsList;
         private List<Tuple<string, int>> flagImageIdsList = new List<Tuple<string, int>>();
 
-        public DirectionsRecentAdapter(Activity context, List<Tuple<Language, Language>> directionsList)
+        public DirectionsRecentAdapter(Activity context, List<DirectionsRecentItem> directionsList)
             : base(context, Resource.Layout.DirectionsRecentListItem, directionsList)
         {
             this.context = context;
@@ -31,33 +31,19 @@ namespace TranslateHelper.Droid.Adapters
             var item = this.directionsList[position];
             var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.DirectionsRecentListItem, parent, false)) as LinearLayout;
 
-            ImageView sourceLangImageView = view.FindViewById<ImageView>(Resource.Id.sourceLangImageView);
             ImageView destLangImageView = view.FindViewById<ImageView>(Resource.Id.destLangImageView);
-            TextView sourceLangTextView = view.FindViewById<TextView>(Resource.Id.sourceLangTextView);
             TextView destLangTextView = view.FindViewById<TextView>(Resource.Id.destLangTextView);
-            int sourceFlagResourceId = context.Resources.GetIdentifier(item.Item1.NameImageResource.ToLower(), "drawable", context.PackageName);
-            int destFlagResourceId = context.Resources.GetIdentifier(item.Item2.NameImageResource.ToLower(), "drawable", context.PackageName);
-            sourceLangImageView.SetImageResource(sourceFlagResourceId);
-            destLangImageView.SetImageResource(destFlagResourceId);
-            sourceLangTextView.Text = item.Item1.NameLocal;
-            destLangTextView.Text = item.Item2.NameLocal;
-            /*var cacheImgItem = flagImageIdsList.Find(i => i.Item1 == item.NameImageResource.ToLower());
-            int flagResourceId = 0;
-            string imgName = item.NameImageResource.ToLower();
-            if (cacheImgItem != null)
-            {
-                flagResourceId = cacheImgItem.Item2;
-            } else
-            {
-                //ToDo:Попробовать вынести в отдельный класс кеша. По непонятной причине в Xamarin не портирован класс Hashtable.
-                flagResourceId = context.Resources.GetIdentifier(imgName, "drawable", context.PackageName);
-                flagImageIdsList.Add(new Tuple<string, int>(imgName, flagResourceId));
-            }
-            userView.SetImageResource(flagResourceId);
-            TextView destLangTextView = view.FindViewById<TextView> (Resource.Id.destLangTextView);
-            destLangTextView.Text = item.NameLocal;*/
-
+            TextView destLangCountMsgTextView = view.FindViewById<TextView>(Resource.Id.destLangCountMsgTextView);
+            destLangTextView.Text = item.LangTo;
+            destLangCountMsgTextView.Text = string.Format("({0})", item.CountOfAllMessages.ToString());
+            var flagResourceId = context.Resources.GetIdentifier(item.LangToFlagImageResourcePath.ToLower(), "drawable", context.PackageName);
+            destLangImageView.SetImageResource(flagResourceId);
             return view;
+        }
+
+        internal DirectionsRecentItem GetLanguageItem(int position)
+        {
+            return this.directionsList[position];
         }
     }
 }

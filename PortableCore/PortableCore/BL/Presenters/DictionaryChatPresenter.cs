@@ -47,6 +47,7 @@ namespace PortableCore.BL.Presenters
             preparedTextForRequest = prepareTextForRequest(userText);
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
+                invertDirectionOfNeed(preparedTextForRequest);
                 addToDBUserRequest(preparedTextForRequest);
                 addToDBDefaultRobotResponse();
                 view.UpdateChat(getListBubbles());
@@ -60,6 +61,8 @@ namespace PortableCore.BL.Presenters
             item.ChatID = currentChat.ID;
             item.UpdateDate = DateTime.Now;
             item.TextFrom = "Роюсь в словаре...";
+            item.LanguageFrom = direction.LanguageFrom.ID;
+            item.LanguageTo = direction.LanguageTo.ID;
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
             manager.SaveItem(item);
         }
@@ -70,6 +73,8 @@ namespace PortableCore.BL.Presenters
             item.ChatID = currentChat.ID;
             item.UpdateDate = DateTime.Now;
             item.TextTo = userText;
+            item.LanguageFrom = direction.LanguageFrom.ID;
+            item.LanguageTo = direction.LanguageTo.ID;
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
             manager.SaveItem(item);
         }
@@ -103,20 +108,26 @@ namespace PortableCore.BL.Presenters
             }
         }
 
-        private async void startRequestWithValidation(string originalText)
+        public void DeleteBubbleFromChat(BubbleItem bubbleItem)
         {
-            //await RequestReference(originalText);
-            preparedTextForRequest = prepareTextForRequest(originalText);
-            if (!string.IsNullOrEmpty(preparedTextForRequest))
+            ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
+            chatHistoryManager.DeleteItemById(bubbleItem.HistoryRowId);
+            view.UpdateChat(getListBubbles());
+        }
+
+        private async void startRequestWithValidation(string preparedTextForRequest)
+        {
+            await RequestReference(preparedTextForRequest);
+        }
+
+        private void invertDirectionOfNeed(string originalText)
+        {
+            DetectInputLanguage detect = new DetectInputLanguage(originalText);
+            DetectInputLanguage.Language result = detect.Detect();
+            if ((result != DetectInputLanguage.Language.Unknown) && !direction.IsFrom(result))
             {
-                DetectInputLanguage detect = new DetectInputLanguage(originalText);
-                DetectInputLanguage.Language result = detect.Detect();
-                if ((result != DetectInputLanguage.Language.Unknown) && !direction.IsFrom(result))
-                {
-                    direction.Invert();
-                };
-                await RequestReference(preparedTextForRequest);
-            }
+                direction.Invert();
+            };
         }
 
         private string prepareTextForRequest(string originalText)
@@ -150,29 +161,24 @@ namespace PortableCore.BL.Presenters
 
         private List<BubbleItem> getListBubbles()
         {
+            LanguageManager languageManager = new LanguageManager(db);
+            var languagesList = languageManager.GetDefaultData();
             List<BubbleItem> resultBubbles = new List<BubbleItem>();
             ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
             IEnumerable<ChatHistory> history = chatHistoryManager.ReadChatMessages(currentChat);
             foreach (var item in history)
             {
                 BubbleItem bubble = new BubbleItem();
+                bubble.HistoryRowId = item.ID;
                 bubble.TextTo = item.TextTo;
                 bubble.TextFrom = item.TextFrom;
                 bubble.IsRobotResponse = string.IsNullOrEmpty(item.TextTo);
                 bubble.Transcription = item.Transcription;
                 bubble.Definition = item.Definition;
+                bubble.LanguageTo = languagesList.FirstOrDefault(t => t.ID == item.LanguageTo);
+                bubble.LanguageFrom = languagesList.FirstOrDefault(t => t.ID == item.LanguageFrom);
                 resultBubbles.Add(bubble);
             }
-            /*bubbles.Add(new BubbleItem() { IsTheDeviceUser = false, Text = reqResult.OriginalText, UserNameText="MyName" });
-            string res = string.Empty;
-            foreach(var item in reqResult.TranslatedData.Definitions)
-            {
-                foreach(var itemvar in item.TranslateVariants)
-                {
-                    res += itemvar.Text + ";";
-                }
-            }
-            bubbles.Add(new BubbleItem() { IsTheDeviceUser = true, Text = res, UserNameText = "TH" });*/
             return resultBubbles;
         }
 
