@@ -58,6 +58,7 @@ namespace TranslateHelper.Droid.Activities
 
         public void updateListAllLanguages(List<Language> listLanguage)
         {
+            base.ActionBar.SelectTab(base.ActionBar.GetTabAt(1));
             var listView = FindViewById<ListView>(Resource.Id.listAllDirections);
 
             listView.FastScrollEnabled = true;
@@ -76,6 +77,7 @@ namespace TranslateHelper.Droid.Activities
 
         public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
         {
+            base.ActionBar.SelectTab(base.ActionBar.GetTabAt(0));
             var listView = FindViewById<ListView>(Resource.Id.listRecentDirections);
 
             listView.FastScrollEnabled = true;

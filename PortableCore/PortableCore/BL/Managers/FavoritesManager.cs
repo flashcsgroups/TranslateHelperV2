@@ -60,6 +60,10 @@ namespace PortableCore.BL.Managers
             return FavoriteId;
         }
 
+        public void AddWordFromChat(int historyRowId)
+        {
+        }
+
         public void DeleteWord(int favoritesId)
         {
             Repository<Favorites> reposFavorites = new Repository<Favorites>();
@@ -80,7 +84,6 @@ namespace PortableCore.BL.Managers
             }
             return id;
         }
-
     }
 }
 

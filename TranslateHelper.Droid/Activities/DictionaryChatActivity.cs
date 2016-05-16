@@ -60,19 +60,28 @@ namespace TranslateHelper.Droid.Activities
             var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);            
             bubbleAdapter = new BubbleAdapter(this, listBubbles, metrics);
             listView.Adapter = bubbleAdapter;
+            listView.ChoiceMode = ChoiceMode.Single;
             listView.SetSelection(listView.Count + 1);
-            listView.ItemClick += ListView_ItemLongClick; ;
+            listView.ItemLongClick += ListView_ItemLongClick;
+            listView.ItemClick += ListView_ItemClick;
         }
 
-        private void ListView_ItemLongClick(object sender, AdapterView.ItemClickEventArgs e)
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+            presenter.InvertFavoriteState(bubbleAdapter.GetBubbleItemByIndex(e.Position));
+        }
+
+        private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
+            listView.CancelLongPress();
             DeleteRowByUserAction(e.Position);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             //currentMenu = menu;
-            MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
+            //MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
             return true;
         }
 
@@ -104,11 +113,15 @@ namespace TranslateHelper.Droid.Activities
         {
             presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
             //bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
+            var t = Toast.MakeText(this, "test:" + elementPositionIndex.ToString(), ToastLength.Short);
+            t.SetGravity(GravityFlags.Center, 0, 0);
+            t.Show();
+
             /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle("");
             alert.SetMessage("Delete row?");
             alert.SetPositiveButton("Delete", (senderAlert, args) => {
-                //presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
+                presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
                 bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
             });
             alert.SetNegativeButton("Cancel", (senderAlert, args) => {

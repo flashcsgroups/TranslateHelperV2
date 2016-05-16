@@ -41,6 +41,8 @@ namespace PortableCore.BL.Presenters
             {
                 SelectedRecentLanguagesEvent();
             }
+            else
+                SelectedAllLanguagesEvent();
         }
 
         private List<DirectionsRecentItem> getLastChats()

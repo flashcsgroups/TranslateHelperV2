@@ -49,23 +49,26 @@ namespace TranslateHelper.Droid.Adapters
             holder.userMessage.SetMaxWidth(maxWidth);
             if (!item.IsRobotResponse)
             {
-                holder.userMessage.Text = item.TextTo;
+                holder.userMessage.Text = item.TextFrom;
                 holder.userFlagView.Visibility = ViewStates.Visible;
                 holder.userMessage.Visibility = ViewStates.Visible;
-                holder.userFlagView.SetImageResource(getImageResourceByName(item.LanguageFrom.NameImageResource));
+                holder.userFlagView.SetImageResource(getImageResourceByName(item.LanguageTo.NameImageResource));
+                holder.favoritesStatePic.Visibility = ViewStates.Gone;            
                 holder.robotFlagView.Visibility = ViewStates.Gone;
                 holder.robotLayout.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Left);
             }
             else
             {
-                holder.robotMessage.Text = item.TextFrom;
+                holder.robotMessage.Text = item.TextTo;
                 holder.transcriptionTextView.Text = item.Transcription;
                 holder.defTextView.Text = item.Definition;
                 if (string.IsNullOrEmpty(item.Definition)) holder.robotLayoutDefinition.Visibility = ViewStates.Gone;
                 holder.robotFlagView.Visibility = ViewStates.Visible;
                 holder.robotLayout.Visibility = ViewStates.Visible;
-                holder.robotFlagView.SetImageResource(getImageResourceByName(item.LanguageTo.NameImageResource));
+                holder.robotFlagView.SetImageResource(getImageResourceByName(item.LanguageFrom.NameImageResource));
+                holder.favoritesStatePic.Visibility = ViewStates.Visible;
+                if (item.InFavorites) holder.favoritesStatePic.SetImageResource(Resource.Drawable.v5alreadyaddedtofav);
                 holder.userFlagView.Visibility = ViewStates.Gone;
                 holder.userMessage.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Right);
@@ -75,10 +78,10 @@ namespace TranslateHelper.Droid.Adapters
 
         internal void MarkBubbleItemAsDeleted(int elementPositionIndex)
         {
-            //this.bubbleList[elementPositionIndex].TextFrom = "deleted!";
+            this.bubbleList[elementPositionIndex].TextFrom = "deleted!";
             //this.bubbleList.RemoveAt(elementPositionIndex);
-            this.bubbleList[elementPositionIndex].TextFrom = "";
-            this.bubbleList[elementPositionIndex].TextTo = "";
+            //this.bubbleList[elementPositionIndex].TextFrom = "";
+            //this.bubbleList[elementPositionIndex].TextTo = "";
         }
 
         internal BubbleItem GetBubbleItemByIndex(int elementPositionIndex)
@@ -97,6 +100,7 @@ namespace TranslateHelper.Droid.Adapters
         {
             public ImageView userFlagView { get; private set; }
             public ImageView robotFlagView { get; private set; }
+            public ImageView favoritesStatePic { get; private set; }
             public LinearLayout robotLayout { get; private set; }
             public LinearLayout robotLayoutDefinition { get; private set; }
             public TextView userMessage { get; private set; }
@@ -115,6 +119,8 @@ namespace TranslateHelper.Droid.Adapters
                 this.robotMessage = viewElement.FindViewById<TextView>(Resource.Id.RobotMessage);
                 this.transcriptionTextView = viewElement.FindViewById<TextView>(Resource.Id.TranscriptionTextView);
                 this.defTextView = viewElement.FindViewById<TextView>(Resource.Id.DefinitionTextView);
+                this.favoritesStatePic = viewElement.FindViewById<ImageView>(Resource.Id.FavoritesStatePic);
+                
             }
         }
 

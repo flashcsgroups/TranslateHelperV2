@@ -325,4 +325,10 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FlagItaly.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v5addtofavorites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v5alreadyaddedtofav.png" />
+  </ItemGroup>
 </Project>

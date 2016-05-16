@@ -58,13 +58,20 @@ namespace PortableCore.BL.Presenters
         private void addToDBDefaultRobotResponse()
         {
             ChatHistory item = new ChatHistory();
-            item.ChatID = currentChat.ID;
-            item.UpdateDate = DateTime.Now;
-            item.TextFrom = "Роюсь в словаре...";
-            item.LanguageFrom = direction.LanguageFrom.ID;
-            item.LanguageTo = direction.LanguageTo.ID;
+            item.ChatID         = currentChat.ID;
+            item.UpdateDate     = DateTime.Now;
+            item.TextTo         = "Роюсь в словаре...";
+            item.LanguageFrom   = direction.LanguageFrom.ID;
+            item.LanguageTo     = direction.LanguageTo.ID;
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
             manager.SaveItem(item);
+        }
+
+        public void InvertFavoriteState(BubbleItem bubbleItem)
+        {
+            FavoritesManager favoritesManager = new FavoritesManager(db);
+            favoritesManager.AddWordFromChat(bubbleItem.HistoryRowId);
+            bubbleItem.InFavorites = true;
         }
 
         private void addToDBUserRequest(string userText)
@@ -72,7 +79,7 @@ namespace PortableCore.BL.Presenters
             ChatHistory item = new ChatHistory();
             item.ChatID = currentChat.ID;
             item.UpdateDate = DateTime.Now;
-            item.TextTo = userText;
+            item.TextFrom = userText;
             item.LanguageFrom = direction.LanguageFrom.ID;
             item.LanguageTo = direction.LanguageTo.ID;
             ChatHistoryManager manager = new ChatHistoryManager(this.db);
@@ -102,8 +109,11 @@ namespace PortableCore.BL.Presenters
                     builderTextFrom.Append(textVariant.Text);
                     builderTextFrom.Append(delimiter);
                 }
-                robotItem.TextFrom = builderTextFrom.ToString().Remove(builderTextFrom.Length - delimiter.Length, delimiter.Length);
-                chatHistoryManager.SaveItem(robotItem);
+                robotItem.TextTo = builderTextFrom.ToString().Remove(builderTextFrom.Length - delimiter.Length, delimiter.Length);
+                robotItem.ChatID = defaultRobotItem.ChatID;
+                robotItem.LanguageFrom = defaultRobotItem.LanguageFrom;
+                robotItem.LanguageTo = defaultRobotItem.LanguageTo;
+                var result = chatHistoryManager.SaveItem(robotItem);
                 robotItem = new ChatHistory();
             }
         }
@@ -172,11 +182,12 @@ namespace PortableCore.BL.Presenters
                 bubble.HistoryRowId = item.ID;
                 bubble.TextTo = item.TextTo;
                 bubble.TextFrom = item.TextFrom;
-                bubble.IsRobotResponse = string.IsNullOrEmpty(item.TextTo);
+                bubble.IsRobotResponse = string.IsNullOrEmpty(item.TextFrom);
                 bubble.Transcription = item.Transcription;
                 bubble.Definition = item.Definition;
                 bubble.LanguageTo = languagesList.FirstOrDefault(t => t.ID == item.LanguageTo);
                 bubble.LanguageFrom = languagesList.FirstOrDefault(t => t.ID == item.LanguageFrom);
+                bubble.InFavorites = item.InFavorites;
                 resultBubbles.Add(bubble);
             }
             return resultBubbles;

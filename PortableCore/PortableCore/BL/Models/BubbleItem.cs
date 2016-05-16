@@ -10,6 +10,7 @@ namespace PortableCore.BL.Models
         public string Definition;
         public Language LanguageFrom;
         public Language LanguageTo;
+        public bool InFavorites;
 
         public bool IsRobotResponse { get; internal set; }
         public int HistoryRowId { get; internal set; }

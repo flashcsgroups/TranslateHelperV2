@@ -47,13 +47,13 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:clickable="false">
+        android:paddingRight="3dp">
         <LinearLayout
             android:id="@+id/LayoutDefinitionRobot"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:gravity="right"
             android:background="@color/transparent">
             <TextView
@@ -78,13 +78,22 @@
                 android:textColor="@color/grey"
                 android:textStyle="italic|bold"
                 android:background="@color/transparent" />
+            <ImageView
+                android:id="@+id/FavoritesStatePic"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/transparent"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:src="@drawable/v5addtofavorites" />
         </LinearLayout>
         <TextView
             android:id="@+id/RobotMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="навсегда, вечно"
             android:padding="5dp"
             android:textColor="@color/black"
