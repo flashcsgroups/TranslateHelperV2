@@ -47,6 +47,8 @@ namespace TranslateHelper.Droid.Activities
             if(selectedChatID >= 0)
             {
                 presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
+                presenter.InitDirection();
+                presenter.InitChat();
             }
             else
             {

@@ -42,6 +42,8 @@
     <Compile Include="BL\DetectInputLanguage.cs" />
     <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
+    <Compile Include="BL\Managers\IChatHistoryManager.cs" />
+    <Compile Include="BL\Managers\IChatManager.cs" />
     <Compile Include="BL\Managers\ILanguageManager.cs" />
     <Compile Include="BL\Managers\LanguageManager.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />

@@ -6,5 +6,6 @@ namespace PortableCore.BL.Managers
     {
         Language GetItemForId(int Id);
         Language GetItemForNameEng(string name);
+        Language[] GetDefaultData();
     }
 }

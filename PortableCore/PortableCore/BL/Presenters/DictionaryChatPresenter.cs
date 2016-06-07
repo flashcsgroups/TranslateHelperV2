@@ -18,28 +18,66 @@ namespace PortableCore.BL.Presenters
     {
         IDictionaryChatView view;
         ISQLiteTesting db;
+        IChatManager chatManager;
+        ILanguageManager languageManager;
+        IChatHistoryManager chatHistoryManager;
         TranslateDirection direction;
         delegate Task goTranslateRequest(string originalText);
-        goTranslateRequest RequestReference;
+        goTranslateRequest requestReference;
         string preparedTextForRequest = string.Empty;
 
-        Chat currentChat;
+        Chat selectedChat;
+        int selectedChatID = 0;
 
+
+        /// <summary>
+        /// Основной конструктор
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="db"></param>
+        /// <param name="selectedChatID"></param>
         public DictionaryChatPresenter(IDictionaryChatView view, ISQLiteTesting db, int selectedChatID)
         {
             this.view = view;
             this.db = db;
-            ChatManager chatManager = new ChatManager(db);
-            this.currentChat = chatManager.GetItemForId(selectedChatID);
+            this.selectedChatID = selectedChatID;
             LanguageManager languageManager = new LanguageManager(db);
-            Language userLang = languageManager.GetItemForId(this.currentChat.LanguageFrom);
-            Language robotLang = languageManager.GetItemForId(this.currentChat.LanguageTo);
+            this.chatHistoryManager = new ChatHistoryManager(db);
+            this.chatManager = new ChatManager(db, languageManager, chatHistoryManager);
+            this.languageManager = new LanguageManager(db);
+        }
 
+        /// <summary>
+        /// Отдельный конструктор для тестирования
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="db"></param>
+        /// <param name="selectedChatID"></param>
+        /// <param name="chatManager"></param>
+        public DictionaryChatPresenter(IDictionaryChatView view, ISQLiteTesting db, int selectedChatID, IChatManager chatManager, ILanguageManager languageManager, IChatHistoryManager chatHistoryManager)
+        {
+            this.view = view;
+            this.db = db;
+            this.selectedChatID = selectedChatID;
+            this.chatManager = chatManager;
+            this.languageManager = languageManager;
+            this.chatHistoryManager = chatHistoryManager;
+            //this.requestReference = new goTranslateRequest(;
+        }
+
+        public void InitChat()
+        {
+            requestReference = new goTranslateRequest(translateRequest);
+            view.UpdateChat(getListBubbles());
+        }
+
+        public void InitDirection()
+        {
+            this.selectedChat = chatManager.GetItemForId(selectedChatID);
+            Language userLang = languageManager.GetItemForId(this.selectedChat.LanguageFrom);
+            Language robotLang = languageManager.GetItemForId(this.selectedChat.LanguageTo);
             direction = new TranslateDirection(this.db, new DirectionManager(this.db), languageManager);
             direction.SetDirection(userLang, robotLang);
-
-            RequestReference = new goTranslateRequest(translateRequest);
-            view.UpdateChat(getListBubbles());
         }
 
         public void UserAddNewTextEvent(string userText)
@@ -58,13 +96,13 @@ namespace PortableCore.BL.Presenters
         private void addToDBDefaultRobotResponse()
         {
             ChatHistory item = new ChatHistory();
-            item.ChatID         = currentChat.ID;
+            item.ChatID         = selectedChatID;
             item.UpdateDate     = DateTime.Now;
             item.TextTo         = "Роюсь в словаре...";
             item.LanguageFrom   = direction.LanguageFrom.ID;
             item.LanguageTo     = direction.LanguageTo.ID;
-            ChatHistoryManager manager = new ChatHistoryManager(this.db);
-            manager.SaveItem(item);
+            //ChatHistoryManager manager = new ChatHistoryManager(this.db);
+            chatHistoryManager.SaveItem(item);
         }
 
         public void InvertFavoriteState(BubbleItem bubbleItem)
@@ -77,18 +115,17 @@ namespace PortableCore.BL.Presenters
         private void addToDBUserRequest(string userText)
         {
             ChatHistory item = new ChatHistory();
-            item.ChatID = currentChat.ID;
+            item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
             item.TextFrom = userText;
             item.LanguageFrom = direction.LanguageFrom.ID;
             item.LanguageTo = direction.LanguageTo.ID;
-            ChatHistoryManager manager = new ChatHistoryManager(this.db);
-            manager.SaveItem(item);
+            //ChatHistoryManager manager = new ChatHistoryManager(this.db);
+            chatHistoryManager.SaveItem(item);
         }
 
         private void addToDBRobotResponse(TranslateRequestResult reqResult)
         {
-            ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
             ChatHistory defaultRobotItem = chatHistoryManager.GetLastRobotMessage();
             defaultRobotItem.UpdateDate = DateTime.Now;
             defaultRobotItem.TextFrom = string.Empty;
@@ -96,7 +133,7 @@ namespace PortableCore.BL.Presenters
             createDBItemsFromResponse(reqResult, chatHistoryManager, defaultRobotItem, delimiter);
         }
 
-        private void createDBItemsFromResponse(TranslateRequestResult reqResult, ChatHistoryManager chatHistoryManager, ChatHistory defaultRobotItem, string delimiter)
+        private void createDBItemsFromResponse(TranslateRequestResult reqResult, IChatHistoryManager chatHistoryManager, ChatHistory defaultRobotItem, string delimiter)
         {
             var robotItem = defaultRobotItem;
             foreach (var definition in reqResult.TranslatedData.Definitions)
@@ -120,14 +157,14 @@ namespace PortableCore.BL.Presenters
 
         public void DeleteBubbleFromChat(BubbleItem bubbleItem)
         {
-            ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
             chatHistoryManager.DeleteItemById(bubbleItem.HistoryRowId);
             view.UpdateChat(getListBubbles());
         }
 
-        private async void startRequestWithValidation(string preparedTextForRequest)
+        private async Task startRequestWithValidation(string preparedTextForRequest)
         {
-            await RequestReference(preparedTextForRequest);
+            if(requestReference!=null)
+                await requestReference(preparedTextForRequest);
         }
 
         private void invertDirectionOfNeed(string originalText)
@@ -174,8 +211,7 @@ namespace PortableCore.BL.Presenters
             LanguageManager languageManager = new LanguageManager(db);
             var languagesList = languageManager.GetDefaultData();
             List<BubbleItem> resultBubbles = new List<BubbleItem>();
-            ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
-            IEnumerable<ChatHistory> history = chatHistoryManager.ReadChatMessages(currentChat);
+            IEnumerable<ChatHistory> history = chatHistoryManager.ReadChatMessages(selectedChat);
             foreach (var item in history)
             {
                 BubbleItem bubble = new BubbleItem();

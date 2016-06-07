@@ -9,6 +9,8 @@ using PortableCore.DL;
 using PortableCore.BL.Contracts;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
+using PortableCore.BL.Managers;
+using PortableCore.Tests.Mocks;
 
 namespace PortableCore.Tests
 {
@@ -19,8 +21,13 @@ namespace PortableCore.Tests
         public void TestMust_AddUserTextToChat()
         {
             //arrange
+            var db = new MockSQLite();
             var mockView = new MockDictionaryChatView();
-            DictionaryChatPresenter presenter = new DictionaryChatPresenter(mockView, new MockSQLite(), 0);
+            var mocklanguageManager = new MockLanguageManager(db);
+            var chatHistoryManager = new MockChatHistoryManager(db);
+            var mockChatManager = new MockChatManager(db);
+            DictionaryChatPresenter presenter = new DictionaryChatPresenter(mockView, db, 1, mockChatManager, mocklanguageManager, chatHistoryManager);
+            presenter.InitDirection();
 
             //act
             string userText = "test";
@@ -41,23 +48,94 @@ namespace PortableCore.Tests
             }
         }
 
-        public class MockSQLite : ISQLiteTesting
+        private class MockChatManager : IChatManager
         {
-            public IEnumerable<T> Table<T>() where T : IBusinessEntity, new()
-            {
-                List<T> listItems = new List<T>();
-                /*var type = typeof(T);
-                if (type == typeof(Language))
-                {
-                    listItems = getMockedDataForLanguage() as List<T>;
-                }
-                if (type == typeof(ChatHistory))
-                {
-                    listItems = getMockedDataForLastChats() as List<T>;
-                }*/
+            ISQLiteTesting db;
 
-                return listItems;
+            public MockChatManager(ISQLiteTesting dbHelper)
+            {
+            }
+
+            public Chat GetChatByLanguage(Language userLanguage, Language robotLanguage)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DirectionsRecentItem> GetChatsForLastDays(int countOfDays)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Chat GetItemForId(int id)
+            {
+                return new Chat() { ID = 1, LanguageFrom = 1, LanguageTo = 2};
+            }
+
+            public int SaveItem(Chat item)
+            {
+                throw new NotImplementedException();
             }
         }
+
+        public class MockLanguageManager : ILanguageManager
+        {
+            ISQLiteTesting db;
+
+            public MockLanguageManager(ISQLiteTesting dbHelper)
+            {
+                db = dbHelper;
+            }
+
+            public Language[] GetDefaultData()
+            {
+                throw new NotImplementedException();
+            }
+
+            public Language GetItemForId(int Id)
+            {
+                return new Language() { ID = 1 };
+            }
+
+            public Language GetItemForNameEng(string name)
+            {
+                return new Language() { ID = 1 };
+            }
+        }
+
+        public class MockChatHistoryManager : IChatHistoryManager
+        {
+            ISQLiteTesting db;
+
+            public MockChatHistoryManager(ISQLiteTesting dbHelper)
+            {
+                db = dbHelper;
+            }
+
+            public void DeleteItemById(int historyRowId)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int GetCountOfMessagesForChat(int chatId)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ChatHistory GetLastRobotMessage()
+            {
+                return new ChatHistory() { ID = 1, ChatID = 1};
+            }
+
+            public List<ChatHistory> ReadChatMessages(Chat chatItem)
+            {
+                return new List<ChatHistory>() { };
+            }
+
+            public int SaveItem(ChatHistory item)
+            {
+                return 1;
+            }
+        }
+
     }
 }

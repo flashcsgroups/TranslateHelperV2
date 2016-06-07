@@ -15,6 +15,7 @@ using TranslateHelper.Droid.Adapters;
 using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.DL;
+using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -31,7 +32,9 @@ namespace TranslateHelper.Droid.Activities
 
             base.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
-            presenter = new DirectionsPresenter(this, SqlLiteInstance.DB);
+            var languageManager = new LanguageManager(SqlLiteInstance.DB);
+            var chatHistoryManager = new ChatHistoryManager(SqlLiteInstance.DB);
+            presenter = new DirectionsPresenter(this, new ChatManager(SqlLiteInstance.DB, languageManager, chatHistoryManager), languageManager);
 
             addTab("Recent", Resource.Layout.DirectionsRecent, new Action(()=> presenter.SelectedRecentLanguagesEvent()));
             addTab("All languages", Resource.Layout.DirectionsAll, new Action(()=> presenter.SelectedAllLanguagesEvent()));

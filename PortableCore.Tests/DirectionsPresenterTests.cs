@@ -11,6 +11,7 @@ using PortableCore.BL.Managers;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
 using PortableCore.BL.Presenters;
+using PortableCore.Tests.Mocks;
 
 namespace PortableCore.Tests
 {
@@ -21,25 +22,30 @@ namespace PortableCore.Tests
         public void TestMust_GetListRecentDirections()
         {
             //arrange
+            var db = new MockSQLite();
+            var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
-            var presenter = new DirectionsPresenter(mockView, new MockSQLite());
+            var chatHistoryManager = new ChatHistoryManager(db);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
 
             //act
             presenter.SelectedRecentLanguagesEvent();
 
             //assert
-            Assert.AreEqual(3, mockView.listDirections.Count);
-            Assert.AreEqual(1, mockView.listDirections[0].Item1.ID);//порядок важен
-            Assert.AreEqual(2, mockView.listDirections[1].Item1.ID);
-            Assert.AreEqual(3, mockView.listDirections[2].Item1.ID);
+            Assert.AreEqual(2, mockView.listDirectionsRecent.Count);
+            Assert.AreEqual(1, mockView.listDirectionsRecent[0].ChatId);//порядок важен
+            Assert.AreEqual(2, mockView.listDirectionsRecent[1].ChatId);//порядок важен
         }
 
         [Test]
         public void TestMust_GetListAllDirections()
         {
             //arrange
+            var db = new MockSQLite();
+            var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
-            var presenter = new DirectionsPresenter(mockView, new MockSQLite());
+            var chatHistoryManager = new ChatHistoryManager(db);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
 
             //act
             presenter.SelectedAllLanguagesEvent();
@@ -55,6 +61,7 @@ namespace PortableCore.Tests
             public List<Language> listLanguages { get; private set; }
 
             public List<Tuple<Language, Language>> listDirections { get; private set; }
+            public List<DirectionsRecentItem> listDirectionsRecent { get; private set; }
 
             public void updateListAllLanguages(List<Language> listLanguages)
             {
@@ -68,44 +75,10 @@ namespace PortableCore.Tests
 
             public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
             {
-                throw new NotImplementedException();
+                this.listDirectionsRecent = listDirectionsRecent;
             }
         }
 
-        public class MockSQLite : ISQLiteTesting
-        {
-            public IEnumerable<T> Table<T>() where T : IBusinessEntity, new()
-            {
-                List<T> listItems = new List<T>();
-                var type = typeof(T);
-                if(type == typeof(Language))
-                {
-                    listItems = getMockedDataForLanguage() as List<T>;
-                }
-                if (type == typeof(ChatHistory))
-                {
-                    listItems = getMockedDataForLastChats() as List<T>;
-                }
-
-                return listItems;
-            }
-
-            private List<ChatHistory> getMockedDataForLastChats()
-            {
-                List<ChatHistory> listObj = new List<ChatHistory>();
-                /*listObj.Add(new ChatHistory() { ID = 1, LangFrom = 1, LangTo = 2, LastChanges = DateTime.Parse("2016.01.01") });
-                listObj.Add(new ChatHistory() { ID = 2, LangFrom = 2, LangTo = 1, LastChanges = DateTime.Parse("2016.01.02") });
-                listObj.Add(new ChatHistory() { ID = 3, LangFrom = 3, LangTo = 1, LastChanges = DateTime.Parse("2016.01.03") });*/
-                return listObj;
-            }
-
-            private List<Language> getMockedDataForLanguage()
-            {
-                LanguageManager langMan = new LanguageManager(this);
-                List<Language> listObj  = langMan.GetDefaultData().ToList();
-                return listObj;
-            }
-        }
 
         /*class MockDirectionManager : IDirectionManager
         {

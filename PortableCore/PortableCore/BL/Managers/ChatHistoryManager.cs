@@ -9,7 +9,7 @@ using PortableCore.DL;
 
 namespace PortableCore.BL.Managers
 {
-    public class ChatHistoryManager : IInitDataTable<ChatHistory>
+    public class ChatHistoryManager : IInitDataTable<ChatHistory>, IChatHistoryManager
     {
         ISQLiteTesting db;
 
@@ -38,7 +38,7 @@ namespace PortableCore.BL.Managers
             return repo.Save(item);
         }
 
-        internal ChatHistory GetLastRobotMessage()
+        public ChatHistory GetLastRobotMessage()
         {
             ChatHistory resultItem = new ChatHistory();
             var view = (from item in db.Table<ChatHistory>() orderby item.ID descending select item).Take(1);
@@ -49,18 +49,18 @@ namespace PortableCore.BL.Managers
             return resultItem;
         }
 
-        internal List<ChatHistory> ReadChatMessages(Chat chatItem)
+        public List<ChatHistory> ReadChatMessages(Chat chatItem)
         {
             var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID orderby item.ID ascending select item;
             return view.ToList();
         }
 
-        internal int GetCountOfMessagesForChat(int chatId)
+        public int GetCountOfMessagesForChat(int chatId)
         {
             return db.Table<ChatHistory>().Count(t => t.ChatID == chatId);
         }
 
-        internal void DeleteItemById(int historyRowId)
+        public void DeleteItemById(int historyRowId)
         {
             Repository<ChatHistory> repo = new Repository<ChatHistory>();
             int result = repo.Delete(historyRowId);

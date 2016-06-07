@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatManagerTests.cs" />
     <Compile Include="DictionaryChatPresenterTests.cs" />
     <Compile Include="JSONTexts.Designer.cs">
       <DependentUpon>JSONTexts.resx</DependentUpon>
@@ -54,6 +55,7 @@
     </Compile>
     <Compile Include="ConvertStringTests.cs" />
     <Compile Include="DirectionsPresenterTests.cs" />
+    <Compile Include="Mocks\MockSQLite.cs" />
     <Compile Include="TranslateDirectionTests.cs" />
     <Compile Include="TranslateRequestRunnerTests.cs" />
     <Compile Include="TranslateResultFromDBCacheTests.cs" />

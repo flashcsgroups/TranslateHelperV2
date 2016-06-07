@@ -14,14 +14,17 @@ namespace PortableCore.BL.Presenters
     public class DirectionsPresenter
     {
         IDirectionsView view;
-        ISQLiteTesting db;
+        //ISQLiteTesting db;
         List<Language> listLanguages = new List<Language>();
         List<DirectionsRecentItem> listDirectionsRecent;
+        IChatManager chatManager;
+        ILanguageManager languageManager;
 
-        public DirectionsPresenter(IDirectionsView view, ISQLiteTesting db)
+        public DirectionsPresenter(IDirectionsView view, IChatManager chatManager, ILanguageManager languageManager)
         {
             this.view = view;
-            this.db = db;
+            this.chatManager = chatManager;
+            this.languageManager = languageManager;
         }
 
         public void SelectedRecentLanguagesEvent()
@@ -48,7 +51,6 @@ namespace PortableCore.BL.Presenters
         private List<DirectionsRecentItem> getLastChats()
         {
             List<DirectionsRecentItem> listDirectionsRecent;
-            ChatManager chatManager = new ChatManager(db);
             listDirectionsRecent = chatManager.GetChatsForLastDays(10);
             return listDirectionsRecent;
         }
@@ -57,17 +59,16 @@ namespace PortableCore.BL.Presenters
         {
             if(listLanguages.Count() == 0)
             {
-                LanguageManager langManager = new LanguageManager(db);
-                listLanguages = langManager.GetDefaultData().ToList();
+                listLanguages = languageManager.GetDefaultData().ToList();
             }
             view.updateListAllLanguages(listLanguages);
         }
 
         public Chat FoundExistingOrCreateChat(Language robotLanguage)
         {
-            LanguageManager languageManager = new LanguageManager(db);
+            //LanguageManager languageManager = new LanguageManager(db);
             Language userLanguage = languageManager.GetItemForNameEng("Russian");
-            ChatManager chatManager = new ChatManager(db);
+            //ChatManager chatManager = new ChatManager(db);
             Chat chat = chatManager.GetChatByLanguage(userLanguage, robotLanguage);
             if(chat == null)
             {
