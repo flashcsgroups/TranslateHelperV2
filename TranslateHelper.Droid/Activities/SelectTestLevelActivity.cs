@@ -27,7 +27,8 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.SelectTestLevel);
-            direction.SetDirection(Intent.GetStringExtra("directionName"));
+            //direction.SetDirection(Intent.GetStringExtra("directionName"));
+            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
 
             var testWordsReader = new TestSelectWordsReader(SqlLiteInstance.DB);
             countOfAvailableWords = testWordsReader.GetCountDifferenceSources(direction);

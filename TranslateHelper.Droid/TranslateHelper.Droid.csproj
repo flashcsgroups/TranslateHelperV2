@@ -77,7 +77,6 @@
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Activities\DictionaryActivity.cs" />
     <Compile Include="Activities\FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Activities\SelectTestLevelActivity.cs" />
@@ -137,7 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidResource Include="Resources\layout\Dictionary.axml" />
     <AndroidResource Include="Resources\layout\Favorites.axml" />
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>

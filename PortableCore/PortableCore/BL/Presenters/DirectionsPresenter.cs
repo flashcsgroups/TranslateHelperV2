@@ -29,7 +29,7 @@ namespace PortableCore.BL.Presenters
 
         public void SelectedRecentLanguagesEvent()
         {
-            if(listDirectionsRecent == null)
+            //if(listDirectionsRecent == null)
                 listDirectionsRecent = getLastChats();
 
             view.updateListRecentDirections(listDirectionsRecent);

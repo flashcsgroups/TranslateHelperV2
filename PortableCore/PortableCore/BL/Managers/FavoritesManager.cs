@@ -49,7 +49,7 @@ namespace PortableCore.BL.Managers
             return new List<Favorites>(repos.GetItems());
         }
 
-        public int AddWord(int translatedExpressionId)
+        /*public int AddWord(int translatedExpressionId)
         {
             int FavoriteId = getFavoritId(translatedExpressionId);
             if (FavoriteId == 0)
@@ -58,7 +58,7 @@ namespace PortableCore.BL.Managers
                 FavoriteId = getFavoritId(translatedExpressionId);
             }
             return FavoriteId;
-        }
+        }*/
 
         public void AddWordFromChat(int historyRowId)
         {

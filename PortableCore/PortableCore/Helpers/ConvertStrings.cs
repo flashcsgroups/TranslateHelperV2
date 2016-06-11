@@ -10,7 +10,8 @@ namespace PortableCore.Helpers
     {
         public static string StringToOneLowerLineWithTrim(string sourceString)
         {
-            return sourceString.Trim().Replace("\n", " ").ToLower();
+            string tmp = sourceString.Trim().Replace("\r", "");
+            return tmp.Replace("\n", " ").ToLower();
         }
     }
 }

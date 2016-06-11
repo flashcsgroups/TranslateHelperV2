@@ -62,7 +62,6 @@ namespace PortableCore.BL.Presenters
             this.chatManager = chatManager;
             this.languageManager = languageManager;
             this.chatHistoryManager = chatHistoryManager;
-            //this.requestReference = new goTranslateRequest(;
         }
 
         public void InitChat()
@@ -86,42 +85,48 @@ namespace PortableCore.BL.Presenters
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
                 invertDirectionOfNeed(preparedTextForRequest);
-                addToDBUserRequest(preparedTextForRequest);
-                addToDBDefaultRobotResponse();
+                addToChatHistory(false, preparedTextForRequest);
+                addToChatHistory(true);
                 view.UpdateChat(getListBubbles());
                 startRequestWithValidation(preparedTextForRequest);
             }
         }
 
-        private void addToDBDefaultRobotResponse()
-        {
-            ChatHistory item = new ChatHistory();
-            item.ChatID         = selectedChatID;
-            item.UpdateDate     = DateTime.Now;
-            item.TextTo         = "Роюсь в словаре...";
-            item.LanguageFrom   = direction.LanguageFrom.ID;
-            item.LanguageTo     = direction.LanguageTo.ID;
-            //ChatHistoryManager manager = new ChatHistoryManager(this.db);
-            chatHistoryManager.SaveItem(item);
-        }
-
         public void InvertFavoriteState(BubbleItem bubbleItem)
         {
-            FavoritesManager favoritesManager = new FavoritesManager(db);
-            favoritesManager.AddWordFromChat(bubbleItem.HistoryRowId);
-            bubbleItem.InFavorites = true;
+            var item = chatHistoryManager.GetItemForId(bubbleItem.HistoryRowId);
+            if(item != null)
+            {
+                item.InFavorites = !item.InFavorites;
+                int result = chatHistoryManager.SaveItem(item);
+            }
         }
 
-        private void addToDBUserRequest(string userText)
+        private void addToChatHistory(bool useDefaultWaitMessage, string userText = null)
         {
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
-            item.TextFrom = userText;
+            if(useDefaultWaitMessage)
+                item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : string.Empty;
+            else
+            {
+                item.TextFrom = !string.IsNullOrEmpty(userText) ? userText : string.Empty;
+            }
             item.LanguageFrom = direction.LanguageFrom.ID;
             item.LanguageTo = direction.LanguageTo.ID;
-            //ChatHistoryManager manager = new ChatHistoryManager(this.db);
             chatHistoryManager.SaveItem(item);
+            increaseChatUpdateDate(item.ChatID);
+        }
+
+        private void increaseChatUpdateDate(int chatID)
+        {
+            var item = chatManager.GetItemForId(chatID);
+            if(item != null)
+            {
+                item.UpdateDate = DateTime.Now;
+                chatManager.SaveItem(item);
+            }
         }
 
         private void addToDBRobotResponse(TranslateRequestResult reqResult)
@@ -131,6 +136,7 @@ namespace PortableCore.BL.Presenters
             defaultRobotItem.TextFrom = string.Empty;
             string delimiter = ", ";
             createDBItemsFromResponse(reqResult, chatHistoryManager, defaultRobotItem, delimiter);
+            increaseChatUpdateDate(defaultRobotItem.ChatID);
         }
 
         private void createDBItemsFromResponse(TranslateRequestResult reqResult, IChatHistoryManager chatHistoryManager, ChatHistory defaultRobotItem, string delimiter)

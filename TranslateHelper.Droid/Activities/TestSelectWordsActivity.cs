@@ -49,13 +49,15 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnRestoreInstanceState(Bundle savedState)
         {
             base.OnRestoreInstanceState(savedState);
-            direction.SetDirection(savedState.GetString("direction"));
+            //direction.SetDirection(savedState.GetString("direction"));
+            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
             initTest();
         }
 
         private void initTest()
         {
-            direction.SetDirection(Intent.GetStringExtra("directionName"));
+            //direction.SetDirection(Intent.GetStringExtra("directionName"));
+            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
             int countOfWords = Intent.GetIntExtra("countOfWords", 10);
             presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), direction, countOfWords);
         }
@@ -141,7 +143,8 @@ namespace TranslateHelper.Droid.Activities
                 presenter.StartTest();
             });
             alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => {
-                StartActivity(typeof(DictionaryActivity));
+                //StartActivity(typeof(DictionaryActivity));
+                throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
             });
             Dialog dialog = alert.Create();
             dialog.Show();

@@ -78,9 +78,10 @@ namespace TranslateHelper.Droid.Adapters
 
         void addToFavorites(LineOfTranslateResult item, FavoritesManager favoritesManager, ImageView favoritesImageView)
         {
-            item.TranslateVariant.FavoritesId = favoritesManager.AddWord(item.TranslateVariant.TranslatedExpressionId);
+            /*item.TranslateVariant.FavoritesId = favoritesManager.AddWord(item.TranslateVariant.TranslatedExpressionId);
             if (favoritesImageView != null)
-                favoritesImageView.SetImageResource(Resource.Drawable.v4alreadyaddedtofav);
+                favoritesImageView.SetImageResource(Resource.Drawable.v4alreadyaddedtofav);*/
+            throw new NotImplementedException("Нет view для Favorites!");
         }
 
         public override LineOfTranslateResult this[int position]

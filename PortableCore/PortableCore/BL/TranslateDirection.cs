@@ -94,7 +94,7 @@ namespace PortableCore.BL
             return fullName;
         }
 
-        [Obsolete()]
+        /*[Obsolete()]
         public void SetDirection(string textDirection)
         {
             throw new NotImplementedException();
@@ -106,7 +106,7 @@ namespace PortableCore.BL
                 currentDirectionTo = arr[1];
             }
             else throw new Exception("Error parsing direction!");
-        }
+        }*/
 
 
         #endregion

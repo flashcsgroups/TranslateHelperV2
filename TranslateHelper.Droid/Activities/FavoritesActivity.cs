@@ -32,7 +32,8 @@ namespace TranslateHelper.Droid.Activities
 			ActionBar.SetHomeButtonEnabled (true);
 			SetContentView (Resource.Layout.Favorites);
 
-            direction.SetDirection(Intent.GetStringExtra("directionName"));
+            //direction.SetDirection(Intent.GetStringExtra("directionName"));
+            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
 
             var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
 

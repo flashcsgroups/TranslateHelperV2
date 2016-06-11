@@ -31,12 +31,17 @@ namespace PortableCore.Tests
 
             //act
             string userText = "test";
+            string answerText = "тест";
             presenter.UserAddNewTextEvent(userText);
 
             //assert
             Assert.AreEqual(2, mockView.ListBubbles.Count);
+            //Направление с английского на русский
             Assert.AreEqual(userText, mockView.ListBubbles[0].TextTo);
-            Assert.AreEqual("тест", mockView.ListBubbles[1].TextFrom);
+            Assert.AreEqual(answerText, mockView.ListBubbles[0].TextFrom);
+            //Направление с русского на английский
+            Assert.AreEqual(answerText, mockView.ListBubbles[1].TextTo);
+            Assert.AreEqual(userText, mockView.ListBubbles[1].TextFrom);
         }
 
         class MockDictionaryChatView : IDictionaryChatView
@@ -73,32 +78,7 @@ namespace PortableCore.Tests
 
             public int SaveItem(Chat item)
             {
-                throw new NotImplementedException();
-            }
-        }
-
-        public class MockLanguageManager : ILanguageManager
-        {
-            ISQLiteTesting db;
-
-            public MockLanguageManager(ISQLiteTesting dbHelper)
-            {
-                db = dbHelper;
-            }
-
-            public Language[] GetDefaultData()
-            {
-                throw new NotImplementedException();
-            }
-
-            public Language GetItemForId(int Id)
-            {
-                return new Language() { ID = 1 };
-            }
-
-            public Language GetItemForNameEng(string name)
-            {
-                return new Language() { ID = 1 };
+                return 1;
             }
         }
 
@@ -121,6 +101,11 @@ namespace PortableCore.Tests
                 throw new NotImplementedException();
             }
 
+            public ChatHistory GetItemForId(int id)
+            {
+                throw new NotImplementedException();
+            }
+
             public ChatHistory GetLastRobotMessage()
             {
                 return new ChatHistory() { ID = 1, ChatID = 1};
@@ -128,7 +113,10 @@ namespace PortableCore.Tests
 
             public List<ChatHistory> ReadChatMessages(Chat chatItem)
             {
-                return new List<ChatHistory>() { };
+                return new List<ChatHistory>() {
+                    new ChatHistory() { ID=1, ChatID = 1, TextFrom="тест", TextTo="test", Transcription = "", InFavorites = false},
+                    new ChatHistory() { ID=2, ChatID = 2, TextFrom="test", TextTo="тест", Transcription = "", InFavorites = false}
+                };
             }
 
             public int SaveItem(ChatHistory item)
