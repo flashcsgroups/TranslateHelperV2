@@ -52,7 +52,7 @@ namespace TranslateHelper.Droid.Adapters
                 holder.userMessage.Text = item.TextFrom;
                 holder.userFlagView.Visibility = ViewStates.Visible;
                 holder.userMessage.Visibility = ViewStates.Visible;
-                holder.userFlagView.SetImageResource(getImageResourceByName(item.LanguageTo.NameImageResource));
+                holder.userFlagView.SetImageResource(getImageResourceByName(item.LanguageFrom.NameImageResource));
                 holder.favoritesStatePic.Visibility = ViewStates.Gone;            
                 holder.robotFlagView.Visibility = ViewStates.Gone;
                 holder.robotLayout.Visibility = ViewStates.Gone;
@@ -66,7 +66,7 @@ namespace TranslateHelper.Droid.Adapters
                 if (string.IsNullOrEmpty(item.Definition)) holder.robotLayoutDefinition.Visibility = ViewStates.Gone;
                 holder.robotFlagView.Visibility = ViewStates.Visible;
                 holder.robotLayout.Visibility = ViewStates.Visible;
-                holder.robotFlagView.SetImageResource(getImageResourceByName(item.LanguageFrom.NameImageResource));
+                holder.robotFlagView.SetImageResource(getImageResourceByName(item.LanguageTo.NameImageResource));
                 holder.favoritesStatePic.Visibility = ViewStates.Visible;
                 if (item.InFavorites) holder.favoritesStatePic.SetImageResource(Resource.Drawable.v5alreadyaddedtofav);
                 holder.userFlagView.Visibility = ViewStates.Gone;

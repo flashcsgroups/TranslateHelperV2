@@ -15,7 +15,6 @@ namespace PortableCore.BL
         public Language LanguageTo { get; private set; }
 
         ISQLiteTesting db;
-        Direction currentDirection;
         IDirectionManager directionManager;
         ILanguageManager languageManager;
         string currentDirectionFrom = string.Empty;
@@ -54,61 +53,6 @@ namespace PortableCore.BL
             if (!result)
                 result = (lang == DetectInputLanguage.Language.Russian && this.LanguageFrom.NameShort == "ru");
             return result;
-        }
-
-        #region Obsolete
-        [Obsolete()]
-        public TranslateDirection(ISQLiteTesting dbHelper, IDirectionManager directionManager)
-        {
-            this.db = dbHelper;
-            this.directionManager = directionManager;
-        }
-
-        public void SetDefaultDirection()
-        {
-            throw new NotImplementedException();
-            //SetDirection("en-ru");//default, Eng->Rus
-        }
-
-        public int GetCurrentDirectionId1()
-        {
-            throw new NotImplementedException();
-            int id = 0;
-            if (currentDirection != null) id = currentDirection.ID;
-            return id;
-        }
-
-        public string GetCurrentDirectionName()
-        {
-            throw new NotImplementedException();
-            string name = string.Empty;
-            if (currentDirection != null) name = currentDirection.Name;
-            return name;
-        }
-
-        public string GetCurrentDirectionNameFull()
-        {
-            throw new NotImplementedException();
-            string fullName = string.Empty;
-            if (currentDirection != null) fullName = currentDirection.FullName;
-            return fullName;
-        }
-
-        /*[Obsolete()]
-        public void SetDirection(string textDirection)
-        {
-            throw new NotImplementedException();
-            currentDirection = directionManager.GetItemForName(textDirection);
-            var arr = textDirection.Split('-');
-            if (arr.Count() > 1)
-            {
-                currentDirectionFrom = arr[0];
-                currentDirectionTo = arr[1];
-            }
-            else throw new Exception("Error parsing direction!");
-        }*/
-
-
-        #endregion
+        }    
     }
 }

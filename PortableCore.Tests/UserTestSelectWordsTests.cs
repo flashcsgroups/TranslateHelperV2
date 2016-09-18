@@ -161,7 +161,8 @@ namespace PortableCore.Tests
             testActivity = new MockTestSelectWordsActivity();
             MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
             DirectionManager directionManager = new DirectionManager(dbHelper);
-            TranslateDirection direction = new TranslateDirection(dbHelper, directionManager);
+            LanguageManager languageManager = new LanguageManager(dbHelper);
+            TranslateDirection direction = new TranslateDirection(dbHelper, directionManager, languageManager);
             presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, direction, countOfWords);
         }
 

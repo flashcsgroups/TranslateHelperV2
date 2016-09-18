@@ -77,11 +77,11 @@
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Activities\FavoritesActivity.cs" />
+    <None Include="Activities\FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Activities\SelectTestLevelActivity.cs" />
+    <None Include="Activities\SelectTestLevelActivity.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="Activities\TestSelectWordsActivity.cs" />
+    <None Include="Activities\TestSelectWordsActivity.cs" />
     <Compile Include="Adapters\FavoritesAdapter.cs" />
     <Compile Include="IndexedCollection.cs" />
     <Compile Include="Adapters\TestSelectWordsAdapter.cs" />

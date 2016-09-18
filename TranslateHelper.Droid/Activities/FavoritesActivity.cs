@@ -98,7 +98,8 @@ namespace TranslateHelper.Droid.Activities
             return true;
 		}
 
-		public override bool OnOptionsItemSelected (IMenuItem item)
+        /*
+        public override bool OnOptionsItemSelected (IMenuItem item)
 		{
 			switch (item.ItemId)
             {
@@ -116,7 +117,7 @@ namespace TranslateHelper.Droid.Activities
                     break;
 			}
             return base.OnOptionsItemSelected(item);
-        }
+        }*/
     }
 }
 

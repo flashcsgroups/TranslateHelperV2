@@ -43,7 +43,6 @@ namespace PortableCore.WS
             try
             {
                 translater.SetSourceString(sourceString);
-                //responseText = await translater.GetResponse(direction.GetCurrentDirectionName());
                 responseText = await translater.GetResponse(string.Format("{0}-{1}", direction.LanguageFrom.NameShort, direction.LanguageTo.NameShort));
             }
             catch (Exception e)

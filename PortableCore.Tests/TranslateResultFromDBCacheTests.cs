@@ -11,7 +11,7 @@ namespace PortableCore.Tests
     [TestFixture]
     public class TranslateResultFromDBCacheTests
     {
-        [Test]
+        /*[Test]
         public void TestMust_GetOneTranslatedStringFormDB()
         {
             //arrange
@@ -20,7 +20,7 @@ namespace PortableCore.Tests
             //LocalDBReader dbReader = new LocalDBReader();
             //List<TranslateResult> list = dbReader.GetSourceExprCollection(sourceString).getDefinitions().getTranslatedExpressions().GetTranslateResults();
             //assert
-        }
+        }*/
 
         /*[Test]
         public void TestMust_GetOneDefinitionForSourceText()

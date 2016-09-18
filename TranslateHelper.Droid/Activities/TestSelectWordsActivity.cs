@@ -42,8 +42,9 @@ namespace TranslateHelper.Droid.Activities
         }
         protected override void OnSaveInstanceState(Bundle outState)
         {
-            outState.PutString("direction", direction.GetCurrentDirectionName());
-            base.OnSaveInstanceState(outState);
+            throw new NotImplementedException();
+            /*outState.PutString("direction", direction.GetCurrentDirectionName());
+            base.OnSaveInstanceState(outState);*/
         }
 
         protected override void OnRestoreInstanceState(Bundle savedState)
@@ -122,9 +123,10 @@ namespace TranslateHelper.Droid.Activities
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    var intent = new Intent(this, typeof(DictionaryChatActivity));
+                    throw new NotImplementedException();
+                    /*var intent = new Intent(this, typeof(DictionaryChatActivity));
                     intent.PutExtra("directionName", direction.GetCurrentDirectionName());
-                    StartActivity(intent);
+                    StartActivity(intent);*/
                     return true;
                 default:
                     break;

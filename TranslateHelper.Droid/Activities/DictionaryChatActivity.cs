@@ -32,11 +32,21 @@ namespace TranslateHelper.Droid.Activities
             // Create your application here
             SetContentView(Resource.Layout.DictionaryChat);
             EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
+
             ImageButton buttonTranslate = FindViewById<ImageButton>(Resource.Id.buttonTranslate);
             buttonTranslate.Click += (object sender, EventArgs e) =>
             {
                 presenter.UserAddNewTextEvent(editSourceText.Text);
                 editSourceText.Text = string.Empty;
+            };
+
+            editSourceText.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
+            {
+                if ((e.Text.Count() > 0)&&(e.Text.Last() == '\n'))
+                {
+                    presenter.UserAddNewTextEvent(editSourceText.Text.TrimEnd());
+                    editSourceText.Text = string.Empty;
+                }
             };
         }
 
@@ -91,7 +101,7 @@ namespace TranslateHelper.Droid.Activities
         {
             switch (item.ItemId)
             {
-                case Resource.Id.menu_favorites:
+                /*case Resource.Id.menu_favorites:
                     var intentFavorites = new Intent(this, typeof(FavoritesActivity));
                     intentFavorites.PutExtra("directionName", presenter.GetCurrentDirectionName());
                     StartActivity(intentFavorites);
@@ -100,7 +110,7 @@ namespace TranslateHelper.Droid.Activities
                     var intentTests = new Intent(this, typeof(SelectTestLevelActivity));
                     intentTests.PutExtra("directionName", presenter.GetCurrentDirectionName());
                     StartActivity(intentTests);
-                    return true;
+                    return true;*/
                 case global::Android.Resource.Id.Home:
                     var intentDirections = new Intent(this, typeof(DirectionsActivity));
                     StartActivity(intentDirections);
@@ -113,11 +123,11 @@ namespace TranslateHelper.Droid.Activities
 
         public void DeleteRowByUserAction(int elementPositionIndex)
         {
-            presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
+            //presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
             //bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
-            var t = Toast.MakeText(this, "test:" + elementPositionIndex.ToString(), ToastLength.Short);
+            /*var t = Toast.MakeText(this, "test:" + elementPositionIndex.ToString(), ToastLength.Short);
             t.SetGravity(GravityFlags.Center, 0, 0);
-            t.Show();
+            t.Show();*/
 
             /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle("");

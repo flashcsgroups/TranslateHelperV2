@@ -55,13 +55,13 @@ namespace TranslateHelper.Droid
         /// <returns></returns>
         private void callTestRequest()
         {
-            TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
+            /*TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
             TranslateRequestRunner reqRunner = new TranslateRequestRunner(
                 SqlLiteInstance.DB,
                 new CachedResultReader(direction, SqlLiteInstance.DB),
                 new TranslateRequest(TypeTranslateServices.YandexDictionary, direction),
                 new TranslateRequest(TypeTranslateServices.YandexTranslate, direction));
-            var reqResult = reqRunner.GetDictionaryResult(string.Empty, direction);
+            var reqResult = reqRunner.GetDictionaryResult(string.Empty, direction);*/
         }
     }
 }

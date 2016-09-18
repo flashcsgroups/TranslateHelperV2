@@ -72,10 +72,11 @@ namespace TranslateHelper.Droid.Activities
 
         private void StartTest_SelectRightWords(int countOfWords)
         {
-            var intentTest = new Intent(this, typeof(TestSelectWordsActivity));
+            throw new NotImplementedException();
+            /*var intentTest = new Intent(this, typeof(TestSelectWordsActivity));
             intentTest.PutExtra("countOfWords", countOfWords);
             intentTest.PutExtra("directionName", direction.GetCurrentDirectionName());
-            StartActivity(intentTest);
+            StartActivity(intentTest);*/
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -109,9 +110,10 @@ namespace TranslateHelper.Droid.Activities
 
         private void StartDictionaryActivity()
         {
-            var intent = new Intent(this, typeof(DictionaryChatActivity));
+            throw new NotImplementedException();
+            /*var intent = new Intent(this, typeof(DictionaryChatActivity));
             intent.PutExtra("directionName", direction.GetCurrentDirectionName());
-            StartActivity(intent);
+            StartActivity(intent);*/
         }
 
     }

@@ -55,7 +55,7 @@ namespace PortableCore.Tests
 
         private class MockChatManager : IChatManager
         {
-            ISQLiteTesting db;
+            //ISQLiteTesting db;
 
             public MockChatManager(ISQLiteTesting dbHelper)
             {

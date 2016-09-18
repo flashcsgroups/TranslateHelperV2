@@ -235,11 +235,6 @@ namespace PortableCore.BL.Presenters
             return resultBubbles;
         }
 
-        public string GetCurrentDirectionName()
-        {
-            return direction.GetCurrentDirectionName();
-        }
-
         private TranslateRequestRunner getRequestRunner(TranslateDirection translateDirection)
         {
             TranslateRequestRunner reqRunner = new TranslateRequestRunner(
