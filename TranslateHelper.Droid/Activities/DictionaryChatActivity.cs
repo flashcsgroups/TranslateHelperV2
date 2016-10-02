@@ -15,6 +15,7 @@ using PortableCore.BL.Views;
 using PortableCore.DAL;
 using PortableCore.BL.Models;
 using Java.Util;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -164,9 +165,11 @@ namespace TranslateHelper.Droid.Activities
             }*/
         }
 
-        public void SendWelcomeMessage(string currentLocaleShort)
+        public void UpdateBackground(string resourceBackgroundName)
         {
-            throw new NotImplementedException();
+            ListView layoutChat = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
+            int resourceId = AndroidResourceHelper.GetImageResource(this, resourceBackgroundName);
+            layoutChat.SetBackgroundResource(resourceId);
         }
     }
 }

@@ -13,6 +13,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:scaleType="fitXY"
+        android:background="@color/transparent"
         android:src="@drawable/FlagRussia"
         android:gravity="left|top" />
     <TextView
@@ -104,6 +105,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:scaleType="fitXY"
+        android:background="@color/transparent"
         android:src="@drawable/FlagEnglish"
         android:gravity="right|top" />
 </LinearLayout>

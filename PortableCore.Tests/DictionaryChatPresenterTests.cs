@@ -47,6 +47,12 @@ namespace PortableCore.Tests
         class MockDictionaryChatView : IDictionaryChatView
         {
             public List<BubbleItem> ListBubbles = new List<BubbleItem>();
+
+            public void UpdateBackground(string v)
+            {
+                throw new NotImplementedException();
+            }
+
             public void UpdateChat(List<BubbleItem> listBubbles)
             {
                 this.ListBubbles = listBubbles;

@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AndroidResourceHelper.cs" />
     <Compile Include="TranslateHelperApplication.cs" />
     <Compile Include="Helpers\JavaCastToCLRHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

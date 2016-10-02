@@ -7,6 +7,7 @@ using PortableCore.BL.Models;
 using Android.Util;
 using System;
 using PortableCore.DL;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Adapters
 {
@@ -93,7 +94,8 @@ namespace TranslateHelper.Droid.Adapters
 
         private int getImageResourceByName(string imgName)
         {
-            return context.Resources.GetIdentifier(imgName.ToLower(), "drawable", context.PackageName);
+            return AndroidResourceHelper.GetImageResource(context, imgName);
+            //return context.Resources.GetIdentifier(imgName.ToLower(), "drawable", context.PackageName);
         }
 
         class ViewHolder : Java.Lang.Object

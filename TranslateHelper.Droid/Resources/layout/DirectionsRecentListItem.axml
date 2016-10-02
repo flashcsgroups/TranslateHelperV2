@@ -3,6 +3,8 @@
     android:id="@+id/mainList"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
     android:background="@color/transparent"
     android:orientation="vertical">
     <LinearLayout
@@ -22,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
-            android:textSize="20dip"
+            android:textSize="30sp"
             android:text="English"
             android:textColor="@color/black"
             android:background="@color/transparent"
@@ -32,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
-            android:textSize="15dip"
+            android:textSize="25sp"
             android:text="(25)"
             android:textColor="@color/lightgrey"
             android:background="@color/transparent"

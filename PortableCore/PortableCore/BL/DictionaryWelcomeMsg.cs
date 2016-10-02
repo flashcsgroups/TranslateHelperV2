@@ -36,16 +36,16 @@ namespace PortableCore.BL
             {
                 case "en":
                     {
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Hello!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Good day!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Welcome!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "How are you?" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Hello! You can write word or sentences for translate, for example:" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Good day! You can write word or sentences for translate, for example:" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Welcome! You can write word or sentences for translate, for example:" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "How are you? Now you can write word or sentences for translate, for example:" });
                     }; break;
                 case "ru":
                     {
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Привет! Здесь вы можете ввести предложение или отдельное слово, например:" });
-                        //listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Добрый день!" });
-                        //listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Как дела?" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Добрый день! Просто напишите то, что хотите перевести, например:" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Здорово! Хорошо, что вы здесь. В чате вы можете написать то, что хотите превести, например: " });
                     }; break;
                 case "sp":
                     {
@@ -65,21 +65,22 @@ namespace PortableCore.BL
             {
                 case "en":
                     {
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Hello!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Good day!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Welcome!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "How are you?" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "test" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "morning" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "table" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "sunshine" });
                     }; break;
                 case "ru":
                     {
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "стол" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "полёт" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "иди" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "проверка" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "человек" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "песня" });
                     }; break;
                 case "sp":
                     {
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Hola!" });
-                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Buenas dias!" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "personas" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "gato" });
+                        listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "madera" });
                     }; break;
                 default:
                     {

@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
-            android:textSize="20dip"
+            android:textSize="30sp"
             android:text="English"
             android:textColor="@color/black"
             android:background="@color/transparent"

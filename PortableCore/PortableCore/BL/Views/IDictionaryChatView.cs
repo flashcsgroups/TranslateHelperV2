@@ -9,5 +9,6 @@ namespace PortableCore.BL.Views
     public interface IDictionaryChatView
     {
         void UpdateChat(List<BubbleItem> listBubbles);
+        void UpdateBackground(string v);
     }
 }

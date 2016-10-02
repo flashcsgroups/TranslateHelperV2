@@ -72,12 +72,7 @@ namespace PortableCore.BL.Presenters
             if(listBubbles.Count == 0)
             {
                 DictionaryWelcomeMsg welcome = new DictionaryWelcomeMsg(currentLocaleShort);
-                //UserAddNewTextEvent(welcome.GetWelcomeMessage());
                 addUserMsgToChatHistory(welcome.GetWelcomeMessage());
-                //addRobotMsgToChatHistory(false, "test");
-                //addUserMsgToChatHistory(welcome.GetExampleMessage());
-                //addRobotMsgToChatHistory(false, "hey");
-                //view.UpdateChat(getListBubbles());
                 UserAddNewTextEvent(welcome.GetExampleMessage());
             }
         }
@@ -89,6 +84,7 @@ namespace PortableCore.BL.Presenters
             Language robotLang = languageManager.GetItemForId(this.selectedChat.LanguageTo);
             direction = new TranslateDirection(this.db, new DirectionManager(this.db), languageManager);
             direction.SetDirection(userLang, robotLang);
+            view.UpdateBackground("back" + robotLang.NameEng);
         }
 
         public void UserAddNewTextEvent(string userText)
