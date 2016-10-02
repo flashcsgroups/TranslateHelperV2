@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Views.InputMethods;
+using Java.Util;
 
 namespace TranslateHelper.Droid
 {

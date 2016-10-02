@@ -48,12 +48,31 @@ namespace PortableCore.Tests
             var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
 
             //act
-            presenter.SelectedAllLanguagesEvent();
+            presenter.SelectedAllLanguagesEvent("en");
 
             //assert
             Assert.GreaterOrEqual(6, mockView.listLanguages.Count, "Количество элементов меньше ожидаемого");
             Assert.IsTrue(mockView.listLanguages.Exists(i => i.NameLocal == "Русский"), "В коллекции нет Русского языка, а должен быть");
             Assert.IsTrue(mockView.listLanguages.Exists(i => i.NameLocal == "English"), "В коллекции нет Английского языка, а должен быть");
+        }
+
+        [Test]
+        public void TestMust_FoundCurrentLocaleLanguageAtBottomList()
+        {
+            //arrange
+            var db = new MockSQLite();
+            var languageManager = new LanguageManager(db);
+            var mockView = new MockDirectionsView();
+            var chatHistoryManager = new ChatHistoryManager(db);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            string localeLanguage = "ru";
+
+            //act
+            presenter.SelectedAllLanguagesEvent(localeLanguage);
+
+            //assert
+            Assert.GreaterOrEqual(6, mockView.listLanguages.Count, "Количество элементов меньше ожидаемого");
+            Assert.IsTrue(mockView.listLanguages[mockView.listLanguages.Count - 1].NameShort == localeLanguage, "Русский язык должен быть в самом низу списка поскольку это язык локалии");
         }
 
         class MockDirectionsView : IDirectionsView

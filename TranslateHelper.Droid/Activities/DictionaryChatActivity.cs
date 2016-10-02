@@ -14,6 +14,7 @@ using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.DAL;
 using PortableCore.BL.Models;
+using Java.Util;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -58,7 +59,7 @@ namespace TranslateHelper.Droid.Activities
             {
                 presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
                 presenter.InitDirection();
-                presenter.InitChat();
+                presenter.InitChat(Locale.Default.Language);
             }
             else
             {
@@ -163,5 +164,9 @@ namespace TranslateHelper.Droid.Activities
             }*/
         }
 
+        public void SendWelcomeMessage(string currentLocaleShort)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
