@@ -35,7 +35,7 @@ namespace PortableCore.BL.Presenters
             view.updateListRecentDirections(listDirectionsRecent);
         }
 
-        public void ShowRecentOrFullListLanguages()
+        public void ShowRecentOrFullListLanguages(string currentLocaleShort)
         {
             if (listDirectionsRecent == null)
                 listDirectionsRecent = getLastChats();
@@ -45,7 +45,7 @@ namespace PortableCore.BL.Presenters
                 SelectedRecentLanguagesEvent();
             }
             else
-                SelectedAllLanguagesEvent();
+                SelectedAllLanguagesEvent(currentLocaleShort);
         }
 
         private List<DirectionsRecentItem> getLastChats()
@@ -55,11 +55,13 @@ namespace PortableCore.BL.Presenters
             return listDirectionsRecent;
         }
 
-        public void SelectedAllLanguagesEvent()
+        public void SelectedAllLanguagesEvent(string currentLocaleShort)
         {
             if(listLanguages.Count() == 0)
             {
-                listLanguages = languageManager.GetDefaultData().ToList();
+                var defaultData = languageManager.GetDefaultData();
+                listLanguages = defaultData.Where(e=>e.NameShort != currentLocaleShort).ToList();
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
             }
             view.updateListAllLanguages(listLanguages);
         }

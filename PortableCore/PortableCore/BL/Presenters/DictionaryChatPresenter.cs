@@ -64,10 +64,22 @@ namespace PortableCore.BL.Presenters
             this.chatHistoryManager = chatHistoryManager;
         }
 
-        public void InitChat()
+        public void InitChat(string currentLocaleShort)
         {
             requestReference = new goTranslateRequest(translateRequest);
-            view.UpdateChat(getListBubbles());
+            var listBubbles = getListBubbles();
+            view.UpdateChat(listBubbles);
+            if(listBubbles.Count == 0)
+            {
+                DictionaryWelcomeMsg welcome = new DictionaryWelcomeMsg(currentLocaleShort);
+                //UserAddNewTextEvent(welcome.GetWelcomeMessage());
+                addUserMsgToChatHistory(welcome.GetWelcomeMessage());
+                //addRobotMsgToChatHistory(false, "test");
+                //addUserMsgToChatHistory(welcome.GetExampleMessage());
+                //addRobotMsgToChatHistory(false, "hey");
+                //view.UpdateChat(getListBubbles());
+                UserAddNewTextEvent(welcome.GetExampleMessage());
+            }
         }
 
         public void InitDirection()
@@ -85,8 +97,8 @@ namespace PortableCore.BL.Presenters
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
                 invertDirectionOfNeed(preparedTextForRequest);
-                addToChatHistory(false, preparedTextForRequest);
-                addToChatHistory(true);
+                addUserMsgToChatHistory(preparedTextForRequest);
+                addRobotMsgToChatHistory(true, string.Empty);
                 view.UpdateChat(getListBubbles());
                 startRequestWithValidation(preparedTextForRequest);
             }
@@ -102,12 +114,34 @@ namespace PortableCore.BL.Presenters
             }
         }
 
-        private void addToChatHistory(bool useDefaultWaitMessage, string userText = null)
+        private void addUserMsgToChatHistory(string userText = null)
         {
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
-            if(useDefaultWaitMessage)
+            item.TextFrom = !string.IsNullOrEmpty(userText) ? userText : string.Empty;
+            item.LanguageFrom = direction.LanguageFrom.ID;
+            item.LanguageTo = direction.LanguageTo.ID;
+            chatHistoryManager.SaveItem(item);
+            increaseChatUpdateDate(item.ChatID);
+        }
+        private void addRobotMsgToChatHistory(bool useDefaultWaitMessage, string robotText)
+        {
+            ChatHistory item = new ChatHistory();
+            item.ChatID = selectedChatID;
+            item.UpdateDate = DateTime.Now;
+            item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : robotText;
+            item.LanguageFrom = direction.LanguageFrom.ID;
+            item.LanguageTo = direction.LanguageTo.ID;
+            chatHistoryManager.SaveItem(item);
+            increaseChatUpdateDate(item.ChatID);
+        }
+        /*private void addRobotMsgToChatHistory(bool useDefaultWaitMessage, string userText = null)
+        {
+            ChatHistory item = new ChatHistory();
+            item.ChatID = selectedChatID;
+            item.UpdateDate = DateTime.Now;
+            if (useDefaultWaitMessage)
                 item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : string.Empty;
             else
             {
@@ -117,7 +151,7 @@ namespace PortableCore.BL.Presenters
             item.LanguageTo = direction.LanguageTo.ID;
             chatHistoryManager.SaveItem(item);
             increaseChatUpdateDate(item.ChatID);
-        }
+        }*/
 
         private void increaseChatUpdateDate(int chatID)
         {
