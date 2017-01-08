@@ -74,9 +74,12 @@ namespace TranslateHelper.Droid.Activities
 
         private void ListViewAllDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Language selectedLanguageItem = adapterAllDirections.GetLanguageItem(e.Position);
-            Chat chat = presenter.FoundExistingOrCreateChat(selectedLanguageItem);
-            startChatActivityByChatId(chat.ID);
+            Language selectedRobotLanguage = adapterAllDirections.GetLanguageItem(e.Position);
+            //LanguageManager languageManager = new LanguageManager();
+            //Chat chat = presenter.FoundExistingOrCreateChat(selectedRobotLanguage, presenter. languageManager.GetItemForShortName(Locale.Default.Language));
+            //startChatActivityByChatId(chat.ID);
+            int chatId = presenter.GetIdForExistOrCreatedChat(Locale.Default.Language, selectedRobotLanguage);
+            startChatActivityByChatId(chatId);
         }
 
         public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)

@@ -55,6 +55,13 @@ namespace PortableCore.BL.Managers
             return view.ToList();
         }
 
+        public List<ChatHistory> ReadSuspendedChatMessages(Chat chatItem)
+        {
+            string searchMsg = GetSearchMessage(new Language());//Временно до того момента пока не разберусь с сообщением о поиске на разных языках
+            var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID && item.TextTo == searchMsg orderby item.ID ascending select item;
+            return view.ToList();
+        }
+
         public int GetCountOfMessagesForChat(int chatId)
         {
             return db.Table<ChatHistory>().Count(t => t.ChatID == chatId);
@@ -64,6 +71,12 @@ namespace PortableCore.BL.Managers
         {
             Repository<ChatHistory> repo = new Repository<ChatHistory>();
             int result = repo.Delete(historyRowId);
+        }
+
+        //ToDo: Доделать сообщение о поиске под разные языки
+        public string GetSearchMessage(Language languageFrom)
+        {
+            return "Роюсь в словаре...";
         }
     }
 }

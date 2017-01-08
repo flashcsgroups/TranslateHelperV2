@@ -9,6 +9,16 @@ namespace PortableCore.BL.Managers
     public class LanguageManager : IInitDataTable<Language>, ILanguageManager
     {
         ISQLiteTesting db;
+        private static Language defaultValue;
+
+        public Language DefaultLanguage()
+        {
+            if (defaultValue == null)
+            {
+                defaultValue = new Language();
+            }
+            return defaultValue;
+        }
 
         public LanguageManager(ISQLiteTesting dbHelper)
         {
@@ -33,12 +43,22 @@ namespace PortableCore.BL.Managers
             return result;
         }
 
+        //ToDo: Для русского можно не читать из базы или как минимум хранить значение в кеше, чтобы не читать каждый раз
         public Language GetItemForNameEng(string name)
         {
             Language result = new Language();
             Repository<Language> repos = new Repository<Language>();
             var view = from item in db.Table<Language>() where item.NameEng == name && item.DeleteMark == 0 select item;
             if (view.Count() == 1) result = view.First(); 
+            return result;
+        }
+
+        public Language GetItemForShortName(string name)
+        {
+            Language result = new Language();
+            Repository<Language> repos = new Repository<Language>();
+            var view = from item in db.Table<Language>() where item.NameShort == name && item.DeleteMark == 0 select item;
+            if (view.Count() == 1) result = view.First();
             return result;
         }
 

@@ -39,9 +39,16 @@ namespace PortableCore.BL.Managers
             return repo.Save(item);
         }
 
-        public Chat GetChatByLanguage(Language userLanguage, Language robotLanguage)
+        public Chat GetChatByCoupleOfLanguages(Language language1, Language language2)
         {
-            return db.Table<Chat>().SingleOrDefault(item=>item.LanguageFrom == userLanguage.ID && item.LanguageTo == robotLanguage.ID);
+            Chat result = new Chat();
+            var view = db.Table<Chat>().Where(item => (item.LanguageFrom == language1.ID && item.LanguageTo == language2.ID || item.LanguageFrom == language2.ID && item.LanguageTo == language1.ID));
+            //При некорректной миграции был случай, когда возвращалось больше одного элемента, это ошибка, но подстраховаться надо
+            if (view.Count<Chat>() > 0)
+            {
+                result = view.First<Chat>();
+            }
+            return result;
         }
 
         public List<DirectionsRecentItem> GetChatsForLastDays(int countOfDays)

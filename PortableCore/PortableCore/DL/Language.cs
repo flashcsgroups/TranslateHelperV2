@@ -9,6 +9,12 @@ namespace PortableCore.DL
         public Language()
         {
         }
+
+        public bool Equals(Language obj)
+        {
+            return (obj.ID == this.ID);
+        }
+
         [PrimaryKey, AutoIncrement, Indexed]
         public int ID { get; set; }
         public string NameEng { get; set; }

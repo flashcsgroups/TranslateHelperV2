@@ -10,5 +10,6 @@ namespace PortableCore.BL.Views
     {
         void UpdateChat(List<BubbleItem> listBubbles);
         void UpdateBackground(string v);
+        void HideButtonForSwapLanguage();
     }
 }

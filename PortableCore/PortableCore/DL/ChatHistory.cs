@@ -26,5 +26,7 @@ namespace PortableCore.DL
         [Indexed]
         public DateTime UpdateDate { get; set; }
         public int DeleteMark { get; set; }
+        [Indexed]
+        public int ParentRequestID { get; set; }
     }
 }

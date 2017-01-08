@@ -101,15 +101,5 @@ namespace PortableCore.Tests
             Assert.AreEqual(direction.LanguageFrom.NameEng, directionFrom);
             Assert.AreEqual(direction.LanguageTo.NameEng, directionTo);
         }
-
-        class MockSQLite : ISQLiteTesting
-        {
-            public IEnumerable<Direction> Table<Direction>() where Direction : IBusinessEntity, new()
-            {
-                List<Direction> listFav = new List<Direction>();
-                listFav.Add(new Direction() { ID = 1 });
-                return listFav;
-            }
-        }
     }
 }

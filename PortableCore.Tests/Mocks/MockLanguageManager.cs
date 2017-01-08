@@ -24,12 +24,24 @@ namespace PortableCore.Tests.Mocks
 
         public Language GetItemForId(int Id)
         {
-            return new Language() { ID = 1 };
+            return new Language() { ID = Id };
         }
 
         public Language GetItemForNameEng(string name)
         {
-            return new Language() { ID = 1 };
+            LanguageManager langManager = new LanguageManager(db);
+            return langManager.GetItemForNameEng(name);
+            //return new Language() { ID = 1 };
+        }
+
+        public Language DefaultLanguage()
+        {
+            return new Language() { ID = 0 };
+        }
+
+        public Language GetItemForShortName(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }
