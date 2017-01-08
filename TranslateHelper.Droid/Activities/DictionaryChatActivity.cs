@@ -19,7 +19,7 @@ using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
-    [Activity(Label = "", MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
+    [Activity(Label = "Translate helper", MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class DictionaryChatActivity : Activity, IDictionaryChatView
     {
         DictionaryChatPresenter presenter;
@@ -42,6 +42,12 @@ namespace TranslateHelper.Droid.Activities
                 editSourceText.Text = string.Empty;
             };
 
+            ImageButton buttonSwapDirection = FindViewById<ImageButton>(Resource.Id.buttonSwapDirection);
+            buttonSwapDirection.Click += (object sender, EventArgs e) =>
+            {
+                presenter.UserSwapDirection();
+            };
+
             editSourceText.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
             {
                 if ((e.Text.Count() > 0)&&(e.Text.Last() == '\n'))
@@ -61,6 +67,7 @@ namespace TranslateHelper.Droid.Activities
                 presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
                 presenter.InitDirection();
                 presenter.InitChat(Locale.Default.Language);
+                presenter.UpdateOldSuspendedRequests();
             }
             else
             {
@@ -170,6 +177,17 @@ namespace TranslateHelper.Droid.Activities
             ListView layoutChat = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
             int resourceId = AndroidResourceHelper.GetImageResource(this, resourceBackgroundName);
             layoutChat.SetBackgroundResource(resourceId);
+        }
+
+        public void ShowToast(string messageText)
+        {
+            Toast.MakeText(this, messageText, ToastLength.Short).Show();
+        }
+
+        public void HideButtonForSwapLanguage()
+        {
+            ImageButton buttonSwapDirection = FindViewById<ImageButton>(Resource.Id.buttonSwapDirection);
+            buttonSwapDirection.Visibility = ViewStates.Gone;
         }
     }
 }

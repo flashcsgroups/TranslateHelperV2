@@ -11,5 +11,7 @@ namespace PortableCore.BL.Managers
         ChatHistory GetLastRobotMessage();
         void DeleteItemById(int historyRowId);
         List<ChatHistory> ReadChatMessages(Chat chatItem);
+        List<ChatHistory> ReadSuspendedChatMessages(Chat chatItem);
+        string GetSearchMessage(Language languageFrom);
     }
 }

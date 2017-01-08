@@ -66,12 +66,15 @@ namespace PortableCore.BL.Presenters
             view.updateListAllLanguages(listLanguages);
         }
 
-        public Chat FoundExistingOrCreateChat(Language robotLanguage)
+        /*public Chat FoundExistingOrCreateChat(Language robotLanguage, Language userLanguage)
         {
             //LanguageManager languageManager = new LanguageManager(db);
-            Language userLanguage = languageManager.GetItemForNameEng("Russian");
+
+            //Language userLanguage = languageManager.GetItemForNameEng("Russian");
+            //var lang = Locale.Default.Language;
+            //Language userLanguage = languageManager.GetItemForNameEng("Russian");
             //ChatManager chatManager = new ChatManager(db);
-            Chat chat = chatManager.GetChatByLanguage(userLanguage, robotLanguage);
+            Chat chat = chatManager.GetChatByCoupleOfLanguages(userLanguage, robotLanguage);
             if(chat == null)
             {
                 chat = new Chat();
@@ -83,6 +86,23 @@ namespace PortableCore.BL.Presenters
                 chatManager.SaveItem(chat);
             }
             return chat;
+        }*/
+
+        public int GetIdForExistOrCreatedChat(string systemLocale, Language robotLanguage)
+        {
+            var userLanguage = languageManager.GetItemForShortName(systemLocale);
+            Chat chat = chatManager.GetChatByCoupleOfLanguages(userLanguage, robotLanguage);
+            if (chat.ID == 0)
+            {
+                chat = new Chat();
+                chat.LanguageFrom = userLanguage.ID;
+                chat.LanguageCaptionFrom = userLanguage.NameLocal;
+                chat.LanguageTo = robotLanguage.ID;
+                chat.LanguageCaptionTo = robotLanguage.NameLocal;
+                chat.UpdateDate = DateTime.Now;
+                chatManager.SaveItem(chat);
+            }
+            return chat.ID;
         }
     }
 }

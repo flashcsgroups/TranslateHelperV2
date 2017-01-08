@@ -122,7 +122,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Bubble.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DirectionsAll.axml">
       <SubType>AndroidResource</SubType>
@@ -291,7 +291,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\RusEng.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\BubbleChatRobotSelector.xml" />
+    <AndroidResource Include="Resources\drawable\BubbleChatRobotSelector.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bender1.png" />
@@ -303,7 +305,9 @@
     <AndroidResource Include="Resources\drawable\OriginalTextInputSelector.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\OriginalTextButtonSelector.xml" />
+    <AndroidResource Include="Resources\drawable\OriginalTextButtonSelector.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FlagGermany.png" />

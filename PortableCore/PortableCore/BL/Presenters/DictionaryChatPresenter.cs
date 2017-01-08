@@ -29,6 +29,14 @@ namespace PortableCore.BL.Presenters
         Chat selectedChat;
         int selectedChatID = 0;
 
+        public TranslateDirection Direction
+        {
+            get
+            {
+                return direction;
+            }
+        }
+
 
         /// <summary>
         /// Основной конструктор
@@ -77,6 +85,12 @@ namespace PortableCore.BL.Presenters
             }
         }
 
+        public void UpdateOldSuspendedRequests()
+        {
+            var viewSuspendedMessages = chatHistoryManager.ReadSuspendedChatMessages(selectedChat);
+
+        }
+
         public void InitDirection()
         {
             this.selectedChat = chatManager.GetItemForId(selectedChatID);
@@ -85,6 +99,10 @@ namespace PortableCore.BL.Presenters
             direction = new TranslateDirection(this.db, new DirectionManager(this.db), languageManager);
             direction.SetDirection(userLang, robotLang);
             view.UpdateBackground("back" + robotLang.NameEng);
+            if((userLang.NameShort == "ru")|| (robotLang.NameShort == "ru"))
+            {
+                view.HideButtonForSwapLanguage();
+            }
         }
 
         public void UserAddNewTextEvent(string userText)
@@ -98,6 +116,11 @@ namespace PortableCore.BL.Presenters
                 view.UpdateChat(getListBubbles());
                 startRequestWithValidation(preparedTextForRequest);
             }
+        }
+
+        public void UserSwapDirection()
+        {
+            Direction.Invert();
         }
 
         public void InvertFavoriteState(BubbleItem bubbleItem)
@@ -116,8 +139,8 @@ namespace PortableCore.BL.Presenters
             item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
             item.TextFrom = !string.IsNullOrEmpty(userText) ? userText : string.Empty;
-            item.LanguageFrom = direction.LanguageFrom.ID;
-            item.LanguageTo = direction.LanguageTo.ID;
+            item.LanguageFrom = Direction.LanguageFrom.ID;
+            item.LanguageTo = Direction.LanguageTo.ID;
             chatHistoryManager.SaveItem(item);
             increaseChatUpdateDate(item.ChatID);
         }
@@ -126,28 +149,14 @@ namespace PortableCore.BL.Presenters
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
-            item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : robotText;
-            item.LanguageFrom = direction.LanguageFrom.ID;
-            item.LanguageTo = direction.LanguageTo.ID;
+            //item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : robotText;
+            item.TextTo = useDefaultWaitMessage ? chatHistoryManager.GetSearchMessage(Direction.LanguageFrom) : robotText;
+            item.LanguageFrom = Direction.LanguageFrom.ID;
+            item.LanguageTo = Direction.LanguageTo.ID;
+            item.ParentRequestID = 
             chatHistoryManager.SaveItem(item);
             increaseChatUpdateDate(item.ChatID);
         }
-        /*private void addRobotMsgToChatHistory(bool useDefaultWaitMessage, string userText = null)
-        {
-            ChatHistory item = new ChatHistory();
-            item.ChatID = selectedChatID;
-            item.UpdateDate = DateTime.Now;
-            if (useDefaultWaitMessage)
-                item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : string.Empty;
-            else
-            {
-                item.TextFrom = !string.IsNullOrEmpty(userText) ? userText : string.Empty;
-            }
-            item.LanguageFrom = direction.LanguageFrom.ID;
-            item.LanguageTo = direction.LanguageTo.ID;
-            chatHistoryManager.SaveItem(item);
-            increaseChatUpdateDate(item.ChatID);
-        }*/
 
         private void increaseChatUpdateDate(int chatID)
         {
@@ -206,20 +215,24 @@ namespace PortableCore.BL.Presenters
         private void invertDirectionIfNeedForRussianLocaleOnly(string originalText)
         {
             //NeedInvertDirection(originalText);
-            DetectInputLanguage detect = new DetectInputLanguage(originalText);
-            if(detect.Detect() == DetectInputLanguage.Language.Russian)
+            Language rusLang = languageManager.GetItemForNameEng("Russian");
+            if ((rusLang.Equals(Direction.LanguageFrom)) || (rusLang.Equals(Direction.LanguageTo)))
             {
-                if (detect.NeedInvertDirection(direction))
+                DetectInputLanguage detect = new DetectInputLanguage(originalText, languageManager);
+                if (Direction.LanguageFrom.NameShort == "ru")
                 {
-                    direction.Invert();
+                    if(detect.Detect().NameShort == "en")
+                    {
+                        Direction.Invert();
+                    }
+                } else
+                {
+                    if (detect.Detect().NameShort == "ru")
+                    {
+                        Direction.Invert();
+                    }
                 }
             }
-            /*DetectInputLanguage detect = new DetectInputLanguage(originalText);
-            DetectInputLanguage.Language result = detect.Detect();
-            if ((result != DetectInputLanguage.Language.Unknown) && !currentDirection.IsFrom(result))
-            {
-                currentDirection.Invert();
-            };*/
         }
 
         private string prepareTextForRequest(string originalText)
@@ -231,11 +244,11 @@ namespace PortableCore.BL.Presenters
         {
             if (!string.IsNullOrEmpty(originalText))
             {
-                TranslateRequestRunner reqRunner = getRequestRunner(direction);
-                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, direction);
+                TranslateRequestRunner reqRunner = getRequestRunner(Direction);
+                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
                 if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
                 {
-                    reqResult = await reqRunner.GetTranslationResult(originalText, direction);
+                    reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
                 }
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))

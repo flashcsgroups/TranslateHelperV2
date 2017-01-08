@@ -34,7 +34,7 @@ namespace TranslateHelper.Droid.Adapters
             ImageView destLangImageView = view.FindViewById<ImageView>(Resource.Id.destLangImageView);
             TextView destLangTextView = view.FindViewById<TextView>(Resource.Id.destLangTextView);
             TextView destLangCountMsgTextView = view.FindViewById<TextView>(Resource.Id.destLangCountMsgTextView);
-            destLangTextView.Text = item.LangTo;
+            destLangTextView.Text = string.Format("{0}-{1}", item.LangTo, item.LangFrom);
             destLangCountMsgTextView.Text = string.Format("({0})", item.CountOfAllMessages.ToString());
             var flagResourceId = context.Resources.GetIdentifier(item.LangToFlagImageResourcePath.ToLower(), "drawable", context.PackageName);
             destLangImageView.SetImageResource(flagResourceId);

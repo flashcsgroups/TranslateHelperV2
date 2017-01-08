@@ -44,9 +44,33 @@ namespace PortableCore.Tests
             Assert.AreEqual(userText, mockView.ListBubbles[1].TextFrom);
         }
 
+        [Test]
+        public void TestMust_SwapDirection()
+        {
+            //arrange
+            var db = new MockSQLite();
+            var mockView = new MockDictionaryChatView();
+            var mocklanguageManager = new MockLanguageManager(db);
+            var chatHistoryManager = new MockChatHistoryManager(db);
+            var mockChatManager = new MockChatManager(db);
+            DictionaryChatPresenter presenter = new DictionaryChatPresenter(mockView, db, 1, mockChatManager, mocklanguageManager, chatHistoryManager);
+            presenter.InitDirection();
+
+            //act
+            presenter.UserSwapDirection();
+
+            //assert
+            Assert.IsTrue(presenter.Direction.LanguageFrom.ID == 2);
+        }
+
         class MockDictionaryChatView : IDictionaryChatView
         {
             public List<BubbleItem> ListBubbles = new List<BubbleItem>();
+
+            public void HideButtonForSwapLanguage()
+            {
+                throw new NotImplementedException();
+            }
 
             public void UpdateBackground(string v)
             {
@@ -64,6 +88,11 @@ namespace PortableCore.Tests
 
             public MockChatManager(ISQLiteTesting dbHelper)
             {
+            }
+
+            public Chat GetChatByCoupleOfLanguages(Language language1, Language language2)
+            {
+                throw new NotImplementedException();
             }
 
             public Chat GetChatByLanguage(Language userLanguage, Language robotLanguage)
@@ -116,12 +145,22 @@ namespace PortableCore.Tests
                 return new ChatHistory() { ID = 1, ChatID = 1};
             }
 
+            public string GetSearchMessage(Language languageFrom)
+            {
+                return "Роюсь в словаре...";
+            }
+
             public List<ChatHistory> ReadChatMessages(Chat chatItem)
             {
                 return new List<ChatHistory>() {
                     new ChatHistory() { ID=1, ChatID = 1, TextFrom="тест", TextTo="test", Transcription = "", InFavorites = false},
                     new ChatHistory() { ID=2, ChatID = 2, TextFrom="test", TextTo="тест", Transcription = "", InFavorites = false}
                 };
+            }
+
+            public List<ChatHistory> ReadSuspendedChatMessages(Chat chatItem)
+            {
+                throw new NotImplementedException();
             }
 
             public int SaveItem(ChatHistory item)

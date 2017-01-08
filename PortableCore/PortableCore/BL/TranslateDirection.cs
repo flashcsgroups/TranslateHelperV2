@@ -47,15 +47,15 @@ namespace PortableCore.BL
         /// </summary>
         /// <param name="comparedLocaleName"></param>
         /// <returns></returns>
-        public bool IsFrom(DetectInputLanguage.Language lang)
+        /*public bool IsFrom(DetectInputLanguage.LanguageEnum lang)
         {
-            bool result = (lang == DetectInputLanguage.Language.English);
+            bool result = (lang == DetectInputLanguage.LanguageEnum.English);
             if (!result)
-                result = (lang == DetectInputLanguage.Language.Russian && LanguageFrom.NameShort == "ru");
+                result = (lang == DetectInputLanguage.LanguageEnum.Russian && LanguageFrom.NameShort == "ru");
             //bool result = (lang == DetectInputLanguage.Language.English && LanguageFrom.NameShort == "en");
             //if (!result)
             //result = (lang == DetectInputLanguage.Language.Russian && LanguageFrom.NameShort == "ru");
             return result;
-        }    
+        }*/    
     }
 }

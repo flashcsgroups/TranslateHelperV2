@@ -7,7 +7,7 @@ namespace PortableCore.BL.Managers
     public interface IChatManager
     {
         List<DirectionsRecentItem> GetChatsForLastDays(int countOfDays);
-        Chat GetChatByLanguage(Language userLanguage, Language robotLanguage);
+        Chat GetChatByCoupleOfLanguages(Language language1, Language language2);
         int SaveItem(Chat item);
         Chat GetItemForId(int id);
     }
