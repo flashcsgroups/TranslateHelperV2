@@ -18,6 +18,16 @@ namespace PortableCore.BL
         {
             this.inputString = inputString.Trim();
         }
+        public bool NeedInvertDirection(TranslateDirection currentDirection)
+        {
+            //DetectInputLanguage detect = new DetectInputLanguage(originalText);
+            DetectInputLanguage.Language result = Detect();
+            return (result != DetectInputLanguage.Language.Unknown) && !currentDirection.IsFrom(result);
+            /*if ((result != DetectInputLanguage.Language.Unknown) && !currentDirection.IsFrom(result))
+            {
+                currentDirection.Invert();
+            };*/
+        }
 
         public Language Detect()
         {

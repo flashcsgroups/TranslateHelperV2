@@ -49,9 +49,12 @@ namespace PortableCore.BL
         /// <returns></returns>
         public bool IsFrom(DetectInputLanguage.Language lang)
         {
-            bool result = (lang == DetectInputLanguage.Language.English && this.LanguageFrom.NameShort == "en");
+            bool result = (lang == DetectInputLanguage.Language.English);
             if (!result)
-                result = (lang == DetectInputLanguage.Language.Russian && this.LanguageFrom.NameShort == "ru");
+                result = (lang == DetectInputLanguage.Language.Russian && LanguageFrom.NameShort == "ru");
+            //bool result = (lang == DetectInputLanguage.Language.English && LanguageFrom.NameShort == "en");
+            //if (!result)
+            //result = (lang == DetectInputLanguage.Language.Russian && LanguageFrom.NameShort == "ru");
             return result;
         }    
     }

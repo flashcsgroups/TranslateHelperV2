@@ -27,6 +27,12 @@ namespace PortableCore.Tests.Mocks
             {
                 listItems = getMockedDataForChat() as List<T>;
             }
+            if (type == typeof(Direction))
+            {
+                List<Direction> listFav = new List<Direction>();
+                listFav.Add(new Direction() { ID = 1 });
+                listItems = listFav as List<T>;
+            }
 
             return listItems;
         }

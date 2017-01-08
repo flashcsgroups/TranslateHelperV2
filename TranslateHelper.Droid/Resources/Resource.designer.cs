@@ -240,7 +240,7 @@ namespace TranslateHelper.Droid
 			public const int v5change = 2130837539;
 			
 			// aapt resource value: 0x7f020024
-			public const int world = 2130837540;
+			public const int world2 = 2130837540;
 			
 			static Drawable()
 			{

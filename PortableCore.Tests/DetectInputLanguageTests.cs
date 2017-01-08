@@ -5,6 +5,7 @@ using PortableCore.DL;
 using PortableCore.BL;
 using System;
 using PortableCore.BL.Managers;
+using PortableCore.Tests.Mocks;
 
 namespace PortableCore.Tests
 {
@@ -51,6 +52,84 @@ namespace PortableCore.Tests
 
             //assert
             Assert.IsTrue(result == DetectInputLanguage.Language.Russian);
+        }
+
+        [TestCase("Тест")]
+        public void TestMust_NeedInvertIsTrue_EnglishToRussian(string inputString)
+        {
+            //arrange
+            MockSQLite mockSqlLite = new MockSQLite();
+            LanguageManager languageManager = new LanguageManager(mockSqlLite);
+            var defaultLanguages = languageManager.GetDefaultData();
+            MockDirectionManager mockDirectionManager = new MockDirectionManager();
+            MockLanguageManager mockLanguageManager = new MockLanguageManager(mockSqlLite);
+            TranslateDirection direction = new TranslateDirection(mockSqlLite, mockDirectionManager, mockLanguageManager);
+
+            //act
+            DetectInputLanguage detect = new DetectInputLanguage(inputString);
+            bool result = detect.NeedInvertDirection(direction);
+
+            //assert
+            Assert.IsTrue(result);
+        }
+
+        [TestCase("Test")]
+        public void TestMust_NeedInvertIsFalse_EnglishToRussian(string inputString)
+        {
+            //arrange
+            MockSQLite mockSqlLite = new MockSQLite();
+            LanguageManager languageManager = new LanguageManager(mockSqlLite);
+            var defaultLanguages = languageManager.GetDefaultData();
+            MockDirectionManager mockDirectionManager = new MockDirectionManager();
+            MockLanguageManager mockLanguageManager = new MockLanguageManager(mockSqlLite);
+            TranslateDirection direction = new TranslateDirection(mockSqlLite, mockDirectionManager, mockLanguageManager);
+
+            //act
+            DetectInputLanguage detect = new DetectInputLanguage(inputString);
+            bool result = detect.NeedInvertDirection(direction);
+
+            //assert
+            Assert.IsFalse(result);
+        }
+
+        [TestCase("Тест")]
+        public void TestMust_NeedInvertIsTrue_SpainToRussian(string inputString)
+        {
+            //arrange
+            MockSQLite mockSqlLite = new MockSQLite();
+            LanguageManager languageManager = new LanguageManager(mockSqlLite);
+            var defaultLanguages = languageManager.GetDefaultData();
+            MockDirectionManager mockDirectionManager = new MockDirectionManager();
+            MockLanguageManager mockLanguageManager = new MockLanguageManager(mockSqlLite);
+            TranslateDirection direction = new TranslateDirection(mockSqlLite, mockDirectionManager, mockLanguageManager);
+            direction.SetDirection(mockLanguageManager.GetItemForNameEng("Spain"), mockLanguageManager.GetItemForNameEng("Russian"));
+
+            //act
+            DetectInputLanguage detect = new DetectInputLanguage(inputString);
+            bool result = detect.NeedInvertDirection(direction);
+
+            //assert
+            Assert.IsTrue(result);
+        }
+
+        [TestCase("Test")]
+        public void TestMust_NeedInvertIsFalse_SpainToRussian(string inputString)
+        {
+            //arrange
+            MockSQLite mockSqlLite = new MockSQLite();
+            LanguageManager languageManager = new LanguageManager(mockSqlLite);
+            var defaultLanguages = languageManager.GetDefaultData();
+            MockDirectionManager mockDirectionManager = new MockDirectionManager();
+            MockLanguageManager mockLanguageManager = new MockLanguageManager(mockSqlLite);
+            TranslateDirection direction = new TranslateDirection(mockSqlLite, mockDirectionManager, mockLanguageManager);
+            direction.SetDirection(mockLanguageManager.GetItemForNameEng("Spain"), mockLanguageManager.GetItemForNameEng("Russian"));
+
+            //act
+            DetectInputLanguage detect = new DetectInputLanguage(inputString);
+            bool result = detect.NeedInvertDirection(direction);
+
+            //assert
+            Assert.IsFalse(result);
         }
 
     }

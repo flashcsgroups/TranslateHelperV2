@@ -342,6 +342,6 @@
     <AndroidResource Include="Resources\drawable\backFrance.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\world.png" />
+    <AndroidResource Include="Resources\drawable\world2.png" />
   </ItemGroup>
 </Project>

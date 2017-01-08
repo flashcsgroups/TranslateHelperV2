@@ -50,7 +50,6 @@ namespace PortableCore.Tests
 
             public void UpdateBackground(string v)
             {
-                throw new NotImplementedException();
             }
 
             public void UpdateChat(List<BubbleItem> listBubbles)

@@ -92,7 +92,7 @@ namespace PortableCore.BL.Presenters
             preparedTextForRequest = prepareTextForRequest(userText);
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
-                invertDirectionOfNeed(preparedTextForRequest);
+                invertDirectionIfNeedForRussianLocaleOnly(preparedTextForRequest);
                 addUserMsgToChatHistory(preparedTextForRequest);
                 addRobotMsgToChatHistory(true, string.Empty);
                 view.UpdateChat(getListBubbles());
@@ -203,14 +203,23 @@ namespace PortableCore.BL.Presenters
                 await requestReference(preparedTextForRequest);
         }
 
-        private void invertDirectionOfNeed(string originalText)
+        private void invertDirectionIfNeedForRussianLocaleOnly(string originalText)
         {
+            //NeedInvertDirection(originalText);
             DetectInputLanguage detect = new DetectInputLanguage(originalText);
-            DetectInputLanguage.Language result = detect.Detect();
-            if ((result != DetectInputLanguage.Language.Unknown) && !direction.IsFrom(result))
+            if(detect.Detect() == DetectInputLanguage.Language.Russian)
             {
-                direction.Invert();
-            };
+                if (detect.NeedInvertDirection(direction))
+                {
+                    direction.Invert();
+                }
+            }
+            /*DetectInputLanguage detect = new DetectInputLanguage(originalText);
+            DetectInputLanguage.Language result = detect.Detect();
+            if ((result != DetectInputLanguage.Language.Unknown) && !currentDirection.IsFrom(result))
+            {
+                currentDirection.Invert();
+            };*/
         }
 
         private string prepareTextForRequest(string originalText)

@@ -29,7 +29,9 @@ namespace PortableCore.Tests.Mocks
 
         public Language GetItemForNameEng(string name)
         {
-            return new Language() { ID = 1 };
+            LanguageManager langManager = new LanguageManager(db);
+            return langManager.GetItemForNameEng(name);
+            //return new Language() { ID = 1 };
         }
     }
 }
