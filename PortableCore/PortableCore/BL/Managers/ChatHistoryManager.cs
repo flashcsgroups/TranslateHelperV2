@@ -38,6 +38,13 @@ namespace PortableCore.BL.Managers
             return repo.Save(item);
         }
 
+        public int GetMaxItemId()
+        {
+            ChatHistory resultItem = new ChatHistory();
+            int id = db.Table<ChatHistory>().DefaultIfEmpty().Max(x=>x==null?0:x.ID);
+            return id;
+        }
+
         public ChatHistory GetLastRobotMessage()
         {
             ChatHistory resultItem = new ChatHistory();
@@ -51,14 +58,14 @@ namespace PortableCore.BL.Managers
 
         public List<ChatHistory> ReadChatMessages(Chat chatItem)
         {
-            var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID orderby item.ID ascending select item;
+            var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID && item.DeleteMark == 0 orderby item.ID ascending select item;
             return view.ToList();
         }
 
         public List<ChatHistory> ReadSuspendedChatMessages(Chat chatItem)
         {
             string searchMsg = GetSearchMessage(new Language());//Временно до того момента пока не разберусь с сообщением о поиске на разных языках
-            var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID && item.TextTo == searchMsg orderby item.ID ascending select item;
+            var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID && item.DeleteMark == 0 && item.TextTo == searchMsg orderby item.ID ascending select item;
             return view.ToList();
         }
 

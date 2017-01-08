@@ -13,5 +13,6 @@ namespace PortableCore.BL.Managers
         List<ChatHistory> ReadChatMessages(Chat chatItem);
         List<ChatHistory> ReadSuspendedChatMessages(Chat chatItem);
         string GetSearchMessage(Language languageFrom);
+        int GetMaxItemId();
     }
 }

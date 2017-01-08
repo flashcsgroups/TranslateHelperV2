@@ -88,7 +88,15 @@ namespace PortableCore.BL.Presenters
         public void UpdateOldSuspendedRequests()
         {
             var viewSuspendedMessages = chatHistoryManager.ReadSuspendedChatMessages(selectedChat);
-
+            foreach(var robotMsg in viewSuspendedMessages)
+            {
+                var userMsg = chatHistoryManager.GetItemForId(robotMsg.ParentRequestID);
+                robotMsg.DeleteMark = 1;
+                chatHistoryManager.SaveItem(robotMsg);
+                userMsg.DeleteMark = 1;
+                chatHistoryManager.SaveItem(userMsg);
+                UserAddNewTextEvent(userMsg.TextFrom);
+            }
         }
 
         public void InitDirection()
@@ -111,8 +119,8 @@ namespace PortableCore.BL.Presenters
             if (!string.IsNullOrEmpty(preparedTextForRequest))
             {
                 invertDirectionIfNeedForRussianLocaleOnly(preparedTextForRequest);
-                addUserMsgToChatHistory(preparedTextForRequest);
-                addRobotMsgToChatHistory(true, string.Empty);
+                int requestId = addUserMsgToChatHistory(preparedTextForRequest);
+                addRobotMsgToChatHistory(true, string.Empty, requestId);
                 view.UpdateChat(getListBubbles());
                 startRequestWithValidation(preparedTextForRequest);
             }
@@ -129,11 +137,11 @@ namespace PortableCore.BL.Presenters
             if(item != null)
             {
                 item.InFavorites = !item.InFavorites;
-                int result = chatHistoryManager.SaveItem(item);
+                chatHistoryManager.SaveItem(item);
             }
         }
 
-        private void addUserMsgToChatHistory(string userText = null)
+        private int addUserMsgToChatHistory(string userText = null)
         {
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
@@ -142,9 +150,11 @@ namespace PortableCore.BL.Presenters
             item.LanguageFrom = Direction.LanguageFrom.ID;
             item.LanguageTo = Direction.LanguageTo.ID;
             chatHistoryManager.SaveItem(item);
+            int id = chatHistoryManager.GetMaxItemId();
             increaseChatUpdateDate(item.ChatID);
+            return id;
         }
-        private void addRobotMsgToChatHistory(bool useDefaultWaitMessage, string robotText)
+        private void addRobotMsgToChatHistory(bool useDefaultWaitMessage, string robotText, int requestId)
         {
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
@@ -153,7 +163,7 @@ namespace PortableCore.BL.Presenters
             item.TextTo = useDefaultWaitMessage ? chatHistoryManager.GetSearchMessage(Direction.LanguageFrom) : robotText;
             item.LanguageFrom = Direction.LanguageFrom.ID;
             item.LanguageTo = Direction.LanguageTo.ID;
-            item.ParentRequestID = 
+            item.ParentRequestID = requestId;
             chatHistoryManager.SaveItem(item);
             increaseChatUpdateDate(item.ChatID);
         }
@@ -195,7 +205,7 @@ namespace PortableCore.BL.Presenters
                 robotItem.ChatID = defaultRobotItem.ChatID;
                 robotItem.LanguageFrom = defaultRobotItem.LanguageFrom;
                 robotItem.LanguageTo = defaultRobotItem.LanguageTo;
-                var result = chatHistoryManager.SaveItem(robotItem);
+                chatHistoryManager.SaveItem(robotItem);
                 robotItem = new ChatHistory();
             }
         }

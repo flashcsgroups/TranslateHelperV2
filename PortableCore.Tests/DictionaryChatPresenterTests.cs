@@ -145,6 +145,11 @@ namespace PortableCore.Tests
                 return new ChatHistory() { ID = 1, ChatID = 1};
             }
 
+            public int GetMaxItemId()
+            {
+                return 1;
+            }
+
             public string GetSearchMessage(Language languageFrom)
             {
                 return "Роюсь в словаре...";
