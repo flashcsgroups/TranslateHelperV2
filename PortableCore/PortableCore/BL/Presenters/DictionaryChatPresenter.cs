@@ -22,7 +22,7 @@ namespace PortableCore.BL.Presenters
         ILanguageManager languageManager;
         IChatHistoryManager chatHistoryManager;
         TranslateDirection direction;
-        delegate Task goTranslateRequest(string originalText);
+        delegate Task goTranslateRequest(string originalText, int requestId);
         goTranslateRequest requestReference;
         string preparedTextForRequest = string.Empty;
 
@@ -34,6 +34,14 @@ namespace PortableCore.BL.Presenters
             get
             {
                 return direction;
+            }
+        }
+
+        public int currentChatId
+        {
+            get
+            {
+                return selectedChatID;
             }
         }
 
@@ -104,7 +112,7 @@ namespace PortableCore.BL.Presenters
             this.selectedChat = chatManager.GetItemForId(selectedChatID);
             Language userLang = languageManager.GetItemForId(this.selectedChat.LanguageFrom);
             Language robotLang = languageManager.GetItemForId(this.selectedChat.LanguageTo);
-            direction = new TranslateDirection(this.db, new DirectionManager(this.db), languageManager);
+            direction = new TranslateDirection(this.db, languageManager);
             direction.SetDirection(userLang, robotLang);
             view.UpdateBackground("back" + robotLang.NameEng);
             if((userLang.NameShort == "ru")|| (robotLang.NameShort == "ru"))
@@ -122,7 +130,7 @@ namespace PortableCore.BL.Presenters
                 int requestId = addUserMsgToChatHistory(preparedTextForRequest);
                 addRobotMsgToChatHistory(true, string.Empty, requestId);
                 view.UpdateChat(getListBubbles());
-                startRequestWithValidation(preparedTextForRequest);
+                startRequestWithValidation(preparedTextForRequest, requestId);
             }
         }
 
@@ -178,17 +186,17 @@ namespace PortableCore.BL.Presenters
             }
         }
 
-        private void addToDBRobotResponse(TranslateRequestResult reqResult)
+        private void addToDBRobotResponse(TranslateRequestResult reqResult, int requestId)
         {
             ChatHistory defaultRobotItem = chatHistoryManager.GetLastRobotMessage();
             defaultRobotItem.UpdateDate = DateTime.Now;
             defaultRobotItem.TextFrom = string.Empty;
             string delimiter = ", ";
-            createDBItemsFromResponse(reqResult, chatHistoryManager, defaultRobotItem, delimiter);
+            createDBItemsFromResponse(reqResult, chatHistoryManager, defaultRobotItem, requestId, delimiter);
             increaseChatUpdateDate(defaultRobotItem.ChatID);
         }
 
-        private void createDBItemsFromResponse(TranslateRequestResult reqResult, IChatHistoryManager chatHistoryManager, ChatHistory defaultRobotItem, string delimiter)
+        private void createDBItemsFromResponse(TranslateRequestResult reqResult, IChatHistoryManager chatHistoryManager, ChatHistory defaultRobotItem, int requestId, string delimiter)
         {
             var robotItem = defaultRobotItem;
             foreach (var definition in reqResult.TranslatedData.Definitions)
@@ -205,6 +213,8 @@ namespace PortableCore.BL.Presenters
                 robotItem.ChatID = defaultRobotItem.ChatID;
                 robotItem.LanguageFrom = defaultRobotItem.LanguageFrom;
                 robotItem.LanguageTo = defaultRobotItem.LanguageTo;
+                robotItem.ParentRequestID = requestId;
+                robotItem.UpdateDate = DateTime.Now;
                 chatHistoryManager.SaveItem(robotItem);
                 robotItem = new ChatHistory();
             }
@@ -216,10 +226,10 @@ namespace PortableCore.BL.Presenters
             view.UpdateChat(getListBubbles());
         }
 
-        private async Task startRequestWithValidation(string preparedTextForRequest)
+        private async Task startRequestWithValidation(string preparedTextForRequest, int requestId)
         {
             if(requestReference!=null)
-                await requestReference(preparedTextForRequest);
+                await requestReference(preparedTextForRequest, requestId);
         }
 
         private void invertDirectionIfNeedForRussianLocaleOnly(string originalText)
@@ -250,11 +260,11 @@ namespace PortableCore.BL.Presenters
             return ConvertStrings.StringToOneLowerLineWithTrim(originalText);
         }
 
-        private async Task translateRequest(string originalText)
+        private async Task translateRequest(string originalText, int requestId)
         {
             if (!string.IsNullOrEmpty(originalText))
             {
-                TranslateRequestRunner reqRunner = getRequestRunner(Direction);
+                TranslateRequestRunner reqRunner = getRequestRunner(Direction, requestId);
                 TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
                 if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
                 {
@@ -263,7 +273,7 @@ namespace PortableCore.BL.Presenters
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
-                    addToDBRobotResponse(reqResult);
+                    addToDBRobotResponse(reqResult, requestId);
                     view.UpdateChat(getListBubbles());
                     //TogglesSoftKeyboard.Hide(this);
                 }
@@ -297,7 +307,7 @@ namespace PortableCore.BL.Presenters
             return resultBubbles;
         }
 
-        private TranslateRequestRunner getRequestRunner(TranslateDirection translateDirection)
+        private TranslateRequestRunner getRequestRunner(TranslateDirection translateDirection, int requestId)
         {
             TranslateRequestRunner reqRunner = new TranslateRequestRunner(
                 db,

@@ -18,7 +18,7 @@ namespace TranslateHelper.Droid.Activities
     [Activity(Label = "@string/act_selectcountwords_caption", Theme = "@style/MyTheme")]
     public class SelectTestLevelActivity : Activity
     {
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
+        //TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
         int countOfAvailableWords = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -27,15 +27,13 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.SelectTestLevel);
-            //direction.SetDirection(Intent.GetStringExtra("directionName"));
-            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
 
             var testWordsReader = new TestSelectWordsReader(SqlLiteInstance.DB);
-            countOfAvailableWords = testWordsReader.GetCountDifferenceSources(direction);
+            /*countOfAvailableWords = testWordsReader.GetCountDifferenceSources(direction);
             if (countOfAvailableWords >= 10)
                 initLevelButtons();
             else
-                ShowErrorDialog();
+                ShowErrorDialog();*/
         }
 
         private void initLevelButtons()

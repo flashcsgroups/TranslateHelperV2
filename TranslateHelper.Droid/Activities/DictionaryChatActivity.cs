@@ -84,25 +84,26 @@ namespace TranslateHelper.Droid.Activities
             listView.ChoiceMode = ChoiceMode.Single;
             listView.SetSelection(listView.Count + 1);
             listView.ItemLongClick += ListView_ItemLongClick;
-            listView.ItemClick += ListView_ItemClick;
+            //listView.ItemClick += ListView_ItemClick;
         }
 
-        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        /*private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             presenter.InvertFavoriteState(bubbleAdapter.GetBubbleItemByIndex(e.Position));
-        }
+        }*/
 
         private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
-            var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
+            presenter.InvertFavoriteState(bubbleAdapter.GetBubbleItemByIndex(e.Position));
+            /*var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
             listView.CancelLongPress();
-            DeleteRowByUserAction(e.Position);
+            DeleteRowByUserAction(e.Position);*/
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             //currentMenu = menu;
-            //MenuInflater.Inflate(Resource.Menu.menu_DictionaryScreen, menu);
+            MenuInflater.Inflate(Resource.Menu.menu_ChatScreen, menu);
             return true;
         }
 
@@ -110,16 +111,16 @@ namespace TranslateHelper.Droid.Activities
         {
             switch (item.ItemId)
             {
-                /*case Resource.Id.menu_favorites:
+                case Resource.Id.menu_favorites:
                     var intentFavorites = new Intent(this, typeof(FavoritesActivity));
-                    intentFavorites.PutExtra("directionName", presenter.GetCurrentDirectionName());
+                    intentFavorites.PutExtra("currentChatId", presenter.currentChatId);
                     StartActivity(intentFavorites);
                     return true;
                 case Resource.Id.menu_start_test:
                     var intentTests = new Intent(this, typeof(SelectTestLevelActivity));
-                    intentTests.PutExtra("directionName", presenter.GetCurrentDirectionName());
+                    intentTests.PutExtra("currentChatId", presenter.currentChatId);
                     StartActivity(intentTests);
-                    return true;*/
+                    return true;
                 case global::Android.Resource.Id.Home:
                     var intentDirections = new Intent(this, typeof(DirectionsActivity));
                     StartActivity(intentDirections);

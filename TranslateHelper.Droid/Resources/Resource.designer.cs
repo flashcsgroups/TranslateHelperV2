@@ -588,7 +588,7 @@ namespace TranslateHelper.Droid
 		{
 			
 			// aapt resource value: 0x7f070000
-			public const int menu_DictionaryScreen = 2131165184;
+			public const int menu_ChatScreen = 2131165184;
 			
 			// aapt resource value: 0x7f070001
 			public const int menu_FavoritesScreen = 2131165185;

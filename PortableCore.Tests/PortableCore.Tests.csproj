@@ -55,7 +55,6 @@
     </Compile>
     <Compile Include="ConvertStringTests.cs" />
     <Compile Include="DirectionsPresenterTests.cs" />
-    <Compile Include="Mocks\MockDirectionManager.cs" />
     <Compile Include="Mocks\MockLanguageManager.cs" />
     <Compile Include="Mocks\MockSQLite.cs" />
     <Compile Include="TranslateDirectionTests.cs" />

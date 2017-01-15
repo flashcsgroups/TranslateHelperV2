@@ -15,15 +15,13 @@ namespace PortableCore.BL
         public Language LanguageTo { get; private set; }
 
         ISQLiteTesting db;
-        IDirectionManager directionManager;
         ILanguageManager languageManager;
         string currentDirectionFrom = string.Empty;
         string currentDirectionTo = string.Empty;
 
-        public TranslateDirection(ISQLiteTesting dbHelper, IDirectionManager directionManager, ILanguageManager languageManager)
+        public TranslateDirection(ISQLiteTesting dbHelper, ILanguageManager languageManager)
         {
             this.db = dbHelper;
-            this.directionManager = directionManager;
             this.languageManager = languageManager;
             this.LanguageFrom = languageManager.GetItemForNameEng("English");
             this.LanguageTo = languageManager.GetItemForNameEng("Russian");
@@ -41,21 +39,5 @@ namespace PortableCore.BL
             var currentDirectionTo = this.LanguageTo;
             SetDirection(currentDirectionTo, currentDirectionFrom);
         }
-
-        /// <summary>
-        /// Истина если параметр локали соответствует языку-источнику в направлении перевода.
-        /// </summary>
-        /// <param name="comparedLocaleName"></param>
-        /// <returns></returns>
-        /*public bool IsFrom(DetectInputLanguage.LanguageEnum lang)
-        {
-            bool result = (lang == DetectInputLanguage.LanguageEnum.English);
-            if (!result)
-                result = (lang == DetectInputLanguage.LanguageEnum.Russian && LanguageFrom.NameShort == "ru");
-            //bool result = (lang == DetectInputLanguage.Language.English && LanguageFrom.NameShort == "en");
-            //if (!result)
-            //result = (lang == DetectInputLanguage.Language.Russian && LanguageFrom.NameShort == "ru");
-            return result;
-        }*/    
     }
 }

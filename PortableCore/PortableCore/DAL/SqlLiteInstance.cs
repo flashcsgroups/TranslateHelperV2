@@ -28,10 +28,6 @@ namespace PortableCore.DAL
 
             db.CreateTable<TranslateProvider>();
 
-            db.CreateTable<Direction>();
-            DirectionManager managerDirection = new DirectionManager(db);
-            managerDirection.InitDefaultData();
-
             db.CreateTable<TranslateProvider>();
             TranslateProviderManager managerProvider = new TranslateProviderManager(db);
             managerProvider.InitDefaultData();

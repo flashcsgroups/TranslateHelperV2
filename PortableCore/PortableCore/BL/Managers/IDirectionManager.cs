@@ -2,9 +2,9 @@
 
 namespace PortableCore.BL.Managers
 {
-    public interface IDirectionManager
+    /*public interface IDirectionManager
     {
         Direction GetItemForId(int Id);
         Direction GetItemForName(string name);
-    }
+    }*/
 }

@@ -77,9 +77,9 @@
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Activities\FavoritesActivity.cs" />
+    <Compile Include="Activities\FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
-    <None Include="Activities\SelectTestLevelActivity.cs" />
+    <Compile Include="Activities\SelectTestLevelActivity.cs" />
     <Compile Include="SplashScreen.cs" />
     <None Include="Activities\TestSelectWordsActivity.cs" />
     <Compile Include="Adapters\FavoritesAdapter.cs" />
@@ -143,7 +143,7 @@
     <AndroidResource Include="Resources\values\color.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\menu\menu_DictionaryScreen.xml" />
+    <AndroidResource Include="Resources\menu\menu_ChatScreen.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\menu_FavoritesScreen.xml" />

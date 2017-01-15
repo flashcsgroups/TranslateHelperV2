@@ -160,9 +160,8 @@ namespace PortableCore.Tests
             MockSQLite dbHelper = new MockSQLite();
             testActivity = new MockTestSelectWordsActivity();
             MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
-            DirectionManager directionManager = new DirectionManager(dbHelper);
             LanguageManager languageManager = new LanguageManager(dbHelper);
-            TranslateDirection direction = new TranslateDirection(dbHelper, directionManager, languageManager);
+            TranslateDirection direction = new TranslateDirection(dbHelper, languageManager);
             presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, direction, countOfWords);
         }
 

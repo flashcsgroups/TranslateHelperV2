@@ -23,7 +23,7 @@ namespace TranslateHelper.Droid.Activities
 	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
 	public class FavoritesActivity : Activity
 	{
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
+        //TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
         IndexedCollection<FavoritesItem> translateResultIdxCollection;
         protected override void OnCreate (Bundle bundle)
 		{
@@ -33,7 +33,7 @@ namespace TranslateHelper.Droid.Activities
 			SetContentView (Resource.Layout.Favorites);
 
             //direction.SetDirection(Intent.GetStringExtra("directionName"));
-            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
+            //throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
 
             var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
 

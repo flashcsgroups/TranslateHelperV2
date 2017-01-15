@@ -60,7 +60,6 @@
     <Compile Include="BL\Managers\IDirectionManager.cs" />
     <Compile Include="BL\Managers\SourceDefinitionManager.cs" />
     <Compile Include="BL\Managers\ISourceExpressionManager.cs" />
-    <Compile Include="BL\Managers\DirectionManager.cs" />
     <Compile Include="BL\Presenters\DictionaryChatPresenter.cs" />
     <Compile Include="BL\Presenters\TestSelectWordsPresenter.cs" />
     <Compile Include="BL\TestSelectWordsReader.cs" />
@@ -68,7 +67,6 @@
     <Compile Include="DAL\CachedResultWriter.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
     <Compile Include="DL\DefinitionTypes.cs" />
-    <Compile Include="DL\Direction.cs" />
     <Compile Include="DL\Favorites.cs" />
     <Compile Include="DL\ISQLiteTesting.cs" />
     <Compile Include="DL\Language.cs" />
