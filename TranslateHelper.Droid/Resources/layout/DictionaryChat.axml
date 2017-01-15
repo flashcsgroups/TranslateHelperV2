@@ -32,7 +32,7 @@
             android:scaleType="fitCenter"
             android:layout_weight="0"
             android:background="@color/grey100"
-            android:src="@drawable/v5change" />
+            android:src="@drawable/v6change" />
         <EditText
             android:id="@+id/textSourceString"
             android:layout_width="wrap_content"
