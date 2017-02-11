@@ -19,6 +19,8 @@ namespace PortableCore.BL.Contracts
 
             using (WebResponse response = await request.GetResponseAsync())
             {
+                var webresponse = (HttpWebResponse)response;
+                //if (webresponse.StatusCode != HttpStatusCode.OK) throw new Exception(webresponse.StatusCode.ToString());
                 using (Stream stream = response.GetResponseStream())
                 {
                     using (var reader = new StreamReader(stream))

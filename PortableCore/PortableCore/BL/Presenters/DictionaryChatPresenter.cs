@@ -167,7 +167,6 @@ namespace PortableCore.BL.Presenters
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
-            //item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : robotText;
             item.TextTo = useDefaultWaitMessage ? chatHistoryManager.GetSearchMessage(Direction.LanguageFrom) : robotText;
             item.LanguageFrom = Direction.LanguageFrom.ID;
             item.LanguageTo = Direction.LanguageTo.ID;
@@ -265,23 +264,43 @@ namespace PortableCore.BL.Presenters
             if (!string.IsNullOrEmpty(originalText))
             {
                 TranslateRequestRunner reqRunner = getRequestRunner(Direction, requestId);
-                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
-                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
-                {
-                    reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
-                }
+                TranslateRequestResult reqResult = await getTranslateResult(originalText, reqRunner);
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
                     addToDBRobotResponse(reqResult, requestId);
                     view.UpdateChat(getListBubbles());
-                    //TogglesSoftKeyboard.Hide(this);
                 }
                 else
                 {
-                    //Toast.MakeText(this, reqResult.errorDescription, ToastLength.Long).Show();
+                    view.ShowToast(reqResult.errorDescription);
                 }
             }
+        }
+
+        private async Task<TranslateRequestResult> getTranslateResult(string originalText, TranslateRequestRunner reqRunner)
+        {
+            TranslateRequestResult reqResult;
+
+            //предполагаю, если уж встретили пробел, то вероятость того, что это не слово, а предложение, больше
+            //попытаемся сначала в сервисе перевода перевести и только потом уже пробуем сервис словаря
+            if (originalText.Contains(" "))
+            {
+                reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
+                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
+                }
+            }
+            else
+            {
+                reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
+                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
+                }
+            }
+            return reqResult;
         }
 
         private List<BubbleItem> getListBubbles()

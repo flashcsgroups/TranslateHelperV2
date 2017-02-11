@@ -62,6 +62,7 @@
     <Compile Include="TranslateResultFromDBCacheTests.cs" />
     <Compile Include="DetectInputLanguageTests.cs" />
     <Compile Include="UserTestSelectWordsTests.cs" />
+    <Compile Include="YandexApiKeyHelperTests.cs" />
     <Compile Include="YandexTranslateTranslateResultStructureTests.cs" />
     <Compile Include="YandexDictionaryTranslateResultStructureTests.cs" />
     <Compile Include="ParseResponseTests.cs" />
