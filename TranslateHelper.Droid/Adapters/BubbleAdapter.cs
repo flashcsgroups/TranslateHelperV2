@@ -51,10 +51,11 @@ namespace TranslateHelper.Droid.Adapters
             if (!item.IsRobotResponse)
             {
                 holder.userMessage.Text = item.TextFrom;
+                holder.robotMessage.Text = string.Empty;
                 holder.userFlagView.Visibility = ViewStates.Visible;
                 holder.userMessage.Visibility = ViewStates.Visible;
                 holder.userFlagView.SetImageResource(getImageResourceByName(item.LanguageFrom.NameImageResource));
-                holder.favoritesStatePic.Visibility = ViewStates.Gone;            
+                //holder.favoritesStatePic.Visibility = ViewStates.Gone;            
                 holder.robotFlagView.Visibility = ViewStates.Gone;
                 holder.robotLayout.Visibility = ViewStates.Gone;
                 view.SetGravity(GravityFlags.Left);
@@ -62,16 +63,23 @@ namespace TranslateHelper.Droid.Adapters
             else
             {
                 holder.robotMessage.Text = item.TextTo;
+                holder.userMessage.Text = string.Empty;
                 holder.transcriptionTextView.Text = item.Transcription;
                 holder.defTextView.Text = item.Definition;
-                if (string.IsNullOrEmpty(item.Definition)) holder.robotLayoutDefinition.Visibility = ViewStates.Gone;
+                //if (string.IsNullOrEmpty(item.Definition)) holder.robotLayoutDefinition.Visibility = ViewStates.Gone;
                 holder.robotFlagView.Visibility = ViewStates.Visible;
                 holder.robotLayout.Visibility = ViewStates.Visible;
                 holder.robotFlagView.SetImageResource(getImageResourceByName(item.LanguageTo.NameImageResource));
                 holder.favoritesStatePic.Visibility = ViewStates.Visible;
-                if (item.InFavorites) holder.favoritesStatePic.SetImageResource(Resource.Drawable.v5alreadyaddedtofav);
+                if (item.InFavorites)
+                {
+                    holder.favoritesStatePic.SetImageResource(Resource.Drawable.v5alreadyaddedtofav);
+                }else
+                {
+                    holder.favoritesStatePic.SetImageResource(Resource.Drawable.v5addtofavorites);
+                }
                 holder.userFlagView.Visibility = ViewStates.Gone;
-                holder.userMessage.Visibility = ViewStates.Gone;
+                holder.userMessage.Visibility = ViewStates.Invisible;
                 view.SetGravity(GravityFlags.Right);
             }
             return view;

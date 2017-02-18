@@ -83,7 +83,7 @@ namespace PortableCore.BL.Managers
         //ToDo: Доделать сообщение о поиске под разные языки
         public string GetSearchMessage(Language languageFrom)
         {
-            return "Роюсь в словаре...";
+            return languageFrom.NameEng + ". Роюсь в словаре...";
         }
     }
 }

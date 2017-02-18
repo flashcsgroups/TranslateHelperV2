@@ -146,6 +146,8 @@ namespace PortableCore.BL.Presenters
             {
                 item.InFavorites = !item.InFavorites;
                 chatHistoryManager.SaveItem(item);
+                bubbleItem.InFavorites = item.InFavorites;
+                //view.UpdateChat(getListBubbles());
             }
         }
 

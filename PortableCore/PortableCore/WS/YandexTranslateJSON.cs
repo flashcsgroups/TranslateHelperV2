@@ -13,7 +13,6 @@ namespace PortableCore.WS
 {
     public class YandexTranslateJSON : TranslateRequestFactory
     {
-        //ToDo:Перенести в настройки для хранения в базе
         private string sourceString;
 
         public override void SetSourceString(string sourceString)

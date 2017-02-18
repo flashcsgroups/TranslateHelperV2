@@ -87,17 +87,19 @@ namespace TranslateHelper.Droid.Activities
             //listView.ItemClick += ListView_ItemClick;
         }
 
-        /*private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             presenter.InvertFavoriteState(bubbleAdapter.GetBubbleItemByIndex(e.Position));
-        }*/
+        }
 
         private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
-            presenter.InvertFavoriteState(bubbleAdapter.GetBubbleItemByIndex(e.Position));
-            /*var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
-            listView.CancelLongPress();
-            DeleteRowByUserAction(e.Position);*/
+            var item = bubbleAdapter.GetBubbleItemByIndex(e.Position);
+            presenter.InvertFavoriteState(item);
+            //bubbleAdapter.InvertFavoriteState(e.Position);
+            //var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
+            //listView.CancelLongPress();
+            //DeleteRowByUserAction(e.Position);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
