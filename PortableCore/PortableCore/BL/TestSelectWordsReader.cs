@@ -17,7 +17,8 @@ namespace PortableCore.BL
 
         public List<FavoriteItem> GetRandomFavorites(int countOfWords, TranslateDirection direction)
         {
-            IEnumerable<int> srcDefView = getSourceDefinitionByTranslateDirection(direction);
+            throw new NotImplementedException();
+            /*IEnumerable<int> srcDefView = getSourceDefinitionByTranslateDirection(direction);
             IEnumerable<FavoriteItem> favView = getFavoritesBySourceDefinition(srcDefView);
             IEnumerable<FavoriteItem> favDistinctView = getFavoritesDistinct(favView);
             var favElements = favDistinctView.Distinct();
@@ -37,24 +38,26 @@ namespace PortableCore.BL
                 items.Add(favElements.ElementAt(indexOfRecord));
                 usedIdList.Add(indexOfRecord);
             }
-            return items;
+            return items;*/
         }
 
         private IEnumerable<FavoriteItem> getFavoritesDistinct(IEnumerable<FavoriteItem> view)
         {
-            return from item in view
+            throw new NotImplementedException();
+            /*return from item in view
                    join sourceDefItem in db.Table<SourceDefinition>() on item.SourceDefinitionId equals sourceDefItem.ID into sources
                    from subSources in sources.DefaultIfEmpty(new SourceDefinition())
-                   select new FavoriteItem() { FavoriteId = item.FavoriteId, TranslatedExpressionId = item.TranslatedExpressionId, SourceDefinitionId = item.SourceDefinitionId, SourceExprId = subSources.SourceExpressionID };
+                   select new FavoriteItem() { FavoriteId = item.FavoriteId, TranslatedExpressionId = item.TranslatedExpressionId, SourceDefinitionId = item.SourceDefinitionId, SourceExprId = subSources.SourceExpressionID };*/
         }
 
         private IEnumerable<FavoriteItem> getFavoritesBySourceDefinition(IEnumerable<int> srcDefView)
         {
-            return from item in db.Table<Favorites>()
+            throw new NotImplementedException();
+            /*return from item in db.Table<Favorites>()
                    join trExprItem in db.Table<TranslatedExpression>() on item.TranslatedExpressionID equals trExprItem.ID into expressions
                    from subExpressions in expressions.DefaultIfEmpty(new TranslatedExpression())
                    where srcDefView.Contains(subExpressions.SourceDefinitionID)
-                   select new FavoriteItem() { FavoriteId = item.ID, TranslatedExpressionId = item.TranslatedExpressionID, SourceDefinitionId = subExpressions.SourceDefinitionID };
+                   select new FavoriteItem() { FavoriteId = item.ID, TranslatedExpressionId = item.TranslatedExpressionID, SourceDefinitionId = subExpressions.SourceDefinitionID };*/
         }
 
         private IEnumerable<int> getSourceDefinitionByTranslateDirection(TranslateDirection direction)

@@ -1,30 +1,28 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using PortableCore;
 using PortableCore.BL.Contracts;
 using PortableCore.BL.Managers;
 using PortableCore.DAL;
-using PortableCore.DL;
-using PortableCore.BL;
 using TranslateHelper.Droid.Adapters;
+using PortableCore.BL.Presenters;
+using PortableCore.BL.Views;
+using PortableCore.BL.Models;
+using PortableCore.BL;
 
 namespace TranslateHelper.Droid.Activities
 {
-	[Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
-	public class FavoritesActivity : Activity
+    [Activity (Label = "@string/act_favorites_caption", Theme = "@style/MyTheme")]
+	public class FavoritesActivity : Activity, IFavoritesView
 	{
+        FavoritesPresenter presenter;
         //TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
-        IndexedCollection<FavoritesItem> translateResultIdxCollection;
+        //IndexedCollection<FavoritesItem> translateResultIdxCollection;
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -35,23 +33,46 @@ namespace TranslateHelper.Droid.Activities
             //direction.SetDirection(Intent.GetStringExtra("directionName"));
             //throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
 
-            var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
+            //var listView = FindViewById<ListView> (Resource.Id.listFavoritesListView);
 
-			listView.FastScrollEnabled = true;
+			//listView.FastScrollEnabled = true;
 
-			translateResultIdxCollection = getItemsForFavoritesList ();
+			//translateResultIdxCollection = getItemsForFavoritesList ();
 
-			var sortedContacts = translateResultIdxCollection.GetSortedData ();
-            var adapter = CreateAdapter(sortedContacts);
-            listView.Adapter = adapter;
-            listView.ItemLongClick += adapter.ListItemLongClick;
+			//var sortedContacts = translateResultIdxCollection.GetSortedData ();
+            //var adapter = CreateAdapter(sortedContacts);
+            //listView.Adapter = adapter;
+            //listView.ItemLongClick += adapter.ListItemLongClick;
 		}
+        protected override void OnStart()
+        {
+            base.OnStart();
+            int selectedChatID = Intent.GetIntExtra("currentChatId", -1);
+            if (selectedChatID >= 0)
+            {
+                presenter = new FavoritesPresenter(this, SqlLiteInstance.DB, selectedChatID);
+                presenter.Init();
+                //presenter.InitChat(Locale.Default.Language);
+                //presenter.UpdateOldSuspendedRequests();
+            }
+            else
+            {
+                throw new Exception("Chat not found");
+            }
+        }
+        public void UpdateFavorites(IndexedCollection<FavoriteItem> listFavorites)
+        {
+            var adapter = CreateAdapter(listFavorites.GetSortedData());
+            var listView = FindViewById<ListView>(Resource.Id.listFavoritesListView);
+            listView.FastScrollEnabled = true;
+            listView.Adapter = adapter;
+        }
 
-        private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
+        /*private IndexedCollection<FavoritesItem> getItemsForFavoritesList ()
 		{
 			//ToDo:Полный отстой. Во-первых, SQLite не поддерживает join - придется переписывать на обычный запрос, во вторых - запросы в цикле, в-третьих - выбирается вся таблица избранного, а не порция
 			IndexedCollection<FavoritesItem> result = new IndexedCollection<FavoritesItem> ();
-			var view = from favItem in SqlLiteInstance.DB.Table<Favorites> ()
+            var view = from favItem in SqlLiteInstance.DB.Table<Favorites> ()
 			           join trItem in SqlLiteInstance.DB.Table<TranslatedExpression> () on favItem.TranslatedExpressionID equals trItem.ID into transExpr
 			           from subTransExpr in transExpr.DefaultIfEmpty ()
 			           select new Tuple<TranslatedExpression, Favorites> (subTransExpr, favItem);
@@ -78,10 +99,21 @@ namespace TranslateHelper.Droid.Activities
                     }
                 }
             }
-			return result;
-		}
+            ChatHistoryManager chatHistoryManager = new ChatHistoryManager(dbHelper);
+            result.Add(new FavoritesItem()
+            {
+                OriginalText = "original",
+                TranslatedText = "translated",
+                TranslatedExpressionId = 0,
+                DefinitionType = 0,
+                OriginalTranscription = "transcription",
+                FavoritesId = 0
+            });
 
-		FavoritesAdapter CreateAdapter<T> (Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
+            return result;
+		}*/
+
+        FavoritesAdapter CreateAdapter<T> (Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
 		{
 			var adapter = new FavoritesAdapter (this);
 			foreach (var e in sortedObjects.OrderBy(de => de.Key)) {

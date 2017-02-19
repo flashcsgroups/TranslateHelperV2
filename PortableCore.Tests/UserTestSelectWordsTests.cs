@@ -220,7 +220,8 @@ namespace PortableCore.Tests
                 List<FavoriteItem> result = new List<FavoriteItem>();
                 for (int i = 0; i < countOfWords; i++)
                 {
-                    result.Add(new FavoriteItem() { FavoriteId = i });
+                    throw new NotImplementedException();
+                    //result.Add(new FavoriteItem() { FavoriteId = i });
                 }
                 return result;
             }

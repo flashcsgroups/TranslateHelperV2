@@ -41,6 +41,7 @@
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
     <Compile Include="BL\DetectInputLanguage.cs" />
     <Compile Include="BL\DictionaryWelcomeMsg.cs" />
+    <Compile Include="BL\IndexedCollection.cs" />
     <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
     <Compile Include="BL\Managers\IChatHistoryManager.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
+    <Compile Include="BL\Presenters\FavoritesPresenter.cs" />
+    <Compile Include="BL\Views\IFavoritesView.cs" />
     <Compile Include="DL\Chat.cs" />
     <Compile Include="DL\ChatHistory.cs" />
     <Compile Include="BL\Views\IDirectionsView.cs" />
@@ -67,11 +70,9 @@
     <Compile Include="DAL\CachedResultWriter.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
     <Compile Include="DL\DefinitionTypes.cs" />
-    <Compile Include="DL\Favorites.cs" />
     <Compile Include="DL\ISQLiteTesting.cs" />
     <Compile Include="DL\Language.cs" />
     <Compile Include="BL\Managers\DefinitionTypesManager.cs" />
-    <Compile Include="BL\Managers\FavoritesManager.cs" />
     <Compile Include="BL\Managers\SourceExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslatedExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslateProviderManager.cs" />

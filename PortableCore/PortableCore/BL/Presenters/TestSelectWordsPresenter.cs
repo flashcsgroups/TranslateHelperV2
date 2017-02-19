@@ -45,7 +45,8 @@ namespace PortableCore.BL.Presenters
 
         private void OnSubmit()
         {
-            if(positionWordInList < countOfWords)
+            throw new NotImplementedException();
+            /*if (positionWordInList < countOfWords)
             {
                 Tuple<string, string> nextPair = getNextPair();
                 rightWord = nextPair.Item2;
@@ -58,7 +59,7 @@ namespace PortableCore.BL.Presenters
             {
                 positionWordInList = 0;
                 view.SetFinalTest(countOfWords);
-            }
+            }*/
         }
 
         private void addToVariantsCorrectWord(List<string> variantsArray, string rightWord)
@@ -87,9 +88,10 @@ namespace PortableCore.BL.Presenters
 
         private Tuple<string, string> getNextPair()
         {
-            var item = favoritesList[positionWordInList];
+            throw new NotImplementedException();
+            /*var item = favoritesList[positionWordInList];
             Tuple<string, string> nextPair = wordsReader.GetNextWord(item.TranslatedExpressionId);
-            return nextPair;
+            return nextPair;*/
         }
     }
 }

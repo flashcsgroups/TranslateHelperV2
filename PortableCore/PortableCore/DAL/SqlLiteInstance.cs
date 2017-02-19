@@ -32,8 +32,6 @@ namespace PortableCore.DAL
             TranslateProviderManager managerProvider = new TranslateProviderManager(db);
             managerProvider.InitDefaultData();
 
-            db.CreateTable<Favorites>();
-
             db.CreateTable<SourceExpression>();
             //SourceExpressionManager managerSourceExpression = new SourceExpressionManager(db);
             //managerSourceExpression.InitDefaultData();

@@ -12,6 +12,7 @@ namespace PortableCore.BL.Managers
         void DeleteItemById(int historyRowId);
         List<ChatHistory> ReadChatMessages(Chat chatItem);
         List<ChatHistory> ReadSuspendedChatMessages(Chat chatItem);
+        List<ChatHistory> GetFavoriteMessages(int selectedChatID);
         string GetSearchMessage(Language languageFrom);
         int GetMaxItemId();
     }

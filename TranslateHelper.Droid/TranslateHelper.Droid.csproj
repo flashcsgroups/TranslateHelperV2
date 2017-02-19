@@ -75,7 +75,6 @@
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
-    <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Activities\FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -83,15 +82,9 @@
     <Compile Include="SplashScreen.cs" />
     <None Include="Activities\TestSelectWordsActivity.cs" />
     <Compile Include="Adapters\FavoritesAdapter.cs" />
-    <Compile Include="IndexedCollection.cs" />
-    <Compile Include="Adapters\TestSelectWordsAdapter.cs" />
+    <None Include="Adapters\TestSelectWordsAdapter_CHECK.cs" />
     <Compile Include="TogglesSoftKeyboard.cs" />
-    <Compile Include="Adapters\TranslateResultVewVariantAdapter.cs" />
-    <AndroidResource Include="Resources\layout\TranslateResultHeader.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <Compile Include="TranslateServiceResult.cs" />
-    <Compile Include="FavoritesItem.cs" />
     <AndroidResource Include="Resources\layout\DirectionsAllListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -109,9 +102,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
-    <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\SelectTestLevel.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>

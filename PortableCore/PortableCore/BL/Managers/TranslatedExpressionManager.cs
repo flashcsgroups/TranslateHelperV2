@@ -38,7 +38,7 @@ namespace PortableCore.BL.Managers
 			return new List<TranslatedExpression> (repos.GetItems ());
 		}
 
-        public List<Tuple<TranslatedExpression, Favorites>> GetListOfCoupleTranslatedExpressionAndFavorite(List<SourceDefinition> listOfDefinitions)
+        /*public List<Tuple<TranslatedExpression, Favorites>> GetListOfCoupleTranslatedExpressionAndFavorite(List<SourceDefinition> listOfDefinitions)
         {
             var arrayDefinitionIDs = from item in listOfDefinitions select item.ID;
             var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
@@ -47,8 +47,17 @@ namespace PortableCore.BL.Managers
                        where arrayDefinitionIDs.Contains(trItem.SourceDefinitionID) 
                        select new Tuple<TranslatedExpression, Favorites>(trItem, subFavorite);
             return view.ToList();
+        }*/
+
+        public List<TranslatedExpression> GetListOfTranslatedExpression(List<SourceDefinition> listOfDefinitions)
+        {
+            var arrayDefinitionIDs = from item in listOfDefinitions select item.ID;
+            var view = from trItem in SqlLiteInstance.DB.Table<TranslatedExpression>()
+                       where arrayDefinitionIDs.Contains(trItem.SourceDefinitionID)
+                       select trItem;
+            return view.ToList();
         }
 
-	}
+    }
 }
 

@@ -35,27 +35,27 @@ namespace PortableCore.DAL
                 SourceDefinitionManager defManager = new SourceDefinitionManager(db);
                 List<SourceDefinition> definitionsList = defManager.GetDefinitionCollection(sourceList[0].ID);
                 TranslatedExpressionManager translatedManager = new TranslatedExpressionManager(db);
-                var translatedList = translatedManager.GetListOfCoupleTranslatedExpressionAndFavorite(definitionsList);
+                var translatedList = translatedManager.GetListOfTranslatedExpression(definitionsList);
                 RequestResult.SetTranslateResult(createTranslateResult(sourceString, sourceList, definitionsList, translatedList));
             }
             return RequestResult;
         }
 
-        private TranslateResultView createTranslateResult(string sourceString, List<SourceExpression> sourceList, List<SourceDefinition> definitionsList, List<Tuple<TranslatedExpression, Favorites>> translatedList)
+        private TranslateResultView createTranslateResult(string sourceString, List<SourceExpression> sourceList, List<SourceDefinition> definitionsList, List<TranslatedExpression> translatedList)
         {
             TranslateResultView result = new TranslateResultView();
             foreach (var definition in definitionsList)
             {
                 List<ResultLineData> translateVariants = new List<ResultLineData>();
-                var viewVariants = from item in translatedList where item.Item1.SourceDefinitionID == definition.ID select new { item.Item1, item.Item2 };
-                foreach (var item in viewVariants)
+                //var viewVariants = from item in translatedList where item.Item1.SourceDefinitionID == definition.ID select new { item.Item1, item.Item2 };
+                foreach (var item in translatedList)
                 {
-                    var dataLine = new ResultLineData(item.Item1.TranslatedText, (DefinitionTypesEnum)(item.Item1.DefinitionTypeID));
-                    dataLine.TranslatedExpressionId = item.Item1.ID;
-                    if(item.Item2!=null)
+                    var dataLine = new ResultLineData(item.TranslatedText, (DefinitionTypesEnum)(item.DefinitionTypeID));
+                    dataLine.TranslatedExpressionId = item.ID;
+                    /*if(item.Item2!=null)
                     {
                         dataLine.FavoritesId = item.Item2.ID;
-                    }
+                    }*/
                     translateVariants.Add(dataLine);
                 }
                 result.AddDefinition(sourceString, (DefinitionTypesEnum)definition.DefinitionTypeID, definition.TranscriptionText, translateVariants);

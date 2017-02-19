@@ -56,6 +56,11 @@ namespace PortableCore.BL.Managers
             return resultItem;
         }
 
+        public List<ChatHistory> GetFavoriteMessages(int selectedChatID)
+        {
+            var view = from item in db.Table<ChatHistory>() where item.ChatID == selectedChatID && item.InFavorites && item.DeleteMark == 0 orderby item.TextFrom select item;                   
+            return view.ToList();
+        }
         public List<ChatHistory> ReadChatMessages(Chat chatItem)
         {
             var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID && item.DeleteMark == 0 orderby item.ID ascending select item;

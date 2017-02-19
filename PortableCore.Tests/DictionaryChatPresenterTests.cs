@@ -72,6 +72,11 @@ namespace PortableCore.Tests
                 throw new NotImplementedException();
             }
 
+            public void ShowToast(string messageText)
+            {
+                throw new NotImplementedException();
+            }
+
             public void UpdateBackground(string v)
             {
             }
@@ -131,6 +136,11 @@ namespace PortableCore.Tests
             }
 
             public int GetCountOfMessagesForChat(int chatId)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<ChatHistory> GetFavoriteMessages(int selectedChatID)
             {
                 throw new NotImplementedException();
             }

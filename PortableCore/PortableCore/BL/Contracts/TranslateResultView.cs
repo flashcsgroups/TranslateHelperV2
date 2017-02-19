@@ -47,7 +47,7 @@ namespace PortableCore.BL.Contracts
         public string Text { get; private set; }
         public DefinitionTypesEnum Pos { get; private set; }
         private int translatedExpressionId;//Используется для связи с БД, заполняется только после записи в кэш
-        private int favoritesId;//Используется для связи с БД, заполняется только после записи в кэш
+        //private int favoritesId;//Используется для связи с БД, заполняется только после записи в кэш
 
         public int TranslatedExpressionId
         {
@@ -61,7 +61,7 @@ namespace PortableCore.BL.Contracts
             }
         }
 
-        public int FavoritesId
+        /*public int FavoritesId
         {
             set
             {
@@ -71,7 +71,7 @@ namespace PortableCore.BL.Contracts
             {
                 return this.favoritesId;
             }
-        }
+        }*/
 
         public ResultLineData(string text, DefinitionTypesEnum pos)
         {

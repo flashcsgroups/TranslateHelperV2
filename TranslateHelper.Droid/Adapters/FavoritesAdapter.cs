@@ -6,6 +6,7 @@ using Android.Widget;
 using Droid.Core.Helpers;
 using PortableCore.BL.Managers;
 using PortableCore.DAL;
+using PortableCore.BL.Models;
 
 namespace TranslateHelper.Droid.Adapters
 {
@@ -47,7 +48,7 @@ namespace TranslateHelper.Droid.Adapters
 
         internal void ListItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
-            ListView lvVariants = (ListView)sender;
+            /*ListView lvVariants = (ListView)sender;
             var objItem = GetItem(e.Position);
             FavoritesManager favoritesManager = new FavoritesManager(SqlLiteInstance.DB);
             favoritesManager.DeleteWord(objItem.Cast<FavoritesItem>().FavoritesId);
@@ -59,7 +60,7 @@ namespace TranslateHelper.Droid.Adapters
             transcriptionTextView.SetTextAppearance(context, Resource.Style.FavoritesDeletedItemTextView);
             var posTextView = e.View.FindViewById<TextView>(Resource.Id.PosTextView);
             posTextView.SetTextAppearance(context, Resource.Style.FavoritesDeletedItemTextView);            
-            Toast.MakeText(context, Resource.String.msg_string_deleted_from_fav, ToastLength.Short).Show();
+            Toast.MakeText(context, Resource.String.msg_string_deleted_from_fav, ToastLength.Short).Show();*/
         }
 
         public override int Count {
@@ -117,17 +118,19 @@ namespace TranslateHelper.Droid.Adapters
 				if (position < size) {
 					View itemView = adapter.GetView (position - 1, convertView, parent);
 					Java.Lang.Object obj = adapter.GetItem (position - 1);
-					FavoritesItem itemResult = obj.Cast<FavoritesItem> ();
+					FavoriteItem itemResult = obj.Cast<FavoriteItem> ();
 
 					var sourceTextView = itemView.FindViewById<TextView> (Resource.Id.SourceTextView);
-					sourceTextView.SetText (itemResult.OriginalText.ToString (), TextView.BufferType.Normal);
+                    string originalText = itemResult.OriginalText!=null ? itemResult.OriginalText.ToString() : "not found";
+                    sourceTextView.SetText (originalText, TextView.BufferType.Normal);
 					var translatedTextView = itemView.FindViewById<TextView> (Resource.Id.TranslatedTextView);
-					translatedTextView.SetText (itemResult.TranslatedText.ToString (), TextView.BufferType.Normal);
-					var transcriptionTextView = itemView.FindViewById<TextView> (Resource.Id.TranscriptionTextView);
-					transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.OriginalTranscription) ? "" : "[" + itemResult.OriginalTranscription + "]", TextView.BufferType.Normal);
+                    string translatedText = itemResult.TranslatedText != null ? itemResult.TranslatedText.ToString() : "not found";
+                    translatedTextView.SetText (translatedText, TextView.BufferType.Normal);
+					//var transcriptionTextView = itemView.FindViewById<TextView> (Resource.Id.TranscriptionTextView);
+					//transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.OriginalTranscription) ? "" : "[" + itemResult.OriginalTranscription + "]", TextView.BufferType.Normal);
 
-					var posTextView = itemView.FindViewById<TextView> (Resource.Id.PosTextView);
-					posTextView.SetText (DefinitionTypesManager.GetRusNameForEnum (itemResult.DefinitionType), TextView.BufferType.Normal);
+					//var posTextView = itemView.FindViewById<TextView> (Resource.Id.PosTextView);
+					//posTextView.SetText (DefinitionTypesManager.GetRusNameForEnum (itemResult.DefinitionType), TextView.BufferType.Normal);
 					return itemView;
 				}
 
