@@ -182,6 +182,11 @@ namespace PortableCore.Tests
             {
                 return 1;
             }
+
+            List<Tuple<ChatHistory, ChatHistory>> IChatHistoryManager.GetFavoriteMessages(int selectedChatID)
+            {
+                throw new NotImplementedException();
+            }
         }
 
     }

@@ -61,7 +61,7 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
-            int selectedChatID = Intent.GetIntExtra("SelectedChatID", -1);
+            int selectedChatID = Intent.GetIntExtra("currentChatId", -1);
             if(selectedChatID >= 0)
             {
                 presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);

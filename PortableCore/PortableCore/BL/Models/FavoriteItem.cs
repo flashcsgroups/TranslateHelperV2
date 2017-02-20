@@ -9,67 +9,11 @@ namespace PortableCore.BL.Models
 {
     public class FavoriteItem : IEquatable<FavoriteItem>, IHasLabel, IComparable<FavoriteItem>
     {
-
-        /*private int favoriteId = 0;
-private int translatedExpressionId = 0;
-private int sourceDefinitionId = 0;
-private int sourceExprId = 0;
-
-public int FavoriteId
-{
-get
-{
-return favoriteId;
-}
-
-set
-{
-favoriteId = value;
-}
-}
-
-public int TranslatedExpressionId
-{
-get
-{
-return translatedExpressionId;
-}
-
-set
-{
-translatedExpressionId = value;
-}
-}
-
-public int SourceDefinitionId
-{
-get
-{
-return sourceDefinitionId;
-}
-
-set
-{
-sourceDefinitionId = value;
-}
-}
-
-public int SourceExprId
-{
-get
-{
-return sourceExprId;
-}
-
-set
-{
-sourceExprId = value;
-}
-}*/
         public string OriginalText;
         public string TranslatedText;
         public string Transcription;
         public int ChatHistoryId;
+        public string OriginalTextDefinition;
 
         public string Label
         {

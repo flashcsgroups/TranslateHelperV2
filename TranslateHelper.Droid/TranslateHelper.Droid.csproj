@@ -80,7 +80,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Activities\SelectTestLevelActivity.cs" />
     <Compile Include="SplashScreen.cs" />
-    <None Include="Activities\TestSelectWordsActivity.cs" />
+    <Compile Include="Activities\TestSelectWordsActivity.cs" />
     <Compile Include="Adapters\FavoritesAdapter.cs" />
     <None Include="Adapters\TestSelectWordsAdapter_CHECK.cs" />
     <Compile Include="TogglesSoftKeyboard.cs" />

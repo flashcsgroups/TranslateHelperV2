@@ -56,9 +56,13 @@ namespace PortableCore.BL.Managers
             return resultItem;
         }
 
-        public List<ChatHistory> GetFavoriteMessages(int selectedChatID)
+        public List<Tuple<ChatHistory, ChatHistory>> GetFavoriteMessages(int selectedChatID)
         {
-            var view = from item in db.Table<ChatHistory>() where item.ChatID == selectedChatID && item.InFavorites && item.DeleteMark == 0 orderby item.TextFrom select item;                   
+            var view = from item in db.Table<ChatHistory>() 
+                       join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
+                       from subFavorites in favorites.DefaultIfEmpty()
+                       where item.ChatID == selectedChatID && item.InFavorites && item.DeleteMark == 0
+                       orderby item.TextFrom select new Tuple<ChatHistory, ChatHistory> (item, subFavorites);                   
             return view.ToList();
         }
         public List<ChatHistory> ReadChatMessages(Chat chatItem)

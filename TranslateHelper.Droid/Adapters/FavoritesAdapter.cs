@@ -126,11 +126,12 @@ namespace TranslateHelper.Droid.Adapters
 					var translatedTextView = itemView.FindViewById<TextView> (Resource.Id.TranslatedTextView);
                     string translatedText = itemResult.TranslatedText != null ? itemResult.TranslatedText.ToString() : "not found";
                     translatedTextView.SetText (translatedText, TextView.BufferType.Normal);
-					//var transcriptionTextView = itemView.FindViewById<TextView> (Resource.Id.TranscriptionTextView);
-					//transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.OriginalTranscription) ? "" : "[" + itemResult.OriginalTranscription + "]", TextView.BufferType.Normal);
+					var transcriptionTextView = itemView.FindViewById<TextView> (Resource.Id.TranscriptionTextView);
+					transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.Transcription) ? "" : "[" + itemResult.Transcription + "]", TextView.BufferType.Normal);
 
-					//var posTextView = itemView.FindViewById<TextView> (Resource.Id.PosTextView);
-					//posTextView.SetText (DefinitionTypesManager.GetRusNameForEnum (itemResult.DefinitionType), TextView.BufferType.Normal);
+					var posTextView = itemView.FindViewById<TextView> (Resource.Id.PosTextView);
+                    posTextView.SetText(itemResult.OriginalTextDefinition, TextView.BufferType.Normal);
+                    //posTextView.SetText (DefinitionTypesManager.GetRusNameForEnum (itemResult..DefinitionType), TextView.BufferType.Normal);
 					return itemView;
 				}
 

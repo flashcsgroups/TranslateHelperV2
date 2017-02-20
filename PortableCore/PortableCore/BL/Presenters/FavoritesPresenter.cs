@@ -17,13 +17,12 @@ namespace PortableCore.BL.Presenters
         private int selectedChatID;
         private IFavoritesView view;
 
-        //ILanguageManager languageManager;
-        //IChatHistoryManager chatHistoryManager;
-        //TranslateDirection direction;
         /// <summary>
         /// Основной конструктор
         /// </summary>
+        /// <param name="view"></param>
         /// <param name="db"></param>
+        /// <param name="selectedChatID"></param>
         public FavoritesPresenter(IFavoritesView view, ISQLiteTesting db, int selectedChatID)
         {
             this.view = view;
@@ -40,10 +39,11 @@ namespace PortableCore.BL.Presenters
             {
                 indexedFavItems.Add(new FavoriteItem()
                 {
-                    ChatHistoryId = item.ID,
-                    OriginalText = item.TextTo,
-                    TranslatedText = item.TextFrom,
-                    Transcription = item.Transcription
+                    ChatHistoryId = item.Item1.ID,
+                    OriginalText = item.Item2.TextFrom,
+                    TranslatedText = item.Item1.TextTo,
+                    Transcription = item.Item1.Transcription,
+                    OriginalTextDefinition = item.Item1.Definition
                 });
 
             }

@@ -16,17 +16,17 @@ namespace PortableCore.BL.Presenters
         ITestSelectWordsView view;
         ISQLiteTesting db;
         ITestSelectWordsReader wordsReader;
-        TranslateDirection direction;
+        int currentChatId;
         List<FavoriteItem> favoritesList;
         string rightWord;
 
-        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, TranslateDirection direction, int maxCountOfWords)
+        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, int currentChatId, int countOfWords)
         {
             this.view = view;
             this.db = db;
-            this.wordsReader = wordsReader;
-            this.maxCountOfWords = maxCountOfWords;
-            this.direction = direction;
+            //this.wordsReader = wordsReader;
+            this.countOfWords = countOfWords;
+            this.currentChatId = currentChatId;
         }
 
         public void OnSelectVariant(string selectedWord)
@@ -62,6 +62,12 @@ namespace PortableCore.BL.Presenters
             }*/
         }
 
+        public void Init()
+        {
+            List<string> variantsArray = new List<string>{ "one", "two", "three", "four", "sixth" ,"sevens", "eith" , "nine"};
+            view.SetVariants(variantsArray);
+        }
+
         private void addToVariantsCorrectWord(List<string> variantsArray, string rightWord)
         {
             int count = variantsArray.Count;
@@ -76,14 +82,15 @@ namespace PortableCore.BL.Presenters
 
         private List<string> getIncorrectWord(int rightWordSourceExpr, int countOfIncorrectWords)
         {
-            return wordsReader.GetIncorrectVariants(rightWordSourceExpr, countOfIncorrectWords, direction);
+            throw new NotImplementedException();
+            //return wordsReader.GetIncorrectVariants(rightWordSourceExpr, countOfIncorrectWords, currentChatId);
         }
 
         public void StartTest()
         {
-            favoritesList = wordsReader.GetRandomFavorites(maxCountOfWords, direction);
-            countOfWords = favoritesList.Count();
-            OnSubmit();
+            //favoritesList = wordsReader.GetRandomFavorites(maxCountOfWords, currentChatId);
+            //countOfWords = favoritesList.Count();
+            //OnSubmit();
         }
 
         private Tuple<string, string> getNextPair()

@@ -21,9 +21,10 @@ namespace TranslateHelper.Droid.Activities
     [Activity(Label = "@string/act_testselectwords_caption", Theme = "@style/MyTheme")]
     public class TestSelectWordsActivity : Activity, ITestSelectWordsView
     {
-        TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
+        //TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
         int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
+        private int currentChatId;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,13 +37,24 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
-            initTest();
-            initSubmitButtons();
-            presenter.StartTest();
+            currentChatId = Intent.GetIntExtra("currentChatId", -1);
+            if (currentChatId >= 0)
+            {
+                int countOfWords = Intent.GetIntExtra("countOfWords", -1);
+                presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, currentChatId, countOfWords);
+                //initTest();
+                initSubmitButtons();
+                presenter.Init();
+            }
+            else
+            {
+                throw new Exception("Chat not found");
+            }
         }
+
         protected override void OnSaveInstanceState(Bundle outState)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
             /*outState.PutString("direction", direction.GetCurrentDirectionName());
             base.OnSaveInstanceState(outState);*/
         }
@@ -51,17 +63,17 @@ namespace TranslateHelper.Droid.Activities
         {
             base.OnRestoreInstanceState(savedState);
             //direction.SetDirection(savedState.GetString("direction"));
-            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
-            initTest();
+            //throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
+            //initTest();
         }
 
-        private void initTest()
+        /*private void initTest()
         {
             //direction.SetDirection(Intent.GetStringExtra("directionName"));
             throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
             int countOfWords = Intent.GetIntExtra("countOfWords", 10);
             presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), direction, countOfWords);
-        }
+        }*/
 
         private void initSubmitButtons()
         {
@@ -123,10 +135,9 @@ namespace TranslateHelper.Droid.Activities
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    throw new NotImplementedException();
-                    /*var intent = new Intent(this, typeof(DictionaryChatActivity));
-                    intent.PutExtra("directionName", direction.GetCurrentDirectionName());
-                    StartActivity(intent);*/
+                    var intent = new Intent(this, typeof(DictionaryChatActivity));
+                    intent.PutExtra("currentChatId", currentChatId);
+                    StartActivity(intent);
                     return true;
                 default:
                     break;
@@ -140,7 +151,7 @@ namespace TranslateHelper.Droid.Activities
             alert.SetTitle(Resource.String.msg_tests_repeatOrClose);
             alert.SetMessage(Resource.String.msg_final_test);
             alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => {
-                initTest();
+                //initTest();
                 initSubmitButtons();
                 presenter.StartTest();
             });

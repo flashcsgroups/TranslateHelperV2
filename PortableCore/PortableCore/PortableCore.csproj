@@ -53,7 +53,9 @@
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
+    <Compile Include="BL\Presenters\SelectTestLevelPresenter.cs" />
     <Compile Include="BL\Presenters\FavoritesPresenter.cs" />
+    <Compile Include="BL\Views\ISelectTestLevelView.cs" />
     <Compile Include="BL\Views\IFavoritesView.cs" />
     <Compile Include="DL\Chat.cs" />
     <Compile Include="DL\ChatHistory.cs" />

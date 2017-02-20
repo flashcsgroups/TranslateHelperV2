@@ -103,7 +103,7 @@ namespace TranslateHelper.Droid.Activities
         private void startChatActivityByChatId(int chatId)
         {
             var intent = new Intent(this, typeof(DictionaryChatActivity));
-            intent.PutExtra("SelectedChatID", chatId);
+            intent.PutExtra("currentChatId", chatId);
             StartActivity(intent);
         }
     }

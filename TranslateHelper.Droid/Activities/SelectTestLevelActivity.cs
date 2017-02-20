@@ -12,13 +12,16 @@ using Android.Widget;
 using PortableCore.DAL;
 using PortableCore.BL;
 using PortableCore.BL.Managers;
+using PortableCore.BL.Views;
+using PortableCore.BL.Presenters;
 
 namespace TranslateHelper.Droid.Activities
 {
     [Activity(Label = "@string/act_selectcountwords_caption", Theme = "@style/MyTheme")]
-    public class SelectTestLevelActivity : Activity
+    public class SelectTestLevelActivity : Activity, ISelectTestLevelView
     {
-        //TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB);
+        SelectTestLevelPresenter presenter;
+        private int currentChatId;
         int countOfAvailableWords = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -27,13 +30,24 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.SelectTestLevel);
-
-            var testWordsReader = new TestSelectWordsReader(SqlLiteInstance.DB);
-            /*countOfAvailableWords = testWordsReader.GetCountDifferenceSources(direction);
-            if (countOfAvailableWords >= 10)
-                initLevelButtons();
+        }
+        protected override void OnStart()
+        {
+            base.OnStart();
+            currentChatId = Intent.GetIntExtra("currentChatId", -1);
+            if (currentChatId >= 0)
+            {
+                presenter = new SelectTestLevelPresenter(this, SqlLiteInstance.DB, currentChatId);
+                countOfAvailableWords = presenter.GetCountWords();
+                if (countOfAvailableWords >= 10)
+                    initLevelButtons();
+                else
+                    ShowErrorDialog();
+            }
             else
-                ShowErrorDialog();*/
+            {
+                throw new Exception("Chat not found");
+            }
         }
 
         private void initLevelButtons()
@@ -70,11 +84,10 @@ namespace TranslateHelper.Droid.Activities
 
         private void StartTest_SelectRightWords(int countOfWords)
         {
-            throw new NotImplementedException();
-            /*var intentTest = new Intent(this, typeof(TestSelectWordsActivity));
+            var intentTest = new Intent(this, typeof(TestSelectWordsActivity));
             intentTest.PutExtra("countOfWords", countOfWords);
-            intentTest.PutExtra("directionName", direction.GetCurrentDirectionName());
-            StartActivity(intentTest);*/
+            intentTest.PutExtra("currentChatId", currentChatId);
+            StartActivity(intentTest);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -96,7 +109,7 @@ namespace TranslateHelper.Droid.Activities
             return base.OnOptionsItemSelected(item);
         }
 
-        public void ShowErrorDialog()
+        private void ShowErrorDialog()
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle(Resource.String.msg_warning);
@@ -108,10 +121,9 @@ namespace TranslateHelper.Droid.Activities
 
         private void StartDictionaryActivity()
         {
-            throw new NotImplementedException();
-            /*var intent = new Intent(this, typeof(DictionaryChatActivity));
-            intent.PutExtra("directionName", direction.GetCurrentDirectionName());
-            StartActivity(intent);*/
+            var intentDictActivity = new Intent(this, typeof(DictionaryChatActivity));
+            intentDictActivity.PutExtra("currentChatId", currentChatId);
+            StartActivity(intentDictActivity);
         }
 
     }
