@@ -14,8 +14,7 @@
             android:id="@+id/SourceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="12dip"
+            android:textSize="20sp"
             android:text="source"
             android:textColor="@color/black"
             android:layout_marginRight="5dp"
@@ -25,9 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic"
-            android:textSize="12dip"
+            android:textSize="17sp"
             android:text="transcription"
-            android:textColor="@color/lightgrey"
+            android:textColor="@color/grey"
             android:layout_marginRight="5dp"
             android:background="@color/transparent" />
         <TextView
@@ -35,9 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic"
-            android:textSize="12dip"
+            android:textSize="15sp"
             android:text="pos"
-            android:textColor="@color/black"
+            android:textColor="@color/lightgrey"
             android:background="@color/transparent" />
     </LinearLayout>
     <TextView
@@ -45,9 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="italic"
-        android:textSize="13dip"
+        android:textSize="20sp"
         android:text="translated"
-        android:textColor="@color/black"
-        android:layout_marginLeft="5dp"
+        android:textColor="@color/white"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="right"
+        android:gravity="right"
         android:background="@color/transparent" />
 </LinearLayout>

@@ -24,6 +24,7 @@ namespace TranslateHelper.Droid.Activities
     {
         DictionaryChatPresenter presenter;
         private BubbleAdapter bubbleAdapter;
+        private PopupWindow actionPopupWindow;  
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -56,6 +57,20 @@ namespace TranslateHelper.Droid.Activities
                     editSourceText.Text = string.Empty;
                 }
             };
+           
+            var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
+            listView.ItemClick += (sender, args) =>
+            {
+                if ((actionPopupWindow != null) && (actionPopupWindow.IsShowing))
+                {
+                    actionPopupWindow.Dismiss();
+                }
+                else
+                {
+                    var actionWindow = CreateActionPopupWindow(args.Position);
+                    actionWindow.ShowAtLocation((View)sender, GravityFlags.Center, 0, 0);
+                }
+            };
         }
 
         protected override void OnStart()
@@ -75,36 +90,66 @@ namespace TranslateHelper.Droid.Activities
             }
         }
 
-        public void UpdateChat(List<BubbleItem> listBubbles)
+        public void UpdateChat(List<BubbleItem> listBubbles, int setPositionItemIndex)
+        {
+            ListView listView = getListItemView(listBubbles);
+            listView.SetSelection(setPositionItemIndex);
+        }
+
+        private ListView getListItemView(List<BubbleItem> listBubbles)
         {
             var metrics = Resources.DisplayMetrics;
-            var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);            
+            var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
             bubbleAdapter = new BubbleAdapter(this, listBubbles, metrics);
             listView.Adapter = bubbleAdapter;
             listView.ChoiceMode = ChoiceMode.Single;
-            listView.SetSelection(listView.Count + 1);
-            listView.ItemLongClick += ListView_ItemLongClick;
-            //listView.ItemClick += ListView_ItemClick;
+            return listView;
         }
 
-        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private PopupWindow CreateActionPopupWindow(int positionOfSelectedItem)
         {
-            presenter.InvertFavoriteState(bubbleAdapter.GetBubbleItemByIndex(e.Position));
-        }
+            actionPopupWindow = new PopupWindow();
+            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleDropDownItem1Line, new string[] { "Favorite", "Delete", "Copy" });
+            ListView listView = new ListView(this) { Adapter = adapter };
+            actionPopupWindow.ContentView = listView;
+            actionPopupWindow.Width = ViewGroup.LayoutParams.WrapContent;
+            actionPopupWindow.Height = ViewGroup.LayoutParams.WrapContent;
+            listView.ItemClick += (sender, args) =>
+             {
+                 switch (args.Id)
+                 {
+                     case 0:
+                         {
+                             actionPopupWindow.Dismiss();
+                             var item = bubbleAdapter.GetBubbleItemByIndex(positionOfSelectedItem);
+                             presenter.InvertFavoriteState(item, positionOfSelectedItem);
+                         }; break;
+                     case 1:
+                         {
+                             actionPopupWindow.Dismiss();
+                             var item = bubbleAdapter.GetBubbleItemByIndex(positionOfSelectedItem);
+                             int newItemIndex = positionOfSelectedItem > 0 ? positionOfSelectedItem - 1: 0;
+                             presenter.DeleteBubbleFromChat(item, newItemIndex);
+                         }; break;
+                     case 2:
+                         {
+                             actionPopupWindow.Dismiss();
+                             var item = bubbleAdapter.GetBubbleItemByIndex(positionOfSelectedItem);
+                             var clipboard = (ClipboardManager)GetSystemService(ClipboardService);
+                             var clip = ClipData.NewPlainText("TranslateHelper", item.TextTo);
+                             clipboard.PrimaryClip = clip;
+                         }; break;
+                     default:
+                         {
 
-        private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
-        {
-            var item = bubbleAdapter.GetBubbleItemByIndex(e.Position);
-            presenter.InvertFavoriteState(item);
-            //bubbleAdapter.InvertFavoriteState(e.Position);
-            //var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
-            //listView.CancelLongPress();
-            //DeleteRowByUserAction(e.Position);
+                         };break;
+                 }
+             };
+            return actionPopupWindow;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            //currentMenu = menu;
             MenuInflater.Inflate(Resource.Menu.menu_ChatScreen, menu);
             return true;
         }
@@ -131,48 +176,6 @@ namespace TranslateHelper.Droid.Activities
                     break;
             }
             return base.OnOptionsItemSelected(item);
-        }
-
-        public void DeleteRowByUserAction(int elementPositionIndex)
-        {
-            //presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
-            //bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
-            /*var t = Toast.MakeText(this, "test:" + elementPositionIndex.ToString(), ToastLength.Short);
-            t.SetGravity(GravityFlags.Center, 0, 0);
-            t.Show();*/
-
-            /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("");
-            alert.SetMessage("Delete row?");
-            alert.SetPositiveButton("Delete", (senderAlert, args) => {
-                presenter.DeleteBubbleFromChat(bubbleAdapter.GetBubbleItemByIndex(elementPositionIndex));
-                bubbleAdapter.MarkBubbleItemAsDeleted(elementPositionIndex);
-            });
-            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
-            });
-            Dialog dialog = alert.Create();
-            dialog.Show();*/
-        }
-
-        private void updateDestinationCaption()
-        {
-            /*if (currentMenu != null)
-            {
-                IMenuItem item = currentMenu.FindItem(Resource.Id.menu_dest_selector);
-                switch (direction.GetCurrentDirectionId())
-                {
-                    case 1:
-                        {
-                            item.SetIcon(Resource.Drawable.EngRus);
-                        }; break;
-                    case 2:
-                        {
-                            item.SetIcon(Resource.Drawable.RusEng);
-                        }; break;
-                    default:
-                        { }; break;
-                }
-            }*/
         }
 
         public void UpdateBackground(string resourceBackgroundName)

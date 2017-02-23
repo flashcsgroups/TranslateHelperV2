@@ -85,14 +85,6 @@ namespace TranslateHelper.Droid.Adapters
             return view;
         }
 
-        internal void MarkBubbleItemAsDeleted(int elementPositionIndex)
-        {
-            this.bubbleList[elementPositionIndex].TextFrom = "deleted!";
-            //this.bubbleList.RemoveAt(elementPositionIndex);
-            //this.bubbleList[elementPositionIndex].TextFrom = "";
-            //this.bubbleList[elementPositionIndex].TextTo = "";
-        }
-
         internal BubbleItem GetBubbleItemByIndex(int elementPositionIndex)
         {
             BubbleItem result = new BubbleItem();
@@ -103,7 +95,6 @@ namespace TranslateHelper.Droid.Adapters
         private int getImageResourceByName(string imgName)
         {
             return AndroidResourceHelper.GetImageResource(context, imgName);
-            //return context.Resources.GetIdentifier(imgName.ToLower(), "drawable", context.PackageName);
         }
 
         class ViewHolder : Java.Lang.Object

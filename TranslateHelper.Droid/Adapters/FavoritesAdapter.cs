@@ -127,7 +127,7 @@ namespace TranslateHelper.Droid.Adapters
                     string translatedText = itemResult.TranslatedText != null ? itemResult.TranslatedText.ToString() : "not found";
                     translatedTextView.SetText (translatedText, TextView.BufferType.Normal);
 					var transcriptionTextView = itemView.FindViewById<TextView> (Resource.Id.TranscriptionTextView);
-					transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.Transcription) ? "" : "[" + itemResult.Transcription + "]", TextView.BufferType.Normal);
+					transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.Transcription) ? "" : itemResult.Transcription, TextView.BufferType.Normal);
 
 					var posTextView = itemView.FindViewById<TextView> (Resource.Id.PosTextView);
                     posTextView.SetText(itemResult.OriginalTextDefinition, TextView.BufferType.Normal);

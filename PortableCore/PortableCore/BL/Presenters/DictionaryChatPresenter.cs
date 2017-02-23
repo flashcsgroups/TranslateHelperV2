@@ -84,7 +84,7 @@ namespace PortableCore.BL.Presenters
         {
             requestReference = new goTranslateRequest(translateRequest);
             var listBubbles = getListBubbles();
-            view.UpdateChat(listBubbles);
+            view.UpdateChat(listBubbles, listBubbles.Count + 1);
             if(listBubbles.Count == 0)
             {
                 DictionaryWelcomeMsg welcome = new DictionaryWelcomeMsg(currentLocaleShort);
@@ -129,7 +129,8 @@ namespace PortableCore.BL.Presenters
                 invertDirectionIfNeedForRussianLocaleOnly(preparedTextForRequest);
                 int requestId = addUserMsgToChatHistory(preparedTextForRequest);
                 addRobotMsgToChatHistory(true, string.Empty, requestId);
-                view.UpdateChat(getListBubbles());
+                var listBubbles = getListBubbles();
+                view.UpdateChat(listBubbles, listBubbles.Count + 1);
                 startRequestWithValidation(preparedTextForRequest, requestId);
             }
         }
@@ -139,7 +140,7 @@ namespace PortableCore.BL.Presenters
             Direction.Invert();
         }
 
-        public void InvertFavoriteState(BubbleItem bubbleItem)
+        public void InvertFavoriteState(BubbleItem bubbleItem, int positionOfSelectedItem)
         {
             var item = chatHistoryManager.GetItemForId(bubbleItem.HistoryRowId);
             if(item != null)
@@ -147,7 +148,7 @@ namespace PortableCore.BL.Presenters
                 item.InFavorites = !item.InFavorites;
                 chatHistoryManager.SaveItem(item);
                 bubbleItem.InFavorites = item.InFavorites;
-                //view.UpdateChat(getListBubbles());
+                view.UpdateChat(getListBubbles(), positionOfSelectedItem);
             }
         }
 
@@ -221,10 +222,11 @@ namespace PortableCore.BL.Presenters
             }
         }
 
-        public void DeleteBubbleFromChat(BubbleItem bubbleItem)
+        public void DeleteBubbleFromChat(BubbleItem bubbleItem, int newItemIndex)
         {
             chatHistoryManager.DeleteItemById(bubbleItem.HistoryRowId);
-            view.UpdateChat(getListBubbles());
+            var listBubbles = getListBubbles();
+            view.UpdateChat(listBubbles, newItemIndex);
         }
 
         private async Task startRequestWithValidation(string preparedTextForRequest, int requestId)
@@ -271,7 +273,8 @@ namespace PortableCore.BL.Presenters
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
                     addToDBRobotResponse(reqResult, requestId);
-                    view.UpdateChat(getListBubbles());
+                    var listBubbles = getListBubbles();
+                    view.UpdateChat(listBubbles, listBubbles.Count + 1);
                 }
                 else
                 {
