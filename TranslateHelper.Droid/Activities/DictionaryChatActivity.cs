@@ -24,7 +24,8 @@ namespace TranslateHelper.Droid.Activities
     {
         DictionaryChatPresenter presenter;
         private BubbleAdapter bubbleAdapter;
-        private PopupWindow actionPopupWindow;  
+        private AlertDialog actionContextWindow;
+        private int selectedMsgIndex = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -61,14 +62,15 @@ namespace TranslateHelper.Droid.Activities
             var listView = FindViewById<ListView>(Resource.Id.forms_centralfragments_chat_chat_listView);
             listView.ItemClick += (sender, args) =>
             {
-                if ((actionPopupWindow != null) && (actionPopupWindow.IsShowing))
+                if ((actionContextWindow != null) && (actionContextWindow.IsShowing))
                 {
-                    actionPopupWindow.Dismiss();
+                    actionContextWindow.Dismiss();
                 }
                 else
                 {
-                    var actionWindow = CreateActionPopupWindow(args.Position);
-                    actionWindow.ShowAtLocation((View)sender, GravityFlags.Center, 0, 0);
+                    selectedMsgIndex = args.Position;
+                    actionContextWindow = CreateActionContextMenu(args.Position);
+                    actionContextWindow.Show();
                 }
             };
         }
@@ -106,46 +108,46 @@ namespace TranslateHelper.Droid.Activities
             return listView;
         }
 
-        private PopupWindow CreateActionPopupWindow(int positionOfSelectedItem)
+        private AlertDialog CreateActionContextMenu(int positionOfSelectedItem)
         {
-            actionPopupWindow = new PopupWindow();
             var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleDropDownItem1Line, new string[] { "Favorite", "Delete", "Copy" });
-            ListView listView = new ListView(this) { Adapter = adapter };
-            actionPopupWindow.ContentView = listView;
-            actionPopupWindow.Width = ViewGroup.LayoutParams.WrapContent;
-            actionPopupWindow.Height = ViewGroup.LayoutParams.WrapContent;
-            listView.ItemClick += (sender, args) =>
-             {
-                 switch (args.Id)
-                 {
-                     case 0:
-                         {
-                             actionPopupWindow.Dismiss();
-                             var item = bubbleAdapter.GetBubbleItemByIndex(positionOfSelectedItem);
-                             presenter.InvertFavoriteState(item, positionOfSelectedItem);
-                         }; break;
-                     case 1:
-                         {
-                             actionPopupWindow.Dismiss();
-                             var item = bubbleAdapter.GetBubbleItemByIndex(positionOfSelectedItem);
-                             int newItemIndex = positionOfSelectedItem > 0 ? positionOfSelectedItem - 1: 0;
-                             presenter.DeleteBubbleFromChat(item, newItemIndex);
-                         }; break;
-                     case 2:
-                         {
-                             actionPopupWindow.Dismiss();
-                             var item = bubbleAdapter.GetBubbleItemByIndex(positionOfSelectedItem);
-                             var clipboard = (ClipboardManager)GetSystemService(ClipboardService);
-                             var clip = ClipData.NewPlainText("TranslateHelper", item.TextTo);
-                             clipboard.PrimaryClip = clip;
-                         }; break;
-                     default:
-                         {
+            var builder = new AlertDialog.Builder(this);
+            builder.SetAdapter(adapter, onSelectContextMenuItem);
+            builder.SetCancelable(true);
+            actionContextWindow = builder.Create();
+            return actionContextWindow;
+        }
 
-                         };break;
-                 }
-             };
-            return actionPopupWindow;
+        private void onSelectContextMenuItem(object sender, DialogClickEventArgs args)
+        {
+            switch (args.Which)
+            {
+                case 0:
+                    {
+                        actionContextWindow.Dismiss();
+                        var item = bubbleAdapter.GetBubbleItemByIndex(selectedMsgIndex);
+                        presenter.InvertFavoriteState(item, selectedMsgIndex);
+                    }; break;
+                case 1:
+                    {
+                        actionContextWindow.Dismiss();
+                        var item = bubbleAdapter.GetBubbleItemByIndex(selectedMsgIndex);
+                        int newItemIndex = selectedMsgIndex > 0 ? selectedMsgIndex - 1 : 0;
+                        presenter.DeleteBubbleFromChat(item, newItemIndex);
+                    }; break;
+                case 2:
+                    {
+                        actionContextWindow.Dismiss();
+                        var item = bubbleAdapter.GetBubbleItemByIndex(selectedMsgIndex);
+                        var clipboard = (ClipboardManager)GetSystemService(ClipboardService);
+                        var clip = ClipData.NewPlainText("TranslateHelper", item.TextTo);
+                        clipboard.PrimaryClip = clip;
+                    }; break;
+                default:
+                    {
+
+                    }; break;
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

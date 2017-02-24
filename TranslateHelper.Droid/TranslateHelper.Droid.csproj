@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ChatContextMenuActivity.cs" />
     <Compile Include="Activities\DictionaryChatActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
@@ -89,6 +90,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <Compile Include="Adapters\DirectionsAllAdapter.cs" />
+    <AndroidResource Include="Resources\layout\ChatContextMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
