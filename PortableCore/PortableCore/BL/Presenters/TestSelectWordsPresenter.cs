@@ -17,7 +17,7 @@ namespace PortableCore.BL.Presenters
         ISQLiteTesting db;
         ITestSelectWordsReader wordsReader;
         int currentChatId;
-        List<FavoriteItem> favoritesList;
+        //List<FavoriteItem> favoritesList;
         string rightWord;
 
         public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, int currentChatId, int countOfWords)
@@ -64,8 +64,12 @@ namespace PortableCore.BL.Presenters
 
         public void Init()
         {
-            List<string> variantsArray = new List<string>{ "one", "two", "three", "four", "sixth" ,"sevens", "eith" , "nine"};
-            view.SetVariants(variantsArray);
+            //List<string> variantsArray = new List<string>{ "one", "two", "three", "four", "sixth" ,"sevens", "eith" , "nine"};
+            //view.SetVariants(variantsArray);
+            var portionOfWordsForTestList = wordsReader.GetRandomFavorites(maxCountOfWords, currentChatId);
+            view.SetVariants(portionOfWordsForTestList);
+            //countOfWords = favoritesList.Count();
+            //OnSubmit();
         }
 
         private void addToVariantsCorrectWord(List<string> variantsArray, string rightWord)

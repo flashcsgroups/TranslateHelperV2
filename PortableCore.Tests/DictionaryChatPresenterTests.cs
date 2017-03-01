@@ -85,6 +85,11 @@ namespace PortableCore.Tests
             {
                 this.ListBubbles = listBubbles;
             }
+
+            public void UpdateChat(List<BubbleItem> listBubbles, int setPositionItemIndex)
+            {
+                //throw new NotImplementedException();
+            }
         }
 
         private class MockChatManager : IChatManager

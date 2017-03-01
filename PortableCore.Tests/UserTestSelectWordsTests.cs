@@ -8,30 +8,42 @@ using PortableCore.BL.Managers;
 using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
+using PortableCore.Tests.Mocks;
+using System.Linq;
 
 namespace PortableCore.Tests
 {
     [TestFixture]
     public class UserTestSelectWordsTests
     {
-        /*[Test]
-        public void TestMust_GetFavoritesDataForTest()
+        [TestCase(10)]
+        public void TestMust_GetDistinctWordsForTest(int countOfWordsForTest)
         {
             //arrange
-            int countOfWords = 10;
             MockSQLite dbHelper = new MockSQLite();
-            TranslateDirection direction = new TranslateDirection(dbHelper);
-            //direction.SetDefaultDirection();
+            int currentChatId = 1;
 
             //act
-            TestSelectWordsReader data = new TestSelectWordsReader(dbHelper);
-            List<FavoriteItem> favoritesList = data.GetRandomFavorites(countOfWords, direction);
+            TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
+            List<string> favoritesList = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
 
             //assert
             Assert.IsTrue(favoritesList.Count == 10);
-        }*/
 
-        class MockSQLite : ISQLiteTesting
+            //check distinct
+            var hashSet = new HashSet<string>();
+            Assert.AreEqual(countOfWordsForTest, favoritesList.Where(x => !hashSet.Add(x)).Count(), "Присутствуют одинаковые значения");
+        }
+
+        public void TestMust_GetDistinctWordsForTestWithoutComma(int countOfWordsForTest)
+        {
+
+        }
+        public void TestMust_GetWordsForTestWithoutRightWord(int countOfWordsForTest)
+        {
+
+        }
+        /*class MockSQLite : ISQLiteTesting
         {
             public IEnumerable<Favorites> Table<Favorites>() where Favorites : IBusinessEntity, new()
             {
@@ -48,9 +60,10 @@ namespace PortableCore.Tests
                 listFav.Add(new Favorites() { ID = 10 });
                 return listFav;
             }
-        }
+        }*/
 
         [Test]
+        [Ignore("старая структура")]
         public void TestMust_StartTestAndGetOriginalWord()
         {
             //arrange
@@ -68,6 +81,7 @@ namespace PortableCore.Tests
         }
 
         [Test]
+        [Ignore("старая структура")]
         public void TestMust_CheckCountVariants()
         {
             //arrange
@@ -101,6 +115,7 @@ namespace PortableCore.Tests
         }*/
 
         [Test]
+        [Ignore("старая структура")]
         public void TestMust_GetErrorForMistakeVariant()
         {
             //arrange
@@ -118,6 +133,7 @@ namespace PortableCore.Tests
         }
 
         [Test]
+        [Ignore("старая структура")]
         public void TestMust_GetFinalMessageText()
         {
             //arrange
@@ -159,72 +175,12 @@ namespace PortableCore.Tests
             countOfVariants = 8;
             MockSQLite dbHelper = new MockSQLite();
             testActivity = new MockTestSelectWordsActivity();
-            MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
-            LanguageManager languageManager = new LanguageManager(dbHelper);
-            TranslateDirection direction = new TranslateDirection(dbHelper, languageManager);
-            presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, direction, countOfWords);
-        }
-
-        class MockTestSelectWordsActivity : ITestSelectWordsView
-        {
-            public string OriginalWord = string.Empty;
-            public List<string> Variants = new List<string>();
-            public bool CheckResult = false;
-            public int CountOfTestedWords = 0;
-
-            public void SetCheckError()
-            {
-                CheckResult = false;
-            }
-
-            public void SetOriginalWord(string originalWord)
-            {
-                OriginalWord = originalWord;
-            }
-
-            public void SetVariants(List<string> variants)
-            {
-                this.Variants = variants;
-            }
-
-            public void SetFinalTest(int countOfTestedWords)
-            {
-                CountOfTestedWords = countOfTestedWords;
-            }
-        }
-
-        class MockTestSelectWordsReader : ITestSelectWordsReader
-        {
-            public int GetCountDifferenceSources(TranslateDirection direction)
-            {
-                return 10;
-            }
-
-            public List<string> GetIncorrectVariants(int excludeCorrectSourceId, int countOfIncorrectWords, TranslateDirection direction)
-            {
-                List<string> result = new List<string>();
-                for(int i=0;i<countOfIncorrectWords;i++)
-                {
-                    result.Add(i.ToString());
-                }
-                return result;
-            }
-
-            public Tuple<string, string> GetNextWord(int translatedExpressionID)
-            {
-                return new Tuple<string, string>("test","тест");
-            }
-
-            public List<FavoriteItem> GetRandomFavorites(int countOfWords, TranslateDirection direction)
-            {
-                List<FavoriteItem> result = new List<FavoriteItem>();
-                for (int i = 0; i < countOfWords; i++)
-                {
-                    throw new NotImplementedException();
-                    //result.Add(new FavoriteItem() { FavoriteId = i });
-                }
-                return result;
-            }
+            int currentChatId = 1;
+            //MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
+            //LanguageManager languageManager = new LanguageManager(dbHelper);
+            //TranslateDirection direction = new TranslateDirection(dbHelper, languageManager);
+            presenter = new TestSelectWordsPresenter(testActivity, dbHelper, currentChatId, countOfWords);
+            //presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, direction, countOfWords);
         }
     }
 }

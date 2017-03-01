@@ -60,7 +60,7 @@ namespace PortableCore.BL.Managers
         {
             var view = from item in db.Table<ChatHistory>() 
                        join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
-                       from subFavorites in favorites.DefaultIfEmpty()
+                       from subFavorites in favorites
                        where item.ChatID == selectedChatID && item.InFavorites && item.DeleteMark == 0
                        orderby item.TextFrom select new Tuple<ChatHistory, ChatHistory> (item, subFavorites);                   
             return view.ToList();

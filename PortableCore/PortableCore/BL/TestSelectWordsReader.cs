@@ -15,9 +15,20 @@ namespace PortableCore.BL
             db = dbHelper;
         }
 
-        public List<FavoriteItem> GetRandomFavorites(int countOfWords, TranslateDirection direction)
+        public List<string> GetRandomFavorites(int countOfWords, int chatId)
         {
-            throw new NotImplementedException();
+            List<string> resultList = new List<string>();
+            //ChatHistoryManager historyManager = new ChatHistoryManager(db);
+            //var wordsList = historyManager.GetFavoriteMessages(chatId);
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            var listItems = from item in db.Table<ChatHistory>() where item.ChatID == chatId && item.DeleteMark == 0 && item.InFavorites select item;
+            int countOfItems = listItems.Count();
+            for (int i = 0; i < countOfWords; i++)
+            {
+                int indexOfRecord = rnd.Next(0, countOfItems - 1);
+                resultList.Add(listItems.ElementAt<ChatHistory>(indexOfRecord).TextFrom);
+            }
+            return resultList;
             /*IEnumerable<int> srcDefView = getSourceDefinitionByTranslateDirection(direction);
             IEnumerable<FavoriteItem> favView = getFavoritesBySourceDefinition(srcDefView);
             IEnumerable<FavoriteItem> favDistinctView = getFavoritesDistinct(favView);
