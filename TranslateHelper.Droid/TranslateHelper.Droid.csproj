@@ -363,4 +363,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-mdpi\v6change.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TestScreenButtonSelectorError.xml" />
+  </ItemGroup>
 </Project>

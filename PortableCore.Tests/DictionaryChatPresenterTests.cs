@@ -81,14 +81,9 @@ namespace PortableCore.Tests
             {
             }
 
-            public void UpdateChat(List<BubbleItem> listBubbles)
-            {
-                this.ListBubbles = listBubbles;
-            }
-
             public void UpdateChat(List<BubbleItem> listBubbles, int setPositionItemIndex)
             {
-                //throw new NotImplementedException();
+                this.ListBubbles = listBubbles;
             }
         }
 

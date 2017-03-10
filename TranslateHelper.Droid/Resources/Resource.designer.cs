@@ -207,52 +207,55 @@ namespace TranslateHelper.Droid
 			public const int TestScreenButtonSelector = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int v1favorites = 2130837528;
+			public const int TestScreenButtonSelectorError = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int v1star10 = 2130837529;
+			public const int v1favorites = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int v1star100 = 2130837530;
+			public const int v1star10 = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int v1star20 = 2130837531;
+			public const int v1star100 = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int v1star50 = 2130837532;
+			public const int v1star20 = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int v1starttest = 2130837533;
+			public const int v1star50 = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int v43cleartext = 2130837534;
+			public const int v1starttest = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int v4addtofavorites = 2130837535;
+			public const int v43cleartext = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int v4alreadyaddedtofav = 2130837536;
+			public const int v4addtofavorites = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int v4change = 2130837537;
+			public const int v4alreadyaddedtofav = 2130837537;
 			
 			// aapt resource value: 0x7f020022
-			public const int v4search = 2130837538;
+			public const int v4change = 2130837538;
 			
 			// aapt resource value: 0x7f020023
-			public const int v5addtofavorites = 2130837539;
+			public const int v4search = 2130837539;
 			
 			// aapt resource value: 0x7f020024
-			public const int v5alreadyaddedtofav = 2130837540;
+			public const int v5addtofavorites = 2130837540;
 			
 			// aapt resource value: 0x7f020025
-			public const int v5change = 2130837541;
+			public const int v5alreadyaddedtofav = 2130837541;
 			
 			// aapt resource value: 0x7f020026
-			public const int v6change = 2130837542;
+			public const int v5change = 2130837542;
 			
 			// aapt resource value: 0x7f020027
-			public const int world2 = 2130837543;
+			public const int v6change = 2130837543;
+			
+			// aapt resource value: 0x7f020028
+			public const int world2 = 2130837544;
 			
 			static Drawable()
 			{

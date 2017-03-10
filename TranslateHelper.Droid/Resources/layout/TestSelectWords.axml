@@ -24,7 +24,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:padding="0dp"
         android:text="Example"
         android:background="#BBDEFB"

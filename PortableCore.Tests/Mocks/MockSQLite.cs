@@ -21,7 +21,7 @@ namespace PortableCore.Tests.Mocks
             }
             if (type == typeof(ChatHistory))
             {
-                listItems = getMockedDataForLastChats() as List<T>;
+                listItems = getMockedDataForChatHistory() as List<T>;
             }
             if (type == typeof(Chat))
             {
@@ -31,12 +31,28 @@ namespace PortableCore.Tests.Mocks
             return listItems;
         }
 
-        private List<ChatHistory> getMockedDataForLastChats()
+        private List<ChatHistory> getMockedDataForChatHistory()
         {
             List<ChatHistory> listObj = new List<ChatHistory>();
-            listObj.Add(new ChatHistory() { ID = 1, ChatID = 1 });
-            listObj.Add(new ChatHistory() { ID = 2, ChatID = 2 });
-            listObj.Add(new ChatHistory() { ID = 3, ChatID = 3 });
+            //данные для проверки рандомной выборки
+            int maxId = 2000;
+            for (int x = 1; x<=maxId; x++)
+            {
+                listObj.Add(new ChatHistory() { ID = x, ChatID = 1, InFavorites = true, LanguageFrom = 1, LanguageTo = 2, TextFrom = "test" + x.ToString(), TextTo = String.Format("тест{0}, проверка{1}, тестирование{2}, экзамен{3}", x,x,x,x) });
+            }
+
+            //данные для проверки порядка выборки
+            maxId++;
+            listObj.Add(new ChatHistory() { ID = maxId, ChatID = 2, InFavorites = true, LanguageFrom = 3, LanguageTo = 1, TextFrom = "testFrance" + maxId.ToString(), TextTo = String.Format("тестFrance{0}, проверкаFrance{1}, тестированиеFrance{2}, экзаменFrance{3}", maxId, maxId, maxId, maxId) });
+
+            //данные для проверки выборки сообщений одного направления
+            maxId++;
+            listObj.Add(new ChatHistory() { ID = maxId, ChatID = 3, InFavorites = true, LanguageFrom = 1, LanguageTo = 4, TextFrom = "testRu" + maxId.ToString(), TextTo = "TestSp" });
+            maxId++;
+            listObj.Add(new ChatHistory() { ID = maxId, ChatID = 3, InFavorites = true, LanguageFrom = 1, LanguageTo = 4, TextFrom = "testRu" + maxId.ToString(), TextTo = "TestSp" });
+            maxId++;
+            listObj.Add(new ChatHistory() { ID = maxId, ChatID = 3, InFavorites = true, LanguageFrom = 4, LanguageTo = 1, TextFrom = "testSp" + maxId.ToString(), TextTo = "TestRu" });
+
             return listObj;
         }
 
@@ -52,6 +68,7 @@ namespace PortableCore.Tests.Mocks
             List<Chat> listObj = new List<Chat>();
             listObj.Add(new Chat() { ID = 1, UpdateDate = DateTime.Now.Add(new TimeSpan(-1, 0, 0, 0)), LanguageFrom = 1, LanguageTo = 2 });
             listObj.Add(new Chat() { ID = 2, UpdateDate = DateTime.Now.Add(new TimeSpan(-1, 0, 0, 0)), LanguageFrom = 2, LanguageTo = 3 });
+            listObj.Add(new Chat() { ID = 3, UpdateDate = DateTime.Now.Add(new TimeSpan(-10, 0, 0, 0)), LanguageFrom = 1, LanguageTo = 4 });//ru->sp
             return listObj;
         }
     }

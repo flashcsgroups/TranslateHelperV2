@@ -15,6 +15,7 @@ using PortableCore.DAL;
 using PortableCore.BL.Managers;
 using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
+using PortableCore.BL.Models;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -25,6 +26,8 @@ namespace TranslateHelper.Droid.Activities
         int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
         private int currentChatId;
+
+        private int lastSubmittedButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,9 +44,7 @@ namespace TranslateHelper.Droid.Activities
             if (currentChatId >= 0)
             {
                 int countOfWords = Intent.GetIntExtra("countOfWords", -1);
-                presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, currentChatId, countOfWords);
-                //initTest();
-                initSubmitButtons();
+                presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), currentChatId, countOfWords);
                 presenter.Init();
             }
             else
@@ -54,40 +55,31 @@ namespace TranslateHelper.Droid.Activities
 
         protected override void OnSaveInstanceState(Bundle outState)
         {
-            //throw new NotImplementedException();
-            /*outState.PutString("direction", direction.GetCurrentDirectionName());
-            base.OnSaveInstanceState(outState);*/
+            //base.OnSaveInstanceState(outState);
         }
 
         protected override void OnRestoreInstanceState(Bundle savedState)
         {
             base.OnRestoreInstanceState(savedState);
-            //direction.SetDirection(savedState.GetString("direction"));
-            //throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
-            //initTest();
         }
-
-        /*private void initTest()
-        {
-            //direction.SetDirection(Intent.GetStringExtra("directionName"));
-            throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
-            int countOfWords = Intent.GetIntExtra("countOfWords", 10);
-            presenter = new TestSelectWordsPresenter(this, SqlLiteInstance.DB, new TestSelectWordsReader(SqlLiteInstance.DB), direction, countOfWords);
-        }*/
 
         private void initSubmitButtons()
         {
+            SetButtonNormalState();
+            lastSubmittedButton = 0;
             for (int index = 1; index <= countOfSubmitButtons; index++)
             {
                 Button submit = getSubmitButtonByName("buttonSubmitTest" + index.ToString());
                 submit.Click += Submit_Click;
                 submit.Visibility = ViewStates.Invisible;
+                submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
             }
         }
 
         private void Submit_Click(object sender, EventArgs e)
         {
-            PressSubmit(((Button)sender).Text);
+            lastSubmittedButton = ((Button)sender).Id;
+            presenter.OnSelectVariant(((Button)sender).Text);
         }
 
         private Button getSubmitButtonByName(string buttonResourceName)
@@ -96,32 +88,39 @@ namespace TranslateHelper.Droid.Activities
             return FindViewById<Button>(res);
         }
 
-        public void SetVariants(List<string> variants)
+        public void SetVariants(List<TestWordItem> variants)
         {
+            initSubmitButtons();
             int buttonIndex = 1;
-            foreach (var variantText in variants)
+            foreach (var variantItem in variants)
             {
-                Button submit = getSubmitButtonByName("buttonSubmitTest" + buttonIndex.ToString());
-                submit.Text = variantText;
+                Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());
+                submit.Text = variantItem.TextTo;
                 submit.Visibility = ViewStates.Visible;
+                //submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
                 buttonIndex++;
             }
         }
 
-        public void SetOriginalWord(string originalWord)
+        public void SetOriginalWord(TestWordItem originalWord)
         {
             var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
-            textOriginalWord.Text = originalWord;
+            textOriginalWord.Text = originalWord.TextFrom;
         }
 
-        public void SetCheckError()
+        public void SetButtonErrorState()
         {
-            Toast.MakeText(this, Resource.String.msg_error_try_again, ToastLength.Short).Show();
+            Button button = FindViewById<Button>(lastSubmittedButton);
+            button.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelectorError);
         }
-
-        public void PressSubmit(string answerText)
+        public void SetButtonNormalState()
         {
-            presenter.OnSelectVariant(answerText);
+            Button button = FindViewById<Button>(lastSubmittedButton);
+            if(button!=null)
+            {
+                button.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
+                button.Invalidate();
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -135,14 +134,19 @@ namespace TranslateHelper.Droid.Activities
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    var intent = new Intent(this, typeof(DictionaryChatActivity));
-                    intent.PutExtra("currentChatId", currentChatId);
-                    StartActivity(intent);
+                    backToDictionaryChat();
                     return true;
                 default:
                     break;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        private void backToDictionaryChat()
+        {
+            var intent = new Intent(this, typeof(DictionaryChatActivity));
+            intent.PutExtra("currentChatId", currentChatId);
+            StartActivity(intent);
         }
 
         public void SetFinalTest(int countOfTestedWords)
@@ -151,13 +155,10 @@ namespace TranslateHelper.Droid.Activities
             alert.SetTitle(Resource.String.msg_tests_repeatOrClose);
             alert.SetMessage(Resource.String.msg_final_test);
             alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => {
-                //initTest();
-                initSubmitButtons();
-                presenter.StartTest();
+                presenter.Init();
             });
             alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => {
-                //StartActivity(typeof(DictionaryActivity));
-                throw new NotImplementedException("Нет больше Dictionary! Реализовать.");
+                backToDictionaryChat();
             });
             Dialog dialog = alert.Create();
             dialog.Show();

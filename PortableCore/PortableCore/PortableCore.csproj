@@ -52,6 +52,7 @@
     <Compile Include="BL\Models\DirectionsRecentItem.cs" />
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
+    <Compile Include="BL\Models\TestWordItem.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
     <Compile Include="BL\Presenters\SelectTestLevelPresenter.cs" />
     <Compile Include="BL\Presenters\FavoritesPresenter.cs" />

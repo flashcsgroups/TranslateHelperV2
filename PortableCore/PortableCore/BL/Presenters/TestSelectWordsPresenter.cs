@@ -9,100 +9,72 @@ namespace PortableCore.BL.Presenters
 {
     public class TestSelectWordsPresenter
     {
-        int maxCountOfWords;
         int countOfWords;
         int positionWordInList;
-        int countOfVariantsWithoutCorrect = 7;//значение по-умолчанию для количества возможных вариантов без учета правильного варианта
+        //int countOfVariantsWithoutCorrect = 7;//значение по-умолчанию для количества возможных вариантов без учета правильного варианта
+        int countOfVariants = 8;//Максимальное количество вариантов
         ITestSelectWordsView view;
         ISQLiteTesting db;
         ITestSelectWordsReader wordsReader;
         int currentChatId;
-        //List<FavoriteItem> favoritesList;
-        string rightWord;
+        TestWordItem rightWord = new TestWordItem();
 
-        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, int currentChatId, int countOfWords)
+        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, int currentChatId, int countOfWords)
         {
             this.view = view;
             this.db = db;
-            //this.wordsReader = wordsReader;
+            this.wordsReader = wordsReader;
             this.countOfWords = countOfWords;
             this.currentChatId = currentChatId;
         }
 
         public void OnSelectVariant(string selectedWord)
         {
-            int diff = string.Compare(selectedWord, rightWord, StringComparison.CurrentCultureIgnoreCase);
+            int diff = string.Compare(selectedWord, rightWord.TextTo, StringComparison.CurrentCultureIgnoreCase);
             bool checkResult = diff == 0;
             if (!checkResult)
             {
-                view.SetCheckError();
+                view.SetButtonErrorState();
             }
             else
             {
+                view.SetButtonNormalState();
                 OnSubmit();
             }
         }
 
         private void OnSubmit()
         {
-            throw new NotImplementedException();
-            /*if (positionWordInList < countOfWords)
+            if (positionWordInList < countOfWords)
             {
-                Tuple<string, string> nextPair = getNextPair();
-                rightWord = nextPair.Item2;
-                view.SetOriginalWord(nextPair.Item1);
-                var variantsArray = getIncorrectWord(favoritesList[positionWordInList].SourceExprId, countOfVariantsWithoutCorrect);
-                addToVariantsCorrectWord(variantsArray, rightWord);
-                view.SetVariants(variantsArray);
+                newVariant();
                 positionWordInList++;
             } else
             {
                 positionWordInList = 0;
                 view.SetFinalTest(countOfWords);
-            }*/
+            }
         }
 
         public void Init()
         {
-            //List<string> variantsArray = new List<string>{ "one", "two", "three", "four", "sixth" ,"sevens", "eith" , "nine"};
-            //view.SetVariants(variantsArray);
-            var portionOfWordsForTestList = wordsReader.GetRandomFavorites(maxCountOfWords, currentChatId);
+            newVariant();
+        }
+
+        private void newVariant()
+        {
+            var portionOfWordsForTestList = wordsReader.GetRandomFavorites(countOfVariants, currentChatId);
+            rightWord = chooseCorrectWord(portionOfWordsForTestList);
             view.SetVariants(portionOfWordsForTestList);
-            //countOfWords = favoritesList.Count();
-            //OnSubmit();
+            view.SetOriginalWord(rightWord);
         }
 
-        private void addToVariantsCorrectWord(List<string> variantsArray, string rightWord)
+        private TestWordItem chooseCorrectWord(List<TestWordItem> portionOfWordsForTestList)
         {
-            int count = variantsArray.Count;
-            if (count > 0)
-            {
-                Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                int indexOfRecord = rnd.Next(0, count - 1);
-                variantsArray.Insert(indexOfRecord, rightWord);
-            }
-            //else throw new Exception("Error adding correct word");
-        }
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            int index = rnd.Next(0, portionOfWordsForTestList.Count - 1);
+            return portionOfWordsForTestList[index];
 
-        private List<string> getIncorrectWord(int rightWordSourceExpr, int countOfIncorrectWords)
-        {
-            throw new NotImplementedException();
-            //return wordsReader.GetIncorrectVariants(rightWordSourceExpr, countOfIncorrectWords, currentChatId);
-        }
-
-        public void StartTest()
-        {
-            //favoritesList = wordsReader.GetRandomFavorites(maxCountOfWords, currentChatId);
-            //countOfWords = favoritesList.Count();
-            //OnSubmit();
-        }
-
-        private Tuple<string, string> getNextPair()
-        {
-            throw new NotImplementedException();
-            /*var item = favoritesList[positionWordInList];
-            Tuple<string, string> nextPair = wordsReader.GetNextWord(item.TranslatedExpressionId);
-            return nextPair;*/
         }
     }
 }

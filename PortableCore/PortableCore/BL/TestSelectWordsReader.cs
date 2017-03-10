@@ -4,6 +4,8 @@ using PortableCore.DL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PortableCore.BL
 {
@@ -15,41 +17,40 @@ namespace PortableCore.BL
             db = dbHelper;
         }
 
-        public List<string> GetRandomFavorites(int countOfWords, int chatId)
+        public List<TestWordItem> GetRandomFavorites(int maxCountOfWords, int chatId)
         {
-            List<string> resultList = new List<string>();
-            //ChatHistoryManager historyManager = new ChatHistoryManager(db);
-            //var wordsList = historyManager.GetFavoriteMessages(chatId);
+            List<TestWordItem> resultList = new List<TestWordItem>();
+            int languageFromId = getRandomDirection(chatId);
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            var listItems = from item in db.Table<ChatHistory>() where item.ChatID == chatId && item.DeleteMark == 0 && item.InFavorites select item;
+            var listItems = from item in db.Table<ChatHistory>()
+                       join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
+                       from subFavorites in favorites
+                       where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == languageFromId && item.InFavorites
+                       select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
             int countOfItems = listItems.Count();
-            for (int i = 0; i < countOfWords; i++)
+            for (int i = 0; i < (maxCountOfWords < countOfItems ? maxCountOfWords : countOfItems); i++)
             {
-                int indexOfRecord = rnd.Next(0, countOfItems - 1);
-                resultList.Add(listItems.ElementAt<ChatHistory>(indexOfRecord).TextFrom);
+                int indexOfRecord = rnd.Next(0, countOfItems);
+                var item = new TestWordItem() { TextFrom = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item2.TextFrom), TextTo = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item1.TextTo) };
+                resultList.Add(item);
             }
             return resultList;
-            /*IEnumerable<int> srcDefView = getSourceDefinitionByTranslateDirection(direction);
-            IEnumerable<FavoriteItem> favView = getFavoritesBySourceDefinition(srcDefView);
-            IEnumerable<FavoriteItem> favDistinctView = getFavoritesDistinct(favView);
-            var favElements = favDistinctView.Distinct();
-
-            int countOfRecords = favElements.Count();
-            FavoritesManager favManager = new FavoritesManager(db);
+        }
+        private int getRandomDirection(int chatId)
+        {
+            var listItems = from item in db.Table<Chat>() where item.ID == chatId && item.DeleteMark == 0 select item;
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            int maxCountOfWords = countOfWords <= countOfRecords ? countOfWords : countOfRecords;
-            List<FavoriteItem> items = new List<FavoriteItem>();
-            List<int> usedIdList = new List<int>();
-            for(int i=0;i< maxCountOfWords;i++)
-            {
-                int indexOfRecord = rnd.Next(0, maxCountOfWords - 1);
-                if (usedIdList.Contains(indexOfRecord))
-                    indexOfRecord = rnd.Next(0, maxCountOfWords - 1);
-                //ToDo:нужна проверка в цикле, может быть ситуация с повторными ид
-                items.Add(favElements.ElementAt(indexOfRecord));
-                usedIdList.Add(indexOfRecord);
-            }
-            return items;*/
+            int index = rnd.Next(0, 2);
+            int direction = index == 0 ? listItems.ElementAtOrDefault<Chat>(0).LanguageFrom : listItems.ElementAtOrDefault<Chat>(0).LanguageTo;
+            return direction;
+        }
+
+        private string separateAndGetRandom(string textTo)
+        {
+            var arrayOfWords = textTo.Split(',');
+            Random rnd = new Random(arrayOfWords.Count());
+            int index = rnd.Next(arrayOfWords.Count() - 1);
+            return arrayOfWords[index].Trim();
         }
 
         private IEnumerable<FavoriteItem> getFavoritesDistinct(IEnumerable<FavoriteItem> view)

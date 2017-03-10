@@ -32,7 +32,7 @@ namespace PortableCore.Tests
             presenter.SelectedRecentLanguagesEvent();
 
             //assert
-            Assert.AreEqual(2, mockView.listDirectionsRecent.Count);
+            Assert.AreEqual(3, mockView.listDirectionsRecent.Count);
             Assert.AreEqual(1, mockView.listDirectionsRecent[0].ChatId);//порядок важен
             Assert.AreEqual(2, mockView.listDirectionsRecent[1].ChatId);//порядок важен
         }
