@@ -22,7 +22,6 @@ namespace TranslateHelper.Droid.Activities
     [Activity(Label = "@string/act_testselectwords_caption", Theme = "@style/MyTheme")]
     public class TestSelectWordsActivity : Activity, ITestSelectWordsView
     {
-        //TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
         int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
         private int currentChatId;
@@ -35,6 +34,8 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);
+            initSubmitButtons();
+            //SetFinalTest(10);
         }
 
         protected override void OnStart()
@@ -65,21 +66,22 @@ namespace TranslateHelper.Droid.Activities
 
         private void initSubmitButtons()
         {
-            SetButtonNormalState();
-            lastSubmittedButton = 0;
             for (int index = 1; index <= countOfSubmitButtons; index++)
             {
                 Button submit = getSubmitButtonByName("buttonSubmitTest" + index.ToString());
                 submit.Click += Submit_Click;
-                submit.Visibility = ViewStates.Invisible;
                 submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
             }
         }
 
         private void Submit_Click(object sender, EventArgs e)
         {
-            lastSubmittedButton = ((Button)sender).Id;
-            presenter.OnSelectVariant(((Button)sender).Text);
+            //((Button)sender).Click -= Submit_Click;
+            if(((Button)sender).Id!=lastSubmittedButton)
+            {
+                lastSubmittedButton = ((Button)sender).Id;
+                presenter.OnSelectVariant(((Button)sender).Text);
+            }
         }
 
         private Button getSubmitButtonByName(string buttonResourceName)
@@ -88,39 +90,25 @@ namespace TranslateHelper.Droid.Activities
             return FindViewById<Button>(res);
         }
 
-        public void SetVariants(List<TestWordItem> variants)
+        public void DrawNewVariant(TestWordItem originalWord, List<TestWordItem> variants)
         {
-            initSubmitButtons();
+            var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
+            textOriginalWord.Text = originalWord.TextFrom;
             int buttonIndex = 1;
             foreach (var variantItem in variants)
             {
                 Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());
                 submit.Text = variantItem.TextTo;
-                submit.Visibility = ViewStates.Visible;
-                //submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
+                submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
                 buttonIndex++;
             }
-        }
-
-        public void SetOriginalWord(TestWordItem originalWord)
-        {
-            var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
-            textOriginalWord.Text = originalWord.TextFrom;
+            lastSubmittedButton = 0;
         }
 
         public void SetButtonErrorState()
         {
             Button button = FindViewById<Button>(lastSubmittedButton);
             button.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelectorError);
-        }
-        public void SetButtonNormalState()
-        {
-            Button button = FindViewById<Button>(lastSubmittedButton);
-            if(button!=null)
-            {
-                button.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
-                button.Invalidate();
-            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -151,7 +139,7 @@ namespace TranslateHelper.Droid.Activities
 
         public void SetFinalTest(int countOfTestedWords)
         {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this, Resource.Style.FinalTestAlertDialogStyle);
             alert.SetTitle(Resource.String.msg_tests_repeatOrClose);
             alert.SetMessage(Resource.String.msg_final_test);
             alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => {

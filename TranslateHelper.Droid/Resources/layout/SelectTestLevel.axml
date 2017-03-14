@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    android:background="@drawable/cotton">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="30"
         android:layout_centerInParent="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@color/transparent">
         <ImageButton
             android:id="@+id/buttonSelect10Words"
             android:layout_width="128dp"
@@ -45,7 +47,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_weight="30"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent">
         <ImageButton
             android:id="@+id/buttonSelect50Words"
             android:layout_width="128dp"

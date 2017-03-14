@@ -38,7 +38,7 @@ namespace PortableCore.BL.Presenters
             }
             else
             {
-                view.SetButtonNormalState();
+                //view.SetButtonNormalState();
                 OnSubmit();
             }
         }
@@ -65,14 +65,13 @@ namespace PortableCore.BL.Presenters
         {
             var portionOfWordsForTestList = wordsReader.GetRandomFavorites(countOfVariants, currentChatId);
             rightWord = chooseCorrectWord(portionOfWordsForTestList);
-            view.SetVariants(portionOfWordsForTestList);
-            view.SetOriginalWord(rightWord);
+            view.DrawNewVariant(rightWord, portionOfWordsForTestList);
         }
 
         private TestWordItem chooseCorrectWord(List<TestWordItem> portionOfWordsForTestList)
         {
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            int index = rnd.Next(0, portionOfWordsForTestList.Count - 1);
+            int index = rnd.Next(0, portionOfWordsForTestList.Count);
             return portionOfWordsForTestList[index];
 
         }

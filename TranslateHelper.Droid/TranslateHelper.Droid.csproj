@@ -366,4 +366,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\TestScreenButtonSelectorError.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\cotton.png" />
+  </ItemGroup>
 </Project>

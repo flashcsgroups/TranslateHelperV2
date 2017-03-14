@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    android:background="@drawable/cotton">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,14 +28,16 @@
         android:textSize="25sp"
         android:padding="0dp"
         android:text="Example"
-        android:background="#BBDEFB"
-        android:minHeight="50dp" />
+        android:minHeight="50dp"
+        android:background="@color/transparent" />
     <TableLayout
         android:id="@+id/tableLayoutAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|center">
-        <TableRow>
+        android:gravity="center|center"
+        android:background="@color/transparent">
+        <TableRow
+            android:background="@color/transparent">
             <Button
                 android:text="testing"
                 style="@style/TestSelectWordsButtonSubmit"
@@ -46,7 +49,8 @@
                 android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest2" />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:background="@color/transparent">
             <Button
                 android:text="colocation world"
                 style="@style/TestSelectWordsButtonSubmit"
@@ -58,7 +62,8 @@
                 android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest4" />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:background="@color/transparent">
             <Button
                 android:text="i love you"
                 style="@style/TestSelectWordsButtonSubmit"
@@ -70,7 +75,8 @@
                 android:background="@drawable/TestScreenButtonSelector"
                 android:id="@+id/buttonSubmitTest6" />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:background="@color/transparent">
             <Button
                 android:text="go"
                 style="@style/TestSelectWordsButtonSubmit"

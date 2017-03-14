@@ -5,10 +5,8 @@ namespace PortableCore.BL.Views
 {
     public interface ITestSelectWordsView
     {
-        void SetOriginalWord(TestWordItem originalWord);
+        void DrawNewVariant(TestWordItem originalWord, List<TestWordItem> variants);
         void SetButtonErrorState();
-        void SetVariants(List<TestWordItem> variants);
         void SetFinalTest(int countOfTestedWords);
-        void SetButtonNormalState();
     }
 }

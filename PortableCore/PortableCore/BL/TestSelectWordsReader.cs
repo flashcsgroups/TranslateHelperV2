@@ -38,10 +38,16 @@ namespace PortableCore.BL
         }
         private int getRandomDirection(int chatId)
         {
-            var listItems = from item in db.Table<Chat>() where item.ID == chatId && item.DeleteMark == 0 select item;
+            int minimumCountMessages = 10;
+            var listItems = from item in db.Table<ChatHistory>()
+                            where item.ChatID == chatId && item.DeleteMark == 0
+                            group item by item.LanguageFrom into g
+                            select new { LanguageFrom = g.Key, MsgCount = g.Count() };
+            var listItemsWithSuitableCount = from item in listItems where item.MsgCount > minimumCountMessages select item.LanguageFrom;
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            int index = rnd.Next(0, 2);
-            int direction = index == 0 ? listItems.ElementAtOrDefault<Chat>(0).LanguageFrom : listItems.ElementAtOrDefault<Chat>(0).LanguageTo;
+            int index = rnd.Next(0, listItemsWithSuitableCount.Count());
+            //int direction = index == 0 ? listItems.ElementAtOrDefault<Chat>(0).LanguageFrom : listItems.ElementAtOrDefault<Chat>(0).LanguageTo;
+            int direction = listItemsWithSuitableCount.ElementAtOrDefault<int>(index);
             return direction;
         }
 
