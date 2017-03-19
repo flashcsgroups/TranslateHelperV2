@@ -11,13 +11,15 @@ namespace PortableCore.BL.Presenters
     {
         int countOfWords;
         int positionWordInList;
-        //int countOfVariantsWithoutCorrect = 7;//значение по-умолчанию для количества возможных вариантов без учета правильного варианта
         int countOfVariants = 8;//Максимальное количество вариантов
         ITestSelectWordsView view;
         ISQLiteTesting db;
         ITestSelectWordsReader wordsReader;
         int currentChatId;
-        TestWordItem rightWord = new TestWordItem();
+        TestWordItem currentWord = new TestWordItem();
+        List<Tuple<string, bool>> results = new List<Tuple<string, bool>>();
+        internal List<TestWordItem> wordsForTest = new List<TestWordItem>();//Коллекция слов-заданий для тестирования
+        internal int directionIdFrom;//направление перевода для текущего набора тестовых слов-заданий
 
         public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, int currentChatId, int countOfWords)
         {
@@ -30,15 +32,17 @@ namespace PortableCore.BL.Presenters
 
         public void OnSelectVariant(string selectedWord)
         {
-            int diff = string.Compare(selectedWord, rightWord.TextTo, StringComparison.CurrentCultureIgnoreCase);
-            bool checkResult = diff == 0;
-            if (!checkResult)
+            int diff = string.Compare(selectedWord, currentWord.TextTo, StringComparison.CurrentCultureIgnoreCase);
+            bool resultIsRight = diff == 0;
+
+            results.Add(new Tuple<string, bool>(currentWord.TextTo, resultIsRight));
+
+            if (!resultIsRight)
             {
                 view.SetButtonErrorState();
             }
             else
             {
-                //view.SetButtonNormalState();
                 OnSubmit();
             }
         }
@@ -51,29 +55,40 @@ namespace PortableCore.BL.Presenters
                 positionWordInList++;
             } else
             {
-                positionWordInList = 0;
-                view.SetFinalTest(countOfWords);
+                finalizeTest();
             }
         }
 
         public void Init()
         {
+            var favorites = wordsReader.GetRandomFavorites(countOfWords, currentChatId);
+            wordsForTest = favorites.WordsList;
+            directionIdFrom = favorites.languageFromId;
             newVariant();
+            positionWordInList++;
         }
 
         private void newVariant()
         {
-            var portionOfWordsForTestList = wordsReader.GetRandomFavorites(countOfVariants, currentChatId);
-            rightWord = chooseCorrectWord(portionOfWordsForTestList);
-            view.DrawNewVariant(rightWord, portionOfWordsForTestList);
+            if(positionWordInList <= wordsForTest.Count - 1)
+            {
+                currentWord = wordsForTest[positionWordInList];
+                var incorrectWords = wordsReader.GetIncorrectVariants(countOfVariants - 1, currentChatId, directionIdFrom, currentWord.TextFrom);
+                Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+                int index = rnd.Next(0, countOfVariants);
+                incorrectWords.Insert(index, currentWord);
+                view.DrawNewVariant(currentWord, incorrectWords);
+            } else
+            {
+                finalizeTest();
+            }
         }
 
-        private TestWordItem chooseCorrectWord(List<TestWordItem> portionOfWordsForTestList)
+        private void finalizeTest()
         {
-            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            int index = rnd.Next(0, portionOfWordsForTestList.Count);
-            return portionOfWordsForTestList[index];
-
+            positionWordInList = 0;
+            var incorrectWords = results.Where(x => x.Item2 == false).GroupBy(x => x.Item1);
+            view.SetFinalTest(countOfWords, countOfWords - incorrectWords.Count());
         }
     }
 }

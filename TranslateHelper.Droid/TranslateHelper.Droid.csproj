@@ -74,6 +74,7 @@
     <Compile Include="Activities\ChatContextMenuActivity.cs" />
     <Compile Include="Activities\DictionaryChatActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
+    <Compile Include="Activities\TestResultActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +92,9 @@
     </AndroidResource>
     <Compile Include="Adapters\DirectionsAllAdapter.cs" />
     <AndroidResource Include="Resources\layout\ChatContextMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TestResult.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

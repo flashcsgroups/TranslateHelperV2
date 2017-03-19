@@ -35,7 +35,6 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);
             initSubmitButtons();
-            //SetFinalTest(10);
         }
 
         protected override void OnStart()
@@ -76,7 +75,6 @@ namespace TranslateHelper.Droid.Activities
 
         private void Submit_Click(object sender, EventArgs e)
         {
-            //((Button)sender).Click -= Submit_Click;
             if(((Button)sender).Id!=lastSubmittedButton)
             {
                 lastSubmittedButton = ((Button)sender).Id;
@@ -94,13 +92,17 @@ namespace TranslateHelper.Droid.Activities
         {
             var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
             textOriginalWord.Text = originalWord.TextFrom;
-            int buttonIndex = 1;
-            foreach (var variantItem in variants)
+            for(int buttonIndex = 1; buttonIndex <= countOfSubmitButtons; buttonIndex++)
             {
                 Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());
-                submit.Text = variantItem.TextTo;
                 submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
-                buttonIndex++;
+                if(variants.Count <= countOfSubmitButtons)
+                {
+                    submit.Text = variants[buttonIndex - 1].TextTo;
+                } else
+                {
+                    submit.Text = "*error*";
+                }
             }
             lastSubmittedButton = 0;
         }
@@ -137,19 +139,13 @@ namespace TranslateHelper.Droid.Activities
             StartActivity(intent);
         }
 
-        public void SetFinalTest(int countOfTestedWords)
+        public void SetFinalTest(int countOfTotalWords, int countOfRightWords)
         {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this, Resource.Style.FinalTestAlertDialogStyle);
-            alert.SetTitle(Resource.String.msg_tests_repeatOrClose);
-            alert.SetMessage(Resource.String.msg_final_test);
-            alert.SetPositiveButton(Resource.String.msg_repeat, (senderAlert, args) => {
-                presenter.Init();
-            });
-            alert.SetNegativeButton(Resource.String.msg_cancel, (senderAlert, args) => {
-                backToDictionaryChat();
-            });
-            Dialog dialog = alert.Create();
-            dialog.Show();
+            var intentResultTest = new Intent(this, typeof(TestResultActivity));
+            intentResultTest.PutExtra("currentChatId", currentChatId);
+            intentResultTest.PutExtra("countOfRightWords", countOfRightWords);
+            intentResultTest.PutExtra("countOfTotalWords", countOfTotalWords);
+            StartActivity(intentResultTest);
         }
     }
 }

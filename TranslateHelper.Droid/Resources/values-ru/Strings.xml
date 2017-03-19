@@ -4,15 +4,17 @@
   <string name="msg_string_deleted_from_fav">Элемент удален из избранного</string>
   <string name="msg_string_added_to_fav">Элемент добавлен в избранное</string>
   <string name="msg_unknown_expression">Неизвестное выражение, проверьте текст на наличие ошибок</string>
-  <string name="msg_tests_repeatOrClose">Повторить?</string>
+  <string name="DELETE_msg_tests_repeatOrClose">Повторить?</string>
   <string name="msg_warning">Внимание</string>
   <string name="msg_repeat">Повторить</string>
   <string name="msg_ok">Да</string>
   <string name="msg_cancel">Отмена</string>
-  <string name="msg_final_test">Вы успешно завершили тест. Повторить?</string>
+  <string name="msg_final_test">Вы хотите повторить тест?</string>
   <string name="msg_test_select_count_word">Сколько слов хотите проверить?</string>
   <string name="msg_error_try_again">Ошибка, попробуйте снова</string>
   <string name="msg_testselectwords_select">Выберите правильный вариант перевода:</string>
+  <string name="msg_test_finished">Тест завершен!</string>
+  <string name="msg_your_score">Ваш счет:</string>
   <string name="caption_translate_destination">Направление перевода</string>
   <string name="caption_enter_text_for_translate">Текст для перевода</string>
   <string name="caption_btn_translate_destination">Направление</string>
@@ -24,4 +26,5 @@
   <string name="act_testselectwords_caption">Тестирование</string>
   <string name="act_trytoaddfavorites">Недостаточно слов в избранном. Добавьте еще несколько и попробуйте снова</string>
   <string name="act_autochangedestination">Изменить направление перевода?</string>
+  <string name="caption_view_test_result">Результат теста</string>
 </resources>

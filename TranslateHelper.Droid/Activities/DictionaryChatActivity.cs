@@ -140,7 +140,7 @@ namespace TranslateHelper.Droid.Activities
                         actionContextWindow.Dismiss();
                         var item = bubbleAdapter.GetBubbleItemByIndex(selectedMsgIndex);
                         var clipboard = (ClipboardManager)GetSystemService(ClipboardService);
-                        var clip = ClipData.NewPlainText("TranslateHelper", item.TextTo);
+                        ClipData clip = ClipData.NewPlainText("TranslateHelper", item.IsRobotResponse?item.TextTo: item.TextFrom);
                         clipboard.PrimaryClip = clip;
                     }; break;
                 default:

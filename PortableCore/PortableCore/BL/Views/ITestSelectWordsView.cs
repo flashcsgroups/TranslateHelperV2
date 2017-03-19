@@ -7,6 +7,6 @@ namespace PortableCore.BL.Views
     {
         void DrawNewVariant(TestWordItem originalWord, List<TestWordItem> variants);
         void SetButtonErrorState();
-        void SetFinalTest(int countOfTestedWords);
+        void SetFinalTest(int countOfTotalWords, int countOfRightWords);
     }
 }

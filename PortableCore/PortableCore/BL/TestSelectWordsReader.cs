@@ -17,25 +17,36 @@ namespace PortableCore.BL
             db = dbHelper;
         }
 
-        public List<TestWordItem> GetRandomFavorites(int maxCountOfWords, int chatId)
+        public RandomWordsList GetRandomFavorites(int maxCountOfWords, int chatId)
         {
+            RandomWordsList result = new RandomWordsList() { WordsList = new List<TestWordItem>()};
             List<TestWordItem> resultList = new List<TestWordItem>();
-            int languageFromId = getRandomDirection(chatId);
+            result.languageFromId = getRandomDirection(chatId);
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             var listItems = from item in db.Table<ChatHistory>()
                        join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
                        from subFavorites in favorites
-                       where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == languageFromId && item.InFavorites
+                       where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == result.languageFromId && item.InFavorites
                        select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
+            var hashSet = new HashSet<string>();
+            hashSet.Add(string.Empty);
             int countOfItems = listItems.Count();
             for (int i = 0; i < (maxCountOfWords < countOfItems ? maxCountOfWords : countOfItems); i++)
             {
-                int indexOfRecord = rnd.Next(0, countOfItems);
-                var item = new TestWordItem() { TextFrom = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item2.TextFrom), TextTo = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item1.TextTo) };
-                resultList.Add(item);
+                string textFrom = string.Empty;
+                string textTo = string.Empty;
+                while (!hashSet.Add(textFrom))
+                {
+                    int indexOfRecord = rnd.Next(0, countOfItems);
+                    textFrom = listItems.ElementAt(indexOfRecord).Item2.TextFrom;
+                    textTo = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item1.TextTo);
+                }
+                var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
+                result.WordsList.Add(item);
             }
-            return resultList;
+            return result;
         }
+
         private int getRandomDirection(int chatId)
         {
             int minimumCountMessages = 10;
@@ -55,7 +66,7 @@ namespace PortableCore.BL
         {
             var arrayOfWords = textTo.Split(',');
             Random rnd = new Random(arrayOfWords.Count());
-            int index = rnd.Next(arrayOfWords.Count() - 1);
+            int index = rnd.Next(arrayOfWords.Count());
             return arrayOfWords[index].Trim();
         }
 
@@ -88,22 +99,34 @@ namespace PortableCore.BL
                    select subSources != null ? subSources.ID : 0;*/
         }
 
-        public List<string> GetIncorrectVariants(int excludeCorrectSourceId, int countOfIncorrectWords, TranslateDirection direction)
+        public List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord)
         {
-            throw new NotImplementedException();
-            /*var srcDefView = from item in db.Table<SourceExpression>()
-                              join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
-                              from subSources in sources.DefaultIfEmpty()
-                              where (item.ID != excludeCorrectSourceId)&&(item.DirectionID == direction.GetCurrentDirectionId()) 
-                              select subSources.ID;
-
-            var view = from item in db.Table<Favorites>()
-                       join trExprItem in db.Table<TranslatedExpression>() on item.TranslatedExpressionID equals trExprItem.ID into expressions
-                       from subExpressions in expressions.DefaultIfEmpty()
-                       where srcDefView.Contains(subExpressions.SourceDefinitionID)
-                       select subExpressions.TranslatedText;
-
-            return view.Take(countOfIncorrectWords).ToList<string>();*/
+            List<TestWordItem> resultList = new List<TestWordItem>();
+            //int languageFromId = getRandomDirection(chatId);
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            var listItems = from item in db.Table<ChatHistory>()
+                            join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
+                            from subFavorites in favorites
+                            where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == languageFromId && item.InFavorites
+                            select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
+            var hashSet = new HashSet<string>();
+            hashSet.Add(string.Empty);
+            hashSet.Add(correctWord);
+            int countOfItems = listItems.Count();
+            for (int i = 0; i < (countOfIncorrectWords < countOfItems ? countOfIncorrectWords : countOfItems); i++)
+            {
+                string textFrom = string.Empty;
+                string textTo = string.Empty;
+                while (!hashSet.Add(textFrom))
+                {
+                    int indexOfRecord = rnd.Next(0, countOfItems);
+                    textFrom = listItems.ElementAt(indexOfRecord).Item2.TextFrom;
+                    textTo = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item1.TextTo);
+                }
+                var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
+                resultList.Add(item);
+            }
+            return resultList;
         }
 
         public int GetCountDifferenceSources(TranslateDirection direction)
@@ -127,5 +150,10 @@ namespace PortableCore.BL
             Tuple<string, string> pair = new Tuple<string, string>(seItem.Text, translatedText);
             return pair;
         }
+    }
+    public struct RandomWordsList
+    {
+        public List<TestWordItem> WordsList;
+        public int languageFromId;
     }
 }

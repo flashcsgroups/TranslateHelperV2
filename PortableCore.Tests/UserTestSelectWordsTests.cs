@@ -25,18 +25,18 @@ namespace PortableCore.Tests
 
             //act
             TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
-            List<TestWordItem> favoritesList = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
+            var favorites = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
 
             //assert
-            Assert.IsTrue(favoritesList.Count == 10);
+            Assert.IsTrue(favorites.WordsList.Count == 10);
 
             //check distinct
             var hashSet = new HashSet<string>();
-            int factCount = favoritesList.Where(x => hashSet.Add(x.TextFrom)).Count();
+            int factCount = favorites.WordsList.Where(x => hashSet.Add(x.TextFrom)).Count();
             Assert.AreEqual(countOfWordsForTest, factCount , "Присутствуют одинаковые значения");
         }
 
-        [TestCase(3)]
+        [TestCase(5)]
         public void TestMust_GetWordsFromSameDirections(int countOfWordsForTest)
         {
             //arrange
@@ -45,159 +45,51 @@ namespace PortableCore.Tests
 
             //act
             TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
-            List<TestWordItem> favoritesList = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
+            var favorites = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
 
             //assert
-            //Из-за рандомайзера неизвестно сколько будет вариантов, но 1 или 2
-            Assert.IsTrue(favoritesList.Count > 0 && favoritesList.Count <=2, "Вариантов должно быть 1 или 2");
-            if(favoritesList.Count == 2)
-            {
-                Assert.IsTrue(favoritesList[0].TextTo == "TestSp");
-            }
-            else
-            {
-                Assert.IsTrue(favoritesList[0].TextTo == "TestRu");
-            }
-        }
-        /*class MockSQLite : ISQLiteTesting
-        {
-            public IEnumerable<Favorites> Table<Favorites>() where Favorites : IBusinessEntity, new()
-            {
-                List<Favorites> listFav = new List<Favorites>();
-                listFav.Add(new Favorites() { ID = 1});
-                listFav.Add(new Favorites() { ID = 2 });
-                listFav.Add(new Favorites() { ID = 3 });
-                listFav.Add(new Favorites() { ID = 4 });
-                listFav.Add(new Favorites() { ID = 5 });
-                listFav.Add(new Favorites() { ID = 6 });
-                listFav.Add(new Favorites() { ID = 7 });
-                listFav.Add(new Favorites() { ID = 8 });
-                listFav.Add(new Favorites() { ID = 9 });
-                listFav.Add(new Favorites() { ID = 10 });
-                return listFav;
-            }
-        }*/
-
-        [Test]
-        [Ignore("старая структура")]
-        public void TestMust_StartTestAndGetOriginalWord()
-        {
-            //arrange
-            /*int countOfVariants;
-            MockTestSelectWordsActivity testActivity;
-            TestSelectWordsPresenter presenter;
-            InitTestData(out countOfVariants, out testActivity, out presenter);
-
-            //act
-            presenter.StartTest();
-
-            //assert
-            Assert.IsTrue(testActivity.OriginalWord == "test");
-            Assert.IsTrue(testActivity.Variants[0] == "0");*/
+            //Из-за рандомайзера неизвестно сколько будет вариантов, но не больше чем countOfWordsForTest
+            Assert.IsTrue(favorites.WordsList.Count > 0 && favorites.WordsList.Count <= countOfWordsForTest, "Вариантов должно быть 1 или 2");
         }
 
         [Test]
-        [Ignore("старая структура")]
-        public void TestMust_CheckCountVariants()
+        public void TestMust_InitializeWordsForTestInPresenter()
         {
             //arrange
-            /*int countOfVariants;
-            MockTestSelectWordsActivity testActivity;
-            TestSelectWordsPresenter presenter;
-            InitTestData(out countOfVariants, out testActivity, out presenter);
-
-            //act
-            presenter.StartTest();
-
-            //assert
-            Assert.IsTrue(testActivity.Variants.Count == countOfVariants);*/
-        }
-
-        /*[Test]
-        public void TestMust_SuccessfulCheckCorrectVariant()
-        {
-            //arrange
-            int countOfVariants;
-            MockTestSelectWordsActivity testActivity;
-            TestSelectWordsPresenter presenter;
-            InitTestData(out countOfVariants, out testActivity, out presenter);
-
-            //act
-            presenter.StartTest();
-            presenter.OnSelectVariant("тест");
-
-            //assert
-            Assert.IsTrue(testActivity.CheckResult);
-        }*/
-
-        [Test]
-        [Ignore("старая структура")]
-        public void TestMust_GetErrorForMistakeVariant()
-        {
-            //arrange
-            /*int countOfVariants;
-            MockTestSelectWordsActivity testActivity;
-            TestSelectWordsPresenter presenter;
-            InitTestData(out countOfVariants, out testActivity, out presenter);
-
-            //act
-            presenter.StartTest();
-            presenter.OnSelectVariant("вапв");
-
-            //assert
-            Assert.IsFalse(testActivity.CheckResult);*/
-        }
-
-        [Test]
-        [Ignore("старая структура")]
-        public void TestMust_GetFinalMessageText()
-        {
-            //arrange
-            /*int countOfVariants;
-            MockTestSelectWordsActivity testActivity;
-            TestSelectWordsPresenter presenter;
-            InitTestData(out countOfVariants, out testActivity, out presenter);
-
-            //act
-            presenter.StartTest();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-            presenter.OnSelectVariant("тест");
-            //presenter.OnSubmit();
-
-            //assert
-            Assert.IsTrue(testActivity.CountOfTestedWords == 10);*/
-        }
-
-        private void InitTestData(out int countOfVariants, out MockTestSelectWordsActivity testActivity, out TestSelectWordsPresenter presenter)
-        {
-            int countOfWords = 10;
-            countOfVariants = 8;
+            int countOfWords = 10;//общее количество слов для тестирования
+            int maxVariants = 8;//количество вариантов в соответствии с количеством кнопок
             MockSQLite dbHelper = new MockSQLite();
-            testActivity = new MockTestSelectWordsActivity();
+            var testActivity = new MockTestSelectWordsActivity();
             int currentChatId = 1;
-            TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
-            //MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
-            //LanguageManager languageManager = new LanguageManager(dbHelper);
-            //TranslateDirection direction = new TranslateDirection(dbHelper, languageManager);
-            presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, currentChatId, countOfWords);
-            //presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, direction, countOfWords);
+            MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
+            var presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, currentChatId, countOfWords);
+
+            //act
+            presenter.Init();
+
+            //assert
+            Assert.IsTrue(testActivity.Variants.Count == maxVariants);
+            Assert.AreEqual(presenter.wordsForTest.Count, countOfWords);
+            Assert.AreEqual(presenter.directionIdFrom, 1);
+        }
+
+        [Test]
+        public void TestMust_GetErrorForMistake()
+        {
+            //arrange
+            int countOfWords = 10;//общее количество слов для тестирования
+            MockSQLite dbHelper = new MockSQLite();
+            var testActivity = new MockTestSelectWordsActivity();
+            int currentChatId = 1;
+            MockTestSelectWordsReader wordsReader = new MockTestSelectWordsReader();
+            var presenter = new TestSelectWordsPresenter(testActivity, dbHelper, wordsReader, currentChatId, countOfWords);
+            presenter.Init();
+
+            //act
+            presenter.OnSelectVariant("hello!");
+
+            //assert
+            Assert.IsTrue(!testActivity.CheckResult);
         }
     }
 }
