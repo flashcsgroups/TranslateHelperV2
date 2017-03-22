@@ -19,30 +19,38 @@ namespace PortableCore.BL
 
         public RandomWordsList GetRandomFavorites(int maxCountOfWords, int chatId)
         {
-            RandomWordsList result = new RandomWordsList() { WordsList = new List<TestWordItem>()};
+            RandomWordsList result = new RandomWordsList() { WordsList = new List<TestWordItem>() };
             List<TestWordItem> resultList = new List<TestWordItem>();
             result.languageFromId = getRandomDirection(chatId);
-            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             var listItems = from item in db.Table<ChatHistory>()
-                       join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
-                       from subFavorites in favorites
-                       where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == result.languageFromId && item.InFavorites
-                       select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
-            var hashSet = new HashSet<string>();
-            hashSet.Add(string.Empty);
+                            join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
+                            from subFavorites in favorites
+                            where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == result.languageFromId && item.InFavorites
+                            select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
+            result.WordsList = getRandomWordsFromList(maxCountOfWords, listItems);
+            return result;
+        }
+
+        private List<TestWordItem> getRandomWordsFromList(int maxCountOfWords, IEnumerable<Tuple<ChatHistory, ChatHistory>> listItems)
+        {
+            List<TestWordItem> result = new List<TestWordItem>();
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            var indexHashSet = new HashSet<int>();
             int countOfItems = listItems.Count();
+            int indexOfRecord = 0;
             for (int i = 0; i < (maxCountOfWords < countOfItems ? maxCountOfWords : countOfItems); i++)
             {
-                string textFrom = string.Empty;
-                string textTo = string.Empty;
-                while (!hashSet.Add(textFrom))
+                while (!indexHashSet.Add(indexOfRecord))
                 {
-                    int indexOfRecord = rnd.Next(0, countOfItems);
-                    textFrom = listItems.ElementAt(indexOfRecord).Item2.TextFrom;
-                    textTo = separateAndGetRandom(listItems.ElementAt(indexOfRecord).Item1.TextTo);
+                    indexOfRecord = rnd.Next(0, countOfItems);
                 }
+            }
+            foreach(int index in indexHashSet)
+            {
+                string textFrom = listItems.ElementAt(index).Item2.TextFrom;
+                string textTo = separateAndGetRandom(listItems.ElementAt(index).Item1.TextTo);
                 var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
-                result.WordsList.Add(item);
+                result.Add(item);
             }
             return result;
         }
@@ -57,7 +65,6 @@ namespace PortableCore.BL
             var listItemsWithSuitableCount = from item in listItems where item.MsgCount > minimumCountMessages select item.LanguageFrom;
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             int index = rnd.Next(0, listItemsWithSuitableCount.Count());
-            //int direction = index == 0 ? listItems.ElementAtOrDefault<Chat>(0).LanguageFrom : listItems.ElementAtOrDefault<Chat>(0).LanguageTo;
             int direction = listItemsWithSuitableCount.ElementAtOrDefault<int>(index);
             return direction;
         }
@@ -68,35 +75,6 @@ namespace PortableCore.BL
             Random rnd = new Random(arrayOfWords.Count());
             int index = rnd.Next(arrayOfWords.Count());
             return arrayOfWords[index].Trim();
-        }
-
-        private IEnumerable<FavoriteItem> getFavoritesDistinct(IEnumerable<FavoriteItem> view)
-        {
-            throw new NotImplementedException();
-            /*return from item in view
-                   join sourceDefItem in db.Table<SourceDefinition>() on item.SourceDefinitionId equals sourceDefItem.ID into sources
-                   from subSources in sources.DefaultIfEmpty(new SourceDefinition())
-                   select new FavoriteItem() { FavoriteId = item.FavoriteId, TranslatedExpressionId = item.TranslatedExpressionId, SourceDefinitionId = item.SourceDefinitionId, SourceExprId = subSources.SourceExpressionID };*/
-        }
-
-        private IEnumerable<FavoriteItem> getFavoritesBySourceDefinition(IEnumerable<int> srcDefView)
-        {
-            throw new NotImplementedException();
-            /*return from item in db.Table<Favorites>()
-                   join trExprItem in db.Table<TranslatedExpression>() on item.TranslatedExpressionID equals trExprItem.ID into expressions
-                   from subExpressions in expressions.DefaultIfEmpty(new TranslatedExpression())
-                   where srcDefView.Contains(subExpressions.SourceDefinitionID)
-                   select new FavoriteItem() { FavoriteId = item.ID, TranslatedExpressionId = item.TranslatedExpressionID, SourceDefinitionId = subExpressions.SourceDefinitionID };*/
-        }
-
-        private IEnumerable<int> getSourceDefinitionByTranslateDirection(TranslateDirection direction)
-        {
-            throw new NotImplementedException();
-            /*return from item in db.Table<SourceExpression>()
-                   join sourceDefItem in db.Table<SourceDefinition>() on item.ID equals sourceDefItem.SourceExpressionID into sources
-                   from subSources in sources.DefaultIfEmpty(new SourceDefinition())
-                   where item.DirectionID == direction.GetCurrentDirectionId()
-                   select subSources != null ? subSources.ID : 0;*/
         }
 
         public List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord)
@@ -115,6 +93,8 @@ namespace PortableCore.BL
             int countOfItems = listItems.Count();
             for (int i = 0; i < (countOfIncorrectWords < countOfItems ? countOfIncorrectWords : countOfItems); i++)
             {
+                //string textFrom = "testFrom";
+                //string textTo = "testTo";
                 string textFrom = string.Empty;
                 string textTo = string.Empty;
                 while (!hashSet.Add(textFrom))
