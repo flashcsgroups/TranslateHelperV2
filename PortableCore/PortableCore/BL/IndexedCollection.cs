@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace TranslateHelper.Droid
+namespace PortableCore.BL
 {
     //ToDo:Работаем с конкретным типом TranslateResult - можно либо отказаться от генерика, либо переименовать класс во что-то более универсальное
     public class IndexedCollection<T>:IEnumerable<T> where T :IHasLabel, IComparable<T>

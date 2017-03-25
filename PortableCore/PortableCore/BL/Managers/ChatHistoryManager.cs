@@ -56,6 +56,15 @@ namespace PortableCore.BL.Managers
             return resultItem;
         }
 
+        public List<Tuple<ChatHistory, ChatHistory>> GetFavoriteMessages(int selectedChatID)
+        {
+            var view = from item in db.Table<ChatHistory>() 
+                       join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
+                       from subFavorites in favorites
+                       where item.ChatID == selectedChatID && item.InFavorites && item.DeleteMark == 0
+                       orderby item.TextFrom select new Tuple<ChatHistory, ChatHistory> (item, subFavorites);                   
+            return view.ToList();
+        }
         public List<ChatHistory> ReadChatMessages(Chat chatItem)
         {
             var view = from item in db.Table<ChatHistory>() where item.ChatID == chatItem.ID && item.DeleteMark == 0 orderby item.ID ascending select item;
@@ -83,7 +92,7 @@ namespace PortableCore.BL.Managers
         //ToDo: Доделать сообщение о поиске под разные языки
         public string GetSearchMessage(Language languageFrom)
         {
-            return "Роюсь в словаре...";
+            return languageFrom.NameEng + ". Роюсь в словаре...";
         }
     }
 }

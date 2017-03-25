@@ -72,11 +72,16 @@ namespace PortableCore.Tests
                 throw new NotImplementedException();
             }
 
+            public void ShowToast(string messageText)
+            {
+                throw new NotImplementedException();
+            }
+
             public void UpdateBackground(string v)
             {
             }
 
-            public void UpdateChat(List<BubbleItem> listBubbles)
+            public void UpdateChat(List<BubbleItem> listBubbles, int setPositionItemIndex)
             {
                 this.ListBubbles = listBubbles;
             }
@@ -135,6 +140,11 @@ namespace PortableCore.Tests
                 throw new NotImplementedException();
             }
 
+            public List<ChatHistory> GetFavoriteMessages(int selectedChatID)
+            {
+                throw new NotImplementedException();
+            }
+
             public ChatHistory GetItemForId(int id)
             {
                 throw new NotImplementedException();
@@ -171,6 +181,11 @@ namespace PortableCore.Tests
             public int SaveItem(ChatHistory item)
             {
                 return 1;
+            }
+
+            List<Tuple<ChatHistory, ChatHistory>> IChatHistoryManager.GetFavoriteMessages(int selectedChatID)
+            {
+                throw new NotImplementedException();
             }
         }
 

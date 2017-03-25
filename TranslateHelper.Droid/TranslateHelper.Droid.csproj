@@ -71,31 +71,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ChatContextMenuActivity.cs" />
     <Compile Include="Activities\DictionaryChatActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
+    <Compile Include="Activities\TestResultActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
-    <Compile Include="DynamicResultViewLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Activities\FavoritesActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Activities\SelectTestLevelActivity.cs" />
     <Compile Include="SplashScreen.cs" />
-    <None Include="Activities\TestSelectWordsActivity.cs" />
+    <Compile Include="Activities\TestSelectWordsActivity.cs" />
     <Compile Include="Adapters\FavoritesAdapter.cs" />
-    <Compile Include="IndexedCollection.cs" />
-    <Compile Include="Adapters\TestSelectWordsAdapter.cs" />
+    <None Include="Adapters\TestSelectWordsAdapter_CHECK.cs" />
     <Compile Include="TogglesSoftKeyboard.cs" />
-    <Compile Include="Adapters\TranslateResultVewVariantAdapter.cs" />
-    <AndroidResource Include="Resources\layout\TranslateResultHeader.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <Compile Include="TranslateServiceResult.cs" />
-    <Compile Include="FavoritesItem.cs" />
     <AndroidResource Include="Resources\layout\DirectionsAllListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <Compile Include="Adapters\DirectionsAllAdapter.cs" />
+    <AndroidResource Include="Resources\layout\ChatContextMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TestResult.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -109,9 +110,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
-    <AndroidResource Include="Resources\layout\TranslateResultVariant.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\SelectTestLevel.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -368,5 +366,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-mdpi\v6change.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TestScreenButtonSelectorError.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\cotton.png" />
   </ItemGroup>
 </Project>

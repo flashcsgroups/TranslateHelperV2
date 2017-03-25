@@ -9,33 +9,37 @@ namespace PortableCore.BL.Presenters
 {
     public class TestSelectWordsPresenter
     {
-        int maxCountOfWords;
         int countOfWords;
         int positionWordInList;
-        int countOfVariantsWithoutCorrect = 7;//значение по-умолчанию для количества возможных вариантов без учета правильного варианта
+        int countOfVariants = 8;//Максимальное количество вариантов
         ITestSelectWordsView view;
         ISQLiteTesting db;
         ITestSelectWordsReader wordsReader;
-        TranslateDirection direction;
-        List<FavoriteItem> favoritesList;
-        string rightWord;
+        int currentChatId;
+        TestWordItem currentWord = new TestWordItem();
+        List<Tuple<string, bool>> results = new List<Tuple<string, bool>>();
+        internal List<TestWordItem> wordsForTest = new List<TestWordItem>();//Коллекция слов-заданий для тестирования
+        internal int directionIdFrom;//направление перевода для текущего набора тестовых слов-заданий
 
-        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, TranslateDirection direction, int maxCountOfWords)
+        public TestSelectWordsPresenter(ITestSelectWordsView view, ISQLiteTesting db, ITestSelectWordsReader wordsReader, int currentChatId, int countOfWords)
         {
             this.view = view;
             this.db = db;
             this.wordsReader = wordsReader;
-            this.maxCountOfWords = maxCountOfWords;
-            this.direction = direction;
+            this.countOfWords = countOfWords;
+            this.currentChatId = currentChatId;
         }
 
         public void OnSelectVariant(string selectedWord)
         {
-            int diff = string.Compare(selectedWord, rightWord, StringComparison.CurrentCultureIgnoreCase);
-            bool checkResult = diff == 0;
-            if (!checkResult)
+            int diff = string.Compare(selectedWord, currentWord.TextTo, StringComparison.CurrentCultureIgnoreCase);
+            bool resultIsRight = diff == 0;
+
+            results.Add(new Tuple<string, bool>(currentWord.TextTo, resultIsRight));
+
+            if (!resultIsRight)
             {
-                view.SetCheckError();
+                view.SetButtonErrorState();
             }
             else
             {
@@ -45,51 +49,46 @@ namespace PortableCore.BL.Presenters
 
         private void OnSubmit()
         {
-            if(positionWordInList < countOfWords)
+            if (positionWordInList < countOfWords)
             {
-                Tuple<string, string> nextPair = getNextPair();
-                rightWord = nextPair.Item2;
-                view.SetOriginalWord(nextPair.Item1);
-                var variantsArray = getIncorrectWord(favoritesList[positionWordInList].SourceExprId, countOfVariantsWithoutCorrect);
-                addToVariantsCorrectWord(variantsArray, rightWord);
-                view.SetVariants(variantsArray);
+                newVariant();
                 positionWordInList++;
             } else
             {
-                positionWordInList = 0;
-                view.SetFinalTest(countOfWords);
+                finalizeTest();
             }
         }
 
-        private void addToVariantsCorrectWord(List<string> variantsArray, string rightWord)
+        public void Init()
         {
-            int count = variantsArray.Count;
-            if (count > 0)
+            var favorites = wordsReader.GetRandomFavorites(countOfWords, currentChatId);
+            wordsForTest = favorites.WordsList;
+            directionIdFrom = favorites.languageFromId;
+            newVariant();
+            positionWordInList++;
+        }
+
+        private void newVariant()
+        {
+            if(positionWordInList <= wordsForTest.Count - 1)
             {
+                currentWord = wordsForTest[positionWordInList];
+                var incorrectWords = wordsReader.GetIncorrectVariants(countOfVariants - 1, currentChatId, directionIdFrom, currentWord.TextFrom);
                 Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                int indexOfRecord = rnd.Next(0, count - 1);
-                variantsArray.Insert(indexOfRecord, rightWord);
+                int index = rnd.Next(0, countOfVariants);
+                incorrectWords.Insert(index, currentWord);
+                view.DrawNewVariant(currentWord, incorrectWords);
+            } else
+            {
+                finalizeTest();
             }
-            //else throw new Exception("Error adding correct word");
         }
 
-        private List<string> getIncorrectWord(int rightWordSourceExpr, int countOfIncorrectWords)
+        private void finalizeTest()
         {
-            return wordsReader.GetIncorrectVariants(rightWordSourceExpr, countOfIncorrectWords, direction);
-        }
-
-        public void StartTest()
-        {
-            favoritesList = wordsReader.GetRandomFavorites(maxCountOfWords, direction);
-            countOfWords = favoritesList.Count();
-            OnSubmit();
-        }
-
-        private Tuple<string, string> getNextPair()
-        {
-            var item = favoritesList[positionWordInList];
-            Tuple<string, string> nextPair = wordsReader.GetNextWord(item.TranslatedExpressionId);
-            return nextPair;
+            positionWordInList = 0;
+            var incorrectWords = results.Where(x => x.Item2 == false).GroupBy(x => x.Item1);
+            view.SetFinalTest(countOfWords, countOfWords - incorrectWords.Count());
         }
     }
 }

@@ -41,6 +41,7 @@
     <Compile Include="BL\Contracts\TranslateResultView.cs" />
     <Compile Include="BL\DetectInputLanguage.cs" />
     <Compile Include="BL\DictionaryWelcomeMsg.cs" />
+    <Compile Include="BL\IndexedCollection.cs" />
     <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
     <Compile Include="BL\Managers\IChatHistoryManager.cs" />
@@ -51,7 +52,14 @@
     <Compile Include="BL\Models\DirectionsRecentItem.cs" />
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
+    <Compile Include="BL\Models\TestWordItem.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
+    <Compile Include="BL\Presenters\SelectTestLevelPresenter.cs" />
+    <Compile Include="BL\Presenters\FavoritesPresenter.cs" />
+    <Compile Include="BL\Presenters\TestResultPresenter.cs" />
+    <Compile Include="BL\Views\ISelectTestLevelView.cs" />
+    <Compile Include="BL\Views\IFavoritesView.cs" />
+    <Compile Include="BL\Views\ITestResultView.cs" />
     <Compile Include="DL\Chat.cs" />
     <Compile Include="DL\ChatHistory.cs" />
     <Compile Include="BL\Views\IDirectionsView.cs" />
@@ -67,11 +75,9 @@
     <Compile Include="DAL\CachedResultWriter.cs" />
     <Compile Include="DAL\SqlLiteInstance.cs" />
     <Compile Include="DL\DefinitionTypes.cs" />
-    <Compile Include="DL\Favorites.cs" />
     <Compile Include="DL\ISQLiteTesting.cs" />
     <Compile Include="DL\Language.cs" />
     <Compile Include="BL\Managers\DefinitionTypesManager.cs" />
-    <Compile Include="BL\Managers\FavoritesManager.cs" />
     <Compile Include="BL\Managers\SourceExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslatedExpressionManager.cs" />
     <Compile Include="BL\Managers\TranslateProviderManager.cs" />
@@ -89,6 +95,7 @@
     <Compile Include="WS\TranslateRequest.cs" />
     <Compile Include="BL\Contracts\TranslateRequestResult.cs" />
     <Compile Include="WS\TypeTranslateServices.cs" />
+    <Compile Include="WS\YandexApiKeyHelper.cs" />
     <Compile Include="WS\YandexDictionaryJSON.cs" />
     <Compile Include="WS\Contracts\YandexDictionaryScheme.cs" />
     <Compile Include="WS\YandexTranslateJSON.cs" />

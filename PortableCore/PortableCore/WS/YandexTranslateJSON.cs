@@ -13,8 +13,6 @@ namespace PortableCore.WS
 {
     public class YandexTranslateJSON : TranslateRequestFactory
     {
-        //ToDo:Перенести в настройки для хранения в базе
-        private string AuthKey = "trnsl.1.1.20150918T114904Z.45ab265b9b9ac49d.d4de7a7a003321c5af46dc22110483b086b8125f";
         private string sourceString;
 
         public override void SetSourceString(string sourceString)
@@ -24,7 +22,8 @@ namespace PortableCore.WS
 
         public override async Task<string> GetResponse(string direction)
         {
-            string url = string.Format("https://translate.yandex.net/api/v1.5/tr.json/translate?key={0}&text={1}&lang={2}&format=plain", AuthKey, sourceString, direction);
+            YandexApiKeyHelper yandexKeyHelper = new YandexApiKeyHelper();
+            string url = string.Format("https://translate.yandex.net/api/v1.5/tr.json/translate?key={0}&text={1}&lang={2}&format=plain", yandexKeyHelper.GetTranslateApiKey(), sourceString, direction);
             return await GetJsonResponse(url);
         }
 

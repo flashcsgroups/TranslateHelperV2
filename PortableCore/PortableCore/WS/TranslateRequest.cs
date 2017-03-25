@@ -50,8 +50,10 @@ namespace PortableCore.WS
                 RequestResult.errorDescription = e.Message;
             }
 
-            if(string.IsNullOrEmpty(RequestResult.errorDescription))
-                RequestResult.SetTranslateResult(translater.Parse(responseText));
+            //if (string.IsNullOrEmpty(RequestResult.errorDescription))
+            //ToDo:логировать ошибку запроса
+            //if (RequestResult.TranslatedData.Definitions.Count > 0)
+            RequestResult.SetTranslateResult(translater.Parse(responseText));
 
             return RequestResult;
         }

@@ -84,7 +84,7 @@ namespace PortableCore.BL.Presenters
         {
             requestReference = new goTranslateRequest(translateRequest);
             var listBubbles = getListBubbles();
-            view.UpdateChat(listBubbles);
+            view.UpdateChat(listBubbles, listBubbles.Count + 1);
             if(listBubbles.Count == 0)
             {
                 DictionaryWelcomeMsg welcome = new DictionaryWelcomeMsg(currentLocaleShort);
@@ -129,7 +129,8 @@ namespace PortableCore.BL.Presenters
                 invertDirectionIfNeedForRussianLocaleOnly(preparedTextForRequest);
                 int requestId = addUserMsgToChatHistory(preparedTextForRequest);
                 addRobotMsgToChatHistory(true, string.Empty, requestId);
-                view.UpdateChat(getListBubbles());
+                var listBubbles = getListBubbles();
+                view.UpdateChat(listBubbles, listBubbles.Count + 1);
                 startRequestWithValidation(preparedTextForRequest, requestId);
             }
         }
@@ -139,13 +140,15 @@ namespace PortableCore.BL.Presenters
             Direction.Invert();
         }
 
-        public void InvertFavoriteState(BubbleItem bubbleItem)
+        public void InvertFavoriteState(BubbleItem bubbleItem, int positionOfSelectedItem)
         {
             var item = chatHistoryManager.GetItemForId(bubbleItem.HistoryRowId);
             if(item != null)
             {
                 item.InFavorites = !item.InFavorites;
                 chatHistoryManager.SaveItem(item);
+                bubbleItem.InFavorites = item.InFavorites;
+                view.UpdateChat(getListBubbles(), positionOfSelectedItem);
             }
         }
 
@@ -167,7 +170,6 @@ namespace PortableCore.BL.Presenters
             ChatHistory item = new ChatHistory();
             item.ChatID = selectedChatID;
             item.UpdateDate = DateTime.Now;
-            //item.TextTo = useDefaultWaitMessage ? "Роюсь в словаре..." : robotText;
             item.TextTo = useDefaultWaitMessage ? chatHistoryManager.GetSearchMessage(Direction.LanguageFrom) : robotText;
             item.LanguageFrom = Direction.LanguageFrom.ID;
             item.LanguageTo = Direction.LanguageTo.ID;
@@ -220,10 +222,11 @@ namespace PortableCore.BL.Presenters
             }
         }
 
-        public void DeleteBubbleFromChat(BubbleItem bubbleItem)
+        public void DeleteBubbleFromChat(BubbleItem bubbleItem, int newItemIndex)
         {
             chatHistoryManager.DeleteItemById(bubbleItem.HistoryRowId);
-            view.UpdateChat(getListBubbles());
+            var listBubbles = getListBubbles();
+            view.UpdateChat(listBubbles, newItemIndex);
         }
 
         private async Task startRequestWithValidation(string preparedTextForRequest, int requestId)
@@ -265,23 +268,44 @@ namespace PortableCore.BL.Presenters
             if (!string.IsNullOrEmpty(originalText))
             {
                 TranslateRequestRunner reqRunner = getRequestRunner(Direction, requestId);
-                TranslateRequestResult reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
-                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
-                {
-                    reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
-                }
+                TranslateRequestResult reqResult = await getTranslateResult(originalText, reqRunner);
 
                 if (string.IsNullOrEmpty(reqResult.errorDescription))
                 {
                     addToDBRobotResponse(reqResult, requestId);
-                    view.UpdateChat(getListBubbles());
-                    //TogglesSoftKeyboard.Hide(this);
+                    var listBubbles = getListBubbles();
+                    view.UpdateChat(listBubbles, listBubbles.Count + 1);
                 }
                 else
                 {
-                    //Toast.MakeText(this, reqResult.errorDescription, ToastLength.Long).Show();
+                    view.ShowToast(reqResult.errorDescription);
                 }
             }
+        }
+
+        private async Task<TranslateRequestResult> getTranslateResult(string originalText, TranslateRequestRunner reqRunner)
+        {
+            TranslateRequestResult reqResult;
+
+            //предполагаю, если уж встретили пробел, то вероятость того, что это не слово, а предложение, больше
+            //попытаемся сначала в сервисе перевода перевести и только потом уже пробуем сервис словаря
+            if (originalText.Contains(" "))
+            {
+                reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
+                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
+                }
+            }
+            else
+            {
+                reqResult = await reqRunner.GetDictionaryResult(originalText, Direction);
+                if (string.IsNullOrEmpty(reqResult.errorDescription) && (reqResult.TranslatedData.Definitions.Count == 0))
+                {
+                    reqResult = await reqRunner.GetTranslationResult(originalText, Direction);
+                }
+            }
+            return reqResult;
         }
 
         private List<BubbleItem> getListBubbles()

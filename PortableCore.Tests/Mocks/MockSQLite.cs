@@ -21,7 +21,7 @@ namespace PortableCore.Tests.Mocks
             }
             if (type == typeof(ChatHistory))
             {
-                listItems = getMockedDataForLastChats() as List<T>;
+                listItems = getMockedDataForChatHistory() as List<T>;
             }
             if (type == typeof(Chat))
             {
@@ -31,13 +31,38 @@ namespace PortableCore.Tests.Mocks
             return listItems;
         }
 
-        private List<ChatHistory> getMockedDataForLastChats()
+        private List<ChatHistory> getMockedDataForChatHistory()
         {
             List<ChatHistory> listObj = new List<ChatHistory>();
-            listObj.Add(new ChatHistory() { ID = 1, ChatID = 1 });
-            listObj.Add(new ChatHistory() { ID = 2, ChatID = 2 });
-            listObj.Add(new ChatHistory() { ID = 3, ChatID = 3 });
+            //данные для проверки рандомной выборки
+            int maxId = 0;
+            for (int x = 1; x<=2000; x++)
+            {
+                fillTestItemsInChatHistory(listObj, ref maxId, 1, 1, 2);
+            }
+
+            //данные для проверки порядка выборки
+            fillTestItemsInChatHistory(listObj, ref maxId, 2, 3, 1);
+
+            //данные для проверки выборки сообщений одного направления
+            for (int x = 1; x <= 20; x++)
+            {
+                fillTestItemsInChatHistory(listObj, ref maxId, 3, 1, 4);
+            }
+            for (int x = 1; x <= 20; x++)
+            {
+                fillTestItemsInChatHistory(listObj, ref maxId, 3, 4, 1);
+            }
             return listObj;
+        }
+
+        private static int fillTestItemsInChatHistory(List<ChatHistory> objectsList, ref int maxId, int chatId, int LanguageFrom, int LanguageTo)
+        {
+            objectsList.Add(new ChatHistory() { ID = maxId, ChatID = chatId, InFavorites = false, LanguageFrom = LanguageFrom, LanguageTo = LanguageTo, TextFrom = "test" + maxId.ToString(), TextTo = string.Empty, UpdateDate = DateTime.Now });
+            maxId++;
+            objectsList.Add(new ChatHistory() { ParentRequestID = maxId - 1, ID = maxId, ChatID = chatId, InFavorites = true, LanguageFrom = LanguageFrom, LanguageTo = LanguageTo, TextFrom = string.Empty, TextTo = "test" + maxId.ToString(), UpdateDate = DateTime.Now });
+            maxId++;
+            return maxId;
         }
 
         private List<Language> getMockedDataForLanguage()
@@ -52,6 +77,7 @@ namespace PortableCore.Tests.Mocks
             List<Chat> listObj = new List<Chat>();
             listObj.Add(new Chat() { ID = 1, UpdateDate = DateTime.Now.Add(new TimeSpan(-1, 0, 0, 0)), LanguageFrom = 1, LanguageTo = 2 });
             listObj.Add(new Chat() { ID = 2, UpdateDate = DateTime.Now.Add(new TimeSpan(-1, 0, 0, 0)), LanguageFrom = 2, LanguageTo = 3 });
+            listObj.Add(new Chat() { ID = 3, UpdateDate = DateTime.Now.Add(new TimeSpan(-10, 0, 0, 0)), LanguageFrom = 1, LanguageTo = 4 });//ru->sp
             return listObj;
         }
     }

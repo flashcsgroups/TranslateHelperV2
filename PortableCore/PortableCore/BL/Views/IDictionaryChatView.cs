@@ -8,8 +8,9 @@ namespace PortableCore.BL.Views
 {
     public interface IDictionaryChatView
     {
-        void UpdateChat(List<BubbleItem> listBubbles);
+        void UpdateChat(List<BubbleItem> listBubbles, int setPositionItemIndex);
         void UpdateBackground(string v);
         void HideButtonForSwapLanguage();
+        void ShowToast(string messageText);
     }
 }

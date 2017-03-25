@@ -24,7 +24,6 @@ namespace PortableCore.DAL
         }
 
         //ToDo:Нужен общий обработчик ошибок
-        //ToDo:Тест!
         public void SaveResultToLocalCacheIfNotExist(TranslateRequestResult result)
         {
             if (string.IsNullOrEmpty(result.errorDescription))
@@ -84,7 +83,6 @@ namespace PortableCore.DAL
             var savedSourceDefinitionsItems = from item in SqlLiteInstance.DB.Table<SourceDefinition>()
                                               where (item.SourceExpressionID == sourceItemID) && (item.DefinitionTypeID == (int)curDefinition.Pos) && (item.DeleteMark == 0)
                                               select new SourceDefinition() { ID = item.ID, DefinitionTypeID = item.DefinitionTypeID, DeleteMark = item.DeleteMark, SourceExpressionID = item.SourceExpressionID, TranscriptionText = item.TranscriptionText };
-            //ToDo:Просто жесть. Я в тупике, почему ни метод Save ни Insert не возвращают ИД записанного элемента, не понимаю.
             int id = 0;
             var firstItem = savedSourceDefinitionsItems.FirstOrDefault();
             if (firstItem != null)

@@ -7,8 +7,8 @@ namespace PortableCore.BL
 {
     public interface ITestSelectWordsReader
     {
-        List<string> GetIncorrectVariants(int excludeCorrectSourceId, int countOfIncorrectWords, TranslateDirection direction);
-        List<FavoriteItem> GetRandomFavorites(int countOfWords, TranslateDirection direction);
+        List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord);
+        RandomWordsList GetRandomFavorites(int countOfWords, int chatId);
         int GetCountDifferenceSources(TranslateDirection direction);
         Tuple<string, string> GetNextWord(int translatedExpressionID);
     }
