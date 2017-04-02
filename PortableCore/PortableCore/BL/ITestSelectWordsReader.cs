@@ -9,7 +9,6 @@ namespace PortableCore.BL
     {
         List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord);
         RandomWordsList GetRandomFavorites(int countOfWords, int chatId);
-        int GetCountDifferenceSources(TranslateDirection direction);
         Tuple<string, string> GetNextWord(int translatedExpressionID);
     }
 }

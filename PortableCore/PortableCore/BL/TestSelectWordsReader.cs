@@ -12,6 +12,7 @@ namespace PortableCore.BL
     public class TestSelectWordsReader : ITestSelectWordsReader
     {
         ISQLiteTesting db;
+        private static Random rng = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
         public TestSelectWordsReader(ISQLiteTesting dbHelper)
         {
             db = dbHelper;
@@ -27,32 +28,42 @@ namespace PortableCore.BL
                             from subFavorites in favorites
                             where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == result.languageFromId && item.InFavorites
                             select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
-            result.WordsList = getRandomWordsFromList(maxCountOfWords, listItems);
+            result.WordsList = getRandomWordsFromList(maxCountOfWords, listItems.ToArray());
             return result;
         }
 
-        private List<TestWordItem> getRandomWordsFromList(int maxCountOfWords, IEnumerable<Tuple<ChatHistory, ChatHistory>> listItems)
+        private List<TestWordItem> getRandomWordsFromList(int maxCountOfWords, Tuple<ChatHistory, ChatHistory>[] arrayItems)
         {
             List<TestWordItem> result = new List<TestWordItem>();
-            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            var indexHashSet = new HashSet<int>();
-            int countOfItems = listItems.Count();
-            int indexOfRecord = 0;
-            for (int i = 0; i < (maxCountOfWords < countOfItems ? maxCountOfWords : countOfItems); i++)
+            int n = arrayItems.Count();
+            while (n > 1)
             {
-                while (!indexHashSet.Add(indexOfRecord))
+                n--;
+                int k = rng.Next(n + 1);
+                var value = arrayItems[k];
+                arrayItems[k] = arrayItems[n];
+                arrayItems[n] = value;
+
+                if(result.Count < maxCountOfWords)
                 {
-                    indexOfRecord = rnd.Next(0, countOfItems);
+                    string textFrom = arrayItems[n].Item2.TextFrom;
+                    string textTo = separateAndGetRandom(arrayItems[n].Item1.TextTo);
+                    var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
+                    result.Add(item);
                 }
             }
-            foreach(int index in indexHashSet)
-            {
-                string textFrom = listItems.ElementAt(index).Item2.TextFrom;
-                string textTo = separateAndGetRandom(listItems.ElementAt(index).Item1.TextTo);
-                var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
-                result.Add(item);
-            }
             return result;
+        }
+        public List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord)
+        {
+            List<TestWordItem> resultList = new List<TestWordItem>();
+            var listItems = from item in db.Table<ChatHistory>()
+                            join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
+                            from subFavorites in favorites
+                            where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == languageFromId && item.InFavorites
+                            select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
+            resultList = getRandomWordsFromList(countOfIncorrectWords, listItems.ToArray());
+            return resultList;
         }
 
         private int getRandomDirection(int chatId)
@@ -77,10 +88,9 @@ namespace PortableCore.BL
             return arrayOfWords[index].Trim();
         }
 
-        public List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord)
+        public List<TestWordItem> GetIncorrectVariantsOld(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord)
         {
             List<TestWordItem> resultList = new List<TestWordItem>();
-            //int languageFromId = getRandomDirection(chatId);
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             var listItems = from item in db.Table<ChatHistory>()
                             join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
@@ -93,8 +103,6 @@ namespace PortableCore.BL
             int countOfItems = listItems.Count();
             for (int i = 0; i < (countOfIncorrectWords < countOfItems ? countOfIncorrectWords : countOfItems); i++)
             {
-                //string textFrom = "testFrom";
-                //string textTo = "testTo";
                 string textFrom = string.Empty;
                 string textTo = string.Empty;
                 while (!hashSet.Add(textFrom))
@@ -107,15 +115,6 @@ namespace PortableCore.BL
                 resultList.Add(item);
             }
             return resultList;
-        }
-
-        public int GetCountDifferenceSources(TranslateDirection direction)
-        {
-            throw new NotImplementedException();
-            /*return (from item in db.Table<SourceExpression>()
-                   where item.DeleteMark == 0 && item.DirectionID == direction.GetCurrentDirectionId()
-                   select item.ID).Count();*/
-            
         }
 
         public Tuple<string, string> GetNextWord(int translatedExpressionID)

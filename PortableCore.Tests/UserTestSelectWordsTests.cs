@@ -26,6 +26,7 @@ namespace PortableCore.Tests
             //act
             TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
             var favorites = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
+            throw new Exception("Тест вообще неверный, я тестирую мок, а надо реальный GetRandomFavorites! Хрень какая-то!");
 
             //assert
             Assert.IsTrue(favorites.WordsList.Count == 10);
@@ -47,9 +48,32 @@ namespace PortableCore.Tests
             TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
             var favorites = wordsReader.GetRandomFavorites(countOfWordsForTest, currentChatId);
 
+            throw new Exception("Тест вообще неверный, я тестирую мок, а надо реальный GetRandomFavorites! Хрень какая-то!");
+
             //assert
             //Из-за рандомайзера неизвестно сколько будет вариантов, но не больше чем countOfWordsForTest
             Assert.IsTrue(favorites.WordsList.Count > 0 && favorites.WordsList.Count <= countOfWordsForTest, "Вариантов должно быть 1 или 2");
+        }
+
+        [Test]
+        public void TestMust_GetIncorrectVariants()
+        {
+            //arrange
+            MockSQLite dbHelper = new MockSQLite();
+            int currentChatId = 3;
+            int countOfIncorrectWords = 7;
+            int languageFromId = 1;
+            string correctWord = "ok";
+
+            //act
+            TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
+            var wordsList = wordsReader.GetIncorrectVariants(countOfIncorrectWords, currentChatId, languageFromId, correctWord);
+
+            //Сейчас реальна ситуация когда слова дублируются, это надо проверять тестом
+            throw new Exception("Тест вообще неверный, я тестирую мок, а надо реальный GetIncorrectVariants! Хрень какая-то!");
+            //assert
+            Assert.IsTrue(wordsList.Count > 0 && wordsList.Count <= countOfIncorrectWords, "Вариантов должно быть до " + countOfIncorrectWords.ToString());
+            //Assert.IsTrue(wordsList.Contains();
         }
 
         [Test]
