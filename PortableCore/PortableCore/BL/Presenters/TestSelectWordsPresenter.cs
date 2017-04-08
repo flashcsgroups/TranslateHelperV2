@@ -9,13 +9,13 @@ namespace PortableCore.BL.Presenters
 {
     public class TestSelectWordsPresenter
     {
-        int countOfWords;
+        readonly int countOfWords;
         int positionWordInList;
-        int countOfVariants = 8;//Максимальное количество вариантов
-        ITestSelectWordsView view;
-        ISQLiteTesting db;
-        ITestSelectWordsReader wordsReader;
-        int currentChatId;
+        readonly int countOfVariants = 8;//Максимальное количество вариантов
+        readonly ITestSelectWordsView view;
+        readonly ISQLiteTesting db;
+        readonly ITestSelectWordsReader wordsReader;
+        readonly int currentChatId;
         TestWordItem currentWord = new TestWordItem();
         List<Tuple<string, bool>> results = new List<Tuple<string, bool>>();
         internal List<TestWordItem> wordsForTest = new List<TestWordItem>();//Коллекция слов-заданий для тестирования

@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="ConvertStringTests.cs" />
     <Compile Include="DirectionsPresenterTests.cs" />
+    <Compile Include="Mocks\ChatHistoryObject.cs" />
     <Compile Include="Mocks\MockLanguageManager.cs" />
     <Compile Include="Mocks\MockSQLite.cs" />
     <Compile Include="Mocks\MockTestSelectWordsActivity.cs" />

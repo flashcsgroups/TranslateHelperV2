@@ -56,24 +56,26 @@ namespace PortableCore.Tests
         }
 
         [Test]
-        public void TestMust_GetIncorrectVariants()
+        public void TestMust_GetIncorrectVariantsWithNoCorrectVariant()
         {
             //arrange
-            MockSQLite dbHelper = new MockSQLite();
             int currentChatId = 3;
             int countOfIncorrectWords = 7;
             int languageFromId = 1;
-            string correctWord = "ok";
+            string correctWord = "test";
+            ChatHistoryBuilder builder = new ConcreteChatHistoryBuilder();
+            MockSQLite dbHelper = new MockSQLite();
+            var list1 = builder.CreateChatHistory().SetChatId(currentChatId).SetLanguageFrom(languageFromId).SetLanguageTo(2).SetFavoriteState(true).SetCount(7).AddItems(0);
+            var list2 = builder.SetChatId(currentChatId).SetLanguageFrom(languageFromId).SetLanguageTo(2).SetFavoriteState(true).SetCount(1).SetTextFrom(correctWord).SetTextTo("to").AddItems(list1[list1.Count - 1].ID + 1);
+            dbHelper.ItemsChatHistory = list2;
 
             //act
             TestSelectWordsReader wordsReader = new TestSelectWordsReader(dbHelper);
             var wordsList = wordsReader.GetIncorrectVariants(countOfIncorrectWords, currentChatId, languageFromId, correctWord);
 
-            //Сейчас реальна ситуация когда слова дублируются, это надо проверять тестом
-            throw new Exception("Тест вообще неверный, я тестирую мок, а надо реальный GetIncorrectVariants! Хрень какая-то!");
             //assert
-            Assert.IsTrue(wordsList.Count > 0 && wordsList.Count <= countOfIncorrectWords, "Вариантов должно быть до " + countOfIncorrectWords.ToString());
-            //Assert.IsTrue(wordsList.Contains();
+            Assert.IsTrue(wordsList.Count > 0 && wordsList.Count == countOfIncorrectWords, "Вариантов должно быть " + countOfIncorrectWords.ToString());
+            Assert.IsFalse(wordsList.Exists(x=>x.TextFrom == correctWord));
         }
 
         [Test]

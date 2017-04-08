@@ -14,6 +14,7 @@ using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
 using PortableCore.BL;
+using System.Globalization;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -58,7 +59,7 @@ namespace TranslateHelper.Droid.Activities
 			var adapter = new FavoritesAdapter (this);
 			foreach (var e in sortedObjects.OrderBy(de => de.Key)) {
 				var section = e.Value;
-				var label = e.Key.Trim ().Length > 0 ? e.Key.ToUpper () : "Error:" + " (" + section.Count.ToString () + ")";
+				var label = e.Key.Trim ().Length > 0 ? e.Key.ToUpper (CultureInfo.CurrentCulture) : "Error:" + " (" + section.Count.ToString () + ")";
 				adapter.AddSection (label, new ArrayAdapter<T> (this, Resource.Layout.FavoritesSectionListItem, Resource.Id.SourceTextView, section));
 			}
 			return adapter;

@@ -28,15 +28,15 @@ namespace PortableCore.BL
                             from subFavorites in favorites
                             where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == result.languageFromId && item.InFavorites
                             select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
-            result.WordsList = getRandomWordsFromList(maxCountOfWords, listItems.ToArray());
+            result.WordsList = getRandomWordsFromList(maxCountOfWords, string.Empty, listItems.ToArray());
             return result;
         }
 
-        private List<TestWordItem> getRandomWordsFromList(int maxCountOfWords, Tuple<ChatHistory, ChatHistory>[] arrayItems)
+        private List<TestWordItem> getRandomWordsFromList(int maxCountOfWords, string correctWord, Tuple<ChatHistory, ChatHistory>[] arrayItems)
         {
             List<TestWordItem> result = new List<TestWordItem>();
             int n = arrayItems.Count();
-            while (n > 1)
+            while (n > 0)
             {
                 n--;
                 int k = rng.Next(n + 1);
@@ -46,23 +46,39 @@ namespace PortableCore.BL
 
                 if(result.Count < maxCountOfWords)
                 {
-                    string textFrom = arrayItems[n].Item2.TextFrom;
-                    string textTo = separateAndGetRandom(arrayItems[n].Item1.TextTo);
-                    var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
-                    result.Add(item);
+                    if(string.IsNullOrEmpty(correctWord))
+                    {
+                        addToResultList(arrayItems, result, n);
+                    }
+                    else
+                    {
+                        if (arrayItems[n].Item2.TextFrom != correctWord)
+                        {
+                            addToResultList(arrayItems, result, n);
+                        }
+                    }
                 }
             }
             return result;
         }
+
+        private void addToResultList(Tuple<ChatHistory, ChatHistory>[] arrayItems, List<TestWordItem> result, int n)
+        {
+            string textFrom = arrayItems[n].Item2.TextFrom;
+            string textTo = separateAndGetRandom(arrayItems[n].Item1.TextTo);
+            var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
+            result.Add(item);
+        }
+
         public List<TestWordItem> GetIncorrectVariants(int countOfIncorrectWords, int chatId, int languageFromId, string correctWord)
         {
-            List<TestWordItem> resultList = new List<TestWordItem>();
+            List<TestWordItem> resultList;
             var listItems = from item in db.Table<ChatHistory>()
                             join parentItem in db.Table<ChatHistory>() on item.ParentRequestID equals parentItem.ID into favorites
                             from subFavorites in favorites
                             where item.ChatID == chatId && item.DeleteMark == 0 && item.LanguageFrom == languageFromId && item.InFavorites
                             select new Tuple<ChatHistory, ChatHistory>(item, subFavorites);
-            resultList = getRandomWordsFromList(countOfIncorrectWords, listItems.ToArray());
+            resultList = getRandomWordsFromList(countOfIncorrectWords, correctWord, listItems.ToArray());
             return resultList;
         }
 
