@@ -99,8 +99,10 @@ namespace PortableCore.BL
         private string separateAndGetRandom(string textTo)
         {
             var arrayOfWords = textTo.Split(',');
-            Random rnd = new Random(arrayOfWords.Count());
-            int index = rnd.Next(arrayOfWords.Count());
+            //Random rnd = new Random(arrayOfWords.Count());
+            //int index = rnd.Next(arrayOfWords.Count());
+            int index = rng.Next(arrayOfWords.Count());
+
             return arrayOfWords[index].Trim();
         }
 

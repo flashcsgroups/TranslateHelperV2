@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:textAlignment="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1"
+        android:textSize="30sp"
+        android:text="@string/msg_test_finished"
+        android:background="@color/transparent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAlignment="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="@string/msg_your_score"
+            android:background="@color/transparent" />
+        <TextView
+            android:id="@+id/textResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="5 words from 10 without errors"
+            android:background="@color/transparent" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="@string/msg_final_test"
+        android:background="@color/transparent" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|center"
+        android:background="@color/transparent">
+        <TableRow
+            android:background="@color/transparent">
+            <Button
+                android:text="@string/msg_ok"
+                style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
+                android:id="@+id/buttonRepeatTest" />
+            <Button
+                android:text="@string/msg_cancel"
+                style="@style/TestSelectWordsButtonSubmit"
+                android:background="@drawable/TestScreenButtonSelector"
+                android:id="@+id/buttonCancelTest" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

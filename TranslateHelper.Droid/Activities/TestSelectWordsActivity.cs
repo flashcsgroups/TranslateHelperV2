@@ -55,7 +55,6 @@ namespace TranslateHelper.Droid.Activities
 
         protected override void OnSaveInstanceState(Bundle outState)
         {
-            //base.OnSaveInstanceState(outState);
         }
 
         protected override void OnRestoreInstanceState(Bundle savedState)
@@ -92,14 +91,19 @@ namespace TranslateHelper.Droid.Activities
         {
             var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
             textOriginalWord.Text = originalWord.TextFrom;
-            for(int buttonIndex = 1; buttonIndex <= countOfSubmitButtons; buttonIndex++)
+            var textTranscripton = FindViewById<TextView>(Resource.Id.textTranscripton);
+            textTranscripton.Text = originalWord.Transcription;
+            var textPartOfSpeech = FindViewById<TextView>(Resource.Id.textPartOfSpeech);
+            textPartOfSpeech.Text = originalWord.PartOfSpeech;
+            for (int buttonIndex = 1; buttonIndex <= countOfSubmitButtons; buttonIndex++)
             {
                 Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());
                 submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
                 if(variants.Count <= countOfSubmitButtons)
                 {
                     submit.Text = variants[buttonIndex - 1].TextTo;
-                } else
+                }
+                else
                 {
                     submit.Text = "*error*";
                 }
