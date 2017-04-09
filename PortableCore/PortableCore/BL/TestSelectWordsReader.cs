@@ -65,8 +65,10 @@ namespace PortableCore.BL
         private void addToResultList(Tuple<ChatHistory, ChatHistory>[] arrayItems, List<TestWordItem> result, int n)
         {
             string textFrom = arrayItems[n].Item2.TextFrom;
+            string textTranscription = arrayItems[n].Item1.Transcription;
+            string textPartOfSpeech = arrayItems[n].Item1.Definition;
             string textTo = separateAndGetRandom(arrayItems[n].Item1.TextTo);
-            var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo };
+            var item = new TestWordItem() { TextFrom = textFrom, TextTo = textTo, Transcription = textTranscription, PartOfSpeech = textPartOfSpeech };
             result.Add(item);
         }
 
@@ -99,10 +101,7 @@ namespace PortableCore.BL
         private string separateAndGetRandom(string textTo)
         {
             var arrayOfWords = textTo.Split(',');
-            //Random rnd = new Random(arrayOfWords.Count());
-            //int index = rnd.Next(arrayOfWords.Count());
             int index = rng.Next(arrayOfWords.Count());
-
             return arrayOfWords[index].Trim();
         }
 

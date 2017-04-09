@@ -77,8 +77,6 @@ namespace PortableCore.BL.Presenters
                 Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                 int index = rnd.Next(0, countOfVariants);
                 incorrectWords.Insert(index, currentWord);
-                currentWord.PartOfSpeech = "Part of speech";
-                currentWord.Transcription = "Transcription";
                 view.DrawNewVariant(currentWord, incorrectWords);
             } else
             {

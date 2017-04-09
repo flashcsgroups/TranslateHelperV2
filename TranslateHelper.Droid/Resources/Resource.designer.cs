@@ -480,8 +480,8 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f08003b
 			public const int textOriginalWord = 2131230779;
 			
-			// aapt resource value: 0x7f08003d
-			public const int textPartOfSpeech = 2131230781;
+			// aapt resource value: 0x7f08003c
+			public const int textPartOfSpeech = 2131230780;
 			
 			// aapt resource value: 0x7f080038
 			public const int textResult = 2131230776;
@@ -489,8 +489,8 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080026
 			public const int textSourceString = 2131230758;
 			
-			// aapt resource value: 0x7f08003c
-			public const int textTranscripton = 2131230780;
+			// aapt resource value: 0x7f08003d
+			public const int textTranscripton = 2131230781;
 			
 			// aapt resource value: 0x7f080010
 			public const int text_headline = 2131230736;

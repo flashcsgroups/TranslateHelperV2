@@ -16,6 +16,7 @@ using PortableCore.BL.Managers;
 using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
+using System.Globalization;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -53,10 +54,6 @@ namespace TranslateHelper.Droid.Activities
             }
         }
 
-        protected override void OnSaveInstanceState(Bundle outState)
-        {
-        }
-
         protected override void OnRestoreInstanceState(Bundle savedState)
         {
             base.OnRestoreInstanceState(savedState);
@@ -90,11 +87,11 @@ namespace TranslateHelper.Droid.Activities
         public void DrawNewVariant(TestWordItem originalWord, List<TestWordItem> variants)
         {
             var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
-            textOriginalWord.Text = originalWord.TextFrom;
+            textOriginalWord.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(originalWord.TextFrom);
             var textTranscripton = FindViewById<TextView>(Resource.Id.textTranscripton);
             textTranscripton.Text = originalWord.Transcription;
             var textPartOfSpeech = FindViewById<TextView>(Resource.Id.textPartOfSpeech);
-            textPartOfSpeech.Text = originalWord.PartOfSpeech;
+            textPartOfSpeech.Text = !string.IsNullOrEmpty(originalWord.PartOfSpeech)?"(" + originalWord.PartOfSpeech + ")":"";
             for (int buttonIndex = 1; buttonIndex <= countOfSubmitButtons; buttonIndex++)
             {
                 Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());

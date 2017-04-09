@@ -74,22 +74,46 @@ namespace TranslateHelper.Droid.Activities
                 }
             };
         }
-
         protected override void OnStart()
         {
             base.OnStart();
             int selectedChatID = Intent.GetIntExtra("currentChatId", -1);
             if(selectedChatID >= 0)
             {
-                presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
-                presenter.InitDirection();
-                presenter.InitChat(Locale.Default.Language);
-                presenter.UpdateOldSuspendedRequests();
+                //ToDo:Надо пофиксить повторное создание презентера, оно не нужно. Но ломается прохождение теста.
+                //if(presenter == null)
+                {
+                    presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
+                    presenter.InitDirection();
+                    presenter.InitChat(Locale.Default.Language);
+                    presenter.UpdateOldSuspendedRequests();
+                }
+                tryToTranslateClipboardData();
             }
             else
             {
                 throw new Exception("Chat not found");
             }
+        }
+
+        private void tryToTranslateClipboardData()
+        {
+            ClipboardManager clipboard = (ClipboardManager)GetSystemService(Context.ClipboardService);
+            string clipboardText = clipboard.Text;
+            if(stringMayBeTranslate(clipboardText))
+            {
+                string lastClipboardText = Intent.GetStringExtra("LastClipboardText");
+                if (clipboardText != lastClipboardText)
+                {
+                    Intent.PutExtra("LastClipboardText", clipboardText);
+                    presenter.UserAddNewTextEvent(clipboardText);
+                }
+            }
+        }
+
+        private bool stringMayBeTranslate(string clipboardText)
+        {
+            return !(clipboardText.Contains("://")||clipboardText.Contains(@":\")||clipboardText.Contains("www"));
         }
 
         public void UpdateChat(List<BubbleItem> listBubbles, int setPositionItemIndex)
