@@ -17,13 +17,14 @@ using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
 using System.Globalization;
+using HockeyApp.Android.Metrics;
 
 namespace TranslateHelper.Droid.Activities
 {
     [Activity(Label = "@string/act_testselectwords_caption", Theme = "@style/MyTheme")]
     public class TestSelectWordsActivity : Activity, ITestSelectWordsView
     {
-        int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
+        readonly int countOfSubmitButtons = 8;//количество кнопок с ответами на форме
         TestSelectWordsPresenter presenter;
         private int currentChatId;
 
@@ -32,6 +33,8 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            MetricsManager.TrackEvent("Open test");
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);

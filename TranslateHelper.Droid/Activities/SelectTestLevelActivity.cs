@@ -14,6 +14,7 @@ using PortableCore.BL;
 using PortableCore.BL.Managers;
 using PortableCore.BL.Views;
 using PortableCore.BL.Presenters;
+using HockeyApp.Android.Metrics;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -27,6 +28,7 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.SelectTestLevel);
@@ -58,21 +60,25 @@ namespace TranslateHelper.Droid.Activities
             ImageButton button100w = FindViewById<ImageButton>(Resource.Id.buttonSelect100Words);
             button10w.Click += (object sender, EventArgs e) => {
                 {
+                    HockeyApp.MetricsManager.TrackEvent("Select test level", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "SelectCountWordForTest", 10 } });
                     StartTest_SelectRightWords(10);
                 }
             };
             button20w.Click += (object sender, EventArgs e) => {
                 {
+                    HockeyApp.MetricsManager.TrackEvent("Select test level", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "SelectCountWordForTest", 20 } });
                     StartTest_SelectRightWords(20);
                 }
             };
             button50w.Click += (object sender, EventArgs e) => {
                 {
+                    HockeyApp.MetricsManager.TrackEvent("Select test level", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "SelectCountWordForTest", 50 } });
                     StartTest_SelectRightWords(50);
                 }
             };
             button100w.Click += (object sender, EventArgs e) => {
                 {
+                    HockeyApp.MetricsManager.TrackEvent("Select test level", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "SelectCountWordForTest", 100 } });
                     StartTest_SelectRightWords(100);
                 }
             };

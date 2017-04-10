@@ -8,6 +8,7 @@ using System.Net.Security;
 using Android.Util;
 using System.IO;
 using System.Reflection;
+using HockeyApp.Android;
 
 namespace TranslateHelper.App
 {
@@ -26,6 +27,7 @@ namespace TranslateHelper.App
         public override void OnCreate()
         {
             base.OnCreate();
+            CrashManager.Register(this, "1fa12db7cc804215bdd1a7542b3d1c96");
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback((sender, certificate, chain, policyErrors) => { return true; });
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);

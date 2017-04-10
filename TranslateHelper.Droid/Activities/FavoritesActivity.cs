@@ -15,6 +15,7 @@ using PortableCore.BL.Views;
 using PortableCore.BL.Models;
 using PortableCore.BL;
 using System.Globalization;
+using HockeyApp.Android.Metrics;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -27,10 +28,12 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			ActionBar.SetDisplayHomeAsUpEnabled (true);
+            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            ActionBar.SetDisplayHomeAsUpEnabled (true);
 			ActionBar.SetHomeButtonEnabled (true);
 			SetContentView (Resource.Layout.Favorites);
-		}
+            MetricsManager.TrackEvent("Open favorites");
+        }
         protected override void OnStart()
         {
             base.OnStart();

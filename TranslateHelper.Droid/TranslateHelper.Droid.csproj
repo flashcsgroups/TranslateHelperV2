@@ -55,6 +55,14 @@
     </MandroidI18n>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HockeySDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HockeySDK.Xamarin.4.1.2\lib\MonoAndroid403\HockeySDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HockeySDK.AndroidBindings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HockeySDK.Xamarin.4.1.2\lib\MonoAndroid403\HockeySDK.AndroidBindings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -65,9 +73,6 @@
     </Reference>
     <Reference Include="SQLitePCL.raw, Version=0.7.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\SQLitePCL.raw_basic.0.7.1\lib\MonoAndroid\SQLitePCL.raw.dll</HintPath>
-    </Reference>
-    <Reference Include="HockeyApp.Android">
-      <HintPath>..\Droid.Binary.lib\HockeyApp.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +89,6 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Activities\TestSelectWordsActivity.cs" />
     <Compile Include="Adapters\FavoritesAdapter.cs" />
-    <None Include="Adapters\TestSelectWordsAdapter_CHECK.cs" />
     <Compile Include="TogglesSoftKeyboard.cs" />
     <Compile Include="TranslateServiceResult.cs" />
     <AndroidResource Include="Resources\layout\DirectionsAllListItem.axml">

@@ -16,6 +16,7 @@ using PortableCore.DAL;
 using PortableCore.BL.Models;
 using Java.Util;
 using Droid.Core.Helpers;
+using HockeyApp.Android.Metrics;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -33,6 +34,8 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
 
+            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+
             // Create your application here
             SetContentView(Resource.Layout.DictionaryChat);
             EditText editSourceText = FindViewById<EditText>(Resource.Id.textSourceString);
@@ -40,7 +43,8 @@ namespace TranslateHelper.Droid.Activities
             ImageButton buttonTranslate = FindViewById<ImageButton>(Resource.Id.buttonTranslate);
             buttonTranslate.Click += (object sender, EventArgs e) =>
             {
-                presenter.UserAddNewTextEvent(editSourceText.Text);
+                HockeyApp.MetricsManager.TrackEvent("Input source text", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "InputSourceTextLength", editSourceText.Text.Length } });
+                presenter.UserAddNewTextEvent(editSourceText.Text.TrimEnd());
                 editSourceText.Text = string.Empty;
             };
 
@@ -54,6 +58,7 @@ namespace TranslateHelper.Droid.Activities
             {
                 if ((e.Text.Count() > 0)&&(e.Text.Last() == '\n'))
                 {
+                    HockeyApp.MetricsManager.TrackEvent("Input source text", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "InputSourceTextLength", editSourceText.Text.Length } });
                     presenter.UserAddNewTextEvent(editSourceText.Text.TrimEnd());
                     editSourceText.Text = string.Empty;
                 }
@@ -99,13 +104,14 @@ namespace TranslateHelper.Droid.Activities
         private void tryToTranslateClipboardData()
         {
             ClipboardManager clipboard = (ClipboardManager)GetSystemService(Context.ClipboardService);
-            string clipboardText = clipboard.Text;
+            string clipboardText = string.IsNullOrEmpty(clipboard.Text)?string.Empty: clipboard.Text;
             if(stringMayBeTranslate(clipboardText))
             {
                 string lastClipboardText = Intent.GetStringExtra("LastClipboardText");
                 if (clipboardText != lastClipboardText)
                 {
                     Intent.PutExtra("LastClipboardText", clipboardText);
+                    HockeyApp.MetricsManager.TrackEvent("Translate clipboard text", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "ClipboardTextLength", clipboardText.Length } });
                     presenter.UserAddNewTextEvent(clipboardText);
                 }
             }
@@ -144,6 +150,7 @@ namespace TranslateHelper.Droid.Activities
 
         private void onSelectContextMenuItem(object sender, DialogClickEventArgs args)
         {
+            HockeyApp.MetricsManager.TrackEvent("Chat context menu", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "ContextMenuCode", args.Which } });
             switch (args.Which)
             {
                 case 0:

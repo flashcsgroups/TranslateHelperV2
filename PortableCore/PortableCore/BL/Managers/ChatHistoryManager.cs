@@ -86,7 +86,48 @@ namespace PortableCore.BL.Managers
         public void DeleteItemById(int historyRowId)
         {
             Repository<ChatHistory> repo = new Repository<ChatHistory>();
-            int result = repo.Delete(historyRowId);
+            var items = from item in db.Table<ChatHistory>() where item.ID == historyRowId select item;
+            if(items.Count() == 1)
+            {
+                var item = items.Single();
+                if(item.ParentRequestID == 0)
+                {
+                    deleteParentAndChildrens(historyRowId, repo);
+                }
+                else
+                {
+                    deleteParentAndChildrenIfChildrenIsOne(historyRowId, repo, item);
+                }
+            }
+        }
+
+        private void deleteParentAndChildrenIfChildrenIsOne(int historyRowId, Repository<ChatHistory> repo, ChatHistory item)
+        {
+            int parentId = item.ParentRequestID;
+            var childrenItems = from childrenItem in db.Table<ChatHistory>() where childrenItem.ParentRequestID == parentId select childrenItem;
+            if (childrenItems.Count() > 1)
+            {
+                repo.Delete(historyRowId);
+            }
+            else
+            {
+                repo.Delete(historyRowId);
+                var parentItems = from parentItem in db.Table<ChatHistory>() where parentItem.ID == parentId select parentItem;
+                if (parentItems.Count() == 1)
+                {
+                    repo.Delete(parentItems.Single().ID);
+                }
+            }
+        }
+
+        private void deleteParentAndChildrens(int historyRowId, Repository<ChatHistory> repo)
+        {
+            var childrenItems = from childrenItem in db.Table<ChatHistory>() where childrenItem.ParentRequestID == historyRowId select childrenItem;
+            repo.Delete(historyRowId);
+            foreach (var child in childrenItems)
+            {
+                repo.Delete(child.ID);
+            }
         }
 
         //ToDo: Доделать сообщение о поиске под разные языки
