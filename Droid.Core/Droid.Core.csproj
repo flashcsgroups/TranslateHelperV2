@@ -71,7 +71,6 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-    <EmbeddedResource Include="Resources\TranslateHelperV21.db3" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -81,6 +80,11 @@
       <Project>{a94d5121-54c4-44e9-8e0d-5836b23ef2bf}</Project>
       <Name>PortableCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="anecdotesEN-RU.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

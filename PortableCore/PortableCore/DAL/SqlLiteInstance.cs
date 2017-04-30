@@ -20,7 +20,7 @@ namespace PortableCore.DAL
             db = sqlInstanceHelper;
         }
 
-        public void InitTables()
+        public void InitTables(string libraryPath)
         {
             db.CreateTable<Language>();
             LanguageManager langManager = new LanguageManager(db);
@@ -33,8 +33,6 @@ namespace PortableCore.DAL
             managerProvider.InitDefaultData();
 
             db.CreateTable<SourceExpression>();
-            //SourceExpressionManager managerSourceExpression = new SourceExpressionManager(db);
-            //managerSourceExpression.InitDefaultData();
 
             db.CreateTable<TranslatedExpression>();
 
@@ -48,6 +46,10 @@ namespace PortableCore.DAL
 
             db.CreateTable<ChatHistory>();
 
+            db.CreateTable<Anecdote>();
+            AnecdoteManager managerAnecdotes = new AnecdoteManager(db, langManager);
+            managerAnecdotes.LibraryPath = libraryPath;
+            managerAnecdotes.InitDefaultData();
         }
 
     }

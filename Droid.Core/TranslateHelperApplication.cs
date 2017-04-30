@@ -17,7 +17,7 @@ namespace TranslateHelper.App
     {
         public static TranslateHelperApplication CurrentInstance { get; private set; }
         private static string sqliteFilename = "TranslateHelperV22.db3";
-        private bool initTablesInNewDB = true;
+        private readonly bool initTablesInNewDB = true;
 
         protected TranslateHelperApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -32,15 +32,13 @@ namespace TranslateHelper.App
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var path = Path.Combine(libraryPath, sqliteFilename);
-            if(!initTablesInNewDB)
-                copyInitialDB(path);
             SqlLiteHelper sqlConnection = new SqlLiteHelper(path);
             SqlLiteInstance sqlInstance = new SqlLiteInstance(sqlConnection);
             if(initTablesInNewDB)
-                sqlInstance.InitTables();
+                sqlInstance.InitTables(libraryPath);
         }
 
-        private static void copyInitialDB(string path)
+        /*private static void copyInitialDB(string path)
         {
             if (!File.Exists(path))
             {
@@ -64,11 +62,11 @@ namespace TranslateHelper.App
                 stream.Seek(0, SeekOrigin.Begin);
                 stream.CopyTo(fileStream);
             }
-        }
+        }*/
 
         private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
         {
-            string tag = "TranslateHelper";
+            string tag = "TranslateHelperV2";
             Log.Error(tag, e.Exception.Message);
         }
     }

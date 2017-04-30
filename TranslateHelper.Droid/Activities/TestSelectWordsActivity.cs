@@ -53,7 +53,9 @@ namespace TranslateHelper.Droid.Activities
             }
             else
             {
-                throw new Exception("Chat not found");
+                MetricsManager.TrackEvent("Error:chat not found.",
+                    new Dictionary<string, string> { { "currentChatId", currentChatId.ToString() } });
+                backToDictionaryChat();
             }
         }
 
@@ -89,26 +91,34 @@ namespace TranslateHelper.Droid.Activities
 
         public void DrawNewVariant(TestWordItem originalWord, List<TestWordItem> variants)
         {
-            var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
-            textOriginalWord.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(originalWord.TextFrom);
-            var textTranscripton = FindViewById<TextView>(Resource.Id.textTranscripton);
-            textTranscripton.Text = originalWord.Transcription;
-            var textPartOfSpeech = FindViewById<TextView>(Resource.Id.textPartOfSpeech);
-            textPartOfSpeech.Text = !string.IsNullOrEmpty(originalWord.PartOfSpeech)?"(" + originalWord.PartOfSpeech + ")":"";
-            for (int buttonIndex = 1; buttonIndex <= countOfSubmitButtons; buttonIndex++)
+            if(variants.Count > 0)
             {
-                Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());
-                submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
-                if(variants.Count <= countOfSubmitButtons)
+                var textOriginalWord = FindViewById<TextView>(Resource.Id.textOriginalWord);
+                textOriginalWord.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(originalWord.TextFrom);
+                var textTranscripton = FindViewById<TextView>(Resource.Id.textTranscripton);
+                textTranscripton.Text = originalWord.Transcription;
+                var textPartOfSpeech = FindViewById<TextView>(Resource.Id.textPartOfSpeech);
+                textPartOfSpeech.Text = !string.IsNullOrEmpty(originalWord.PartOfSpeech) ? "(" + originalWord.PartOfSpeech + ")" : "";
+                for (int buttonIndex = 1; buttonIndex <= countOfSubmitButtons; buttonIndex++)
                 {
-                    submit.Text = variants[buttonIndex - 1].TextTo;
+                    Button submit = getSubmitButtonByName("buttonSubmitTest" + (buttonIndex).ToString());
+                    submit.SetBackgroundResource(Resource.Drawable.TestScreenButtonSelector);
+                    if (variants.Count <= countOfSubmitButtons)
+                    {
+                        submit.Text = variants[buttonIndex - 1].TextTo;
+                    }
+                    else
+                    {
+                        submit.Text = "*error*";
+                    }
                 }
-                else
-                {
-                    submit.Text = "*error*";
-                }
+                lastSubmittedButton = 0;
             }
-            lastSubmittedButton = 0;
+            else
+            {
+                MetricsManager.TrackEvent("Error:empty variants collection.", 
+                    new Dictionary<string, string> { { "originalWord", originalWord.TextFrom } });
+            }
         }
 
         public void SetButtonErrorState()

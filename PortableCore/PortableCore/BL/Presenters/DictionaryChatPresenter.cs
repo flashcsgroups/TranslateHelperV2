@@ -16,18 +16,18 @@ namespace PortableCore.BL.Presenters
 {
     public class DictionaryChatPresenter
     {
-        IDictionaryChatView view;
-        ISQLiteTesting db;
-        IChatManager chatManager;
-        ILanguageManager languageManager;
-        IChatHistoryManager chatHistoryManager;
+        readonly IDictionaryChatView view;
+        readonly ISQLiteTesting db;
+        readonly IChatManager chatManager;
+        readonly ILanguageManager languageManager;
+        readonly IChatHistoryManager chatHistoryManager;
         TranslateDirection direction;
         delegate Task goTranslateRequest(string originalText, int requestId);
         goTranslateRequest requestReference;
         string preparedTextForRequest = string.Empty;
 
         Chat selectedChat;
-        int selectedChatID = 0;
+        readonly int selectedChatID = 0;
 
         public TranslateDirection Direction
         {
@@ -57,7 +57,6 @@ namespace PortableCore.BL.Presenters
             this.view = view;
             this.db = db;
             this.selectedChatID = selectedChatID;
-            LanguageManager languageManager = new LanguageManager(db);
             this.chatHistoryManager = new ChatHistoryManager(db);
             this.chatManager = new ChatManager(db, languageManager, chatHistoryManager);
             this.languageManager = new LanguageManager(db);
@@ -150,6 +149,11 @@ namespace PortableCore.BL.Presenters
                 bubbleItem.InFavorites = item.InFavorites;
                 view.UpdateChat(getListBubbles(), positionOfSelectedItem);
             }
+        }
+        public string GetNextAnecdote()
+        {
+            AnecdoteManager anecdoteManager = new AnecdoteManager(SqlLiteInstance.DB, languageManager);
+            return anecdoteManager.GetItemForId(1).TextFrom;
         }
 
         private int addUserMsgToChatHistory(string userText = null)

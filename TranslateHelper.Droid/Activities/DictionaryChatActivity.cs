@@ -82,6 +82,7 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
+
             int selectedChatID = Intent.GetIntExtra("currentChatId", -1);
             if(selectedChatID >= 0)
             {
@@ -91,6 +92,9 @@ namespace TranslateHelper.Droid.Activities
                     presenter = new DictionaryChatPresenter(this, SqlLiteInstance.DB, selectedChatID);
                     presenter.InitDirection();
                     presenter.InitChat(Locale.Default.Language);
+
+                    //presenter.UserAddNewTextEvent(presenter.GetNextAnecdote());
+
                     presenter.UpdateOldSuspendedRequests();
                 }
                 tryToTranslateClipboardData();

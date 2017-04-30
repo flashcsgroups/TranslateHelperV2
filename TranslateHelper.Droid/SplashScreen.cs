@@ -33,35 +33,8 @@ namespace TranslateHelper.Droid
         protected override void OnResume()
         {
             base.OnResume();
-            callTestRequest();
-            //Task.Delay(2000);
             StartActivity(new Intent(Application.Context, typeof(DirectionsActivity)));
-            /*Task startupWork = new Task(() =>
-            {
-                callTestRequest();
-            });
-
-            startupWork.ContinueWith(t =>
-            {
-                StartActivity(new Intent(Application.Context, typeof(DictionaryActivity)));
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-
-            startupWork.Start();*/
         }
 
-        /// <summary>
-        /// запрос для установки соединения еще до того, как оно понадобится пользователю, для ускорения
-        /// </summary>
-        /// <returns></returns>
-        private void callTestRequest()
-        {
-            /*TranslateDirection direction = new TranslateDirection(SqlLiteInstance.DB, new DirectionManager(SqlLiteInstance.DB));
-            TranslateRequestRunner reqRunner = new TranslateRequestRunner(
-                SqlLiteInstance.DB,
-                new CachedResultReader(direction, SqlLiteInstance.DB),
-                new TranslateRequest(TypeTranslateServices.YandexDictionary, direction),
-                new TranslateRequest(TypeTranslateServices.YandexTranslate, direction));
-            var reqResult = reqRunner.GetDictionaryResult(string.Empty, direction);*/
-        }
     }
 }

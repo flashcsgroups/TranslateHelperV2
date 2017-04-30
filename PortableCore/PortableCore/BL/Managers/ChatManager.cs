@@ -25,6 +25,7 @@ namespace PortableCore.BL.Managers
 
         public void InitDefaultData()
         {
+            //нечего обновлять
         }
 
         public Chat GetItemForId(int id)
@@ -58,7 +59,6 @@ namespace PortableCore.BL.Managers
                 .Where(item => item.UpdateDate >= DateTime.Now.Add(new TimeSpan(-countOfDays, 0, 0, 0)))
                 .Select(t => new DirectionsRecentItem() { ChatId = t.ID, LangFrom = t.LanguageCaptionFrom, LangTo = t.LanguageCaptionTo, LangToFlagImageResourcePath = lstLanguages.Where(i => i.ID == t.LanguageTo).SingleOrDefault() != null ? lstLanguages.Where(i => i.ID == t.LanguageTo).SingleOrDefault().NameImageResource : string.Empty })
                 .ToList();
-            //ChatHistoryManager chatHistoryManager = new ChatHistoryManager(db);
             //ToDo:Убрать запрос из цикла
             foreach (var item in lst)
             {
