@@ -12,6 +12,10 @@
         android:icon="@drawable/EngRus"
         android:title="@string/caption_btn_translate_destination"
         android:showAsAction="always" />-->
+  <item android:id="@+id/menu_anecdotes"
+        android:icon="@drawable/v1smile"
+        android:title="@string/caption_btn_anecdotes"
+        android:showAsAction="always" />
   <item android:id="@+id/menu_favorites"
         android:icon="@drawable/v1favorites"
         android:title="@string/caption_btn_favorites"

@@ -52,13 +52,16 @@
     <Compile Include="BL\Managers\LanguageManager.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />
     <Compile Include="BL\Models\DirectionsRecentItem.cs" />
+    <Compile Include="BL\Models\AnecdoteItem.cs" />
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Models\TestWordItem.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
+    <Compile Include="BL\Presenters\AnecdotesPresenter.cs" />
     <Compile Include="BL\Presenters\SelectTestLevelPresenter.cs" />
     <Compile Include="BL\Presenters\FavoritesPresenter.cs" />
     <Compile Include="BL\Presenters\TestResultPresenter.cs" />
+    <Compile Include="BL\Views\IAnecdotesView.cs" />
     <Compile Include="BL\Views\ISelectTestLevelView.cs" />
     <Compile Include="BL\Views\IFavoritesView.cs" />
     <Compile Include="BL\Views\ITestResultView.cs" />

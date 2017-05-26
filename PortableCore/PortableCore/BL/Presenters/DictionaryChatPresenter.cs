@@ -150,11 +150,6 @@ namespace PortableCore.BL.Presenters
                 view.UpdateChat(getListBubbles(), positionOfSelectedItem);
             }
         }
-        public string GetNextAnecdote()
-        {
-            AnecdoteManager anecdoteManager = new AnecdoteManager(SqlLiteInstance.DB, languageManager);
-            return anecdoteManager.GetItemForId(1).TextFrom;
-        }
 
         private int addUserMsgToChatHistory(string userText = null)
         {
