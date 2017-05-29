@@ -14,8 +14,8 @@ namespace PortableCore.BL.Managers
     public class AnecdoteManager : IInitDataTable<Anecdote>, IAnecdoteManager
     {
         readonly ISQLiteTesting db;
-        //readonly ILanguageManager languageManager;
-        //internal string LibraryPath;
+        //public string FileAnecdotesContent;
+
 
         public AnecdoteManager(ISQLiteTesting dbHelper)
         {
@@ -23,16 +23,34 @@ namespace PortableCore.BL.Managers
             //this.languageManager = languageManager;
         }
 
+        public bool LoadDataFromString(string anecdotes)
+        {
+            var anecdotesArray = anecdotes.Split('^');
+            List<Anecdote> data = new List<Anecdote>();
+            foreach(var item in anecdotesArray)
+            {
+                var arrTranslated = item.Trim().Split('#');
+                if (arrTranslated.Length == 2)
+                {
+                    data.Add(new Anecdote() { LanguageFrom = 2, LanguageTo = 1, TextFrom = arrTranslated[0].TrimEnd(), TextTo = arrTranslated[1] });
+                }
+            }
+            DAL.Repository<Anecdote> repos = new DAL.Repository<Anecdote>();
+            repos.DeleteAllDataInTable();
+            repos.AddItemsInTransaction(data);
+            return true;
+        }
         public void InitDefaultData()
         {
-            DAL.Repository<Anecdote> repos = new DAL.Repository<Anecdote>();
-
-            Anecdote[] data = getDefaultData();
+            //DAL.Repository<Anecdote> repos = new DAL.Repository<Anecdote>();
+            //AnecdoteUpdater updater = new AnecdoteUpdater();
+            //Anecdote[] data = updater.getArrayFromResource(LibraryPath);
+            /*Anecdote[] data = getDefaultData();
             if (!db.Table<Anecdote>().Any())
             {
                 repos.DeleteAllDataInTable();
                 repos.AddItemsInTransaction(data);
-            }
+            }*/
         }
 
         public Anecdote GetItemForId(int id)

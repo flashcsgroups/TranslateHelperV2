@@ -43,6 +43,7 @@
     <Compile Include="BL\DictionaryWelcomeMsg.cs" />
     <Compile Include="BL\IndexedCollection.cs" />
     <Compile Include="BL\Managers\AnecdoteManager.cs" />
+    <Compile Include="BL\Managers\AnecdoteUpdater.cs" />
     <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
     <Compile Include="BL\Managers\IChatHistoryManager.cs" />

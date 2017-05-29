@@ -10,8 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:layout_margin="20dp"              
-        >
+        android:layout_margin="20dp">
         <TextView
             android:id="@+id/AnecdoteSourceTextView"
             android:layout_width="wrap_content"
@@ -22,18 +21,18 @@
             android:layout_marginRight="5dp"
             android:background="@color/transparent" />
     </LinearLayout>
-  <TextView
-      android:id="@+id/AnecdoteTranslatedTextView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="0dp"              
-      android:layout_marginBottom="0dp"              
-      android:layout_marginLeft="20dp"              
-      android:layout_marginRight="5dp"
-      android:visibility="gone"
-      android:textSize="20sp"
-      android:text="hjkl hgls djkhf hgjk dlsg hlkjsdhf gh hg fjdkl h ghfdklg hldsjkhf  hgdk shd fh jklsd"
-      android:textColor="@color/blue"
-      android:textStyle="italic"
-      android:background="@color/transparent" />
+    <TextView
+        android:id="@+id/AnecdoteTranslatedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:text="translated"
+        android:textColor="@color/blue"
+        android:textStyle="italic"
+        android:background="@color/transparent" />
 </LinearLayout>

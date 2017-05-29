@@ -120,8 +120,8 @@ namespace TranslateHelper.Droid.Adapters
 					return itemView;*/
                     //var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.AnecdoteSourceTextView);
                     sourceTextView.SetText(item.OriginalText, TextView.BufferType.Normal);
-                    //sourceTextView.a
-
+                    var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.AnecdoteTranslatedTextView);
+                    translatedTextView.SetText(item.TranslatedText, TextView.BufferType.Normal);
                     return itemView;
                 }
 

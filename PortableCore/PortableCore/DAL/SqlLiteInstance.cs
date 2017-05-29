@@ -47,9 +47,6 @@ namespace PortableCore.DAL
             db.CreateTable<ChatHistory>();
 
             db.CreateTable<Anecdote>();
-            AnecdoteManager managerAnecdotes = new AnecdoteManager(db);
-            //managerAnecdotes.LibraryPath = libraryPath;
-            managerAnecdotes.InitDefaultData();
         }
 
     }
