@@ -18,6 +18,8 @@ namespace TranslateHelper.App
     public class TranslateHelperApplication : Application
     {
         public static TranslateHelperApplication CurrentInstance { get; private set; }
+        public string LastStringForTranslateFromClipboard = string.Empty;
+
         private static string sqliteFilename = "TranslateHelperV22.db3";
         private readonly bool initTablesInNewDB = true;
 

@@ -103,22 +103,6 @@ namespace TranslateHelper.Droid.Adapters
 					Java.Lang.Object obj = adapter.GetItem (position - 1);
                     AnecdoteItem item = obj.Cast<AnecdoteItem>();
                     var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.AnecdoteSourceTextView);
-                    sourceTextView.Click += SourceTextView_Click;
-                    /*FavoriteItem itemResult = obj.Cast<FavoriteItem> ();
-
-					var sourceTextView = itemView.FindViewById<TextView> (Resource.Id.SourceTextView);
-                    string originalText = itemResult.OriginalText!=null ? itemResult.OriginalText.ToString() : "not found";
-                    sourceTextView.SetText (originalText, TextView.BufferType.Normal);
-					var translatedTextView = itemView.FindViewById<TextView> (Resource.Id.TranslatedTextView);
-                    string translatedText = itemResult.TranslatedText != null ? itemResult.TranslatedText.ToString() : "not found";
-                    translatedTextView.SetText (translatedText, TextView.BufferType.Normal);
-					var transcriptionTextView = itemView.FindViewById<TextView> (Resource.Id.TranscriptionTextView);
-					transcriptionTextView.SetText (string.IsNullOrEmpty (itemResult.Transcription) ? "" : itemResult.Transcription, TextView.BufferType.Normal);
-
-					var posTextView = itemView.FindViewById<TextView> (Resource.Id.PosTextView);
-                    posTextView.SetText(itemResult.OriginalTextDefinition, TextView.BufferType.Normal);
-					return itemView;*/
-                    //var sourceTextView = itemView.FindViewById<TextView>(Resource.Id.AnecdoteSourceTextView);
                     sourceTextView.SetText(item.OriginalText, TextView.BufferType.Normal);
                     var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.AnecdoteTranslatedTextView);
                     translatedTextView.SetText(item.TranslatedText, TextView.BufferType.Normal);
@@ -131,20 +115,6 @@ namespace TranslateHelper.Droid.Adapters
 			}
 			return null;
 		}
-
-        private void SourceTextView_Click(object sender, System.EventArgs e)
-        {
-            var viewParent = ((View)sender).Parent.Parent;
-            var translatedTextView = ((View)viewParent).FindViewById<TextView>(Resource.Id.AnecdoteTranslatedTextView);
-            if(translatedTextView.Visibility == ViewStates.Gone)
-            {
-                translatedTextView.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                translatedTextView.Visibility = ViewStates.Gone;
-            }
-        }
 
         public override long GetItemId (int position)
 		{

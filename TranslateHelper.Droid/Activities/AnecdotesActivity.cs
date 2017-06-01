@@ -53,12 +53,27 @@ namespace TranslateHelper.Droid.Activities
         }
         public void UpdateList(IndexedCollection<AnecdoteItem> list)
         {
-            //Toast.MakeText(this, list.ElementAt(0).OriginalText, ToastLength.Long);
             var adapter = CreateAdapter(list.GetSortedData());
             var listView = FindViewById<ListView>(Resource.Id.listAnecdotesListView);
             listView.FastScrollEnabled = true;
             listView.Adapter = adapter;
+            listView.ItemClick += ListView_ItemClick;
         }
+
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var viewParent = e.View;
+            var translatedTextView = ((View)viewParent).FindViewById<TextView>(Resource.Id.AnecdoteTranslatedTextView);
+            if (translatedTextView.Visibility == ViewStates.Gone)
+            {
+                translatedTextView.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                translatedTextView.Visibility = ViewStates.Gone;
+            }
+        }
+
         AnecdotesAdapter CreateAdapter<T>(Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
         {
             var adapter = new AnecdotesAdapter(this);
@@ -69,6 +84,20 @@ namespace TranslateHelper.Droid.Activities
                 adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.AnecdotesSectionListItem, Resource.Id.AnecdoteSourceTextView, section));
             }
             return adapter;
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case global::Android.Resource.Id.Home:
+                    var intentChat = new Intent(this, typeof(DictionaryChatActivity));
+                    intentChat.PutExtra("currentChatId", currentChatId);
+                    StartActivity(intentChat);
+                    return true;
+                default:
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
     }

@@ -394,4 +394,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\backSmiles.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Border.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ using PortableCore.BL.Models;
 using Java.Util;
 using Droid.Core.Helpers;
 using HockeyApp.Android.Metrics;
+using TranslateHelper.App;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -27,9 +28,11 @@ namespace TranslateHelper.Droid.Activities
         private BubbleAdapter bubbleAdapter;
         private AlertDialog actionContextWindow;
         private int selectedMsgIndex = 0;
+        private TranslateHelperApplication appContext;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            appContext = (TranslateHelperApplication)this.Application;
             base.OnCreate(savedInstanceState);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
@@ -111,10 +114,10 @@ namespace TranslateHelper.Droid.Activities
             string clipboardText = string.IsNullOrEmpty(clipboard.Text)?string.Empty: clipboard.Text;
             if(stringMayBeTranslate(clipboardText))
             {
-                string lastClipboardText = Intent.GetStringExtra("LastClipboardText");
+                string lastClipboardText = appContext.LastStringForTranslateFromClipboard;
                 if (clipboardText != lastClipboardText)
                 {
-                    Intent.PutExtra("LastClipboardText", clipboardText);
+                    appContext.LastStringForTranslateFromClipboard = clipboardText;
                     HockeyApp.MetricsManager.TrackEvent("Translate clipboard text", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, double> { { "ClipboardTextLength", clipboardText.Length } });
                     presenter.UserAddNewTextEvent(clipboardText);
                 }
