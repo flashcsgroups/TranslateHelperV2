@@ -14,16 +14,23 @@ namespace PortableCore.BL.Managers
     public class AnecdoteManager : IInitDataTable<Anecdote>, IAnecdoteManager
     {
         readonly ISQLiteTesting db;
+        private ILanguageManager languageManager;
         //public string FileAnecdotesContent;
 
 
-        public AnecdoteManager(ISQLiteTesting dbHelper)
+        public AnecdoteManager(ISQLiteTesting dbHelper, ILanguageManager languageManager)
         {
             this.db = dbHelper;
-            //this.languageManager = languageManager;
+            this.languageManager = languageManager;
         }
 
-        public bool LoadDataFromString(string anecdotes)
+        public void ClearAnecdoteTable()
+        {
+            DAL.Repository<Anecdote> repos = new DAL.Repository<Anecdote>();
+            repos.DeleteAllDataInTable();
+        }
+
+        public void LoadDataFromString(StoryWithTranslateItem storyInfo, string anecdotes)
         {
             var anecdotesArray = anecdotes.Split('^');
             List<Anecdote> data = new List<Anecdote>();
@@ -32,25 +39,14 @@ namespace PortableCore.BL.Managers
                 var arrTranslated = item.Trim().Split('#');
                 if (arrTranslated.Length == 2)
                 {
-                    data.Add(new Anecdote() { LanguageFrom = 2, LanguageTo = 1, TextFrom = arrTranslated[0].TrimEnd(), TextTo = arrTranslated[1] });
+                    data.Add(new Anecdote() { LanguageFrom = storyInfo.LanguageFrom.ID, LanguageTo = storyInfo.LanguageTo.ID, TextFrom = arrTranslated[0].TrimEnd(), TextTo = arrTranslated[1] });
                 }
             }
             DAL.Repository<Anecdote> repos = new DAL.Repository<Anecdote>();
-            repos.DeleteAllDataInTable();
             repos.AddItemsInTransaction(data);
-            return true;
         }
         public void InitDefaultData()
         {
-            //DAL.Repository<Anecdote> repos = new DAL.Repository<Anecdote>();
-            //AnecdoteUpdater updater = new AnecdoteUpdater();
-            //Anecdote[] data = updater.getArrayFromResource(LibraryPath);
-            /*Anecdote[] data = getDefaultData();
-            if (!db.Table<Anecdote>().Any())
-            {
-                repos.DeleteAllDataInTable();
-                repos.AddItemsInTransaction(data);
-            }*/
         }
 
         public Anecdote GetItemForId(int id)
@@ -59,11 +55,9 @@ namespace PortableCore.BL.Managers
             return repos.GetItem(id);
         }
 
-        internal IndexedCollection<AnecdoteItem> GetAllAnecdotesForChat(int selectedChatID)
+        internal IndexedCollection<AnecdoteItem> GetAllAnecdotesForDirections(int languageFromId, int languageToId)
         {
-            DAL.Repository<Chat> repos = new DAL.Repository<Chat>();
-            Chat chat = repos.GetItem(selectedChatID);
-            var viewAnecdotes = db.Table<Anecdote>().Where(item => (item.LanguageFrom == chat.LanguageFrom && item.LanguageTo == chat.LanguageTo && item.DeleteMark == 0));
+            var viewAnecdotes = db.Table<Anecdote>().Where(item => (((item.LanguageFrom == languageToId && item.LanguageTo == languageFromId)||(item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)) && item.DeleteMark == 0));
             IndexedCollection<AnecdoteItem> indexedAnecdotes = new IndexedCollection<AnecdoteItem>();
             foreach(var item in viewAnecdotes)
             {
@@ -71,35 +65,24 @@ namespace PortableCore.BL.Managers
             }
             return indexedAnecdotes;
         }
-        /*internal object GetUnreadedAnecdotesForChat(int selectedChatID)
+
+        public List<StoryWithTranslateItem> GetListDirectionsForStories()
         {
-            DAL.Repository<Chat> repos = new DAL.Repository<Chat>();
-            Chat chat = repos.GetItem(selectedChatID);
-            var view = db.Table<Anecdote>().Where(item => (item.LanguageFrom == chat.LanguageFrom && item.LanguageTo == chat.LanguageTo && item.DeleteMark == 0));
-        }*/
+            List<StoryWithTranslateItem> list = new List<StoryWithTranslateItem>();
+            var eng = languageManager.GetItemForShortName("en");
+            var de = languageManager.GetItemForShortName("de");
+            var es = languageManager.GetItemForShortName("es");
+            var rus = languageManager.GetItemForShortName("ru");
+            list.Add(new StoryWithTranslateItem(eng, rus, "anecdotesEN_RUv1.txt"));
+            list.Add(new StoryWithTranslateItem(de, rus, "anecdotesDE_RUv1.txt"));
+            list.Add(new StoryWithTranslateItem(es, rus, "anecdotesES_RUv1.txt"));
+            return list;
+        }
 
         public int SaveItem(Anecdote item)
         {
             Repository<Anecdote> repo = new Repository<Anecdote>();
             return repo.Save(item);
-        }
-
-        private Anecdote[] getDefaultData()
-        {
-            //http://www.anekdot.ws/archives/category/russian-jokes/page/2
-            Anecdote[] defTypesList = new Anecdote[] {
-                new Anecdote (){ LanguageFrom = 2, LanguageTo = 1, TextFrom = "Scientists have discovered Soviet Lunokhod-2 on the moon. In the moon-buggy the wheels were twisted off and the cassette rack was pulled out.", TextTo = "Ученые обнаружили на Луне советский «Луноход-2». У лунохода были скручены колеса и вытащена магнитола." },
-                new Anecdote (){ LanguageFrom = 2, LanguageTo = 1, TextFrom = "If Russian decided to do nothing, nothing can stop him.", TextTo = "Если русский человек решил ничего не делать, то его не остановить." },
-                new Anecdote (){ LanguageFrom = 2, LanguageTo = 1, TextFrom = "Only Russian comes back to work from sick leave with strong tan.", TextTo = "Только русский человек может прийти с больничного загорелым." },
-                new Anecdote (){ LanguageFrom = 2, LanguageTo = 1, TextFrom = "Only Russian comes back to work from sick leave with strong tan. Second", TextTo = "Только русский человек может прийти с больничного загорелым." },
-                new Anecdote (){ LanguageFrom = 2, LanguageTo = 1, TextFrom = @"Russians invented electric light bulbs.
-Edison was the first who invented that these bulbs can be sold.*
-* Russians believe that first electric light bulb was invented by Russian engineer Alexander Lodygin in 1874. Edison patented his invention in 1880. By the way Russians think that radio was invented by … who do you think … Russian engineer Alexander Popov in 1895.", TextTo = @"Русские первые придумали лампу накаливания.
-Эдисон первый, кто придумал, что эти лампы можно продавать." },
-                new Anecdote (){ LanguageFrom = 1, LanguageTo = 2, TextFrom = "Если русский человек решил ничего не делать, то его не остановить.", TextTo = "If Russian decided to do nothing, nothing can stop him." },
-                new Anecdote (){ LanguageFrom = 1, LanguageTo = 2, TextFrom = "Только русский человек может прийти с больничного загорелым.", TextTo = "Only Russian comes back to work from sick leave with strong tan." },
-            };
-            return defTypesList;
         }
     }
 }

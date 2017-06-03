@@ -29,4 +29,7 @@
   <string name="act_trytoaddfavorites">Not enough words in favories.Add more words and try again</string>
   <string name="act_autochangedestination">Do you want to change translate destination?</string>
   <string name="caption_view_test_result">Result of test</string>
+  <string name="tab_fun">For fun!</string>
+  <string name="tab_all_languages">All languages</string>
+  <string name="tab_recent_chats">Recent chats</string>
 </resources>

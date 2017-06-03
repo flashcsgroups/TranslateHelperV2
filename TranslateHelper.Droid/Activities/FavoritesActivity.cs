@@ -85,6 +85,7 @@ namespace TranslateHelper.Droid.Activities
                     return true;
                 case global::Android.Resource.Id.Home:
                     var intentDictActivity = new Intent(this, typeof(DictionaryChatActivity));
+                    intentDictActivity.AddFlags(ActivityFlags.ClearTop);
                     intentDictActivity.PutExtra("currentChatId", currentChatId);
                     StartActivity(intentDictActivity);
                     return true;

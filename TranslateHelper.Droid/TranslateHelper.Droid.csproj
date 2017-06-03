@@ -82,6 +82,7 @@
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Activities\TestResultActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
+    <Compile Include="Adapters\FunDirectionsAdapter.cs" />
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="Adapters\AnecdotesAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,6 +145,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\AnecdotesSectionListHeader.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FunDirectionsAll.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FunDirectionsAllListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

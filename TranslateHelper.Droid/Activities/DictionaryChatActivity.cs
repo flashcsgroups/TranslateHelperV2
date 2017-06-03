@@ -198,11 +198,6 @@ namespace TranslateHelper.Droid.Activities
         {
             switch (item.ItemId)
             {
-                case Resource.Id.menu_anecdotes:
-                    var intentAnecdotes = new Intent(this, typeof(AnecdotesActivity));
-                    intentAnecdotes.PutExtra("currentChatId", presenter.currentChatId);
-                    StartActivity(intentAnecdotes);
-                    return true;
                 case Resource.Id.menu_favorites:
                     var intentFavorites = new Intent(this, typeof(FavoritesActivity));
                     intentFavorites.PutExtra("currentChatId", presenter.currentChatId);
@@ -215,6 +210,7 @@ namespace TranslateHelper.Droid.Activities
                     return true;
                 case global::Android.Resource.Id.Home:
                     var intentDirections = new Intent(this, typeof(DirectionsActivity));
+                    intentDirections.AddFlags(ActivityFlags.ClearTop);
                     StartActivity(intentDirections);
                     return true;
                 default:

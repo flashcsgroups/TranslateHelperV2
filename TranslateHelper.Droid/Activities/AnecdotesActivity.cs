@@ -25,7 +25,8 @@ namespace TranslateHelper.Droid.Activities
     public class AnecdotesActivity : Activity, IAnecdotesView
     {
         AnecdotesPresenter presenter;
-        private int currentChatId;
+        private int languageFromId;
+        private int languageToId;
 
 
         protected override void OnCreate(Bundle bundle)
@@ -40,10 +41,11 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnStart()
         {
             base.OnStart();
-            currentChatId = Intent.GetIntExtra("currentChatId", -1);
-            if (currentChatId >= 0)
+            languageFromId = Intent.GetIntExtra("languageFromId", -1);
+            languageToId = Intent.GetIntExtra("languageToId", -1);
+            if ((languageFromId >= 0)&&(languageToId >= 0))
             {
-                presenter = new AnecdotesPresenter(this, SqlLiteInstance.DB, currentChatId);
+                presenter = new AnecdotesPresenter(this, SqlLiteInstance.DB, languageFromId, languageToId);
                 presenter.Init();
             }
             else
@@ -90,9 +92,9 @@ namespace TranslateHelper.Droid.Activities
             switch (item.ItemId)
             {
                 case global::Android.Resource.Id.Home:
-                    var intentChat = new Intent(this, typeof(DictionaryChatActivity));
-                    intentChat.PutExtra("currentChatId", currentChatId);
-                    StartActivity(intentChat);
+                    var intent = new Intent(this, typeof(DirectionsActivity));
+                    intent.AddFlags(ActivityFlags.ClearTop);
+                    StartActivity(intent);
                     return true;
                 default:
                     break;

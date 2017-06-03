@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using PortableCore.DL;
 using System;
+using PortableCore.BL.Managers;
 
 namespace PortableCore.BL.Views
 {
@@ -9,5 +10,6 @@ namespace PortableCore.BL.Views
     {
         void updateListAllLanguages(List<Language> listLanguages);
         void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent);
+        void updateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories);
     }
 }

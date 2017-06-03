@@ -44,12 +44,14 @@ namespace TranslateHelper.Droid.Activities
         private void BtnCancelTest_Click(object sender, EventArgs e)
         {
             var intentDirections = new Intent(this, typeof(DirectionsActivity));
+            intentDirections.AddFlags(ActivityFlags.ClearTop);
             StartActivity(intentDirections);
         }
 
         private void BtnRepeatTest_Click(object sender, EventArgs e)
         {
             var intentTests = new Intent(this, typeof(SelectTestLevelActivity));
+            intentTests.AddFlags(ActivityFlags.ClearTop);
             intentTests.PutExtra("currentChatId", presenter.CurrentChatId);
             StartActivity(intentTests);
         }

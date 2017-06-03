@@ -41,12 +41,16 @@ namespace TranslateHelper.App
             if(initTablesInNewDB)
                 sqlInstance.InitTables(libraryPath);
 
-            string anecdoteFileName = "anecdotesEN_RUv1.txt";
-
-            string fullPath = Path.Combine(libraryPath, anecdoteFileName);
-            copyAnecdotesFile(fullPath, anecdoteFileName);
-            AnecdoteManager managerAnecdotes = new AnecdoteManager(sqlConnection);
-            managerAnecdotes.LoadDataFromString(File.ReadAllText(fullPath));
+            LanguageManager languageManager = new LanguageManager(sqlConnection);
+            AnecdoteManager anecdoteManager = new AnecdoteManager(sqlConnection, languageManager);
+            anecdoteManager.ClearAnecdoteTable();
+            var listStories = anecdoteManager.GetListDirectionsForStories();
+            foreach(var item in listStories)
+            {
+                string fullPath = Path.Combine(libraryPath, item.SourceFileName);
+                copyAnecdotesFile(fullPath, item.SourceFileName);
+                anecdoteManager.LoadDataFromString(item, File.ReadAllText(fullPath));
+            }
 
         }
 

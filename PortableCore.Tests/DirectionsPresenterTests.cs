@@ -26,7 +26,8 @@ namespace PortableCore.Tests
             var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            var anecdoteManager = new AnecdoteManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
 
             //act
             presenter.SelectedRecentLanguagesEvent();
@@ -45,7 +46,8 @@ namespace PortableCore.Tests
             var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            var anecdoteManager = new AnecdoteManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
 
             //act
             presenter.SelectedAllLanguagesEvent("en");
@@ -64,7 +66,8 @@ namespace PortableCore.Tests
             var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            var anecdoteManager = new AnecdoteManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
             string localeLanguage = "ru";
 
             //act
@@ -85,6 +88,11 @@ namespace PortableCore.Tests
             public void updateListAllLanguages(List<Language> listLanguages)
             {
                 this.listLanguages = listLanguages;
+            }
+
+            public void updateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+            {
+                throw new NotImplementedException();
             }
 
             public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)

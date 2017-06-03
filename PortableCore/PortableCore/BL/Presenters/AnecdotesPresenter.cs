@@ -13,28 +13,25 @@ namespace PortableCore.BL.Presenters
     public class AnecdotesPresenter
     {
         private ISQLiteTesting db;
-        private int selectedChatID;
+        private int languageFromId;
+        private int languageToId;
         private IAnecdotesView view;
         private AnecdoteManager anecdoteManager;
 
-        /// <summary>
-        /// Основной конструктор
-        /// </summary>
-        /// <param name="view"></param>
-        /// <param name="db"></param>
-        /// <param name="selectedChatID"></param>
-        public AnecdotesPresenter(IAnecdotesView view, ISQLiteTesting db, int selectedChatID)
+
+        public AnecdotesPresenter(IAnecdotesView view, ISQLiteTesting db, int languageFromId, int languageToId)
         {
             this.view = view;
             this.db = db;
-            this.selectedChatID = selectedChatID;
-            this.anecdoteManager = new AnecdoteManager(db);
+            this.languageFromId = languageFromId;
+            this.languageToId = languageToId;
+            this.anecdoteManager = new AnecdoteManager(db, new LanguageManager(db));
         }
 
 
         public void Init()
         {
-            var indexedItems = this.anecdoteManager.GetAllAnecdotesForChat(selectedChatID);
+            var indexedItems = this.anecdoteManager.GetAllAnecdotesForDirections(languageFromId, languageToId);
             view.UpdateList(indexedItems);
         }
     }

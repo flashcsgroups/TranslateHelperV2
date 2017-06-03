@@ -6,8 +6,7 @@ namespace PortableCore.BL.Managers
 {
     public interface IAnecdoteManager
     {
-        //List<DirectionsRecentItem> GetChatsForLastDays(int countOfDays);
-        //Chat GetChatByCoupleOfLanguages(Language language1, Language language2);
+        List<StoryWithTranslateItem> GetListDirectionsForStories();
         int SaveItem(Anecdote item);
         Anecdote GetItemForId(int id);
     }

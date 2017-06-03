@@ -128,6 +128,7 @@ namespace TranslateHelper.Droid.Activities
         private void StartDictionaryActivity()
         {
             var intentDictActivity = new Intent(this, typeof(DictionaryChatActivity));
+            intentDictActivity.AddFlags(ActivityFlags.ClearTop);
             intentDictActivity.PutExtra("currentChatId", currentChatId);
             StartActivity(intentDictActivity);
         }
