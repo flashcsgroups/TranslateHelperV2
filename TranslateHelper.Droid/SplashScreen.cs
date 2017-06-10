@@ -33,7 +33,7 @@ namespace TranslateHelper.Droid
         protected override void OnResume()
         {
             base.OnResume();
-            StartActivity(new Intent(Application.Context, typeof(DirectionsActivity)));
+            StartActivity(new Intent(Application.Context, typeof(MainScreenActivity)));
         }
 
     }

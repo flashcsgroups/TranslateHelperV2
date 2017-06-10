@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/world2">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:gravity="center_vertical">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/layoutRecent"
+                style="@style/mainPageButtonLayout">
+                <TextView
+                    android:text="Recent languages"
+                    style="@style/mainPageButtonText" />
+                <ImageView
+                    android:background="@drawable/v1recent"
+                    style="@style/mainPageButtonImage" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutLanguages"
+                style="@style/mainPageButtonLayout">
+                <TextView
+                    android:text="All languages"
+                    style="@style/mainPageButtonText" />
+                <ImageView
+                    android:background="@drawable/v1dictionary"
+                    style="@style/mainPageButtonImage" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/layoutAnecdotes"
+                style="@style/mainPageButtonLayout">
+                <TextView
+                    android:text="Anecdotes"
+                    style="@style/mainPageButtonText" />
+                <ImageView
+                    android:background="@drawable/v2smile"
+                    style="@style/mainPageButtonImage" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutIdioms"
+                style="@style/mainPageButtonLayout">
+                <TextView
+                    android:text="Idioms"
+                    style="@style/mainPageButtonText" />
+                <ImageView
+                    android:background="@drawable/v1idioms"
+                    style="@style/mainPageButtonImage" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/layoutFeedback"
+                style="@style/mainPageButtonLayout">
+                <TextView
+                    android:text="Feedback"
+                    style="@style/mainPageButtonText" />
+                <ImageView
+                    android:background="@drawable/v1feedback"
+                    style="@style/mainPageButtonImage" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

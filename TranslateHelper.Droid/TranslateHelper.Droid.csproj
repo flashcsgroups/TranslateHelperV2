@@ -79,6 +79,7 @@
     <Compile Include="Activities\AnecdotesActivity.cs" />
     <Compile Include="Activities\ChatContextMenuActivity.cs" />
     <Compile Include="Activities\DictionaryChatActivity.cs" />
+    <Compile Include="Activities\MainScreenActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Activities\TestResultActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
@@ -114,14 +115,14 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FavoritesSectionListItem.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\FavoritesItemSelector.xml" />
     <AndroidResource Include="Resources\layout\SelectTestLevel.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TestSelectWords.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DictionaryChat.axml">
       <SubType>AndroidResource</SubType>
@@ -151,6 +152,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FunDirectionsAllListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MainScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -281,12 +285,6 @@
     <AndroidResource Include="Resources\drawable\v1starttest.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\EngRus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\RusEng.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\EngRus.png" />
   </ItemGroup>
   <ItemGroup>
@@ -405,5 +403,29 @@
     <AndroidResource Include="Resources\drawable\Border.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\BorderMainPage.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1dictionary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1feedback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v2feedback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1idioms.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1recent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v2smile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\v1tests.png" />
   </ItemGroup>
 </Project>

@@ -63,6 +63,13 @@ namespace PortableCore.BL.Presenters
                 var defaultData = languageManager.GetDefaultData();
                 listLanguages = defaultData.Where(e=>e.NameShort != currentLocaleShort).ToList();
                 listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
             }
             view.updateListAllLanguages(listLanguages);
         }
