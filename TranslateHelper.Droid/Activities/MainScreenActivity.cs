@@ -58,17 +58,23 @@ namespace TranslateHelper.Droid.Activities
 
         private void LayoutAnecdotes_Click(object sender, EventArgs e)
         {
-            StartActivity(new Intent(Application.Context, typeof(DirectionsActivity)));
+            var intent = new Intent(Application.Context, typeof(DirectionsActivity));
+            intent.PutExtra("DirectionLayoutType", (int)DirectionsLayoutTypes.Anecdotes);
+            StartActivity(intent);
         }
 
         private void LayoutLanguages_Click(object sender, EventArgs e)
         {
-            StartActivity(new Intent(Application.Context, typeof(DirectionsActivity)));
+            var intent = new Intent(Application.Context, typeof(DirectionsActivity));
+            intent.PutExtra("DirectionLayoutType", (int)DirectionsLayoutTypes.AllChats);
+            StartActivity(intent);
         }
 
         private void LayoutRecent_Click(object sender, EventArgs e)
         {
-            StartActivity(new Intent(Application.Context, typeof(DirectionsActivity)));
+            var intent = new Intent(Application.Context, typeof(DirectionsActivity));
+            intent.PutExtra("DirectionLayoutType", (int)DirectionsLayoutTypes.RecentChat);
+            StartActivity(intent);
         }
 
         protected override void OnStart()

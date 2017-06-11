@@ -79,6 +79,7 @@
     <Compile Include="Activities\AnecdotesActivity.cs" />
     <Compile Include="Activities\ChatContextMenuActivity.cs" />
     <Compile Include="Activities\DictionaryChatActivity.cs" />
+    <Compile Include="Activities\DirectionsLayoutTypes.cs" />
     <Compile Include="Activities\MainScreenActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Activities\TestResultActivity.cs" />
