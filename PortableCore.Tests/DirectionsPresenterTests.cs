@@ -85,22 +85,27 @@ namespace PortableCore.Tests
             public List<Tuple<Language, Language>> listDirections { get; private set; }
             public List<DirectionsRecentItem> listDirectionsRecent { get; private set; }
 
-            public void updateListAllLanguages(List<Language> listLanguages)
-            {
-                this.listLanguages = listLanguages;
-            }
-
-            public void updateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+            public void StartChatActivityByChatId(int chatId)
             {
                 throw new NotImplementedException();
             }
 
-            public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
+            public void UpdateListAllLanguages(List<Language> listLanguages)
+            {
+                this.listLanguages = listLanguages;
+            }
+
+            public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateListRecentDirections(List<Tuple<Language, Language>> listDirections)
             {
                 this.listDirections = listDirections;
             }
 
-            public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
+            public void UpdateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
             {
                 this.listDirectionsRecent = listDirectionsRecent;
             }

@@ -24,6 +24,7 @@
   <string name="caption_btn_continue">Продолжить</string>  
   <string name="act_favorites_caption">Избранное</string>
   <string name="act_anecdotes_caption">Анекдоты</string>
+  <string name="act_idioms_caption">Идиомы</string>
   <string name="act_selectcountwords_caption">Выбор количества слов</string>
   <string name="act_testselectwords_caption">Тестирование</string>
   <string name="act_trytoaddfavorites">Недостаточно слов в избранном. Добавьте еще несколько и попробуйте снова</string>

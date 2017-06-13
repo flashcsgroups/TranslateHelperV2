@@ -17,6 +17,7 @@ using PortableCore.BL.Views;
 using PortableCore.DL;
 using PortableCore.BL.Managers;
 using Java.Util;
+using HockeyApp.Android.Metrics;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -26,6 +27,10 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+//#if Release
+            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            MetricsManager.TrackEvent("Main screen");
+//#endif
             SetContentView(Resource.Layout.MainScreen);
             var layoutRecent = FindViewById<LinearLayout>(Resource.Id.layoutRecent);
             layoutRecent.Click += LayoutRecent_Click;
@@ -54,6 +59,8 @@ namespace TranslateHelper.Droid.Activities
 
         private void LayoutIdioms_Click(object sender, EventArgs e)
         {
+            var intent = new Intent(Application.Context, typeof(IdiomsActivity));
+            StartActivity(intent);
         }
 
         private void LayoutAnecdotes_Click(object sender, EventArgs e)

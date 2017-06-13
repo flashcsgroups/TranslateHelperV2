@@ -14,7 +14,6 @@ namespace PortableCore.BL.Presenters
     public class DirectionsPresenter
     {
         IDirectionsView view;
-        //ISQLiteTesting db;
         List<Language> listLanguages = new List<Language>();
         List<DirectionsRecentItem> listDirectionsRecent;
         private IChatManager chatManager;
@@ -33,32 +32,24 @@ namespace PortableCore.BL.Presenters
         {
             listDirectionsRecent = getLastChats();
 
-            view.updateListRecentDirections(listDirectionsRecent);
+            view.UpdateListRecentDirections(listDirectionsRecent);
         }
 
-        /*public void ShowRecentOrFullListLanguages(string currentLocaleShort)
-        {
-            if (listDirectionsRecent == null)
-                listDirectionsRecent = getLastChats();
-
-            if (listDirectionsRecent.Count > 0)
-            {
-                SelectedRecentLanguagesEvent();
-            }
-            else
-                SelectedAllLanguagesEvent(currentLocaleShort);
-        }*/
         public void ShowRecentListLanguages(string currentLocaleShort)
         {
             if (listDirectionsRecent == null)
                 listDirectionsRecent = getLastChats();
-            if (listDirectionsRecent.Count > 0)
+
+            if (listDirectionsRecent.Count == 1)
+            {
+                view.StartChatActivityByChatId(listDirectionsRecent[0].ChatId);
+            }else if (listDirectionsRecent.Count > 1)
             {
                 SelectedRecentLanguagesEvent();
             }
             else
             {
-                ShowFullListLanguages(currentLocaleShort);
+                view.SetViewToFullListLanguages();
             }
         }
 
@@ -81,21 +72,14 @@ namespace PortableCore.BL.Presenters
                 var defaultData = languageManager.GetDefaultData();
                 listLanguages = defaultData.Where(e=>e.NameShort != currentLocaleShort).ToList();
                 listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
             }
-            view.updateListAllLanguages(listLanguages);
+            view.UpdateListAllLanguages(listLanguages);
         }
 
         public void SelectedListFunStoriesEvent()
         {
             var listDirectionsOfStories = anecdotesManager.GetListDirectionsForStories();
-            view.updateListDirectionsOfStoryes(listDirectionsOfStories);
+            view.UpdateListDirectionsOfStoryes(listDirectionsOfStories);
         }
 
         public int GetIdForExistOrCreatedChat(string systemLocale, Language robotLanguage)

@@ -46,8 +46,7 @@ namespace TranslateHelper.Droid.Activities
             {
                 case (int)DirectionsLayoutTypes.AllChats:
                     {
-                        SetContentView(Resource.Layout.DirectionsAll);
-                        presenter.ShowFullListLanguages(Locale.Default.Language);
+                        SetViewToFullListLanguages();
                     };break;
                 case (int)DirectionsLayoutTypes.RecentChat:
                     {
@@ -75,7 +74,7 @@ namespace TranslateHelper.Droid.Activities
             StartActivity(intent);
         }
 
-        public void updateListAllLanguages(List<Language> listLanguage)
+        public void UpdateListAllLanguages(List<Language> listLanguage)
         {
             var listView = FindViewById<ListView>(Resource.Id.listAllDirections);
 
@@ -85,7 +84,7 @@ namespace TranslateHelper.Droid.Activities
             listView.Adapter = adapterAllDirections;
             listView.ItemClick += ListViewAllDirections_ItemClick;
         }
-        public void updateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+        public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
         {
             var listView = FindViewById<ListView>(Resource.Id.listFunAllDirections);
             listView.FastScrollEnabled = true;
@@ -106,10 +105,10 @@ namespace TranslateHelper.Droid.Activities
         {
             Language selectedRobotLanguage = adapterAllDirections.GetLanguageItem(e.Position);
             int chatId = presenter.GetIdForExistOrCreatedChat(Locale.Default.Language, selectedRobotLanguage);
-            startChatActivityByChatId(chatId);
+            StartChatActivityByChatId(chatId);
         }
 
-        public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
+        public void UpdateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
         {
             var listView = FindViewById<ListView>(Resource.Id.listRecentDirections);
 
@@ -119,14 +118,19 @@ namespace TranslateHelper.Droid.Activities
             listView.Adapter = adapterRecentDirections;
             listView.ItemClick += ListViewRecentDirections_ItemClick;
         }
+        public void SetViewToFullListLanguages()
+        {
+            SetContentView(Resource.Layout.DirectionsAll);
+            presenter.ShowFullListLanguages(Locale.Default.Language);
+        }
 
         private void ListViewRecentDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var recentChat = adapterRecentDirections.GetLanguageItem(e.Position);
-            startChatActivityByChatId(recentChat.ChatId);
+            StartChatActivityByChatId(recentChat.ChatId);
         }
 
-        private void startChatActivityByChatId(int chatId)
+        public void StartChatActivityByChatId(int chatId)
         {
             var intent = new Intent(this, typeof(DictionaryChatActivity));
             intent.PutExtra("currentChatId", chatId);
