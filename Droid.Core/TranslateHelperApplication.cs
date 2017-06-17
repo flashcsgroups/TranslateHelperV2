@@ -9,8 +9,10 @@ using Android.Util;
 using System.IO;
 using System.Reflection;
 using HockeyApp.Android;
+using HockeyApp.Android.Metrics;
 using Android;
 using PortableCore.BL.Managers;
+using System.Collections.Generic;
 
 namespace TranslateHelper.App
 {
@@ -31,7 +33,9 @@ namespace TranslateHelper.App
         public override void OnCreate()
         {
             base.OnCreate();
+            var timeStart = DateTime.Now;
             CrashManager.Register(this, "1fa12db7cc804215bdd1a7542b3d1c96");
+            MetricsManager.Register(this, "1fa12db7cc804215bdd1a7542b3d1c96");
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback((sender, certificate, chain, policyErrors) => { return true; });
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -51,7 +55,8 @@ namespace TranslateHelper.App
                 copyAnecdotesFile(fullPath, item.SourceFileName);
                 anecdoteManager.LoadDataFromString(item, File.ReadAllText(fullPath));
             }
-
+            int onCreateDelay = (DateTime.Now - timeStart).Milliseconds;
+            MetricsManager.TrackEvent("OperationsDelay", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, Java.Lang.Double> { { "onCreate", new Java.Lang.Double(onCreateDelay) } });
         }
 
         private static void copyAnecdotesFile(string fullPath, string filename)
@@ -74,41 +79,6 @@ namespace TranslateHelper.App
                 }
             }
         }
-
-        /*private static void copyInitDbFromResourceToFileSystem(string path, Assembly assembly, string resource)
-        {
-            Stream stream = assembly.GetManifestResourceStream(resource);
-            using (FileStream fileStream = File.Create(path))
-            {
-                stream.Seek(0, SeekOrigin.Begin);
-                stream.CopyTo(fileStream);
-            }
-        }*/
-        /*private static void copyInitialDB(string path)
-        {
-            if (!File.Exists(path))
-            {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                string[] resources = assembly.GetManifestResourceNames();
-                foreach (string resource in resources)
-                {
-                    if (resource.EndsWith(sqliteFilename))
-                    {
-                        copyInitDbFromResourceToFileSystem(path, assembly, resource);
-                    }
-                }
-            }
-        }
-
-        private static void copyInitDbFromResourceToFileSystem(string path, Assembly assembly, string resource)
-        {
-            Stream stream = assembly.GetManifestResourceStream(resource);
-            using (FileStream fileStream = File.Create(path))
-            {
-                stream.Seek(0, SeekOrigin.Begin);
-                stream.CopyTo(fileStream);
-            }
-        }*/
 
         private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
         {

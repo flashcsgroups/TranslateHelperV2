@@ -31,6 +31,8 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            ActionBar.SetHomeButtonEnabled(true);
 
             var languageManager = new LanguageManager(SqlLiteInstance.DB);
             var chatHistoryManager = new ChatHistoryManager(SqlLiteInstance.DB);
@@ -142,6 +144,18 @@ namespace TranslateHelper.Droid.Activities
             intent.PutExtra("languageFromId", selectedStory.LanguageFrom.ID);
             intent.PutExtra("languageToId", selectedStory.LanguageTo.ID);
             StartActivity(intent);
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case global::Android.Resource.Id.Home:
+                    goToMainScreen();
+                    return true;
+                default:
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

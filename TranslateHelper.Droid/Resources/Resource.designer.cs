@@ -1236,6 +1236,21 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f040000
 			public const int library_name = 2130968576;
 			
+			// aapt resource value: 0x7f04006c
+			public const int main_btn_all_feedback = 2130968684;
+			
+			// aapt resource value: 0x7f04006b
+			public const int main_btn_all_idioms = 2130968683;
+			
+			// aapt resource value: 0x7f040068
+			public const int main_btn_all_languages = 2130968680;
+			
+			// aapt resource value: 0x7f04006a
+			public const int main_btn_anecdotes = 2130968682;
+			
+			// aapt resource value: 0x7f040069
+			public const int main_btn_recent_languages = 2130968681;
+			
 			// aapt resource value: 0x7f040052
 			public const int msg_cancel = 2130968658;
 			
@@ -1274,15 +1289,6 @@ namespace TranslateHelper.Droid
 			
 			// aapt resource value: 0x7f040058
 			public const int msg_your_score = 2130968664;
-			
-			// aapt resource value: 0x7f040069
-			public const int tab_all_languages = 2130968681;
-			
-			// aapt resource value: 0x7f040068
-			public const int tab_fun = 2130968680;
-			
-			// aapt resource value: 0x7f04006a
-			public const int tab_recent_chats = 2130968682;
 			
 			static String()
 			{

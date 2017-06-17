@@ -42,8 +42,11 @@
     <Compile Include="BL\DetectInputLanguage.cs" />
     <Compile Include="BL\DictionaryWelcomeMsg.cs" />
     <Compile Include="BL\IndexedCollection.cs" />
+    <Compile Include="BL\Managers\IdiomManager.cs" />
+    <Compile Include="BL\Managers\IIdiomManager.cs" />
+    <Compile Include="BL\Managers\IIdiomCategoryManager.cs" />
+    <Compile Include="BL\Managers\IdiomCategoryManager.cs" />
     <Compile Include="BL\Managers\AnecdoteManager.cs" />
-    <Compile Include="BL\Managers\AnecdoteUpdater.cs" />
     <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
     <Compile Include="BL\Managers\IChatHistoryManager.cs" />
@@ -67,6 +70,8 @@
     <Compile Include="BL\Views\ISelectTestLevelView.cs" />
     <Compile Include="BL\Views\IFavoritesView.cs" />
     <Compile Include="BL\Views\ITestResultView.cs" />
+    <Compile Include="DL\IdiomCategory.cs" />
+    <Compile Include="DL\Idiom.cs" />
     <Compile Include="DL\Anecdote.cs" />
     <Compile Include="DL\Chat.cs" />
     <Compile Include="DL\ChatHistory.cs" />

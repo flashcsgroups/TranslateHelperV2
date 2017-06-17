@@ -25,6 +25,8 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.Idioms);
             MetricsManager.TrackEvent("Open idioms");
+            //http://polyidioms.narod.ru/index/0-128
+            //http://catchenglish.ru/frazy-i-vyrazheniya.html
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

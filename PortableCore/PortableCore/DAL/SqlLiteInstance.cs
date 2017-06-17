@@ -47,6 +47,14 @@ namespace PortableCore.DAL
             db.CreateTable<ChatHistory>();
 
             db.CreateTable<Anecdote>();
+
+            db.CreateTable<IdiomCategory>();
+            IdiomCategoryManager idiomCategoryManager = new IdiomCategoryManager(db, langManager);
+            idiomCategoryManager.InitDefaultData();
+
+            db.CreateTable<Idiom>();
+            IdiomManager idiomManager = new IdiomManager(db, langManager);
+            idiomManager.InitDefaultData();
         }
 
     }

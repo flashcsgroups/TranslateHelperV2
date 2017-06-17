@@ -18,7 +18,7 @@
                 android:id="@+id/layoutRecent"
                 style="@style/mainPageButtonLayout">
                 <TextView
-                    android:text="Recent languages"
+                    android:text="@string/main_btn_recent_languages"
                     style="@style/mainPageButtonText" />
                 <ImageView
                     android:background="@drawable/v1recent"
@@ -28,7 +28,7 @@
                 android:id="@+id/layoutLanguages"
                 style="@style/mainPageButtonLayout">
                 <TextView
-                    android:text="All languages"
+                    android:text="@string/main_btn_all_languages"
                     style="@style/mainPageButtonText" />
                 <ImageView
                     android:background="@drawable/v1dictionary"
@@ -44,7 +44,7 @@
                 android:id="@+id/layoutAnecdotes"
                 style="@style/mainPageButtonLayout">
                 <TextView
-                    android:text="Anecdotes"
+                    android:text="@string/main_btn_anecdotes"
                     style="@style/mainPageButtonText" />
                 <ImageView
                     android:background="@drawable/v2smile"
@@ -54,7 +54,7 @@
                 android:id="@+id/layoutIdioms"
                 style="@style/mainPageButtonLayout">
                 <TextView
-                    android:text="Idioms"
+                    android:text="@string/main_btn_all_idioms"
                     style="@style/mainPageButtonText" />
                 <ImageView
                     android:background="@drawable/v1idioms"
@@ -70,7 +70,7 @@
                 android:id="@+id/layoutFeedback"
                 style="@style/mainPageButtonLayout">
                 <TextView
-                    android:text="Feedback"
+                    android:text="@string/main_btn_all_feedback"
                     style="@style/mainPageButtonText" />
                 <ImageView
                     android:background="@drawable/v1feedback"

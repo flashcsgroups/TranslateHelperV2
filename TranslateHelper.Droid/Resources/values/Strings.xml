@@ -30,7 +30,9 @@
   <string name="act_trytoaddfavorites">Not enough words in favories.Add more words and try again</string>
   <string name="act_autochangedestination">Do you want to change translate destination?</string>
   <string name="caption_view_test_result">Result of test</string>
-  <string name="tab_fun">For fun!</string>
-  <string name="tab_all_languages">All languages</string>
-  <string name="tab_recent_chats">Recent chats</string>
+  <string name="main_btn_all_languages">All languages</string>
+  <string name="main_btn_recent_languages">Recent languages</string>
+  <string name="main_btn_anecdotes">Anecdotes</string>
+  <string name="main_btn_all_idioms">Idioms</string>
+  <string name="main_btn_all_feedback">Feedback</string>
 </resources>

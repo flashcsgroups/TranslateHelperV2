@@ -85,6 +85,11 @@ namespace PortableCore.Tests
             public List<Tuple<Language, Language>> listDirections { get; private set; }
             public List<DirectionsRecentItem> listDirectionsRecent { get; private set; }
 
+            public void SetViewToFullListLanguages()
+            {
+                throw new NotImplementedException();
+            }
+
             public void StartChatActivityByChatId(int chatId)
             {
                 throw new NotImplementedException();

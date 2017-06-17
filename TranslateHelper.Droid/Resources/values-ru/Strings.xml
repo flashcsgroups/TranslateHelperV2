@@ -30,7 +30,9 @@
   <string name="act_trytoaddfavorites">Недостаточно слов в избранном. Добавьте еще несколько и попробуйте снова</string>
   <string name="act_autochangedestination">Изменить направление перевода?</string>
   <string name="caption_view_test_result">Результат теста</string>
-  <string name="tab_fun">Шутки, пословицы</string>
-  <string name="tab_all_languages">Все языки</string>
-  <string name="tab_recent_chats">Недавние чаты</string>
+  <string name="main_btn_all_languages">Все\n языки</string>
+  <string name="main_btn_recent_languages">Недавние чаты</string>
+  <string name="main_btn_anecdotes">Шутки, пословицы</string>
+  <string name="main_btn_all_idioms">Устойчивые выражения</string>
+  <string name="main_btn_all_feedback">Оставить отзыв</string>
 </resources>
