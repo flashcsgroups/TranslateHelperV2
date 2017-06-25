@@ -14,7 +14,7 @@ using PortableCore.BL;
 using PortableCore.BL.Managers;
 using PortableCore.BL.Views;
 using PortableCore.BL.Presenters;
-using HockeyApp.Android.Metrics;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -28,7 +28,7 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            HockeyAppMetricsHelper.Register(Application);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.SelectTestLevel);

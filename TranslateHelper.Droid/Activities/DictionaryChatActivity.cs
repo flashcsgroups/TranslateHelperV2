@@ -16,7 +16,6 @@ using PortableCore.DAL;
 using PortableCore.BL.Models;
 using Java.Util;
 using Droid.Core.Helpers;
-using HockeyApp.Android.Metrics;
 using TranslateHelper.App;
 
 namespace TranslateHelper.Droid.Activities
@@ -37,7 +36,7 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
 
-            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            HockeyAppMetricsHelper.Register(Application);
 
             // Create your application here
             SetContentView(Resource.Layout.DictionaryChat);

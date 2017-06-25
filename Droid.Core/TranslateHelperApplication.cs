@@ -8,11 +8,10 @@ using System.Net.Security;
 using Android.Util;
 using System.IO;
 using System.Reflection;
-using HockeyApp.Android;
-using HockeyApp.Android.Metrics;
 using Android;
 using PortableCore.BL.Managers;
 using System.Collections.Generic;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.App
 {
@@ -34,8 +33,8 @@ namespace TranslateHelper.App
         {
             base.OnCreate();
             var timeStart = DateTime.Now;
-            CrashManager.Register(this, "1fa12db7cc804215bdd1a7542b3d1c96");
-            MetricsManager.Register(this, "1fa12db7cc804215bdd1a7542b3d1c96");
+            HockeyAppCrashHelper.Register(this);
+            HockeyAppMetricsHelper.Register(this);
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback((sender, certificate, chain, policyErrors) => { return true; });
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -56,7 +55,7 @@ namespace TranslateHelper.App
                 anecdoteManager.LoadDataFromString(item, File.ReadAllText(fullPath));
             }
             int onCreateDelay = (DateTime.Now - timeStart).Milliseconds;
-            MetricsManager.TrackEvent("OperationsDelay", new Dictionary<string, string> { { "property", "value" } }, new Dictionary<string, Java.Lang.Double> { { "onCreate", new Java.Lang.Double(onCreateDelay) } });
+            HockeyAppMetricsHelper.TrackOperationDurationEvent("onCreate", onCreateDelay);
         }
 
         private static void copyAnecdotesFile(string fullPath, string filename)

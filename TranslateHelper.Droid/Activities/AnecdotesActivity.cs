@@ -9,7 +9,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using HockeyApp.Android.Metrics;
 using PortableCore.BL.Presenters;
 using PortableCore.DAL;
 using PortableCore.BL.Views;
@@ -18,6 +17,7 @@ using PortableCore.BL.Models;
 using PortableCore.BL.Contracts;
 using System.Globalization;
 using TranslateHelper.Droid.Adapters;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -32,11 +32,11 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            HockeyAppMetricsHelper.Register(Application);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.Anecdotes);
-            MetricsManager.TrackEvent("Open anecdotes");
+            HockeyAppMetricsHelper.TrackEvent("Open anecdotes");
         }
         protected override void OnStart()
         {

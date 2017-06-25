@@ -17,7 +17,7 @@ using PortableCore.BL.Presenters;
 using PortableCore.BL.Views;
 using PortableCore.BL.Models;
 using System.Globalization;
-using HockeyApp.Android.Metrics;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -33,8 +33,8 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
-            MetricsManager.TrackEvent("Open test");
+            HockeyAppMetricsHelper.Register(Application);
+            HockeyAppMetricsHelper.TrackEvent("Open test");
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.TestSelectWords);
@@ -53,8 +53,8 @@ namespace TranslateHelper.Droid.Activities
             }
             else
             {
-                MetricsManager.TrackEvent("Error:chat not found.",
-                    new Dictionary<string, string> { { "currentChatId", currentChatId.ToString() } });
+                //throw new Exception("Chat not found");
+                HockeyAppMetricsHelper.TrackEvent("Error:chat not found");
                 backToDictionaryChat();
             }
         }
@@ -116,8 +116,7 @@ namespace TranslateHelper.Droid.Activities
             }
             else
             {
-                MetricsManager.TrackEvent("Error:empty variants collection.", 
-                    new Dictionary<string, string> { { "originalWord", originalWord.TextFrom } });
+                HockeyAppMetricsHelper.TrackEvent("Empty variants collection");
             }
         }
 

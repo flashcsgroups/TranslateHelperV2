@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using HockeyApp.Android.Metrics;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -20,11 +20,11 @@ namespace TranslateHelper.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            HockeyAppMetricsHelper.Register(Application);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.Idioms);
-            MetricsManager.TrackEvent("Open idioms");
+            HockeyAppMetricsHelper.TrackEvent("Open idioms");
             //http://polyidioms.narod.ru/index/0-128
             //http://catchenglish.ru/frazy-i-vyrazheniya.html
         }
