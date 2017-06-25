@@ -79,4 +79,30 @@
     <!-- Used for the background -->
     <item name="android:background">@color/blue_background</item>
   </style>
+
+  <style name="mainPageButtonLayout">
+    <item name="android:orientation">vertical</item>
+    <item name="android:background">@drawable/BorderMainPage</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:paddingLeft">30dp</item>
+    <item name="android:paddingRight">30dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingBottom">10dp</item>
+  </style>
+  <style name="mainPageButtonText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:background">@color/transparent</item>
+    <item name="android:paddingBottom">5dp</item>
+    <item name="android:textSize">13dp</item>
+  </style>
+  <style name="mainPageButtonImage">
+    <item name="android:layout_width">80dp</item>
+    <item name="android:layout_height">80dp</item>
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:background">@color/transparent</item>
+    <item name="android:scaleType">fitCenter</item>
+  </style>
+  
 </resources>

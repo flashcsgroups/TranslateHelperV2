@@ -19,12 +19,20 @@
   <string name="caption_enter_text_for_translate">Text for translate</string>
   <string name="caption_btn_translate_destination">Destination</string>
   <string name="caption_btn_favorites">Favorites</string>
+  <string name="caption_btn_anecdotes">Anecdotes</string>
   <string name="caption_btn_testing">Testing</string>
   <string name="caption_btn_continue">Continue</string>
   <string name="act_favorites_caption">Favorites</string>
+  <string name="act_anecdotes_caption">Anecdotes</string>
+  <string name="act_idioms_caption">Idioms</string>
   <string name="act_selectcountwords_caption">Select count of words</string>
   <string name="act_testselectwords_caption">Testing</string>
   <string name="act_trytoaddfavorites">Not enough words in favories.Add more words and try again</string>
   <string name="act_autochangedestination">Do you want to change translate destination?</string>
   <string name="caption_view_test_result">Result of test</string>
+  <string name="main_btn_all_languages">All languages</string>
+  <string name="main_btn_recent_languages">Recent languages</string>
+  <string name="main_btn_anecdotes">Anecdotes</string>
+  <string name="main_btn_all_idioms">Idioms</string>
+  <string name="main_btn_all_feedback">Feedback</string>
 </resources>

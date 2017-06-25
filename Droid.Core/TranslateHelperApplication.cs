@@ -8,7 +8,10 @@ using System.Net.Security;
 using Android.Util;
 using System.IO;
 using System.Reflection;
-using HockeyApp.Android;
+using Android;
+using PortableCore.BL.Managers;
+using System.Collections.Generic;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.App
 {
@@ -16,8 +19,10 @@ namespace TranslateHelper.App
     public class TranslateHelperApplication : Application
     {
         public static TranslateHelperApplication CurrentInstance { get; private set; }
+        public string LastStringForTranslateFromClipboard = string.Empty;
+
         private static string sqliteFilename = "TranslateHelperV22.db3";
-        private bool initTablesInNewDB = true;
+        private readonly bool initTablesInNewDB = true;
 
         protected TranslateHelperApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -27,48 +32,56 @@ namespace TranslateHelper.App
         public override void OnCreate()
         {
             base.OnCreate();
-            CrashManager.Register(this, "1fa12db7cc804215bdd1a7542b3d1c96");
+            var timeStart = DateTime.Now;
+            HockeyAppCrashHelper.Register(this);
+            HockeyAppMetricsHelper.Register(this);
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback((sender, certificate, chain, policyErrors) => { return true; });
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var path = Path.Combine(libraryPath, sqliteFilename);
-            if(!initTablesInNewDB)
-                copyInitialDB(path);
             SqlLiteHelper sqlConnection = new SqlLiteHelper(path);
             SqlLiteInstance sqlInstance = new SqlLiteInstance(sqlConnection);
             if(initTablesInNewDB)
-                sqlInstance.InitTables();
+                sqlInstance.InitTables(libraryPath);
+
+            LanguageManager languageManager = new LanguageManager(sqlConnection);
+            AnecdoteManager anecdoteManager = new AnecdoteManager(sqlConnection, languageManager);
+            anecdoteManager.ClearAnecdoteTable();
+            var listStories = anecdoteManager.GetListDirectionsForStories();
+            foreach(var item in listStories)
+            {
+                string fullPath = Path.Combine(libraryPath, item.SourceFileName);
+                copyAnecdotesFile(fullPath, item.SourceFileName);
+                anecdoteManager.LoadDataFromString(item, File.ReadAllText(fullPath));
+            }
+            int onCreateDelay = (DateTime.Now - timeStart).Milliseconds;
+            HockeyAppMetricsHelper.TrackOperationDurationEvent("onCreate", onCreateDelay);
         }
 
-        private static void copyInitialDB(string path)
+        private static void copyAnecdotesFile(string fullPath, string filename)
         {
-            if (!File.Exists(path))
+            if (!File.Exists(fullPath))
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                string[] resources = assembly.GetManifestResourceNames();
+                string[] resources = assembly.GetManifestResourceNames();                
                 foreach (string resource in resources)
                 {
-                    if (resource.EndsWith(sqliteFilename))
+                    if (resource.Contains(filename))
                     {
-                        copyInitDbFromResourceToFileSystem(path, assembly, resource);
+                        Stream stream = assembly.GetManifestResourceStream(resource);
+                        using (FileStream fileStream = File.Create(fullPath))
+                        {
+                            stream.Seek(0, SeekOrigin.Begin);
+                            stream.CopyTo(fileStream);
+                        }
                     }
                 }
             }
         }
 
-        private static void copyInitDbFromResourceToFileSystem(string path, Assembly assembly, string resource)
-        {
-            Stream stream = assembly.GetManifestResourceStream(resource);
-            using (FileStream fileStream = File.Create(path))
-            {
-                stream.Seek(0, SeekOrigin.Begin);
-                stream.CopyTo(fileStream);
-            }
-        }
-
         private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
         {
-            string tag = "TranslateHelper";
+            string tag = "TranslateHelperV2";
             Log.Error(tag, e.Exception.Message);
         }
     }

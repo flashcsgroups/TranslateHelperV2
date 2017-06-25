@@ -19,6 +19,7 @@ namespace PortableCore.DL
         public string TextFrom { get; set; }//ответ робота
         public string Transcription { get; set; }//траскрипция
         public string Definition { get; set; }//часть речи
+        [Indexed]
         public bool InFavorites { get; set; }//добавлен в избранное
         public int RequestStatus { get; set; }//статус запроса к сервису, для отображения признака ожидания ответа
         [Indexed]
@@ -27,6 +28,7 @@ namespace PortableCore.DL
         public int LanguageFrom { get; set; }//аналогично LanguageTo
         [Indexed]
         public DateTime UpdateDate { get; set; }
+        [Indexed]
         public int DeleteMark { get; set; }
         [Indexed]
         public int ParentRequestID { get; set; }

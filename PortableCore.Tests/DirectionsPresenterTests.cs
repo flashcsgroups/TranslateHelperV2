@@ -26,7 +26,8 @@ namespace PortableCore.Tests
             var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            var anecdoteManager = new AnecdoteManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
 
             //act
             presenter.SelectedRecentLanguagesEvent();
@@ -45,7 +46,8 @@ namespace PortableCore.Tests
             var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            var anecdoteManager = new AnecdoteManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
 
             //act
             presenter.SelectedAllLanguagesEvent("en");
@@ -64,7 +66,8 @@ namespace PortableCore.Tests
             var languageManager = new LanguageManager(db);
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager);
+            var anecdoteManager = new AnecdoteManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
             string localeLanguage = "ru";
 
             //act
@@ -82,17 +85,32 @@ namespace PortableCore.Tests
             public List<Tuple<Language, Language>> listDirections { get; private set; }
             public List<DirectionsRecentItem> listDirectionsRecent { get; private set; }
 
-            public void updateListAllLanguages(List<Language> listLanguages)
+            public void SetViewToFullListLanguages()
+            {
+                throw new NotImplementedException();
+            }
+
+            public void StartChatActivityByChatId(int chatId)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateListAllLanguages(List<Language> listLanguages)
             {
                 this.listLanguages = listLanguages;
             }
 
-            public void updateListRecentDirections(List<Tuple<Language, Language>> listDirections)
+            public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateListRecentDirections(List<Tuple<Language, Language>> listDirections)
             {
                 this.listDirections = listDirections;
             }
 
-            public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
+            public void UpdateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
             {
                 this.listDirectionsRecent = listDirectionsRecent;
             }

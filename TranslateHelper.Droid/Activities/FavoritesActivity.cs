@@ -15,7 +15,7 @@ using PortableCore.BL.Views;
 using PortableCore.BL.Models;
 using PortableCore.BL;
 using System.Globalization;
-using HockeyApp.Android.Metrics;
+using Droid.Core.Helpers;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -28,11 +28,11 @@ namespace TranslateHelper.Droid.Activities
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-            MetricsManager.Register(Application, "1fa12db7cc804215bdd1a7542b3d1c96");
+            HockeyAppMetricsHelper.Register(Application);
             ActionBar.SetDisplayHomeAsUpEnabled (true);
 			ActionBar.SetHomeButtonEnabled (true);
 			SetContentView (Resource.Layout.Favorites);
-            MetricsManager.TrackEvent("Open favorites");
+            HockeyAppMetricsHelper.TrackEvent("Open favorites");
         }
         protected override void OnStart()
         {
@@ -85,6 +85,7 @@ namespace TranslateHelper.Droid.Activities
                     return true;
                 case global::Android.Resource.Id.Home:
                     var intentDictActivity = new Intent(this, typeof(DictionaryChatActivity));
+                    intentDictActivity.AddFlags(ActivityFlags.ClearTop);
                     intentDictActivity.PutExtra("currentChatId", currentChatId);
                     StartActivity(intentDictActivity);
                     return true;

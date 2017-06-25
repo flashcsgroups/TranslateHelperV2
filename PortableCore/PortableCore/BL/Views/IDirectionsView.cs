@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using PortableCore.DL;
 using System;
+using PortableCore.BL.Managers;
 
 namespace PortableCore.BL.Views
 {
     public interface IDirectionsView
     {
-        void updateListAllLanguages(List<Language> listLanguages);
-        void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent);
+        void UpdateListAllLanguages(List<Language> listLanguages);
+        void UpdateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent);
+        void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories);
+        void StartChatActivityByChatId(int chatId);
+        void SetViewToFullListLanguages();
     }
 }

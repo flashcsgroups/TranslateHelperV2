@@ -42,24 +42,37 @@
     <Compile Include="BL\DetectInputLanguage.cs" />
     <Compile Include="BL\DictionaryWelcomeMsg.cs" />
     <Compile Include="BL\IndexedCollection.cs" />
+    <Compile Include="BL\Managers\IdiomManager.cs" />
+    <Compile Include="BL\Managers\IIdiomManager.cs" />
+    <Compile Include="BL\Managers\IIdiomCategoryManager.cs" />
+    <Compile Include="BL\Managers\IdiomCategoryManager.cs" />
+    <Compile Include="BL\Managers\AnecdoteManager.cs" />
     <Compile Include="BL\Managers\ChatManager.cs" />
     <Compile Include="BL\Managers\ChatHistoryManager.cs" />
     <Compile Include="BL\Managers\IChatHistoryManager.cs" />
+    <Compile Include="BL\Managers\IAnecdoteManager.cs" />
     <Compile Include="BL\Managers\IChatManager.cs" />
     <Compile Include="BL\Managers\ILanguageManager.cs" />
     <Compile Include="BL\Managers\LanguageManager.cs" />
+    <Compile Include="BL\Models\StoryWithTranslateItem.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />
     <Compile Include="BL\Models\DirectionsRecentItem.cs" />
+    <Compile Include="BL\Models\AnecdoteItem.cs" />
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Models\TestWordItem.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
+    <Compile Include="BL\Presenters\AnecdotesPresenter.cs" />
     <Compile Include="BL\Presenters\SelectTestLevelPresenter.cs" />
     <Compile Include="BL\Presenters\FavoritesPresenter.cs" />
     <Compile Include="BL\Presenters\TestResultPresenter.cs" />
+    <Compile Include="BL\Views\IAnecdotesView.cs" />
     <Compile Include="BL\Views\ISelectTestLevelView.cs" />
     <Compile Include="BL\Views\IFavoritesView.cs" />
     <Compile Include="BL\Views\ITestResultView.cs" />
+    <Compile Include="DL\IdiomCategory.cs" />
+    <Compile Include="DL\Idiom.cs" />
+    <Compile Include="DL\Anecdote.cs" />
     <Compile Include="DL\Chat.cs" />
     <Compile Include="DL\ChatHistory.cs" />
     <Compile Include="BL\Views\IDirectionsView.cs" />
@@ -103,6 +116,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v4.4\Mono.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>

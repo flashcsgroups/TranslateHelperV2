@@ -14,38 +14,48 @@ namespace PortableCore.BL.Presenters
     public class DirectionsPresenter
     {
         IDirectionsView view;
-        //ISQLiteTesting db;
         List<Language> listLanguages = new List<Language>();
         List<DirectionsRecentItem> listDirectionsRecent;
-        IChatManager chatManager;
-        ILanguageManager languageManager;
+        private IChatManager chatManager;
+        private ILanguageManager languageManager;
+        private IAnecdoteManager anecdotesManager;
 
-        public DirectionsPresenter(IDirectionsView view, IChatManager chatManager, ILanguageManager languageManager)
+        public DirectionsPresenter(IDirectionsView view, IChatManager chatManager, ILanguageManager languageManager, IAnecdoteManager anecdotesManager)
         {
             this.view = view;
             this.chatManager = chatManager;
             this.languageManager = languageManager;
+            this.anecdotesManager = anecdotesManager;
         }
 
         public void SelectedRecentLanguagesEvent()
         {
-            //if(listDirectionsRecent == null)
-                listDirectionsRecent = getLastChats();
+            listDirectionsRecent = getLastChats();
 
-            view.updateListRecentDirections(listDirectionsRecent);
+            view.UpdateListRecentDirections(listDirectionsRecent);
         }
 
-        public void ShowRecentOrFullListLanguages(string currentLocaleShort)
+        public void ShowRecentListLanguages(string currentLocaleShort)
         {
             if (listDirectionsRecent == null)
                 listDirectionsRecent = getLastChats();
 
-            if (listDirectionsRecent.Count > 0)
+            if (listDirectionsRecent.Count == 1)
+            {
+                view.StartChatActivityByChatId(listDirectionsRecent[0].ChatId);
+            }else if (listDirectionsRecent.Count > 1)
             {
                 SelectedRecentLanguagesEvent();
             }
             else
-                SelectedAllLanguagesEvent(currentLocaleShort);
+            {
+                view.SetViewToFullListLanguages();
+            }
+        }
+
+        public void ShowFullListLanguages(string currentLocaleShort)
+        {
+            SelectedAllLanguagesEvent(currentLocaleShort);
         }
 
         private List<DirectionsRecentItem> getLastChats()
@@ -63,30 +73,14 @@ namespace PortableCore.BL.Presenters
                 listLanguages = defaultData.Where(e=>e.NameShort != currentLocaleShort).ToList();
                 listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
             }
-            view.updateListAllLanguages(listLanguages);
+            view.UpdateListAllLanguages(listLanguages);
         }
 
-        /*public Chat FoundExistingOrCreateChat(Language robotLanguage, Language userLanguage)
+        public void SelectedListFunStoriesEvent()
         {
-            //LanguageManager languageManager = new LanguageManager(db);
-
-            //Language userLanguage = languageManager.GetItemForNameEng("Russian");
-            //var lang = Locale.Default.Language;
-            //Language userLanguage = languageManager.GetItemForNameEng("Russian");
-            //ChatManager chatManager = new ChatManager(db);
-            Chat chat = chatManager.GetChatByCoupleOfLanguages(userLanguage, robotLanguage);
-            if(chat == null)
-            {
-                chat = new Chat();
-                chat.LanguageFrom = userLanguage.ID;
-                chat.LanguageCaptionFrom = userLanguage.NameLocal;
-                chat.LanguageTo = robotLanguage.ID;
-                chat.LanguageCaptionTo = robotLanguage.NameLocal;
-                chat.UpdateDate = DateTime.Now;
-                chatManager.SaveItem(chat);
-            }
-            return chat;
-        }*/
+            var listDirectionsOfStories = anecdotesManager.GetListDirectionsForStories();
+            view.UpdateListDirectionsOfStoryes(listDirectionsOfStories);
+        }
 
         public int GetIdForExistOrCreatedChat(string systemLocale, Language robotLanguage)
         {

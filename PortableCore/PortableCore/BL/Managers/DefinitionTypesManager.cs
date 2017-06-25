@@ -272,11 +272,6 @@ namespace PortableCore.BL.Managers
                     }
                 ;
                     break;
-                default:
-                    {
-                    }
-                    ;
-                    break;
             }
             return result;
         }

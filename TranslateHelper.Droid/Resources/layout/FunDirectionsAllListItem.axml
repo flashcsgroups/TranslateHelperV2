@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainList"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:padding="4dp">
+        <ImageView
+            android:src="@drawable/bender1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/transparent"
+            android:id="@+id/langFromImageView" />
+        <ImageView
+            android:src="@drawable/bender1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/transparent"
+            android:id="@+id/langToImageView" />
+        <TextView
+            android:id="@+id/captionItemTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:textSize="30sp"
+            android:text="English - Russian anecdotes"
+            android:textColor="@color/black"
+            android:background="@color/transparent"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+</LinearLayout>

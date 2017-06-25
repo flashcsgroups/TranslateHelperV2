@@ -26,43 +26,58 @@ namespace TranslateHelper.Droid.Activities
         DirectionsPresenter presenter;
         DirectionsAllAdapter adapterAllDirections;
         DirectionsRecentAdapter adapterRecentDirections;
+        FunDirectionsAdapter adapterFunDirections;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            base.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            ActionBar.SetHomeButtonEnabled(true);
 
             var languageManager = new LanguageManager(SqlLiteInstance.DB);
             var chatHistoryManager = new ChatHistoryManager(SqlLiteInstance.DB);
-            presenter = new DirectionsPresenter(this, new ChatManager(SqlLiteInstance.DB, languageManager, chatHistoryManager), languageManager);
-
-            addTab("Recent", Resource.Layout.DirectionsRecent, new Action(()=> presenter.SelectedRecentLanguagesEvent()));
-            addTab("All languages", Resource.Layout.DirectionsAll, new Action(()=> presenter.SelectedAllLanguagesEvent(Locale.Default.Language)));
-
+            var anecdoteManager = new AnecdoteManager(SqlLiteInstance.DB, languageManager);
+            presenter = new DirectionsPresenter(this, new ChatManager(SqlLiteInstance.DB, languageManager, chatHistoryManager), languageManager, anecdoteManager);
         }
 
         protected override void OnStart()
         {
             base.OnStart();
-            presenter.ShowRecentOrFullListLanguages(Locale.Default.Language);
-        }
-
-        private void addTab(string caption, int layout, Action tabSelectedAction)
-        {
-            ActionBar.Tab tab = ActionBar.NewTab();
-            tab.SetText(caption);
-            tab.TabSelected += (sender, args) =>
+            var directionsLayoutType = Intent.GetIntExtra("DirectionLayoutType", -1);
+            switch(directionsLayoutType)
             {
-                SetContentView(layout);
-                tabSelectedAction();
-            };
-            base.ActionBar.AddTab(tab);
+                case (int)DirectionsLayoutTypes.AllChats:
+                    {
+                        SetViewToFullListLanguages();
+                    };break;
+                case (int)DirectionsLayoutTypes.RecentChat:
+                    {
+                        SetContentView(Resource.Layout.DirectionsRecent);
+                        presenter.ShowRecentListLanguages(Locale.Default.Language);
+                    }
+                    break;
+                case (int)DirectionsLayoutTypes.Anecdotes:
+                    {
+                        SetContentView(Resource.Layout.FunDirectionsAll);
+                        presenter.SelectedListFunStoriesEvent();
+                    }
+                    break;
+                default:
+                    {
+                        goToMainScreen();
+
+                    }; break;
+            }
         }
 
-        public void updateListAllLanguages(List<Language> listLanguage)
+        private void goToMainScreen()
         {
-            base.ActionBar.SelectTab(base.ActionBar.GetTabAt(1));
+            var intent = new Intent(this, typeof(MainScreenActivity));
+            StartActivity(intent);
+        }
+
+        public void UpdateListAllLanguages(List<Language> listLanguage)
+        {
             var listView = FindViewById<ListView>(Resource.Id.listAllDirections);
 
             listView.FastScrollEnabled = true;
@@ -71,20 +86,32 @@ namespace TranslateHelper.Droid.Activities
             listView.Adapter = adapterAllDirections;
             listView.ItemClick += ListViewAllDirections_ItemClick;
         }
+        public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+        {
+            var listView = FindViewById<ListView>(Resource.Id.listFunAllDirections);
+            listView.FastScrollEnabled = true;
+
+            adapterFunDirections = new FunDirectionsAdapter(this, listDirectionsOfStories);
+            listView.Adapter = adapterFunDirections;
+            listView.ItemClick += ListView_StoryItemClick;
+
+        }
+
+        private void ListView_StoryItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            StoryWithTranslateItem selectedStory = adapterFunDirections.GetStoryItem(e.Position);
+            startAnecdotesActivityBySelectedStory(selectedStory);
+        }
 
         private void ListViewAllDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Language selectedRobotLanguage = adapterAllDirections.GetLanguageItem(e.Position);
-            //LanguageManager languageManager = new LanguageManager();
-            //Chat chat = presenter.FoundExistingOrCreateChat(selectedRobotLanguage, presenter. languageManager.GetItemForShortName(Locale.Default.Language));
-            //startChatActivityByChatId(chat.ID);
             int chatId = presenter.GetIdForExistOrCreatedChat(Locale.Default.Language, selectedRobotLanguage);
-            startChatActivityByChatId(chatId);
+            StartChatActivityByChatId(chatId);
         }
 
-        public void updateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
+        public void UpdateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent)
         {
-            base.ActionBar.SelectTab(base.ActionBar.GetTabAt(0));
             var listView = FindViewById<ListView>(Resource.Id.listRecentDirections);
 
             listView.FastScrollEnabled = true;
@@ -93,18 +120,42 @@ namespace TranslateHelper.Droid.Activities
             listView.Adapter = adapterRecentDirections;
             listView.ItemClick += ListViewRecentDirections_ItemClick;
         }
+        public void SetViewToFullListLanguages()
+        {
+            SetContentView(Resource.Layout.DirectionsAll);
+            presenter.ShowFullListLanguages(Locale.Default.Language);
+        }
 
         private void ListViewRecentDirections_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var recentChat = adapterRecentDirections.GetLanguageItem(e.Position);
-            startChatActivityByChatId(recentChat.ChatId);
+            StartChatActivityByChatId(recentChat.ChatId);
         }
 
-        private void startChatActivityByChatId(int chatId)
+        public void StartChatActivityByChatId(int chatId)
         {
             var intent = new Intent(this, typeof(DictionaryChatActivity));
             intent.PutExtra("currentChatId", chatId);
             StartActivity(intent);
+        }
+        private void startAnecdotesActivityBySelectedStory(StoryWithTranslateItem selectedStory)
+        {
+            var intent = new Intent(this, typeof(AnecdotesActivity));
+            intent.PutExtra("languageFromId", selectedStory.LanguageFrom.ID);
+            intent.PutExtra("languageToId", selectedStory.LanguageTo.ID);
+            StartActivity(intent);
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case global::Android.Resource.Id.Home:
+                    goToMainScreen();
+                    return true;
+                default:
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }
