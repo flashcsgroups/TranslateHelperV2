@@ -69,5 +69,12 @@ namespace PortableCore.BL.Managers
             Repository<Idiom> repo = new Repository<Idiom>();
             return repo.Save(item);
         }
+
+        public List<DirectionIdiomItem> GetListDirections()
+        {
+            List<DirectionIdiomItem> resultList = new List<DirectionIdiomItem>();
+            resultList.Add(new DirectionIdiomItem(languageManager.GetItemForShortName("en"), languageManager.GetItemForShortName("ru"), ""));
+            return resultList;
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace PortableCore.BL.Managers
 {
     public interface IAnecdoteManager
     {
-        List<StoryWithTranslateItem> GetListDirectionsForStories();
+        List<DirectionAnecdoteItem> GetListDirectionsForStories();
         int SaveItem(Anecdote item);
         Anecdote GetItemForId(int id);
     }

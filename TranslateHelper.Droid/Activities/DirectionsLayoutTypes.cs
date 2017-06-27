@@ -12,5 +12,5 @@ using Android.Widget;
 
 namespace TranslateHelper.Droid.Activities
 {
-    enum DirectionsLayoutTypes: int {AllChats = 0, RecentChat, Anecdotes };
+    enum DirectionsLayoutTypes: int {AllChats = 0, RecentChat, Anecdotes, Idioms };
 }

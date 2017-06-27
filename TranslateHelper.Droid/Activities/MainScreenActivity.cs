@@ -57,7 +57,8 @@ namespace TranslateHelper.Droid.Activities
 
         private void LayoutIdioms_Click(object sender, EventArgs e)
         {
-            var intent = new Intent(Application.Context, typeof(IdiomsActivity));
+            var intent = new Intent(Application.Context, typeof(DirectionsActivity));
+            intent.PutExtra("DirectionLayoutType", (int)DirectionsLayoutTypes.Idioms);
             StartActivity(intent);
         }
 

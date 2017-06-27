@@ -30,7 +30,7 @@ namespace PortableCore.BL.Managers
             repos.DeleteAllDataInTable();
         }
 
-        public void LoadDataFromString(StoryWithTranslateItem storyInfo, string anecdotes)
+        public void LoadDataFromString(DirectionAnecdoteItem storyInfo, string anecdotes)
         {
             var anecdotesArray = anecdotes.Split('^');
             List<Anecdote> data = new List<Anecdote>();
@@ -66,16 +66,16 @@ namespace PortableCore.BL.Managers
             return indexedAnecdotes;
         }
 
-        public List<StoryWithTranslateItem> GetListDirectionsForStories()
+        public List<DirectionAnecdoteItem> GetListDirectionsForStories()
         {
-            List<StoryWithTranslateItem> list = new List<StoryWithTranslateItem>();
+            List<DirectionAnecdoteItem> list = new List<DirectionAnecdoteItem>();
             var eng = languageManager.GetItemForShortName("en");
             var de = languageManager.GetItemForShortName("de");
             var es = languageManager.GetItemForShortName("es");
             var rus = languageManager.GetItemForShortName("ru");
-            list.Add(new StoryWithTranslateItem(eng, rus, "anecdotesEN_RUv1.txt"));
-            list.Add(new StoryWithTranslateItem(de, rus, "anecdotesDE_RUv1.txt"));
-            list.Add(new StoryWithTranslateItem(es, rus, "anecdotesES_RUv1.txt"));
+            list.Add(new DirectionAnecdoteItem(eng, rus, "anecdotesEN_RUv1.txt"));
+            list.Add(new DirectionAnecdoteItem(de, rus, "anecdotesDE_RUv1.txt"));
+            list.Add(new DirectionAnecdoteItem(es, rus, "anecdotesES_RUv1.txt"));
             return list;
         }
 

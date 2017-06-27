@@ -54,7 +54,8 @@
     <Compile Include="BL\Managers\IChatManager.cs" />
     <Compile Include="BL\Managers\ILanguageManager.cs" />
     <Compile Include="BL\Managers\LanguageManager.cs" />
-    <Compile Include="BL\Models\StoryWithTranslateItem.cs" />
+    <Compile Include="BL\Models\DirectionIdiomItem.cs" />
+    <Compile Include="BL\Models\DirectionAnecdoteItem.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />
     <Compile Include="BL\Models\DirectionsRecentItem.cs" />
     <Compile Include="BL\Models\AnecdoteItem.cs" />

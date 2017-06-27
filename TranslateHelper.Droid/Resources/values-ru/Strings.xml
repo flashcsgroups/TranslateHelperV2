@@ -29,6 +29,7 @@
   <string name="act_testselectwords_caption">Тестирование</string>
   <string name="act_trytoaddfavorites">Недостаточно слов в избранном. Добавьте еще несколько и попробуйте снова</string>
   <string name="act_autochangedestination">Изменить направление перевода?</string>
+  <string name="act_select_direction">Выбор направления</string>
   <string name="caption_view_test_result">Результат теста</string>
   <string name="main_btn_all_languages">Все\n языки</string>
   <string name="main_btn_recent_languages">Недавние чаты</string>

@@ -100,7 +100,7 @@ namespace PortableCore.Tests
                 this.listLanguages = listLanguages;
             }
 
-            public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+            public void UpdateListDirectionsOfStoryes(List<DirectionAnecdoteItem> listDirectionsOfStories)
             {
                 throw new NotImplementedException();
             }

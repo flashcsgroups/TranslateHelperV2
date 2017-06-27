@@ -12,26 +12,26 @@ using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid.Adapters
 {
-	public class FunDirectionsAdapter : ArrayAdapter<DirectionAnecdoteItem>
+	public class IdiomDirectionsAdapter : ArrayAdapter<DirectionIdiomItem>
 	{
 
 		private Activity context;
-		private List<DirectionAnecdoteItem> directionsStoryList;
+		private List<DirectionIdiomItem> directionsIdiomsList;
         private List<Tuple<string, int>> flagImageIdsList = new List<Tuple<string, int>>();
 
-        public FunDirectionsAdapter(Activity context, List<DirectionAnecdoteItem> directionsStoryList)
-			: base (context, Resource.Layout.FunDirectionsAllListItem, directionsStoryList)
+        public IdiomDirectionsAdapter(Activity context, List<DirectionIdiomItem> directionsIdiomsList)
+			: base (context, Resource.Layout.FunDirectionsAllListItem, directionsIdiomsList)
 		{
 			this.context = context;
-			this.directionsStoryList = directionsStoryList;
+			this.directionsIdiomsList = directionsIdiomsList;
 
         }
 
 		public override View GetView (int position, View convertView, ViewGroup parent)
         {
 
-            var item = this.directionsStoryList[position];
-            var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.FunDirectionsAllListItem, parent, false)) as LinearLayout;
+            var item = this.directionsIdiomsList[position];
+            var view = (convertView ?? this.context.LayoutInflater.Inflate(Resource.Layout.IdiomsDirectionsAllListItem, parent, false)) as LinearLayout;
 
             ImageView langFromView = view.FindViewById<ImageView>(Resource.Id.langFromImageView);
             int flagLangFromResourceId = getFlagResourceId(item.LanguageFrom.NameImageResource.ToLower());
@@ -65,9 +65,9 @@ namespace TranslateHelper.Droid.Adapters
             return flagResourceId;
         }
 
-        internal DirectionAnecdoteItem GetListItem(int position)
+        internal DirectionIdiomItem GetListItem(int position)
         {
-            return this.directionsStoryList[position];
+            return this.directionsIdiomsList[position];
         }
     }
 }

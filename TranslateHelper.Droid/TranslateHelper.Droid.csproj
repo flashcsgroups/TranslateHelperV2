@@ -85,6 +85,7 @@
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Activities\TestResultActivity.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
+    <Compile Include="Adapters\IdiomDirectionsAdapter .cs" />
     <Compile Include="Adapters\FunDirectionsAdapter.cs" />
     <Compile Include="Adapters\DirectionsRecentAdapter.cs" />
     <Compile Include="Adapters\AnecdotesAdapter.cs" />
@@ -160,6 +161,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Idioms.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\IdiomsDirectionsAll.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\IdiomsDirectionsAllListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

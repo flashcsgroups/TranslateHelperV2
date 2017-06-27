@@ -19,13 +19,15 @@ namespace PortableCore.BL.Presenters
         private IChatManager chatManager;
         private ILanguageManager languageManager;
         private IAnecdoteManager anecdotesManager;
+        private IIdiomManager idiomsManager;
 
-        public DirectionsPresenter(IDirectionsView view, IChatManager chatManager, ILanguageManager languageManager, IAnecdoteManager anecdotesManager)
+        public DirectionsPresenter(IDirectionsView view, IChatManager chatManager, ILanguageManager languageManager, IAnecdoteManager anecdotesManager, IIdiomManager idiomsManager)
         {
             this.view = view;
             this.chatManager = chatManager;
             this.languageManager = languageManager;
             this.anecdotesManager = anecdotesManager;
+            this.idiomsManager = idiomsManager;
         }
 
         public void SelectedRecentLanguagesEvent()
@@ -80,6 +82,12 @@ namespace PortableCore.BL.Presenters
         {
             var listDirectionsOfStories = anecdotesManager.GetListDirectionsForStories();
             view.UpdateListDirectionsOfStoryes(listDirectionsOfStories);
+        }
+
+        public void SelectedIdiomsDirectionsListEvent()
+        {
+            var listDirectionsOfIdioms = idiomsManager.GetListDirections();
+            view.UpdateListDirectionsOfIdioms(listDirectionsOfIdioms);
         }
 
         public int GetIdForExistOrCreatedChat(string systemLocale, Language robotLanguage)
