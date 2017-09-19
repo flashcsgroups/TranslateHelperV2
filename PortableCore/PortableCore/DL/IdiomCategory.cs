@@ -15,7 +15,7 @@ namespace PortableCore.DL
 
         }
 
-        [PrimaryKey, AutoIncrement, Indexed]
+        [PrimaryKey, Indexed]
         public int ID { get; set; }
         [Indexed]
         public int LanguageFrom { get; set; }

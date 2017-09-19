@@ -121,6 +121,8 @@ namespace TranslateHelper.Droid.Activities
 
         private void ListView_IdiomDirectionItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+            DirectionIdiomItem selectedItem = adapterIdiomDirections.GetListItem(e.Position);
+            startIdiomsActivityByDirection(selectedItem);
         }
 
         private void ListView_StoryItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -169,6 +171,13 @@ namespace TranslateHelper.Droid.Activities
             var intent = new Intent(this, typeof(AnecdotesActivity));
             intent.PutExtra("languageFromId", selectedStory.LanguageFrom.ID);
             intent.PutExtra("languageToId", selectedStory.LanguageTo.ID);
+            StartActivity(intent);
+        }
+        private void startIdiomsActivityByDirection(DirectionIdiomItem directionItem)
+        {
+            var intent = new Intent(this, typeof(IdiomsActivity));
+            intent.PutExtra("languageFromId", directionItem.LanguageFrom.ID);
+            intent.PutExtra("languageToId", directionItem.LanguageTo.ID);
             StartActivity(intent);
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

@@ -79,6 +79,16 @@ namespace PortableCore.DAL
             return db.Count<T>();
         }
 
+        public int GetHashForItems()
+        {
+            int sum = 0;
+            foreach(var item in db.Table<T>())
+            {
+                sum += item.ID;
+            }
+            return sum;
+        }
+
     }
 }
 

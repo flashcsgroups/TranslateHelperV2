@@ -6,12 +6,9 @@
     android:background="@drawable/world2"
     android:padding="5dp"
     android:id="@+id/idiomsLayout">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/transparent"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/black"
-        android:textSize="20dip"
-        android:text="Under construction. Coming Soon!" />
+  <ListView
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@color/transparent"
+      android:id="@+id/listIdiomsListView" />
 </LinearLayout>

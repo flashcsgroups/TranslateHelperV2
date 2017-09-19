@@ -41,6 +41,21 @@ namespace PortableCore.BL.Managers
             }
         }
 
+        internal IndexedCollection<IdiomItem> GetAllIdiomsForDirections(int languageFromId, int languageToId)
+        {
+            var dataView = db.Table<Idiom>().Where(item => (((item.LanguageFrom == languageToId && item.LanguageTo == languageFromId) || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)) && item.DeleteMark == 0));
+            var dataCategoryView = db.Table<IdiomCategory>().Where(item=>item.DeleteMark == 0);
+            IndexedCollection<IdiomItem> indexedCollection = new IndexedCollection<IdiomItem>();
+            foreach (var item in dataView)
+            {
+                var idiom = new IdiomItem() { Id = item.ID, TextFrom = item.TextFrom, TextTo = item.TextTo, ExampleTextFrom = item.ExampleTextFrom, ExampleTextTo = item.ExampleTextTo };
+                var category = dataCategoryView.Where(i=>i.ID == item.CategoryID).Single();
+                idiom.CategoryTextFrom = category.TextFrom;
+                indexedCollection.Add(idiom);
+            }
+            return indexedCollection;
+        }
+
         private Idiom[] GetDefaultData()
         {
             var eng = languageManager.GetItemForShortName("en").ID;

@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:text="English - Russian anecdotes"
             android:textColor="@color/black"
             android:background="@color/transparent"

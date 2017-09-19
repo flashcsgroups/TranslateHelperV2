@@ -31,10 +31,11 @@ namespace PortableCore.BL.Managers
 
         public void InitDefaultData()
         {
-            ClearTable();
             Repository<IdiomCategory> repos = new Repository<IdiomCategory>();
             IdiomCategory[] data = GetDefaultData();
-            if (repos.Count() != data.Length)
+            int hashOriginalData = data.Sum(i=>i.ID);
+            int hashRepositoryData = repos.GetHashForItems();
+            if(hashOriginalData != hashRepositoryData)
             {
                 repos.DeleteAllDataInTable();
                 repos.AddItemsInTransaction(data);
@@ -54,6 +55,10 @@ namespace PortableCore.BL.Managers
             return list;
         }
 
+        private int getHash()
+        {
+            return 0;
+        }
         public IdiomCategory GetItemForId(int id)
         {
             Repository<IdiomCategory> repos = new Repository<IdiomCategory>();

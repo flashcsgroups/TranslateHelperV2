@@ -84,6 +84,7 @@
     <Compile Include="Activities\MainScreenActivity.cs" />
     <Compile Include="Activities\DirectionsActivity.cs" />
     <Compile Include="Activities\TestResultActivity.cs" />
+    <Compile Include="Adapters\IdiomsAdapter.cs" />
     <Compile Include="Adapters\BubbleAdapter.cs" />
     <Compile Include="Adapters\IdiomDirectionsAdapter .cs" />
     <Compile Include="Adapters\FunDirectionsAdapter.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="TogglesSoftKeyboard.cs" />
     <Compile Include="TranslateServiceResult.cs" />
     <AndroidResource Include="Resources\layout\DirectionsAllListItem.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <Compile Include="Adapters\DirectionsAllAdapter.cs" />
     <AndroidResource Include="Resources\layout\ChatContextMenu.axml">
@@ -134,7 +135,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DirectionsAll.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DirectionsRecent.axml">
       <SubType>AndroidResource</SubType>
@@ -167,6 +168,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\IdiomsDirectionsAllListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\IdiomsCategoryListHeader.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\IdiomsListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

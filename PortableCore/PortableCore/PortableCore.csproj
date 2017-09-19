@@ -54,6 +54,7 @@
     <Compile Include="BL\Managers\IChatManager.cs" />
     <Compile Include="BL\Managers\ILanguageManager.cs" />
     <Compile Include="BL\Managers\LanguageManager.cs" />
+    <Compile Include="BL\Models\IdiomItem.cs" />
     <Compile Include="BL\Models\DirectionIdiomItem.cs" />
     <Compile Include="BL\Models\DirectionAnecdoteItem.cs" />
     <Compile Include="BL\Models\BubbleItem.cs" />
@@ -62,11 +63,13 @@
     <Compile Include="BL\Models\FavoriteItem.cs" />
     <Compile Include="BL\ITestSelectWordsReader.cs" />
     <Compile Include="BL\Models\TestWordItem.cs" />
+    <Compile Include="BL\Presenters\IdiomsPresenter.cs" />
     <Compile Include="BL\Presenters\DirectionsPresenter.cs" />
     <Compile Include="BL\Presenters\AnecdotesPresenter.cs" />
     <Compile Include="BL\Presenters\SelectTestLevelPresenter.cs" />
     <Compile Include="BL\Presenters\FavoritesPresenter.cs" />
     <Compile Include="BL\Presenters\TestResultPresenter.cs" />
+    <Compile Include="BL\Views\IIdiomsView.cs" />
     <Compile Include="BL\Views\IAnecdotesView.cs" />
     <Compile Include="BL\Views\ISelectTestLevelView.cs" />
     <Compile Include="BL\Views\IFavoritesView.cs" />
