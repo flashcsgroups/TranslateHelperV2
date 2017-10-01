@@ -23,9 +23,13 @@ namespace PortableCore.DL
         public int LanguageFrom { get; set; }
         [Indexed]
         public int LanguageTo { get; set; }
+        [Indexed]
         public string TextFrom { get; set; }//текст на языке From
+        [Indexed]
         public string TextTo { get; set; }//перевод на языке To
+        [Indexed]
         public string ExampleTextFrom { get; set; }//Пример перевода на языке From
+        [Indexed]
         public string ExampleTextTo { get; set; }//Пример перевода на языке To
         [Indexed]
         public string DescriptionTextFrom { get; set; }//Описание категории фразы на исходном языке From

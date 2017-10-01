@@ -41,9 +41,14 @@ namespace PortableCore.BL.Managers
             }
         }
 
-        internal IndexedCollection<IdiomItem> GetAllIdiomsForDirections(int languageFromId, int languageToId)
+        internal IndexedCollection<IdiomItem> GetIdiomsForDirections(int languageFromId, int languageToId, string searchString)
         {
-            var dataView = db.Table<Idiom>().Where(item => (((item.LanguageFrom == languageToId && item.LanguageTo == languageFromId) || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)) && item.DeleteMark == 0));
+            var dataView = db.Table<Idiom>().Where(item => ((
+            (item.LanguageFrom == languageToId && item.LanguageTo == languageFromId) 
+            || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)
+            ) 
+            && (item.TextFrom.Contains(searchString) || item.TextTo.Contains(searchString) || item.ExampleTextFrom.Contains(searchString) || item.ExampleTextTo.Contains(searchString))
+            && item.DeleteMark == 0));
             var dataCategoryView = db.Table<IdiomCategory>().Where(item=>item.DeleteMark == 0);
             IndexedCollection<IdiomItem> indexedCollection = new IndexedCollection<IdiomItem>();
             foreach (var item in dataView)
@@ -56,25 +61,25 @@ namespace PortableCore.BL.Managers
             return indexedCollection;
         }
 
-        internal List<int> Search(int languageFromId, int languageToId, string searchString)
+        /*internal List<int> Search(int languageFromId, int languageToId, string searchString)
         {
             List<int> iDs = new List<int>();
-            var dataView = db.Table<Idiom>().Where(item => (item.ExampleTextFrom.Contains(searchString)));
-            /*foreach (var item in dataView)
+            var dataView = db.Table<Idiom>().Where(item => );
+            foreach (var item in dataView)
             {
                 iDs.Add(item.ID);
-            }*/
+            }
             return iDs;
-        }
+        }*/
 
         private Idiom[] GetDefaultData()
         {
             var eng = languageManager.GetItemForShortName("en").ID;
             var rus = languageManager.GetItemForShortName("ru").ID;
             Idiom[] list = new Idiom[] {
-                new Idiom (){ ID=1, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом"},
-                new Idiom (){ ID=2, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца"},
-                new Idiom (){ ID=3, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия"},
+                new Idiom (){ ID=1, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
+                new Idiom (){ ID=2, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
+                new Idiom (){ ID=3, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
                 new Idiom (){ ID=4, LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "shelf life", TextTo = "срок хранения/предельная дата гарантированного качества хранении/срок существования", ExampleTextFrom = "There was an interesting article 'All marriages have a shelf life' in yesterday’s paper.", ExampleTextTo = "Во вчерашней газете была опубликована интересная статья «Все брачные союзы имеют свой срок»."},
                 new Idiom (){ ID=5, LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "from the word go", TextTo = "с самого начала/с начала до конца", ExampleTextFrom = "Right from the word go, many of the players looked out of breath and out of their depth.", ExampleTextTo = "С самого начала игры многие из игроков выглядели усталыми и растерянными."},
                 new Idiom (){ ID=6, LanguageFrom = eng, LanguageTo = rus, CategoryID = 3, DescriptionTextFrom = "Many", DescriptionTextTo = "Много", TextFrom = "to give chapter and verse", TextTo = "давать во всех подробностях", ExampleTextFrom = "The book gives chapter and verse on how to select a product, advertising, distribution and finances.", ExampleTextTo = "В книге дается подробная информация о том, как выбрать продукт для изготовления, о рекламе, реализации и финансировании предприятия."},

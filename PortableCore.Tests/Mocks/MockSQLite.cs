@@ -34,8 +34,29 @@ namespace PortableCore.Tests.Mocks
             {
                 listItems = getMockedDataForIdiom() as List<T>;
             }
+            if (type == typeof(IdiomCategory))
+            {
+                listItems = getMockedDataForIdiomCategory() as List<T>;
+            }
 
             return listItems;
+        }
+
+        private List<IdiomCategory> getMockedDataForIdiomCategory()
+        {
+            var eng = 2;
+            var rus = 1;
+            List<IdiomCategory> list = new List<IdiomCategory>
+            {
+                new IdiomCategory() { ID = 1, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Frequently used phrases", TextTo = "Часто используемые фразы" },
+                new IdiomCategory() { ID = 2, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Time", TextTo = "Время" },
+                new IdiomCategory() { ID = 3, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo = "Наличие" },
+                new IdiomCategory() { ID = 4, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo = "Количество" },
+                new IdiomCategory() { ID = 5, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Information", TextTo = "Информация" },
+                new IdiomCategory() { ID = 6, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Intellect, mind", TextTo = "Интеллект, мышление" }
+            };
+
+            return list;
         }
 
         private List<Idiom> getMockedDataForIdiom()
@@ -43,9 +64,9 @@ namespace PortableCore.Tests.Mocks
             List<Idiom> listObj = new List<Idiom>();
             var eng = 2;
             var rus = 1;
-            listObj.Add(new Idiom() { ID = 1, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом" });
-            listObj.Add(new Idiom (){ ID=2, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца"});
-            listObj.Add(new Idiom (){ ID=3, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия"});
+            listObj.Add(new Idiom() { ID = 1, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom = string.Empty, ExampleTextTo = string.Empty });
+            listObj.Add(new Idiom (){ ID=2, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца", ExampleTextFrom = string.Empty, ExampleTextTo = string.Empty });
+            listObj.Add(new Idiom (){ ID=3, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия", ExampleTextFrom = string.Empty, ExampleTextTo = string.Empty });
             listObj.Add(new Idiom (){ ID=4, LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "shelf life", TextTo = "срок хранения/предельная дата гарантированного качества хранении/срок существования", ExampleTextFrom = "There was an interesting article 'All marriages have a shelf life' in yesterday’s paper.", ExampleTextTo = "Во вчерашней газете была опубликована интересная статья «Все брачные союзы имеют свой срок»."});
             listObj.Add(new Idiom (){ ID=5, LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "from the word go", TextTo = "с самого начала/с начала до конца", ExampleTextFrom = "Right from the word go, many of the players looked out of breath and out of their depth.", ExampleTextTo = "С самого начала игры многие из игроков выглядели усталыми и растерянными."});
             listObj.Add(new Idiom (){ ID=6, LanguageFrom = eng, LanguageTo = rus, CategoryID = 3, DescriptionTextFrom = "Many", DescriptionTextTo = "Много", TextFrom = "to give chapter and verse", TextTo = "давать во всех подробностях", ExampleTextFrom = "The book gives chapter and verse on how to select a product, advertising, distribution and finances.", ExampleTextTo = "В книге дается подробная информация о том, как выбрать продукт для изготовления, о рекламе, реализации и финансировании предприятия."});

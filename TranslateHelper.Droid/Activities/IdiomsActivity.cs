@@ -37,15 +37,27 @@ namespace TranslateHelper.Droid.Activities
             SetContentView(Resource.Layout.Idioms);
             HockeyAppMetricsHelper.TrackEvent("Open idioms");
             ImageButton buttonSearch = FindViewById<ImageButton>(Resource.Id.ibSearchIdiom);
+            EditText editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
+            editTextSearch.AfterTextChanged += EditTextSearch_AfterTextChanged;
+
             buttonSearch.Click += (object sender, EventArgs e) =>
             {
-                EditText editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
-                var founded = presenter.Search(editTextSearch.Text);
+                editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
+                presenter.FindIdioms(editTextSearch.Text);
             };
 
             //http://polyidioms.narod.ru/index/0-128
             //http://catchenglish.ru/frazy-i-vyrazheniya.html
         }
+
+        private void EditTextSearch_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            EditText editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
+            string newText = editTextSearch.Text;
+            if (newText.Length > 1 || newText.Length == 0)
+                presenter.FindIdioms(newText);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -78,16 +90,30 @@ namespace TranslateHelper.Droid.Activities
 
         public void UpdateList(IndexedCollection<IdiomItem> list)
         {
-            var adapter = CreateAdapter(list.GetSortedData());
-            var listView = FindViewById<ListView>(Resource.Id.listIdiomsListView);
-            listView.FastScrollEnabled = true;
-            listView.Adapter = adapter;
-            listView.ItemClick += ListView_ItemClick;
+            if(list.Count() > 0)
+            {
+                TextView tvIdiomsNothingFound = FindViewById<TextView>(Resource.Id.tvIdiomsNothingFound);
+                if (tvIdiomsNothingFound.Visibility == ViewStates.Visible) tvIdiomsNothingFound.Visibility = ViewStates.Gone;
+                ListView listIdiomsListView = FindViewById<ListView>(Resource.Id.listIdiomsListView);
+                if (listIdiomsListView.Visibility == ViewStates.Gone) listIdiomsListView.Visibility = ViewStates.Visible;
+                var adapter = CreateAdapter(list.GetSortedData());
+                var listView = FindViewById<ListView>(Resource.Id.listIdiomsListView);
+                listView.FastScrollEnabled = true;
+                listView.Adapter = adapter;
+                listView.ItemClick += ListView_ItemClick;
+            }
+            else
+            {
+                TextView tvIdiomsNothingFound = FindViewById<TextView>(Resource.Id.tvIdiomsNothingFound);
+                if (tvIdiomsNothingFound.Visibility == ViewStates.Gone) tvIdiomsNothingFound.Visibility = ViewStates.Visible;
+                ListView listIdiomsListView = FindViewById<ListView>(Resource.Id.listIdiomsListView);
+                if (listIdiomsListView.Visibility == ViewStates.Visible) listIdiomsListView.Visibility = ViewStates.Gone;
+            }
         }
 
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var viewParent = e.View;
+            /*var viewParent = e.View;
             var translatedTextView = ((View)viewParent).FindViewById<TextView>(Resource.Id.IdiomsTextToTextView);
             if (translatedTextView.Visibility == ViewStates.Gone)
             {
@@ -96,7 +122,7 @@ namespace TranslateHelper.Droid.Activities
             else
             {
                 translatedTextView.Visibility = ViewStates.Gone;
-            }
+            }*/
         }
 
         IdiomsAdapter CreateAdapter<T>(Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
