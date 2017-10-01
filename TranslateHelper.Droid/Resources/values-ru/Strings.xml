@@ -17,6 +17,7 @@
   <string name="msg_your_score">Ваш счет:</string>
   <string name="caption_translate_destination">Направление перевода</string>
   <string name="caption_enter_text_for_translate">Текст для перевода</string>
+  <string name="caption_enter_text_for_search_idiom">Напишите что-то для поиска...</string>
   <string name="caption_btn_translate_destination">Направление</string>
   <string name="caption_btn_favorites">Избранное</string>
   <string name="caption_btn_anecdotes">Анекдоты</string>

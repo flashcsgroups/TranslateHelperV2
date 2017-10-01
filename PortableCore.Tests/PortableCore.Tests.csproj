@@ -64,6 +64,7 @@
     <Compile Include="Mocks\MockSQLite.cs" />
     <Compile Include="Mocks\MockTestSelectWordsActivity.cs" />
     <Compile Include="Mocks\MockTestSelectWordsReader.cs" />
+    <Compile Include="IdiomsPresenterTests.cs" />
     <Compile Include="TranslateDirectionTests.cs" />
     <Compile Include="TranslateRequestRunnerTests.cs" />
     <Compile Include="TranslateResultFromDBCacheTests.cs" />

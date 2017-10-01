@@ -50,6 +50,9 @@ namespace PortableCore.BL.Managers
                 new IdiomCategory (){ ID=1, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Frequently used phrases", TextTo="Часто используемые фразы"},
                 new IdiomCategory (){ ID=2, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Time", TextTo="Время"},
                 new IdiomCategory (){ ID=3, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo="Наличие"},
+                new IdiomCategory (){ ID=4, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo="Количество"},
+                new IdiomCategory (){ ID=5, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Information", TextTo="Информация"},
+                new IdiomCategory (){ ID=6, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Intellect, mind", TextTo="Интеллект, мышление"},
             };
 
             return list;

@@ -17,6 +17,7 @@
   <string name="msg_your_score">Your score:</string>
   <string name="caption_translate_destination">Translate destination</string>
   <string name="caption_enter_text_for_translate">Text for translate</string>
+  <string name="caption_enter_text_for_search_idiom">Type for search...</string>
   <string name="caption_btn_translate_destination">Destination</string>
   <string name="caption_btn_favorites">Favorites</string>
   <string name="caption_btn_anecdotes">Anecdotes</string>

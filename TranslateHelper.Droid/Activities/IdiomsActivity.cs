@@ -36,6 +36,13 @@ namespace TranslateHelper.Droid.Activities
             ActionBar.SetHomeButtonEnabled(true);
             SetContentView(Resource.Layout.Idioms);
             HockeyAppMetricsHelper.TrackEvent("Open idioms");
+            ImageButton buttonSearch = FindViewById<ImageButton>(Resource.Id.ibSearchIdiom);
+            buttonSearch.Click += (object sender, EventArgs e) =>
+            {
+                EditText editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
+                var founded = presenter.Search(editTextSearch.Text);
+            };
+
             //http://polyidioms.narod.ru/index/0-128
             //http://catchenglish.ru/frazy-i-vyrazheniya.html
         }
