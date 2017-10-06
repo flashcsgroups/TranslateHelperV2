@@ -131,7 +131,7 @@ namespace TranslateHelper.Droid.Activities
             foreach (var e in sortedObjects.OrderBy(de => de.Key))
             {
                 var section = e.Value;
-                var label = e.Key.Trim().Length > 0 ? e.Key.ToUpper(CultureInfo.CurrentCulture) : "Error:" + " (" + section.Count.ToString() + ")";
+                var label = e.Key.Trim().Length > 0 ? e.Key : "Error:" + " (" + section.Count.ToString() + ")";
                 adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.IdiomsListItem, Resource.Id.IdiomsTextFromTextView, section));
             }
             return adapter;

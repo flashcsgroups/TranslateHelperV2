@@ -47,7 +47,7 @@ namespace PortableCore.BL.Managers
             (item.LanguageFrom == languageToId && item.LanguageTo == languageFromId) 
             || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)
             ) 
-            && (item.TextFrom.Contains(searchString) || item.TextTo.Contains(searchString) || item.ExampleTextFrom.Contains(searchString) || item.ExampleTextTo.Contains(searchString))
+            && (item.TextFrom.Contains(searchString) || item.TextTo.ToLower().Contains(searchString) || item.ExampleTextFrom.Contains(searchString) || item.ExampleTextTo.Contains(searchString))
             && item.DeleteMark == 0));
             var dataCategoryView = db.Table<IdiomCategory>().Where(item=>item.DeleteMark == 0);
             IndexedCollection<IdiomItem> indexedCollection = new IndexedCollection<IdiomItem>();
@@ -88,8 +88,8 @@ namespace PortableCore.BL.Managers
                 new Idiom (){ ID=9, LanguageFrom = eng, LanguageTo = rus, CategoryID = 4, DescriptionTextFrom = "Count", DescriptionTextTo = "Количество", TextFrom = "to have smth. enough and to spare", TextTo = "иметь чего-то более чем достаточно/ хватит за глаза", ExampleTextFrom="We have had patience enough and to spare.", ExampleTextTo="Терпения у нас было более чем достаточно."},
                 new Idiom (){ ID=10, LanguageFrom = eng, LanguageTo = rus, CategoryID = 5, DescriptionTextFrom = "Information", DescriptionTextTo = "Информация", TextFrom = "to chew the fat", TextTo = "болтать, беседовать о том, о сем", ExampleTextFrom="We were chewing the fat for a couple of hours.", ExampleTextTo="Мы провели пару часов, болтая о том, о сем."},
                 new Idiom (){ ID=11, LanguageFrom = eng, LanguageTo = rus, CategoryID = 5, DescriptionTextFrom = "Information", DescriptionTextTo = "Информация", TextFrom = "in full flow", TextTo = "увлеченно", ExampleTextFrom="She was in full flow, telling me how she had managed to bring the furniture home.", ExampleTextTo="Она с увлечением рассказала мне, как ей удалось доставить мебель домой."},
-                new Idiom (){ ID=11, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "Live and learn", TextTo = "Век живи — век учись.", ExampleTextFrom="Nowadays people change their trade or occupation many times in their life. Live and learn.", ExampleTextTo="В наши дни люди меняют профессию и род занятий много раз в течение жизни. Век живи — век учись."},
-                new Idiom (){ ID=12, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "Experience is the mother of wisdom", TextTo = "Опыт — источник/основа мудрости.", ExampleTextFrom="Не has twenty-year experience in teaching, and experience is the mother of wisdom.", ExampleTextTo="У него двадцатилетний опыт преподавания, а опыт — источник мудрости."},
+                new Idiom (){ ID=11, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "live and learn", TextTo = "век живи — век учись.", ExampleTextFrom="Nowadays people change their trade or occupation many times in their life. Live and learn.", ExampleTextTo="В наши дни люди меняют профессию и род занятий много раз в течение жизни. Век живи — век учись."},
+                new Idiom (){ ID=12, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "experience is the mother of wisdom", TextTo = "опыт — источник/основа мудрости.", ExampleTextFrom="Не has twenty-year experience in teaching, and experience is the mother of wisdom.", ExampleTextTo="У него двадцатилетний опыт преподавания, а опыт — источник мудрости."},
                 new Idiom (){ ID=13, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "to know smth. like the back of one’s hand", TextTo = "знать что-либо как свои пять пальцев", ExampleTextFrom="He knows the city like the back of his hand.", ExampleTextTo="Он знает город как свои пять пальцев."}
             };
 
@@ -110,8 +110,10 @@ namespace PortableCore.BL.Managers
 
         public List<DirectionIdiomItem> GetListDirections()
         {
-            List<DirectionIdiomItem> resultList = new List<DirectionIdiomItem>();
-            resultList.Add(new DirectionIdiomItem(languageManager.GetItemForShortName("en"), languageManager.GetItemForShortName("ru"), ""));
+            List<DirectionIdiomItem> resultList = new List<DirectionIdiomItem>
+            {
+                new DirectionIdiomItem(languageManager.GetItemForShortName("en"), languageManager.GetItemForShortName("ru"), "")
+            };
             return resultList;
         }
     }

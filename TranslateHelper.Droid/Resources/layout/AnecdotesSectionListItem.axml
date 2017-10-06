@@ -18,7 +18,7 @@
             android:id="@+id/AnecdoteSourceTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:text="source"
             android:textColor="@color/black"
             android:background="@color/transparent" />
@@ -32,7 +32,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:visibility="gone"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:text="translated"
         android:textColor="@color/blue"
         android:textStyle="italic"
