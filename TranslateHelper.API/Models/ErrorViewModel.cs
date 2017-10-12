@@ -1,6 +1,6 @@
 using System;
 
-namespace TranslateHelper.API.Models
+namespace TranslateHelper.Models
 {
     public class ErrorViewModel
     {

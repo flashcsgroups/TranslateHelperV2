@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TranslateHelper.API.Models;
+using TranslateHelper.Models;
 
-namespace TranslateHelper.API.Controllers
+namespace TranslateHelper.Controllers
 {
     public class HomeController : Controller
     {

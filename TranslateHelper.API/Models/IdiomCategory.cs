@@ -1,4 +1,4 @@
-﻿namespace TranslateHelper.API.Models
+﻿namespace TranslateHelper.Models
 {
     public class IdiomCategory
     {

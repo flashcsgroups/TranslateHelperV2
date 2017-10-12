@@ -44,6 +44,8 @@ namespace TranslateHelper.API
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(name: "apiIndex", template: "{controller=Api}/{action=Index}");
+                routes.MapRoute(name: "apiIdiomCategories", template: "{controller=Api}/{action=IdiomCategory}");
             });
         }
     }

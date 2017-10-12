@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TranslateHelper.API.Models
+namespace TranslateHelper.Models
 {
     public class THdbcontext : DbContext
     {
