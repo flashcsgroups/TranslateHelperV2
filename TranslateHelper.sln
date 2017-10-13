@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "http", "http", "{4BBB2391-3
 		..\..\temp\Translate.Yandex.Dictionary.json.postman_collection = ..\..\temp\Translate.Yandex.Dictionary.json.postman_collection
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TranslateHelper", "TranslateHelper.API\TranslateHelper.csproj", "{678349E3-A843-42C4-B272-8034B6DAB954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Web", "Server.Web\Server.Web.csproj", "{678349E3-A843-42C4-B272-8034B6DAB954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

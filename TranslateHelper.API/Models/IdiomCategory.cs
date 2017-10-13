@@ -1,4 +1,4 @@
-﻿namespace TranslateHelper.Models
+﻿namespace Server.Web.Models
 {
     public class IdiomCategory
     {

@@ -39,5 +39,7 @@ namespace PortableCore.DL
         public int DeleteMark { get; set; }
         [Indexed]
         public bool InFavorites { get; set; }//добавлен в избранное
+        [Indexed]
+        public DateTime UpdateDate { get; set; } //Дата обновления
     }
 }

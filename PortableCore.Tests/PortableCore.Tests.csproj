@@ -59,7 +59,9 @@
     </Compile>
     <Compile Include="ConvertStringTests.cs" />
     <Compile Include="DirectionsPresenterTests.cs" />
+    <Compile Include="Mocks\MockClientApi.cs" />
     <Compile Include="Mocks\ChatHistoryObject.cs" />
+    <Compile Include="Mocks\MockIdiomManager.cs" />
     <Compile Include="Mocks\MockLanguageManager.cs" />
     <Compile Include="Mocks\MockSQLite.cs" />
     <Compile Include="Mocks\MockTestSelectWordsActivity.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="DetectInputLanguageTests.cs" />
     <Compile Include="UserTestSelectWordsTests.cs" />
     <Compile Include="YandexApiKeyHelperTests.cs" />
+    <Compile Include="ClientSyncTests.cs" />
     <Compile Include="YandexTranslateTranslateResultStructureTests.cs" />
     <Compile Include="YandexDictionaryTranslateResultStructureTests.cs" />
     <Compile Include="ParseResponseTests.cs" />

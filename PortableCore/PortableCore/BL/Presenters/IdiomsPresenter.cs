@@ -31,6 +31,7 @@ namespace PortableCore.BL.Presenters
 
         public void Init()
         {
+
             FindIdioms(string.Empty);
         }
 
