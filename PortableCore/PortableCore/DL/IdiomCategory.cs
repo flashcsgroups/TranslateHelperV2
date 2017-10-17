@@ -25,5 +25,7 @@ namespace PortableCore.DL
         public string TextTo { get; set; }//перевод на языке To
         [Indexed]
         public int DeleteMark { get; set; }
+        [Indexed]
+        public DateTime UpdateDate { get; set; } //Дата обновления
     }
 }
