@@ -108,6 +108,7 @@
     <Compile Include="Helpers\TranslateRequestRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAL\CachedResultReader.cs" />
+    <Compile Include="WS\ApiRequest.cs" />
     <Compile Include="WS\ClientSync.cs" />
     <Compile Include="WS\Contracts\YandexTranslateScheme.cs" />
     <Compile Include="WS\IApiClient.cs" />

@@ -2,6 +2,7 @@
 using PortableCore.BL.Models;
 using PortableCore.BL.Views;
 using PortableCore.DL;
+using PortableCore.WS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace PortableCore.BL.Presenters
         private int languageToId;
         private IIdiomsView view;
         private IdiomManager idiomManager;
-
+        private string hostUrl = "http://serverweb20171015090425.azurewebsites.net/api";
 
         public IdiomsPresenter(IIdiomsView view, ISQLiteTesting db, int languageFromId, int languageToId)
         {
@@ -29,10 +30,15 @@ namespace PortableCore.BL.Presenters
         }
 
 
-        public void Init()
+        public async void Init()
         {
-
             FindIdioms(string.Empty);
+            ApiRequest apiClient = new ApiRequest(hostUrl);
+            ClientSync syncTable = new ClientSync(db, idiomManager, apiClient, "idiom");
+            DateTime timeStamp = syncTable.GetLocalMaxTimeStamp();
+            List<int> iDs = await syncTable.GetChangedIDsFromServer(timeStamp);
+            if(iDs.Count > 0)
+                await syncTable.Sync(iDs);
         }
 
         public void FindIdioms(string searchString)

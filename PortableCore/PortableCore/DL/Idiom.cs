@@ -15,6 +15,8 @@ namespace PortableCore.DL
 
         }
 
+        public int IdiomID { get { return ID; } set { ID = value; } } //Не знаю что с ним делать - в серверной модели именно IdiomID
+
         [PrimaryKey, AutoIncrement, Indexed]
         public int ID { get; set; }
         [Indexed]
