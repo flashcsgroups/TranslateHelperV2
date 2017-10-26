@@ -8,6 +8,6 @@ namespace PortableCore.BL.Views
 {
     public interface IIdiomsView
     {
-        void UpdateList(IndexedCollection<IdiomItem> list);
+        void UpdateList(IndexedCollection<IdiomItem> list, bool updatedFromServer);
     }
 }

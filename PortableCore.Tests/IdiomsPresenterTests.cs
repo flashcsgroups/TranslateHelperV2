@@ -29,7 +29,7 @@ namespace PortableCore.Tests
             var presenter = new IdiomsPresenter(mockView, db, languageFromId, languageToId);
 
             //act
-            presenter.FindIdioms(searchString);
+            presenter.RefreshIdiomsList(searchString, false);
 
             //assert
             Assert.AreEqual(2, mockView.ListItems.Count());
@@ -45,7 +45,7 @@ namespace PortableCore.Tests
             var presenter = new IdiomsPresenter(mockView, db, languageFromId, languageToId);
 
             //act
-            presenter.FindIdioms(searchString);
+            presenter.RefreshIdiomsList(searchString, false);
 
             //assert
             Assert.AreEqual(1, mockView.ListItems.Count());
@@ -57,6 +57,11 @@ namespace PortableCore.Tests
             public void UpdateList(IndexedCollection<IdiomItem> list)
             {
                 ListItems = list;
+            }
+
+            public void UpdateList(IndexedCollection<IdiomItem> list, bool updatedFromServer)
+            {
+                throw new NotImplementedException();
             }
         }
 

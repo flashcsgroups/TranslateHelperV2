@@ -28,23 +28,37 @@ namespace PortableCore.BL.Presenters
             this.languageToId = languageToId;
             this.idiomManager = new IdiomManager(db, new LanguageManager(db));
         }
-
-
-        public async void Init()
+        
+        public void Init()
         {
-            FindIdioms(string.Empty);
-            ApiRequest apiClient = new ApiRequest(hostUrl);
-            ClientSync syncTable = new ClientSync(db, idiomManager, apiClient, "idiom");
-            DateTime timeStamp = syncTable.GetLocalMaxTimeStamp();
-            List<int> iDs = await syncTable.GetChangedIDsFromServer(timeStamp);
-            if(iDs.Count > 0)
-                await syncTable.Sync(iDs);
+            RefreshIdiomsList(string.Empty, false);
         }
 
-        public void FindIdioms(string searchString)
+        public async void CheckServerTablesUpdate(DateTime lastCheckDate)
+        {
+            TimeSpan diff = DateTime.Now - lastCheckDate;
+            //Куда ж чаще раза в час проверять?
+            if(diff.Hours > 0)
+            {
+                ApiRequest apiClient = new ApiRequest(hostUrl);
+                ClientSync syncTable = new ClientSync(db, idiomManager, apiClient, "idiom");
+                DateTime timeStamp = syncTable.GetLocalMaxTimeStamp();
+                List<int> iDs = await syncTable.GetChangedIDsFromServer(timeStamp);
+                if (iDs.Count > 0)
+                {
+                    int updatedCount = await syncTable.Sync(iDs);
+                    if(updatedCount > 0)
+                    {
+                        RefreshIdiomsList(string.Empty, true);
+                    }
+                }
+            }
+        }
+
+        public void RefreshIdiomsList(string searchString, bool updatedFromServer)
         {
             var indexedItems = this.idiomManager.GetIdiomsForDirections(languageFromId, languageToId, searchString);
-            view.UpdateList(indexedItems);
+            view.UpdateList(indexedItems, updatedFromServer);
         }
     }
 }

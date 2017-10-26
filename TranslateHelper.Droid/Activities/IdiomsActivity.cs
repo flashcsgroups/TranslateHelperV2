@@ -18,6 +18,7 @@ using PortableCore.DAL;
 using TranslateHelper.Droid.Adapters;
 using PortableCore.BL.Contracts;
 using System.Globalization;
+using TranslateHelper.App;
 
 namespace TranslateHelper.Droid.Activities
 {
@@ -27,8 +28,10 @@ namespace TranslateHelper.Droid.Activities
         IdiomsPresenter presenter;
         private int languageFromId;
         private int languageToId;
+        private TranslateHelperApplication appContext;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            appContext = (TranslateHelperApplication)this.Application;
             base.OnCreate(savedInstanceState);
 
             HockeyAppMetricsHelper.Register(Application);
@@ -43,7 +46,7 @@ namespace TranslateHelper.Droid.Activities
             buttonSearch.Click += (object sender, EventArgs e) =>
             {
                 editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
-                presenter.FindIdioms(editTextSearch.Text);
+                presenter.RefreshIdiomsList(editTextSearch.Text, false);
             };
 
             //http://polyidioms.narod.ru/index/0-128
@@ -55,7 +58,7 @@ namespace TranslateHelper.Droid.Activities
             EditText editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
             string newText = editTextSearch.Text;
             if (newText.Length > 1 || newText.Length == 0)
-                presenter.FindIdioms(newText);
+                presenter.RefreshIdiomsList(newText, false);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -81,6 +84,8 @@ namespace TranslateHelper.Droid.Activities
             {
                 presenter = new IdiomsPresenter(this, SqlLiteInstance.DB, languageFromId, languageToId);
                 presenter.Init();
+                presenter.CheckServerTablesUpdate(appContext.LastServerCheckUpdateTables);
+                appContext.LastServerCheckUpdateTables = DateTime.Now;
             }
             else
             {
@@ -88,7 +93,7 @@ namespace TranslateHelper.Droid.Activities
             }
         }
 
-        public void UpdateList(IndexedCollection<IdiomItem> list)
+        public void UpdateList(IndexedCollection<IdiomItem> list, bool updatedFromServer)
         {
             if(list.Count() > 0)
             {
@@ -101,6 +106,10 @@ namespace TranslateHelper.Droid.Activities
                 listView.FastScrollEnabled = true;
                 listView.Adapter = adapter;
                 listView.ItemClick += ListView_ItemClick;
+                if(updatedFromServer)
+                {
+                    Toast.MakeText(this, "Updated!", ToastLength.Long).Show();
+                }
             }
             else
             {

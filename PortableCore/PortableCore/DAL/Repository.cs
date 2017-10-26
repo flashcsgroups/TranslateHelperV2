@@ -49,7 +49,7 @@ namespace PortableCore.DAL
             }
         }
 
-		public void SaveItemsInTransaction (IEnumerable<T> items)
+        public void SaveItemsInTransaction (IEnumerable<T> items)
 		{
             try
             {
@@ -75,6 +75,24 @@ namespace PortableCore.DAL
             catch (Exception E)
             {
                 db.Rollback ();
+                throw new Exception(E.Message, E.InnerException);
+            }
+        }
+        public void DeleteAndAddItemsInTransaction(IEnumerable<T> items)
+        {
+            try
+            {
+                db.BeginTransaction();
+                foreach (var item in items)
+                {
+                    db.Delete<T>(item.ID);
+                    db.InsertItem<T>(item);
+                }
+                db.Commit();
+            }
+            catch (Exception E)
+            {
+                db.Rollback();
                 throw new Exception(E.Message, E.InnerException);
             }
         }

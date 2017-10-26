@@ -49,20 +49,20 @@ namespace PortableCore.WS
         internal async Task<int> Sync(List<int> iDs)
         {
             int processed = 0;
-            ((IdiomManager)_idiomManager).ClearTable();
-            /*switch(_tableName)
+            switch(_tableName)
             {
                 case "idiom":
                     {
                         LanguageManager langManager = new LanguageManager(_db);
                         List<Idiom> idioms = await _srvClient.GetIdiomsFromServer(iDs);
                         _idiomManager.InsertItemsInTransaction(idioms);
+                        processed = idioms.Count();
                     }; break;
                 case "IdiomTest":
                     {
                         throw new NotImplementedException();
                     }; 
-            }*/
+            }
             return processed;
         }
     }
