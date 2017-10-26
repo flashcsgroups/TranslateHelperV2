@@ -31,13 +31,13 @@ namespace PortableCore.BL.Managers
 
         public void InitDefaultData()
         {
-            Repository<Idiom> repos = new Repository<Idiom>();
+            /*Repository<Idiom> repos = new Repository<Idiom>();
             if (repos.Count() == 0)
             {
                 Idiom[] data = GetDefaultData();
                 repos.DeleteAllDataInTable();
                 repos.DeleteAndAddItemsInTransaction(data);
-            }
+            }*/
         }
 
         internal IndexedCollection<IdiomItem> GetIdiomsForDirections(int languageFromId, int languageToId, string searchString)
