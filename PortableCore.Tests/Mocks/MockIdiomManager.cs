@@ -27,6 +27,11 @@ namespace PortableCore.Tests.Mocks
             throw new NotImplementedException();
         }
 
+        public void InsertItemsInTransaction(IEnumerable<Idiom> items)
+        {
+            throw new NotImplementedException();
+        }
+
         public int SaveItem(Idiom item)
         {
             return 1;

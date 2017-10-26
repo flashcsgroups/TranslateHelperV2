@@ -9,5 +9,6 @@ namespace PortableCore.BL.Managers
         int SaveItem(Idiom item);
         Idiom GetItemForId(int id);
         List<DirectionIdiomItem> GetListDirections();
+        void InsertItemsInTransaction(IEnumerable<Idiom> items);
     }
 }

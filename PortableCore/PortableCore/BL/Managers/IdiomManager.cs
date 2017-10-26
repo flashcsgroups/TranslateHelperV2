@@ -31,14 +31,14 @@ namespace PortableCore.BL.Managers
 
         public void InitDefaultData()
         {
-            /*ClearTable();
+            ClearTable();
             Repository<Idiom> repos = new Repository<Idiom>();
             Idiom[] data = GetDefaultData();
             if (repos.Count() != data.Length)
             {
                 repos.DeleteAllDataInTable();
                 repos.AddItemsInTransaction(data);
-            }*/
+            }
         }
 
         internal IndexedCollection<IdiomItem> GetIdiomsForDirections(int languageFromId, int languageToId, string searchString)
@@ -78,6 +78,8 @@ namespace PortableCore.BL.Managers
             var rus = languageManager.GetItemForShortName("ru").ID;
             DateTime timeStamp = DateTime.Parse("2017-01-01");
             Idiom[] list = new Idiom[] {
+                //new Idiom (){ID =15, IdiomCategoryID =1, IdiomID =15, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
+
                 new Idiom (){ IdiomID =1, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
                 new Idiom (){ IdiomID =2, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
                 new Idiom (){ IdiomID =3, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
@@ -107,6 +109,11 @@ namespace PortableCore.BL.Managers
         {
             Repository<Idiom> repo = new Repository<Idiom>();
             return repo.Save(item);
+        }
+        public void InsertItemsInTransaction(IEnumerable<Idiom> items)
+        {
+            Repository<Idiom> repo = new Repository<Idiom>();
+            repo.SaveItemsInTransaction(items);
         }
 
         public List<DirectionIdiomItem> GetListDirections()

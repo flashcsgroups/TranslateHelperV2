@@ -31,7 +31,9 @@ namespace PortableCore.WS
             {
                 case "idiom":
                     {
-                        maxDate = _db.Table<Idiom>().Max(item => item.UpdateDate);
+                        int count = _db.Table<Idiom>().Count();
+                        if(count> 0)
+                            maxDate = _db.Table<Idiom>().Max(item => item.UpdateDate);
                     }; break;
             }
 
@@ -47,30 +49,20 @@ namespace PortableCore.WS
         internal async Task<int> Sync(List<int> iDs)
         {
             int processed = 0;
-            switch(_tableName)
+            ((IdiomManager)_idiomManager).ClearTable();
+            /*switch(_tableName)
             {
                 case "idiom":
                     {
                         LanguageManager langManager = new LanguageManager(_db);
                         List<Idiom> idioms = await _srvClient.GetIdiomsFromServer(iDs);
-                        foreach (Idiom idiomItem in idioms)
-                        {
-                            try
-                            {
-                                _idiomManager.SaveItem(idiomItem);
-                                processed++;
-                            }
-                            catch (Exception)
-                            {
-
-                            }
-                        }
+                        _idiomManager.InsertItemsInTransaction(idioms);
                     }; break;
                 case "IdiomTest":
                     {
                         throw new NotImplementedException();
                     }; 
-            }
+            }*/
             return processed;
         }
     }

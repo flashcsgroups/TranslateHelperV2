@@ -36,7 +36,17 @@ namespace PortableCore.DAL
 
         public void DeleteAllDataInTable()
         {
-            db.DeleteAll<T>();
+            try
+            {
+                db.BeginTransaction();
+                db.DeleteAll<T>();
+                db.Commit();
+            }
+            catch (Exception E)
+            {
+                db.Rollback();
+                throw new Exception(E.Message, E.InnerException);
+            }
         }
 
 		public void SaveItemsInTransaction (IEnumerable<T> items)
