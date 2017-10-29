@@ -16,7 +16,7 @@ namespace PortableCore.Tests
     [TestFixture]
     public class UserTestSelectWordsTests
     {
-        [TestCase(10)]
+        /*[TestCase(10)]
         public void TestMust_GetDistinctWordsForTest(int countOfWordsForTest)
         {
             //arrange
@@ -35,9 +35,9 @@ namespace PortableCore.Tests
             var hashSet = new HashSet<string>();
             int factCount = favorites.WordsList.Where(x => hashSet.Add(x.TextFrom)).Count();
             Assert.AreEqual(countOfWordsForTest, factCount , "Присутствуют одинаковые значения");
-        }
+        }*/
 
-        [TestCase(5)]
+        /*[TestCase(5)]
         public void TestMust_GetWordsFromSameDirections(int countOfWordsForTest)
         {
             //arrange
@@ -53,7 +53,7 @@ namespace PortableCore.Tests
             //assert
             //Из-за рандомайзера неизвестно сколько будет вариантов, но не больше чем countOfWordsForTest
             Assert.IsTrue(favorites.WordsList.Count > 0 && favorites.WordsList.Count <= countOfWordsForTest, "Вариантов должно быть 1 или 2");
-        }
+        }*/
 
         [Test]
         public void TestMust_GetIncorrectVariantsWithNoCorrectVariant()

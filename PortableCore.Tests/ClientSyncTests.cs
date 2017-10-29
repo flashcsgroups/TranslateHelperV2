@@ -4,6 +4,7 @@ using PortableCore.WS;
 using PortableCore.BL.Contracts;
 using System.Collections.Generic;
 using PortableCore.Tests.Mocks;
+using System.Threading.Tasks;
 
 namespace PortableCore.Tests
 {
@@ -29,7 +30,7 @@ namespace PortableCore.Tests
         }
 
         [TestCase("Idiom", "2017-10-14")]
-        public async void TestMust_GetChangesIDs(string tableName, string maxTimeStampString)
+        public void TestMust_GetChangesIDs(string tableName, string maxTimeStampString)
         {
             //arrange
             DateTime localMaxTimeStampString = DateTime.Parse(maxTimeStampString);
@@ -39,14 +40,14 @@ namespace PortableCore.Tests
             ClientSync syncTable = new ClientSync(db, mockIdiomManager, srvClient, tableName);
 
             //act
-            List<int> iDs = await syncTable.GetChangedIDsFromServer(localMaxTimeStampString);
+            Task<List<int>> iDs = syncTable.GetChangedIDsFromServer(localMaxTimeStampString);
 
             //assert
-            Assert.IsTrue(iDs.Count == 3);
+            Assert.IsTrue(iDs.Result.Count == 3);
         }
 
         [TestCase("Idiom", "2017-10-14")]
-        public async void TestMust_SuccessSyncTable(string tableName, string maxTimeStampString)
+        public void TestMust_SuccessSyncTable(string tableName, string maxTimeStampString)
         {
             //arrange
             DateTime localMaxTimeStampString = DateTime.Parse(maxTimeStampString);
@@ -54,13 +55,13 @@ namespace PortableCore.Tests
             IApiClient srvClient = new MockClientApi();
             MockIdiomManager mockIdiomManager = new MockIdiomManager(db);
             ClientSync syncTable = new ClientSync(db, mockIdiomManager, srvClient, tableName);
-            List<int> iDs = await syncTable.GetChangedIDsFromServer(localMaxTimeStampString);
+            Task<List<int>> iDs = syncTable.GetChangedIDsFromServer(localMaxTimeStampString);
 
             //act
-            var result = await syncTable.Sync(iDs);
+            Task<int> processed = syncTable.Sync(iDs.Result);
 
             //assert
-            Assert.IsTrue(result == 3);
+            Assert.IsTrue(processed.Result == 3);
         }
     }
 }

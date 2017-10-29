@@ -54,14 +54,10 @@ namespace PortableCore.Tests
         class MockIdiomsView : IIdiomsView
         {
             public IndexedCollection<IdiomItem> ListItems = null;
-            public void UpdateList(IndexedCollection<IdiomItem> list)
-            {
-                ListItems = list;
-            }
 
             public void UpdateList(IndexedCollection<IdiomItem> list, bool updatedFromServer)
             {
-                throw new NotImplementedException();
+                ListItems = list;
             }
         }
 

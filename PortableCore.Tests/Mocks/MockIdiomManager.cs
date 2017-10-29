@@ -29,7 +29,7 @@ namespace PortableCore.Tests.Mocks
 
         public void InsertItemsInTransaction(IEnumerable<Idiom> items)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public int SaveItem(Idiom item)
