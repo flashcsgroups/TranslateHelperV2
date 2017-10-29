@@ -1,0 +1,90 @@
+﻿@model Server.Web.Models.Idiom
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Idiom</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LanguageFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LanguageFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LanguageTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LanguageTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TextFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TextFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TextTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TextTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExampleTextFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExampleTextFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExampleTextTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExampleTextTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DescriptionTextFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionTextFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DescriptionTextTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionTextTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteMark)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeleteMark)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InFavorites)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InFavorites)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdiomCategory)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdiomCategory.IdiomCategoryID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdiomID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

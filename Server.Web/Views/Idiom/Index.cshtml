@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Server.Web.Models.Idiom>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LanguageFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LanguageTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExampleTextFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExampleTextTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescriptionTextFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescriptionTextTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeleteMark)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InFavorites)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdateDate)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdiomCategory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LanguageFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LanguageTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TextFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TextTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExampleTextFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExampleTextTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionTextFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionTextTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteMark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InFavorites)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdiomCategory.IdiomCategoryID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdiomID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdiomID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdiomID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
