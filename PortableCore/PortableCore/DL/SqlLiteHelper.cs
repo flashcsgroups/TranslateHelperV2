@@ -27,7 +27,10 @@ namespace PortableCore.DL
         {
             lock (locker)
             {
-                return Table<T>().FirstOrDefault(x => x.ID == id);
+                var lst = (from i in Table<T>() select i).ToList().Where(i=>i.ID>=id&&i.ID<id+1);//грязный обход ошибки Xamarin
+                return lst.FirstOrDefault<T>();
+                //Ошибка Xamarin 4.7, лучше не использовать данный метод совсем
+                //return Table<T>().FirstOrDefault(x => x.ID == id);
             }
         }
 

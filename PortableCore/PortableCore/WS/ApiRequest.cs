@@ -19,8 +19,17 @@ namespace PortableCore.WS
         }
         public async Task<List<int>> GetChangedIDsFromServer(string tableName, DateTime localMaxTimeStamp)
         {
-            var response = await GetJsonResponse($"{this._hostUrl}/idiom/changes?clientMaxDate={localMaxTimeStamp.ToString("yyyy-MM-ddTHH:mm:ss")}");
-            List<int> deserializedValue = JsonConvert.DeserializeObject<List<int>>(response);
+            List<int> deserializedValue = new List<int>();
+            try
+            {
+                var response = await GetJsonResponse($"{this._hostUrl}/idiom/changes?clientMaxDate={localMaxTimeStamp.ToString("yyyy-MM-ddTHH:mm:ss")}");
+                deserializedValue = JsonConvert.DeserializeObject<List<int>>(response);
+            }
+            catch (Exception)
+            {
+
+            }
+
             return deserializedValue;
         }
 
@@ -30,9 +39,17 @@ namespace PortableCore.WS
             foreach(int id in iDs)
             {
                 idFilter.Append($"Id={id}&");
-                }
-            var response = await GetJsonResponse($"{this._hostUrl}/idiom?{idFilter.ToString()}");
-            List<Idiom> deserializedValue = JsonConvert.DeserializeObject<List<Idiom>>(response);
+            }
+            List<Idiom> deserializedValue = new List<Idiom>();
+            try
+            {
+                var response = await GetJsonResponse($"{this._hostUrl}/idiom?{idFilter.ToString()}");
+                deserializedValue = JsonConvert.DeserializeObject<List<Idiom>>(response);
+            }
+            catch (Exception)
+            {
+
+            }
             return deserializedValue;
         }
 
