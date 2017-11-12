@@ -57,7 +57,7 @@ namespace TranslateHelper.Droid.Activities
         {
             EditText editTextSearch = FindViewById<EditText>(Resource.Id.etSearchIdiom);
             string newText = editTextSearch.Text;
-            if (newText.Length > 1 || newText.Length == 0)
+            if (newText.Length > 0 || newText.Length == 0)
                 presenter.RefreshIdiomsList(newText, false);
         }
 

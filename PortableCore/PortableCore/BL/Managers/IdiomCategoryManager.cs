@@ -47,12 +47,18 @@ namespace PortableCore.BL.Managers
             var eng = languageManager.GetItemForShortName("en").ID;
             var rus = languageManager.GetItemForShortName("ru").ID;
             IdiomCategory[] list = new IdiomCategory[] {
-                new IdiomCategory (){ ID=1, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Frequently used phrases", TextTo="Часто используемые фразы"},
-                new IdiomCategory (){ ID=2, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Time", TextTo="Время"},
-                new IdiomCategory (){ ID=3, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo="Наличие"},
-                new IdiomCategory (){ ID=4, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo="Количество"},
-                new IdiomCategory (){ ID=5, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Information", TextTo="Информация"},
-                new IdiomCategory (){ ID=6, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Intellect, mind", TextTo="Интеллект, мышление"},
+                new IdiomCategory (){ ID=1, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Common terms", TextTo="Обозначения"},
+                new IdiomCategory (){ ID=2, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Common phrases", TextTo="Распространенные фразы"},
+                new IdiomCategory (){ ID=3, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Talks", TextTo="Поддержание разговора"},
+                new IdiomCategory (){ ID=4, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Common phrases", TextTo="Вводные и завершающие фразы"},
+                new IdiomCategory (){ ID=5, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Common phrases", TextTo="Основные фразы"},
+                new IdiomCategory (){ ID=6, LanguageFrom = eng, LanguageTo = rus, TextFrom = "About life", TextTo="Фразы о жизни"},
+                new IdiomCategory (){ ID=7, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Short phrases", TextTo="Короткие фразы"},
+                new IdiomCategory (){ ID=8, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Discussions", TextTo="Дискуссии"},
+                new IdiomCategory (){ ID=9, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Business", TextTo="Деловые фразы"},
+                new IdiomCategory (){ ID=10, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Simple phrases", TextTo="Простые фразы"},
+                new IdiomCategory (){ ID=11, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Time", TextTo="Фразы о времени"},
+                new IdiomCategory (){ ID=12, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Writing letter", TextTo="Фразы для писем"},
             };
 
             return list;

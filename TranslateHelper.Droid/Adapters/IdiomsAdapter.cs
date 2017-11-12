@@ -106,13 +106,13 @@ namespace TranslateHelper.Droid.Adapters
                     sourceTextView.SetText(item.TextFrom, TextView.BufferType.Normal);
                     var translatedTextView = itemView.FindViewById<TextView>(Resource.Id.IdiomsTextToTextView);
                     translatedTextView.SetText(item.TextTo, TextView.BufferType.Normal);
-                    var tvExampleTextFrom = itemView.FindViewById<TextView>(Resource.Id.tvExampleTextFrom);
+                    /*var tvExampleTextFrom = itemView.FindViewById<TextView>(Resource.Id.tvExampleTextFrom);
                     string exampleTextFrom = string.IsNullOrEmpty(item.ExampleTextFrom) ? string.Empty : string.Format("- {0}", item.ExampleTextFrom);
                     tvExampleTextFrom.SetText(exampleTextFrom, TextView.BufferType.Normal);
 
                     string exampleTextTo = string.IsNullOrEmpty(item.ExampleTextTo) ? string.Empty : string.Format("- {0}", item.ExampleTextTo);
                     var tvExampleTextTo = itemView.FindViewById<TextView>(Resource.Id.tvExampleTextTo);
-                    tvExampleTextTo.SetText(exampleTextTo, TextView.BufferType.Normal);
+                    tvExampleTextTo.SetText(exampleTextTo, TextView.BufferType.Normal);*/
                     return itemView;
                 }
 

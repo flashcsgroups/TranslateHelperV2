@@ -591,47 +591,47 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080000
 			public const int anecdotesLayout = 2131230720;
 			
-			// aapt resource value: 0x7f080056
-			public const int buttonCancelTest = 2131230806;
-			
-			// aapt resource value: 0x7f080055
-			public const int buttonRepeatTest = 2131230805;
+			// aapt resource value: 0x7f080054
+			public const int buttonCancelTest = 2131230804;
 			
 			// aapt resource value: 0x7f080053
-			public const int buttonSelect100Words = 2131230803;
-			
-			// aapt resource value: 0x7f080050
-			public const int buttonSelect10Words = 2131230800;
+			public const int buttonRepeatTest = 2131230803;
 			
 			// aapt resource value: 0x7f080051
-			public const int buttonSelect20Words = 2131230801;
+			public const int buttonSelect100Words = 2131230801;
 			
-			// aapt resource value: 0x7f080052
-			public const int buttonSelect50Words = 2131230802;
+			// aapt resource value: 0x7f08004e
+			public const int buttonSelect10Words = 2131230798;
+			
+			// aapt resource value: 0x7f08004f
+			public const int buttonSelect20Words = 2131230799;
+			
+			// aapt resource value: 0x7f080050
+			public const int buttonSelect50Words = 2131230800;
+			
+			// aapt resource value: 0x7f080059
+			public const int buttonSubmitTest1 = 2131230809;
+			
+			// aapt resource value: 0x7f08005a
+			public const int buttonSubmitTest2 = 2131230810;
 			
 			// aapt resource value: 0x7f08005b
-			public const int buttonSubmitTest1 = 2131230811;
+			public const int buttonSubmitTest3 = 2131230811;
 			
 			// aapt resource value: 0x7f08005c
-			public const int buttonSubmitTest2 = 2131230812;
+			public const int buttonSubmitTest4 = 2131230812;
 			
 			// aapt resource value: 0x7f08005d
-			public const int buttonSubmitTest3 = 2131230813;
+			public const int buttonSubmitTest5 = 2131230813;
 			
 			// aapt resource value: 0x7f08005e
-			public const int buttonSubmitTest4 = 2131230814;
+			public const int buttonSubmitTest6 = 2131230814;
 			
 			// aapt resource value: 0x7f08005f
-			public const int buttonSubmitTest5 = 2131230815;
+			public const int buttonSubmitTest7 = 2131230815;
 			
 			// aapt resource value: 0x7f080060
-			public const int buttonSubmitTest6 = 2131230816;
-			
-			// aapt resource value: 0x7f080061
-			public const int buttonSubmitTest7 = 2131230817;
-			
-			// aapt resource value: 0x7f080062
-			public const int buttonSubmitTest8 = 2131230818;
+			public const int buttonSubmitTest8 = 2131230816;
 			
 			// aapt resource value: 0x7f080013
 			public const int buttonSwapDirection = 2131230739;
@@ -660,8 +660,8 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080023
 			public const int captionItemTextView = 2131230755;
 			
-			// aapt resource value: 0x7f080063
-			public const int checkResultText = 2131230819;
+			// aapt resource value: 0x7f080061
+			public const int checkResultText = 2131230817;
 			
 			// aapt resource value: 0x7f08001a
 			public const int destLangCountMsgTextView = 2131230746;
@@ -732,20 +732,20 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080022
 			public const int langToImageView = 2131230754;
 			
+			// aapt resource value: 0x7f08004b
+			public const int layoutAnecdotes = 2131230795;
+			
 			// aapt resource value: 0x7f08004d
-			public const int layoutAnecdotes = 2131230797;
-			
-			// aapt resource value: 0x7f08004f
-			public const int layoutFeedback = 2131230799;
-			
-			// aapt resource value: 0x7f08004e
-			public const int layoutIdioms = 2131230798;
+			public const int layoutFeedback = 2131230797;
 			
 			// aapt resource value: 0x7f08004c
-			public const int layoutLanguages = 2131230796;
+			public const int layoutIdioms = 2131230796;
 			
-			// aapt resource value: 0x7f08004b
-			public const int layoutRecent = 2131230795;
+			// aapt resource value: 0x7f08004a
+			public const int layoutLanguages = 2131230794;
+			
+			// aapt resource value: 0x7f080049
+			public const int layoutRecent = 2131230793;
 			
 			// aapt resource value: 0x7f080016
 			public const int listAllDirections = 2131230742;
@@ -786,56 +786,50 @@ namespace TranslateHelper.Droid
 			// aapt resource value: 0x7f080010
 			public const int mainRelativeLayout = 2131230736;
 			
+			// aapt resource value: 0x7f080062
+			public const int menu_dict = 2131230818;
+			
+			// aapt resource value: 0x7f080063
+			public const int menu_favorites = 2131230819;
+			
 			// aapt resource value: 0x7f080064
-			public const int menu_dict = 2131230820;
-			
-			// aapt resource value: 0x7f080065
-			public const int menu_favorites = 2131230821;
-			
-			// aapt resource value: 0x7f080066
-			public const int menu_start_test = 2131230822;
+			public const int menu_start_test = 2131230820;
 			
 			// aapt resource value: 0x7f08000e
 			public const int robotFlagView = 2131230734;
 			
-			// aapt resource value: 0x7f080068
-			public const int selectCountWords = 2131230824;
+			// aapt resource value: 0x7f080066
+			public const int selectCountWords = 2131230822;
+			
+			// aapt resource value: 0x7f080065
+			public const int selectTestLevel = 2131230821;
+			
+			// aapt resource value: 0x7f080058
+			public const int tableLayoutAnswers = 2131230808;
 			
 			// aapt resource value: 0x7f080067
-			public const int selectTestLevel = 2131230823;
-			
-			// aapt resource value: 0x7f08005a
-			public const int tableLayoutAnswers = 2131230810;
-			
-			// aapt resource value: 0x7f080069
-			public const int testSelectWords = 2131230825;
+			public const int testSelectWords = 2131230823;
 			
 			// aapt resource value: 0x7f08000f
 			public const int testTV = 2131230735;
 			
-			// aapt resource value: 0x7f080057
-			public const int textOriginalWord = 2131230807;
+			// aapt resource value: 0x7f080055
+			public const int textOriginalWord = 2131230805;
 			
-			// aapt resource value: 0x7f080058
-			public const int textPartOfSpeech = 2131230808;
+			// aapt resource value: 0x7f080056
+			public const int textPartOfSpeech = 2131230806;
 			
-			// aapt resource value: 0x7f080054
-			public const int textResult = 2131230804;
+			// aapt resource value: 0x7f080052
+			public const int textResult = 2131230802;
 			
 			// aapt resource value: 0x7f080014
 			public const int textSourceString = 2131230740;
 			
-			// aapt resource value: 0x7f080059
-			public const int textTranscripton = 2131230809;
+			// aapt resource value: 0x7f080057
+			public const int textTranscripton = 2131230807;
 			
 			// aapt resource value: 0x7f080034
 			public const int text_headline = 2131230772;
-			
-			// aapt resource value: 0x7f080049
-			public const int tvExampleTextFrom = 2131230793;
-			
-			// aapt resource value: 0x7f08004a
-			public const int tvExampleTextTo = 2131230794;
 			
 			// aapt resource value: 0x7f080041
 			public const int tvIdiomsNothingFound = 2131230785;

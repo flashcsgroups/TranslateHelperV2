@@ -31,13 +31,6 @@ namespace PortableCore.BL.Managers
 
         public void InitDefaultData()
         {
-            /*Repository<Idiom> repos = new Repository<Idiom>();
-            if (repos.Count() == 0)
-            {
-                Idiom[] data = GetDefaultData();
-                repos.DeleteAllDataInTable();
-                repos.DeleteAndAddItemsInTransaction(data);
-            }*/
         }
 
         internal IndexedCollection<IdiomItem> GetIdiomsForDirections(int languageFromId, int languageToId, string searchString)
@@ -46,8 +39,9 @@ namespace PortableCore.BL.Managers
             (item.LanguageFrom == languageToId && item.LanguageTo == languageFromId) 
             || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)
             ) 
-            && (item.TextFrom.Contains(searchString) || item.TextTo.ToLower().Contains(searchString) || item.ExampleTextFrom.Contains(searchString) || item.ExampleTextTo.Contains(searchString))
+            && (item.TextFrom.Contains(searchString) || item.TextTo.ToLower().Contains(searchString))
             && item.DeleteMark == 0));
+            //&& (item.TextFrom.Contains(searchString) || item.TextTo.ToLower().Contains(searchString) || item.ExampleTextFrom.Contains(searchString) || item.ExampleTextTo.Contains(searchString))
             var dataCategoryView = db.Table<IdiomCategory>().Where(item=>item.DeleteMark == 0);
             IndexedCollection<IdiomItem> indexedCollection = new IndexedCollection<IdiomItem>();
             foreach (var item in dataView)
@@ -60,42 +54,10 @@ namespace PortableCore.BL.Managers
             return indexedCollection;
         }
 
-        /*internal List<int> Search(int languageFromId, int languageToId, string searchString)
-        {
-            List<int> iDs = new List<int>();
-            var dataView = db.Table<Idiom>().Where(item => );
-            foreach (var item in dataView)
-            {
-                iDs.Add(item.ID);
-            }
-            return iDs;
-        }*/
-
         private Idiom[] GetDefaultData()
         {
-            var eng = languageManager.GetItemForShortName("en").ID;
-            var rus = languageManager.GetItemForShortName("ru").ID;
-            DateTime timeStamp = DateTime.Parse("2017-01-01");
             Idiom[] list = new Idiom[] {
-                //new Idiom (){ID =150, IdiomCategoryID =1, IdiomID =150, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
-                //new Idiom (){ID =160, IdiomCategoryID =1, IdiomID =160, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
-
-                new Idiom (){ IdiomID =1, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
-                new Idiom (){ IdiomID =2, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
-                new Idiom (){ IdiomID =3, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия", ExampleTextFrom=string.Empty, ExampleTextTo=string.Empty},
-                new Idiom (){ IdiomID =4, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "shelf life", TextTo = "срок хранения/предельная дата гарантированного качества хранении/срок существования", ExampleTextFrom = "There was an interesting article 'All marriages have a shelf life' in yesterday’s paper.", ExampleTextTo = "Во вчерашней газете была опубликована интересная статья «Все брачные союзы имеют свой срок»."},
-                new Idiom (){ IdiomID =5, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "from the word go", TextTo = "с самого начала/с начала до конца", ExampleTextFrom = "Right from the word go, many of the players looked out of breath and out of their depth.", ExampleTextTo = "С самого начала игры многие из игроков выглядели усталыми и растерянными."},
-                new Idiom (){ IdiomID =6, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 3, DescriptionTextFrom = "Many", DescriptionTextTo = "Много", TextFrom = "to give chapter and verse", TextTo = "давать во всех подробностях", ExampleTextFrom = "The book gives chapter and verse on how to select a product, advertising, distribution and finances.", ExampleTextTo = "В книге дается подробная информация о том, как выбрать продукт для изготовления, о рекламе, реализации и финансировании предприятия."},
-                new Idiom (){ IdiomID =7, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 3, DescriptionTextFrom = "Many", DescriptionTextTo = "Много", TextFrom = "to have smth. coming out of one’s ears", TextTo = "иметься в изобилии", ExampleTextFrom = "Everyone who wants to talk to me is talking about football. I can’t get away from it. I have had football coming out of my ears.", ExampleTextTo = "Каждый, кто начинает разговор со мной, говорит о футболе. Мне от этого некуда деться. Я сыт футболом по горло."},
-                new Idiom (){ IdiomID =8, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 4, DescriptionTextFrom = "Count", DescriptionTextTo = "Количество", TextFrom = "to be up for grabs", TextTo = "доступный каждому желающему", ExampleTextFrom="Sixty-five seats are up for grabs in this speciality at the university.", ExampleTextTo="По этой специальности в университете проводится конкурс на шестьдесят пять мест, доступных каждому."},
-                new Idiom (){ IdiomID =9, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 4, DescriptionTextFrom = "Count", DescriptionTextTo = "Количество", TextFrom = "to have smth. enough and to spare", TextTo = "иметь чего-то более чем достаточно/ хватит за глаза", ExampleTextFrom="We have had patience enough and to spare.", ExampleTextTo="Терпения у нас было более чем достаточно."},
-                new Idiom (){ IdiomID =10, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 5, DescriptionTextFrom = "Information", DescriptionTextTo = "Информация", TextFrom = "to chew the fat", TextTo = "болтать, беседовать о том, о сем", ExampleTextFrom="We were chewing the fat for a couple of hours.", ExampleTextTo="Мы провели пару часов, болтая о том, о сем."},
-                new Idiom (){ IdiomID =11, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 5, DescriptionTextFrom = "Information", DescriptionTextTo = "Информация", TextFrom = "in full flow", TextTo = "увлеченно", ExampleTextFrom="She was in full flow, telling me how she had managed to bring the furniture home.", ExampleTextTo="Она с увлечением рассказала мне, как ей удалось доставить мебель домой."},
-                new Idiom (){ IdiomID =11, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "live and learn", TextTo = "век живи — век учись.", ExampleTextFrom="Nowadays people change their trade or occupation many times in their life. Live and learn.", ExampleTextTo="В наши дни люди меняют профессию и род занятий много раз в течение жизни. Век живи — век учись."},
-                new Idiom (){ IdiomID =12, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "experience is the mother of wisdom", TextTo = "опыт — источник/основа мудрости.", ExampleTextFrom="Не has twenty-year experience in teaching, and experience is the mother of wisdom.", ExampleTextTo="У него двадцатилетний опыт преподавания, а опыт — источник мудрости."},
-                new Idiom (){ IdiomID =13, UpdateDate = timeStamp, LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "to know smth. like the back of one’s hand", TextTo = "знать что-либо как свои пять пальцев", ExampleTextFrom="He knows the city like the back of his hand.", ExampleTextTo="Он знает город как свои пять пальцев."}
             };
-
             return list;
         }
 

@@ -32,24 +32,24 @@
         android:textColor="@color/blue"
         android:textStyle="italic"
         android:background="@color/transparent" />
-  <TextView
-      android:id="@+id/tvExampleTextFrom"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="5dp"
-      android:layout_marginRight="5dp"
-      android:textSize="11sp"
-      android:textColor="@color/grey"
-      android:textStyle="italic"
-      android:background="@color/transparent" />
-  <TextView
-    android:id="@+id/tvExampleTextTo"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:textSize="11sp"
-    android:textColor="@color/grey"
-    android:textStyle="italic"
-    android:background="@color/transparent" />
+<!--TextView
+        android:id="@+id/tvExampleTextFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="11sp"
+        android:textColor="@color/grey"
+        android:textStyle="italic"
+        android:background="@color/transparent" />
+    <TextView
+        android:id="@+id/tvExampleTextTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="11sp"
+        android:textColor="@color/grey"
+        android:textStyle="italic"
+        android:background="@color/transparent" /-->
 </LinearLayout>

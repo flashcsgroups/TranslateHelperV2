@@ -24,6 +24,24 @@ namespace Server.Web.Controllers
         [HttpGet]
         public IActionResult Get(int[] Id)
         {
+            /*List<Idiom> items = new List<Idiom>();
+            using (var db = new ServerDbContext())
+            {
+                items = db.Idiom.Where(item => Id.Contains(item.IdiomID)).ToList();
+            }
+            return new ObjectResult(items);*/
+            return getIdiomArrayByIds(Id);
+        }
+
+        [Route("api/idiom/array")]
+        [HttpPost]
+        public IActionResult Array([FromBody] int[] Id)
+        {
+            return getIdiomArrayByIds(Id);
+        }
+
+        private IActionResult getIdiomArrayByIds(int[] Id)
+        {
             List<Idiom> items = new List<Idiom>();
             using (var db = new ServerDbContext())
             {
