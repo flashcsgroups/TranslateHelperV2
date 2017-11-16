@@ -112,10 +112,16 @@ namespace TranslateHelper.Droid.Activities
         {
             var listView = FindViewById<ListView>(Resource.Id.listIdiomsAllDirections);
             listView.FastScrollEnabled = true;
-
-            adapterIdiomDirections = new IdiomDirectionsAdapter(this, listDirectionsOfIdioms);
-            listView.Adapter = adapterIdiomDirections;
-            listView.ItemClick += ListView_IdiomDirectionItemClick; ;
+            if(listDirectionsOfIdioms.Count == 1)
+            {
+                startIdiomsActivityByDirection(listDirectionsOfIdioms[0]);
+            }
+            else
+            {
+                adapterIdiomDirections = new IdiomDirectionsAdapter(this, listDirectionsOfIdioms);
+                listView.Adapter = adapterIdiomDirections;
+                listView.ItemClick += ListView_IdiomDirectionItemClick; ;
+            }
 
         }
 

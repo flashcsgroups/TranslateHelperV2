@@ -105,7 +105,7 @@ namespace TranslateHelper.Droid.Activities
                 var listView = FindViewById<ListView>(Resource.Id.listIdiomsListView);
                 listView.FastScrollEnabled = true;
                 listView.Adapter = adapter;
-                listView.ItemClick += ListView_ItemClick;
+                //listView.ItemClick += ListView_ItemClick;
                 if(updatedFromServer)
                 {
                     Toast.MakeText(this, "Updated!", ToastLength.Long).Show();
@@ -118,20 +118,6 @@ namespace TranslateHelper.Droid.Activities
                 ListView listIdiomsListView = FindViewById<ListView>(Resource.Id.listIdiomsListView);
                 if (listIdiomsListView.Visibility == ViewStates.Visible) listIdiomsListView.Visibility = ViewStates.Gone;
             }
-        }
-
-        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            /*var viewParent = e.View;
-            var translatedTextView = ((View)viewParent).FindViewById<TextView>(Resource.Id.IdiomsTextToTextView);
-            if (translatedTextView.Visibility == ViewStates.Gone)
-            {
-                translatedTextView.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                translatedTextView.Visibility = ViewStates.Gone;
-            }*/
         }
 
         IdiomsAdapter CreateAdapter<T>(Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
