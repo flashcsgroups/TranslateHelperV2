@@ -73,7 +73,9 @@ namespace PortableCore.BL.Presenters
             {
                 var defaultData = languageManager.GetDefaultData();
                 listLanguages = defaultData.Where(e=>e.NameShort != currentLocaleShort).ToList();
-                listLanguages.Add(defaultData.Where(e => e.NameShort == currentLocaleShort).Single());
+                Language langItem = defaultData.Where(e => e.NameShort == currentLocaleShort).SingleOrDefault();
+                if(!string.IsNullOrEmpty(langItem.NameEng))
+                    listLanguages.Add(langItem);
             }
             view.UpdateListAllLanguages(listLanguages);
         }

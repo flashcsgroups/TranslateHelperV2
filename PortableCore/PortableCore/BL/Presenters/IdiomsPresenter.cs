@@ -36,9 +36,12 @@ namespace PortableCore.BL.Presenters
 
         public async void CheckServerTablesUpdate(DateTime lastCheckDate)
         {
-            TimeSpan diff = DateTime.Now - lastCheckDate;
+            //TimeSpan diff = DateTime.Now - lastCheckDate;
             //Куда ж чаще раза в час проверять?
-            if(diff.Hours > 0)
+            //if(diff.Hours > 0)
+            //Пока что совсем проверку отключу, надо рефреш делать по свайпу
+            //Пока просто год проверяю - он должен быть пустой если первый раз после запуска приложения активити создан
+            if(lastCheckDate.Year == 1)
             {
                 ApiRequest apiClient = new ApiRequest(hostUrl);
                 ClientSync syncTable = new ClientSync(db, idiomManager, apiClient, "idiom");

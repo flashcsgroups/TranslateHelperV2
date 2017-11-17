@@ -35,23 +35,35 @@ namespace PortableCore.BL.Managers
 
         internal IndexedCollection<IdiomItem> GetIdiomsForDirections(int languageFromId, int languageToId, string searchString)
         {
-            var dataView = db.Table<Idiom>().Where(item => ((
-            (item.LanguageFrom == languageToId && item.LanguageTo == languageFromId) 
-            || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)
-            ) 
-            && (item.TextFrom.Contains(searchString) || item.TextTo.ToLower().Contains(searchString))
-            && item.DeleteMark == 0));
-            //&& (item.TextFrom.Contains(searchString) || item.TextTo.ToLower().Contains(searchString) || item.ExampleTextFrom.Contains(searchString) || item.ExampleTextTo.Contains(searchString))
-            var dataCategoryView = db.Table<IdiomCategory>().Where(item=>item.DeleteMark == 0);
+            IEnumerable<Idiom> dataView = getIdiomsBySearchString(languageFromId, languageToId, searchString);
+            var dataCategoryView = db.Table<IdiomCategory>().Where(item => item.DeleteMark == 0);
+            IndexedCollection<IdiomItem> indexedCollection = getIdiomIndexedCollection(dataView, dataCategoryView);
+            return indexedCollection;
+        }
+
+        private static IndexedCollection<IdiomItem> getIdiomIndexedCollection(IEnumerable<Idiom> dataView, IEnumerable<IdiomCategory> dataCategoryView)
+        {
             IndexedCollection<IdiomItem> indexedCollection = new IndexedCollection<IdiomItem>();
             foreach (var item in dataView)
             {
                 var idiom = new IdiomItem() { Id = item.ID, TextFrom = item.TextFrom, TextTo = item.TextTo, ExampleTextFrom = item.ExampleTextFrom, ExampleTextTo = item.ExampleTextTo };
-                var category = dataCategoryView.Where(i=>i.ID == item.CategoryID).Single();
+                var category = dataCategoryView.Where(i => i.ID == item.CategoryID).Single();
                 idiom.CategoryTextFrom = category.TextFrom;
                 indexedCollection.Add(idiom);
             }
+
             return indexedCollection;
+        }
+
+        private IEnumerable<Idiom> getIdiomsBySearchString(int languageFromId, int languageToId, string searchString)
+        {
+            string loweredSearchString = searchString.ToLower();
+            return db.Table<Idiom>().Where(item => ((
+            (item.LanguageFrom == languageToId && item.LanguageTo == languageFromId)
+            || (item.LanguageFrom == languageFromId && item.LanguageTo == languageToId)
+            )
+            && (item.TextFrom.ToLower().Contains(loweredSearchString) || item.TextTo.ToLower().Contains(loweredSearchString))
+            && item.DeleteMark == 0));
         }
 
         private Idiom[] GetDefaultData()
