@@ -27,6 +27,7 @@ namespace TranslateHelper.Droid.Activities
         DirectionsAllAdapter adapterAllDirections;
         DirectionsRecentAdapter adapterRecentDirections;
         FunDirectionsAdapter adapterFunDirections;
+        IdiomDirectionsAdapter adapterIdiomDirections;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,7 +38,8 @@ namespace TranslateHelper.Droid.Activities
             var languageManager = new LanguageManager(SqlLiteInstance.DB);
             var chatHistoryManager = new ChatHistoryManager(SqlLiteInstance.DB);
             var anecdoteManager = new AnecdoteManager(SqlLiteInstance.DB, languageManager);
-            presenter = new DirectionsPresenter(this, new ChatManager(SqlLiteInstance.DB, languageManager, chatHistoryManager), languageManager, anecdoteManager);
+            var idiomManager = new IdiomManager(SqlLiteInstance.DB, languageManager);
+            presenter = new DirectionsPresenter(this, new ChatManager(SqlLiteInstance.DB, languageManager, chatHistoryManager), languageManager, anecdoteManager, idiomManager);
         }
 
         protected override void OnStart()
@@ -48,18 +50,28 @@ namespace TranslateHelper.Droid.Activities
             {
                 case (int)DirectionsLayoutTypes.AllChats:
                     {
+                        this.SetTitle(Resources.GetIdentifier("act_select_direction", "string", PackageName));
                         SetViewToFullListLanguages();
                     };break;
                 case (int)DirectionsLayoutTypes.RecentChat:
                     {
                         SetContentView(Resource.Layout.DirectionsRecent);
+                        this.SetTitle(Resources.GetIdentifier("act_select_direction", "string", PackageName));
                         presenter.ShowRecentListLanguages(Locale.Default.Language);
                     }
                     break;
                 case (int)DirectionsLayoutTypes.Anecdotes:
                     {
                         SetContentView(Resource.Layout.FunDirectionsAll);
+                        this.SetTitle(Resources.GetIdentifier("act_select_direction", "string", PackageName));
                         presenter.SelectedListFunStoriesEvent();
+                    }
+                    break;
+                case (int)DirectionsLayoutTypes.Idioms:
+                    {
+                        SetContentView(Resource.Layout.IdiomsDirectionsAll);
+                        this.SetTitle(Resources.GetIdentifier("act_select_direction", "string", PackageName));
+                        presenter.SelectedIdiomsDirectionsListEvent();
                     }
                     break;
                 default:
@@ -86,7 +98,7 @@ namespace TranslateHelper.Droid.Activities
             listView.Adapter = adapterAllDirections;
             listView.ItemClick += ListViewAllDirections_ItemClick;
         }
-        public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+        public void UpdateListDirectionsOfStoryes(List<DirectionAnecdoteItem> listDirectionsOfStories)
         {
             var listView = FindViewById<ListView>(Resource.Id.listFunAllDirections);
             listView.FastScrollEnabled = true;
@@ -96,10 +108,32 @@ namespace TranslateHelper.Droid.Activities
             listView.ItemClick += ListView_StoryItemClick;
 
         }
+        public void UpdateListDirectionsOfIdioms(List<DirectionIdiomItem> listDirectionsOfIdioms)
+        {
+            var listView = FindViewById<ListView>(Resource.Id.listIdiomsAllDirections);
+            listView.FastScrollEnabled = true;
+            if(listDirectionsOfIdioms.Count == 1)
+            {
+                startIdiomsActivityByDirection(listDirectionsOfIdioms[0]);
+            }
+            else
+            {
+                adapterIdiomDirections = new IdiomDirectionsAdapter(this, listDirectionsOfIdioms);
+                listView.Adapter = adapterIdiomDirections;
+                listView.ItemClick += ListView_IdiomDirectionItemClick; ;
+            }
+
+        }
+
+        private void ListView_IdiomDirectionItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            DirectionIdiomItem selectedItem = adapterIdiomDirections.GetListItem(e.Position);
+            startIdiomsActivityByDirection(selectedItem);
+        }
 
         private void ListView_StoryItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            StoryWithTranslateItem selectedStory = adapterFunDirections.GetStoryItem(e.Position);
+            DirectionAnecdoteItem selectedStory = adapterFunDirections.GetListItem(e.Position);
             startAnecdotesActivityBySelectedStory(selectedStory);
         }
 
@@ -138,11 +172,18 @@ namespace TranslateHelper.Droid.Activities
             intent.PutExtra("currentChatId", chatId);
             StartActivity(intent);
         }
-        private void startAnecdotesActivityBySelectedStory(StoryWithTranslateItem selectedStory)
+        private void startAnecdotesActivityBySelectedStory(DirectionAnecdoteItem selectedStory)
         {
             var intent = new Intent(this, typeof(AnecdotesActivity));
             intent.PutExtra("languageFromId", selectedStory.LanguageFrom.ID);
             intent.PutExtra("languageToId", selectedStory.LanguageTo.ID);
+            StartActivity(intent);
+        }
+        private void startIdiomsActivityByDirection(DirectionIdiomItem directionItem)
+        {
+            var intent = new Intent(this, typeof(IdiomsActivity));
+            intent.PutExtra("languageFromId", directionItem.LanguageFrom.ID);
+            intent.PutExtra("languageToId", directionItem.LanguageTo.ID);
             StartActivity(intent);
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

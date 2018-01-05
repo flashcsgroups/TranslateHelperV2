@@ -17,6 +17,7 @@
   <string name="msg_your_score">Your score:</string>
   <string name="caption_translate_destination">Translate destination</string>
   <string name="caption_enter_text_for_translate">Text for translate</string>
+  <string name="caption_enter_text_for_search_idiom">Type for search...</string>
   <string name="caption_btn_translate_destination">Destination</string>
   <string name="caption_btn_favorites">Favorites</string>
   <string name="caption_btn_anecdotes">Anecdotes</string>
@@ -29,6 +30,7 @@
   <string name="act_testselectwords_caption">Testing</string>
   <string name="act_trytoaddfavorites">Not enough words in favories.Add more words and try again</string>
   <string name="act_autochangedestination">Do you want to change translate destination?</string>
+  <string name="act_select_direction">Select direction</string>
   <string name="caption_view_test_result">Result of test</string>
   <string name="main_btn_all_languages">All languages</string>
   <string name="main_btn_recent_languages">Recent languages</string>

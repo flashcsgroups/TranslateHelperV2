@@ -10,7 +10,8 @@ namespace PortableCore.BL.Views
     {
         void UpdateListAllLanguages(List<Language> listLanguages);
         void UpdateListRecentDirections(List<DirectionsRecentItem> listDirectionsRecent);
-        void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories);
+        void UpdateListDirectionsOfStoryes(List<DirectionAnecdoteItem> listDirectionsOfStories);
+        void UpdateListDirectionsOfIdioms(List<DirectionIdiomItem> listDirectionsOfIdioms);
         void StartChatActivityByChatId(int chatId);
         void SetViewToFullListLanguages();
     }

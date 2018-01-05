@@ -2,13 +2,13 @@
 
 namespace PortableCore.BL.Managers
 {
-    public class StoryWithTranslateItem
+    public class DirectionIdiomItem
     {
         public Language LanguageFrom { get; private set; }
         public Language LanguageTo { get; private set; }
         public string SourceFileName { get; private set; }
 
-        public StoryWithTranslateItem(Language languageFrom, Language languageTo, string sourceFileName)
+        public DirectionIdiomItem(Language languageFrom, Language languageTo, string sourceFileName)
         {
             this.LanguageFrom = languageFrom;
             this.LanguageTo = languageTo;

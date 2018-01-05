@@ -30,8 +30,55 @@ namespace PortableCore.Tests.Mocks
             {
                 listItems = getMockedDataForChat() as List<T>;
             }
+            if (type == typeof(Idiom))
+            {
+                listItems = getMockedDataForIdiom() as List<T>;
+            }
+            if (type == typeof(IdiomCategory))
+            {
+                listItems = getMockedDataForIdiomCategory() as List<T>;
+            }
 
             return listItems;
+        }
+
+        private List<IdiomCategory> getMockedDataForIdiomCategory()
+        {
+            var eng = 2;
+            var rus = 1;
+            List<IdiomCategory> list = new List<IdiomCategory>
+            {
+                new IdiomCategory() { ID = 1, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Frequently used phrases", TextTo = "Часто используемые фразы" },
+                new IdiomCategory() { ID = 2, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Time", TextTo = "Время" },
+                new IdiomCategory() { ID = 3, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo = "Наличие" },
+                new IdiomCategory() { ID = 4, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Count", TextTo = "Количество" },
+                new IdiomCategory() { ID = 5, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Information", TextTo = "Информация" },
+                new IdiomCategory() { ID = 6, LanguageFrom = eng, LanguageTo = rus, TextFrom = "Intellect, mind", TextTo = "Интеллект, мышление" }
+            };
+
+            return list;
+        }
+
+        private List<Idiom> getMockedDataForIdiom()
+        {
+            List<Idiom> listObj = new List<Idiom>();
+            var eng = 2;
+            var rus = 1;
+            listObj.Add(new Idiom() { ID = 1, UpdateDate = DateTime.Parse("2017-10-13"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all in all", TextTo = "в конечном счёте, с учётом всех обстоятельств / в целом", ExampleTextFrom = string.Empty, ExampleTextTo = string.Empty });
+            listObj.Add(new Idiom (){ ID=2, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "all the way", TextTo = "от начала до конца", ExampleTextFrom = string.Empty, ExampleTextTo = string.Empty });
+            listObj.Add(new Idiom (){ ID=3, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 1, DescriptionTextFrom = "Common phrases", DescriptionTextTo = "Общие фразы", TextFrom = "for a change", TextTo = "для разнообразия", ExampleTextFrom = string.Empty, ExampleTextTo = string.Empty });
+            listObj.Add(new Idiom (){ ID=4, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "shelf life", TextTo = "срок хранения/предельная дата гарантированного качества хранении/срок существования", ExampleTextFrom = "There was an interesting article 'All marriages have a shelf life' in yesterday’s paper.", ExampleTextTo = "Во вчерашней газете была опубликована интересная статья «Все брачные союзы имеют свой срок»."});
+            listObj.Add(new Idiom (){ ID=5, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 2, DescriptionTextFrom = "Begining, Ending", DescriptionTextTo = "Начало, конец", TextFrom = "from the word go", TextTo = "с самого начала/с начала до конца", ExampleTextFrom = "Right from the word go, many of the players looked out of breath and out of their depth.", ExampleTextTo = "С самого начала игры многие из игроков выглядели усталыми и растерянными."});
+            listObj.Add(new Idiom (){ ID=6, UpdateDate = DateTime.Parse("2017-10-13"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 3, DescriptionTextFrom = "Many", DescriptionTextTo = "Много", TextFrom = "to give chapter and verse", TextTo = "давать во всех подробностях", ExampleTextFrom = "The book gives chapter and verse on how to select a product, advertising, distribution and finances.", ExampleTextTo = "В книге дается подробная информация о том, как выбрать продукт для изготовления, о рекламе, реализации и финансировании предприятия."});
+            listObj.Add(new Idiom (){ ID=7, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 3, DescriptionTextFrom = "Many", DescriptionTextTo = "Много", TextFrom = "to have smth. coming out of one’s ears", TextTo = "иметься в изобилии", ExampleTextFrom = "Everyone who wants to talk to me is talking about football. I can’t get away from it. I have had football coming out of my ears.", ExampleTextTo = "Каждый, кто начинает разговор со мной, говорит о футболе. Мне от этого некуда деться. Я сыт футболом по горло."});
+            listObj.Add(new Idiom (){ ID=8, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 4, DescriptionTextFrom = "Count", DescriptionTextTo = "Количество", TextFrom = "to be up for grabs", TextTo = "доступный каждому желающему", ExampleTextFrom="Sixty-five seats are up for grabs in this speciality at the university.", ExampleTextTo="По этой специальности в университете проводится конкурс на шестьдесят пять мест, доступных каждому."});
+            listObj.Add(new Idiom (){ ID=9, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 4, DescriptionTextFrom = "Count", DescriptionTextTo = "Количество", TextFrom = "to have smth. enough and to spare", TextTo = "иметь чего-то более чем достаточно/ хватит за глаза", ExampleTextFrom="We have had patience enough and to spare.", ExampleTextTo="Терпения у нас было более чем достаточно."});
+            listObj.Add(new Idiom (){ ID=10, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 5, DescriptionTextFrom = "Information", DescriptionTextTo = "Информация", TextFrom = "to chew the fat", TextTo = "болтать, беседовать о том, о сем", ExampleTextFrom="We were chewing the fat for a couple of hours.", ExampleTextTo="Мы провели пару часов, болтая о том, о сем."});
+            listObj.Add(new Idiom (){ ID=11, UpdateDate = DateTime.Parse("2017-10-13"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 5, DescriptionTextFrom = "Information", DescriptionTextTo = "Информация", TextFrom = "in full flow", TextTo = "увлеченно", ExampleTextFrom="She was in full flow, telling me how she had managed to bring the furniture home.", ExampleTextTo="Она с увлечением рассказала мне, как ей удалось доставить мебель домой."});
+            listObj.Add(new Idiom (){ ID=11, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "Live and learn", TextTo = "Век живи — век учись.", ExampleTextFrom="Nowadays people change their trade or occupation many times in their life. Live and learn.", ExampleTextTo="В наши дни люди меняют профессию и род занятий много раз в течение жизни. Век живи — век учись."});
+            listObj.Add(new Idiom (){ ID=12, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "Experience is the mother of wisdom", TextTo = "Опыт — источник/основа мудрости.", ExampleTextFrom="Не has twenty-year experience in teaching, and experience is the mother of wisdom.", ExampleTextTo="У него двадцатилетний опыт преподавания, а опыт — источник мудрости."});
+            listObj.Add(new Idiom (){ ID=13, UpdateDate = DateTime.Parse("2017-10-12"), LanguageFrom = eng, LanguageTo = rus, CategoryID = 6, DescriptionTextFrom = "Intellect, mind", DescriptionTextTo = "Интеллект, мышление", TextFrom = "to know smth. like the back of one’s hand", TextTo = "знать что-либо как свои пять пальцев", ExampleTextFrom="He knows the city like the back of his hand.", ExampleTextTo="Он знает город как свои пять пальцев."});
+            return listObj;
         }
 
         private List<ChatHistory> getMockedDataForChatHistory()

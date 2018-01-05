@@ -95,9 +95,7 @@ namespace TranslateHelper.Droid.Activities
                     presenter.InitDirection();
                     presenter.InitChat(Locale.Default.Language);
 
-                    //presenter.UserAddNewTextEvent(presenter.GetNextAnecdote());
-
-                    presenter.UpdateOldSuspendedRequests();
+                    //presenter.UpdateOldSuspendedRequests();
                 }
                 tryToTranslateClipboardData();
             }

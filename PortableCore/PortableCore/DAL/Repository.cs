@@ -36,10 +36,20 @@ namespace PortableCore.DAL
 
         public void DeleteAllDataInTable()
         {
-            db.DeleteAll<T>();
+            try
+            {
+                db.BeginTransaction();
+                db.DeleteAll<T>();
+                db.Commit();
+            }
+            catch (Exception E)
+            {
+                db.Rollback();
+                throw new Exception(E.Message, E.InnerException);
+            }
         }
 
-		public void SaveItemsInTransaction (IEnumerable<T> items)
+        public void SaveItemsInTransaction (IEnumerable<T> items)
 		{
             try
             {
@@ -68,6 +78,24 @@ namespace PortableCore.DAL
                 throw new Exception(E.Message, E.InnerException);
             }
         }
+        public void DeleteAndAddItemsInTransaction(IEnumerable<T> items)
+        {
+            try
+            {
+                db.BeginTransaction();
+                foreach (var item in items)
+                {
+                    db.Delete<T>(item.ID);
+                    db.InsertItem<T>(item);
+                }
+                db.Commit();
+            }
+            catch (Exception E)
+            {
+                db.Rollback();
+                throw new Exception(E.Message, E.InnerException);
+            }
+        }
 
         public int Delete (int id)
 		{
@@ -77,6 +105,16 @@ namespace PortableCore.DAL
         public int Count()
         {
             return db.Count<T>();
+        }
+
+        public int GetHashForItems()
+        {
+            int sum = 0;
+            foreach(var item in db.Table<T>())
+            {
+                sum += item.ID;
+            }
+            return sum;
         }
 
     }

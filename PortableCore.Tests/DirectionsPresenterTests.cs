@@ -27,7 +27,8 @@ namespace PortableCore.Tests
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
             var anecdoteManager = new AnecdoteManager(db, languageManager);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
+            var idiomManager = new IdiomManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager, idiomManager);
 
             //act
             presenter.SelectedRecentLanguagesEvent();
@@ -47,7 +48,8 @@ namespace PortableCore.Tests
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
             var anecdoteManager = new AnecdoteManager(db, languageManager);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
+            var idiomManager = new IdiomManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager, idiomManager);
 
             //act
             presenter.SelectedAllLanguagesEvent("en");
@@ -67,7 +69,8 @@ namespace PortableCore.Tests
             var mockView = new MockDirectionsView();
             var chatHistoryManager = new ChatHistoryManager(db);
             var anecdoteManager = new AnecdoteManager(db, languageManager);
-            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager);
+            var idiomManager = new IdiomManager(db, languageManager);
+            var presenter = new DirectionsPresenter(mockView, new ChatManager(db, languageManager, chatHistoryManager), languageManager, anecdoteManager, idiomManager);
             string localeLanguage = "ru";
 
             //act
@@ -100,7 +103,12 @@ namespace PortableCore.Tests
                 this.listLanguages = listLanguages;
             }
 
-            public void UpdateListDirectionsOfStoryes(List<StoryWithTranslateItem> listDirectionsOfStories)
+            public void UpdateListDirectionsOfIdioms(List<DirectionIdiomItem> listDirectionsOfIdioms)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateListDirectionsOfStoryes(List<DirectionAnecdoteItem> listDirectionsOfStories)
             {
                 throw new NotImplementedException();
             }

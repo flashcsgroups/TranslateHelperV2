@@ -12,14 +12,14 @@ using PortableCore.BL.Managers;
 
 namespace TranslateHelper.Droid.Adapters
 {
-	public class FunDirectionsAdapter : ArrayAdapter<StoryWithTranslateItem>
+	public class FunDirectionsAdapter : ArrayAdapter<DirectionAnecdoteItem>
 	{
 
 		private Activity context;
-		private List<StoryWithTranslateItem> directionsStoryList;
+		private List<DirectionAnecdoteItem> directionsStoryList;
         private List<Tuple<string, int>> flagImageIdsList = new List<Tuple<string, int>>();
 
-        public FunDirectionsAdapter(Activity context, List<StoryWithTranslateItem> directionsStoryList)
+        public FunDirectionsAdapter(Activity context, List<DirectionAnecdoteItem> directionsStoryList)
 			: base (context, Resource.Layout.FunDirectionsAllListItem, directionsStoryList)
 		{
 			this.context = context;
@@ -65,7 +65,7 @@ namespace TranslateHelper.Droid.Adapters
             return flagResourceId;
         }
 
-        internal StoryWithTranslateItem GetStoryItem(int position)
+        internal DirectionAnecdoteItem GetListItem(int position)
         {
             return this.directionsStoryList[position];
         }

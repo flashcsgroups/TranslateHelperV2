@@ -47,7 +47,7 @@ namespace PortableCore.BL
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Добрый день! Просто напишите то, что хотите перевести, например:" });
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Здорово! Хорошо, что вы здесь. В чате вы можете написать то, что хотите превести, например: " });
                     }; break;
-                case "sp":
+                case "es":
                     {
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Hola!" });
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "Buenas dias!" });
@@ -76,7 +76,7 @@ namespace PortableCore.BL
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "человек" });
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "песня" });
                     }; break;
-                case "sp":
+                case "es":
                     {
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "personas" });
                         listMessage.Add(new DictionaryItem() { Language = languageShort, Message = "gato" });
