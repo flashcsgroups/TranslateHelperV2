@@ -47,13 +47,16 @@ namespace PortableCore.WS
             TranslateResultView result = new TranslateResultView();
             foreach (var def in deserializedObject.Def)
             {
-                var translateVariantsSource = def.Tr;
-                var translateVariants = new List<ResultLineData>();
-                foreach (var tr in translateVariantsSource)
+                if(!string.IsNullOrEmpty(def.Pos))//в некоторых случа€х €ндекс возвращает пустыее значени€, хз что это
                 {
-                    translateVariants.Add(new ResultLineData(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
+                    var translateVariantsSource = def.Tr;
+                    var translateVariants = new List<ResultLineData>();
+                    foreach (var tr in translateVariantsSource)
+                    {
+                        translateVariants.Add(new ResultLineData(tr.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(tr.Pos)));
+                    }
+                    result.AddDefinition(def.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
                 }
-                result.AddDefinition(def.Text, DefinitionTypesManager.GetEnumDefinitionTypeFromName(def.Pos), def.Ts, translateVariants);
             }
             return result;
         }

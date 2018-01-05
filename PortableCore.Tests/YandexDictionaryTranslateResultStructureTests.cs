@@ -165,6 +165,21 @@ namespace PortableCore.Tests
         }
 
         [Test]
+        public void TestMust_GetOneElementInTranslateVariant_PosNull()
+        {
+            //Странная ситуация, приходит пустой POS, не знаю что это значит, игнорирую
+            //arrange
+            string responseText = JSONTexts.YandexDictionaryResponseForWord_Explicit;
+            responseText = responseText.Replace(@"""pos"": ""participle"",", "");
+
+            //act
+            TranslateResultView testResult = GetTestTranslateResult<YandexDictionaryJSON>(responseText);
+
+            //assert
+            Assert.AreEqual(testResult.Definitions[0].TranslateVariants[0].Pos, DefinitionTypesEnum.adjective);
+        }
+
+        [Test]
         public void TestMust_GetTranslateResultForEmptyResponse()
         {
             //arrange

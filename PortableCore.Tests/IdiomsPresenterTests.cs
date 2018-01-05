@@ -32,7 +32,7 @@ namespace PortableCore.Tests
             presenter.RefreshIdiomsList(searchString, false);
 
             //assert
-            Assert.AreEqual(2, mockView.ListItems.Count());
+            Assert.AreEqual(1, mockView.ListItems.Count());
         }
 
         [TestCase(1, 2, "хватит")]
